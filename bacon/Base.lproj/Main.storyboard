@@ -46,10 +46,16 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNB-yy-VNW" userLabel="Transactions">
                                         <rect key="frame" x="0.0" y="0.0" width="192" height="30"/>
                                         <state key="normal" title="Transactions"/>
+                                        <connections>
+                                            <segue destination="DTU-VI-2oa" kind="show" identifier="mainToTransaction" id="Nsf-ue-a2a"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ec-Uk-Ak7" userLabel="Analysis">
                                         <rect key="frame" x="192" y="0.0" width="192" height="30"/>
                                         <state key="normal" title="Analysis"/>
+                                        <connections>
+                                            <segue destination="Tp5-rL-sjF" kind="show" identifier="mainToAnalysis" id="B4o-FO-fhd"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0f-Dn-zcg" userLabel="Wishlist">
                                         <rect key="frame" x="384" y="0.0" width="192" height="30"/>
@@ -81,14 +87,81 @@
             </objects>
             <point key="canvasLocation" x="26.5625" y="17.578125"/>
         </scene>
-        <!--View Controller-->
+        <!--Analysis View Controller-->
+        <scene sceneID="cHT-Oz-Wjr">
+            <objects>
+                <viewController id="Tp5-rL-sjF" customClass="AnalysisViewController" customModule="bacon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fSn-6x-Bpt">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pc9-1k-Ea9" userLabel="Pie Chart View">
+                                <rect key="frame" x="134" y="262" width="500" height="500"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="500" id="ADb-Je-PGa"/>
+                                    <constraint firstAttribute="width" constant="500" id="ehP-db-VhB"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E7h-lM-EKQ" userLabel="Line Graph View">
+                                <rect key="frame" x="134" y="262" width="500" height="500"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.072387332530000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="500" id="ArL-pZ-mkE"/>
+                                    <constraint firstAttribute="width" constant="500" id="vN8-EU-cb2"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5Zj-Bi-Znt" userLabel="Buttons View">
+                                <rect key="frame" x="0.0" y="994" width="768" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlI-ov-NfS">
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
+                                        <state key="normal" title="Categories"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3G-rp-olI">
+                                        <rect key="frame" x="384" y="0.0" width="384" height="30"/>
+                                        <state key="normal" title="Trend"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Pc9-1k-Ea9" firstAttribute="centerY" secondItem="fSn-6x-Bpt" secondAttribute="centerY" id="4Yn-hO-DOq"/>
+                            <constraint firstItem="E7h-lM-EKQ" firstAttribute="centerY" secondItem="fSn-6x-Bpt" secondAttribute="centerY" id="898-dc-CIi"/>
+                            <constraint firstItem="5Zj-Bi-Znt" firstAttribute="bottom" secondItem="EH7-HB-Og0" secondAttribute="bottom" id="DKw-wI-lgP"/>
+                            <constraint firstItem="EH7-HB-Og0" firstAttribute="trailing" secondItem="5Zj-Bi-Znt" secondAttribute="trailing" id="V6t-N9-sRT"/>
+                            <constraint firstItem="5Zj-Bi-Znt" firstAttribute="leading" secondItem="EH7-HB-Og0" secondAttribute="leading" id="oIv-LB-h8P"/>
+                            <constraint firstItem="Pc9-1k-Ea9" firstAttribute="centerX" secondItem="fSn-6x-Bpt" secondAttribute="centerX" id="t2C-Pq-nsG"/>
+                            <constraint firstItem="E7h-lM-EKQ" firstAttribute="centerX" secondItem="fSn-6x-Bpt" secondAttribute="centerX" id="w3s-TW-npo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="EH7-HB-Og0"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mop-Bb-2CX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="801" y="199"/>
+        </scene>
+        <!--Transactions View Controller-->
         <scene sceneID="6WT-8F-qff">
             <objects>
-                <viewController id="DTU-VI-2oa" sceneMemberID="viewController">
+                <viewController id="DTU-VI-2oa" customClass="TransactionsViewController" customModule="bacon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Lql-CJ-yYR">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wxi-zi-XoU">
+                                <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2yH-Go-pk1" firstAttribute="trailing" secondItem="Wxi-zi-XoU" secondAttribute="trailing" id="APm-Cg-fwi"/>
+                            <constraint firstItem="2yH-Go-pk1" firstAttribute="bottom" secondItem="Wxi-zi-XoU" secondAttribute="bottom" id="Iri-FC-dBn"/>
+                            <constraint firstItem="Wxi-zi-XoU" firstAttribute="top" secondItem="2yH-Go-pk1" secondAttribute="top" id="RIM-av-krm"/>
+                            <constraint firstItem="Wxi-zi-XoU" firstAttribute="leading" secondItem="2yH-Go-pk1" secondAttribute="leading" id="XM7-Vf-OAk"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="2yH-Go-pk1"/>
                     </view>
                 </viewController>
