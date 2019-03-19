@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A3F2240B583002E695A /* AppDelegate.swift */; };
-		8F6A7A422240B583002E695A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A412240B583002E695A /* ViewController.swift */; };
+		8F6A7A422240B583002E695A /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A412240B583002E695A /* MainPageViewController.swift */; };
 		8F6A7A452240B583002E695A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F6A7A432240B583002E695A /* Main.storyboard */; };
 		8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A462240B583002E695A /* bacon.xcdatamodeld */; };
 		8F6A7A4A2240B584002E695A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F6A7A492240B584002E695A /* Assets.xcassets */; };
@@ -37,7 +37,7 @@
 /* Begin PBXFileReference section */
 		8F6A7A3C2240B583002E695A /* bacon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bacon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F6A7A3F2240B583002E695A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8F6A7A412240B583002E695A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8F6A7A412240B583002E695A /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
 		8F6A7A442240B583002E695A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8F6A7A472240B583002E695A /* bacon.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = bacon.xcdatamodel; sourceTree = "<group>"; };
 		8F6A7A492240B584002E695A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,7 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				8F6A7A3F2240B583002E695A /* AppDelegate.swift */,
-				8F6A7A412240B583002E695A /* ViewController.swift */,
+				8F6A7A412240B583002E695A /* MainPageViewController.swift */,
 				8F6A7A432240B583002E695A /* Main.storyboard */,
 				8F6A7A492240B584002E695A /* Assets.xcassets */,
 				8F6A7A4B2240B584002E695A /* LaunchScreen.storyboard */,
@@ -259,7 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F6A7A422240B583002E695A /* ViewController.swift in Sources */,
+				8F6A7A422240B583002E695A /* MainPageViewController.swift in Sources */,
 				8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */,
 				8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */,
 			);
