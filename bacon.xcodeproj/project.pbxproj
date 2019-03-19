@@ -20,6 +20,8 @@
 		8FD5F7D02240EA700023A7FC /* InitializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7CF2240EA700023A7FC /* InitializationError.swift */; };
 		8FD5F7D32240EE8C0023A7FC /* TransactionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7D22240EE8C0023A7FC /* TransactionCategory.swift */; };
 		8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7D42240F50B0023A7FC /* TransactionType.swift */; };
+		8FD5F7D8224101860023A7FC /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7D7224101860023A7FC /* TransactionTests.swift */; };
+		8FD5F7DA224102A60023A7FC /* TransactionFrequencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7D9224102A60023A7FC /* TransactionFrequencyTests.swift */; };
 		9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7FD1132240CD51001E1A8E /* StorageManager.swift */; };
 		BEE6B6622240C9F10077DFD7 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */; };
 		BEE6B6642240D0770077DFD7 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */; };
@@ -62,6 +64,8 @@
 		8FD5F7CF2240EA700023A7FC /* InitializationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationError.swift; sourceTree = "<group>"; };
 		8FD5F7D22240EE8C0023A7FC /* TransactionCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCategory.swift; sourceTree = "<group>"; };
 		8FD5F7D42240F50B0023A7FC /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
+		8FD5F7D7224101860023A7FC /* TransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
+		8FD5F7D9224102A60023A7FC /* TransactionFrequencyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFrequencyTests.swift; sourceTree = "<group>"; };
 		9F7FD1132240CD51001E1A8E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 		8F6A7A562240B584002E695A /* baconTests */ = {
 			isa = PBXGroup;
 			children = (
+				8FD5F7D6224101670023A7FC /* model */,
 				8F6A7A572240B584002E695A /* baconTests.swift */,
 				8F6A7A592240B584002E695A /* Info.plist */,
 			);
@@ -155,6 +160,15 @@
 				8FD5F7CF2240EA700023A7FC /* InitializationError.swift */,
 			);
 			path = commons;
+			sourceTree = "<group>";
+		};
+		8FD5F7D6224101670023A7FC /* model */ = {
+			isa = PBXGroup;
+			children = (
+				8FD5F7D7224101860023A7FC /* TransactionTests.swift */,
+				8FD5F7D9224102A60023A7FC /* TransactionFrequencyTests.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		9F7FD1122240CBFF001E1A8E /* model */ = {
@@ -317,6 +331,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FD5F7DA224102A60023A7FC /* TransactionFrequencyTests.swift in Sources */,
+				8FD5F7D8224101860023A7FC /* TransactionTests.swift in Sources */,
 				8F6A7A582240B584002E695A /* baconTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
