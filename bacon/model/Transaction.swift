@@ -8,11 +8,6 @@
 
 import Foundation
 
-enum TransactionType {
-    case income
-    case expenditure
-}
-
 struct Transaction {
     let date: Date
     let type: TransactionType
