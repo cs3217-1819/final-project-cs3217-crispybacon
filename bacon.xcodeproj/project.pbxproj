@@ -15,6 +15,7 @@
 		8F6A7A4D2240B584002E695A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F6A7A4B2240B584002E695A /* LaunchScreen.storyboard */; };
 		8F6A7A582240B584002E695A /* baconTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A572240B584002E695A /* baconTests.swift */; };
 		8F6A7A632240B584002E695A /* baconUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A622240B584002E695A /* baconUITests.swift */; };
+		9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7FD1132240CD51001E1A8E /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		8F6A7A5E2240B584002E695A /* baconUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = baconUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F6A7A622240B584002E695A /* baconUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = baconUITests.swift; sourceTree = "<group>"; };
 		8F6A7A642240B584002E695A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F7FD1132240CD51001E1A8E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				8F6A7A3F2240B583002E695A /* AppDelegate.swift */,
+				9F7FD1122240CBFF001E1A8E /* Model */,
 				8F6A7A412240B583002E695A /* ViewController.swift */,
 				8F6A7A432240B583002E695A /* Main.storyboard */,
 				8F6A7A492240B584002E695A /* Assets.xcassets */,
@@ -126,6 +129,14 @@
 				8F6A7A642240B584002E695A /* Info.plist */,
 			);
 			path = baconUITests;
+			sourceTree = "<group>";
+		};
+		9F7FD1122240CBFF001E1A8E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9F7FD1132240CD51001E1A8E /* StorageManager.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +272,7 @@
 			files = (
 				8F6A7A422240B583002E695A /* ViewController.swift in Sources */,
 				8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */,
+				9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */,
 				8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
