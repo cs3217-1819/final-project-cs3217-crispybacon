@@ -45,8 +45,14 @@ class TransactionFrequencyTests: XCTestCase {
         }
     }
 
-    func test_init_recurring_invalidRepeats() {
+    func test_init_recurring_invalidNegativeRepeats() {
         XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: .daily, repeats: -5)) { (err) in
+            XCTAssertTrue(type(of: err) == InitializationError.self)
+        }
+    }
+
+    func test_init_recurring_invalidZeroRepeats() {
+        XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: .daily, repeats: 0)) { (err) in
             XCTAssertTrue(type(of: err) == InitializationError.self)
         }
     }

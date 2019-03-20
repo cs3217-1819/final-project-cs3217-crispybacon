@@ -27,13 +27,23 @@ class TransactionTests: XCTestCase {
         XCTAssertEqual(transaction.description, "")
     }
 
-    func test_init_invalidInput() {
+    func test_init_invalidNegativeAmount() {
         XCTAssertThrowsError(try Transaction(date: testDate,
                                              type: .expenditure,
                                              frequency: testFrequency,
                                              category: .bills,
                                              amount: -1)) { (err) in
             XCTAssertTrue(type(of: err) == InitializationError.self)
+        }
+    }
+
+    func test_init_invalidZeroAmount() {
+        XCTAssertThrowsError(try Transaction(date: testDate,
+                                             type: .expenditure,
+                                             frequency: testFrequency,
+                                             category: .bills,
+                                             amount: 0)) { (err) in
+                                                XCTAssertTrue(type(of: err) == InitializationError.self)
         }
     }
 
