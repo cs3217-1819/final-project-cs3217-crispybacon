@@ -34,7 +34,6 @@ class TransactionFrequencyTests: XCTestCase {
     }
 
     func test_init_recurring_missingInterval() {
-        XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: nil, repeats: 10))
         XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: nil, repeats: 10)) { (err) in
             XCTAssertTrue(type(of: err) == InitializationError.self)
         }
