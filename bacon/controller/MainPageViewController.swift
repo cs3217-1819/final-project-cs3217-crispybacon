@@ -9,6 +9,8 @@
 import UIKit
 
 class MainPageViewController: UIViewController {
+    
+    var isUpdateNeeded = false
 
     override func viewDidLoad() {
         super.viewDidLoad()

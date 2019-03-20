@@ -177,6 +177,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Add"/>
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="fPu-cQ-xeX"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="$00.00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jz8-oh-b8u">
                                 <rect key="frame" x="284" y="487" width="200" height="50"/>
@@ -233,6 +236,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IgM-Eg-Amy"/>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="addToMainSuccess" id="tM7-n6-JRD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XLw-qj-Set" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
