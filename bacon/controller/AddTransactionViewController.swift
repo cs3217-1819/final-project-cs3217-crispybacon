@@ -9,7 +9,7 @@
 import UIKit
 
 class AddTransactionViewController: UIViewController {
-    
+
     var isExpenditure = true
 
     override func viewDidLoad() {

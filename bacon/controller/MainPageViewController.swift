@@ -9,7 +9,7 @@
 import UIKit
 
 class MainPageViewController: UIViewController {
-    
+
     var isUpdateNeeded = false
 
     override func viewDidLoad() {
@@ -20,7 +20,7 @@ class MainPageViewController: UIViewController {
     @IBAction func coinSwipedUp(_ sender: UISwipeGestureRecognizer) {
         performSegue(withIdentifier: "mainToAddTransactionEx", sender: nil)
     }
-    
+
     @IBAction func coinSwipedDown(_ sender: UISwipeGestureRecognizer) {
         performSegue(withIdentifier: "mainToAddTransactionIn", sender: nil)
     }
@@ -42,4 +42,3 @@ extension MainPageViewController {
         }
     }
 }
-
