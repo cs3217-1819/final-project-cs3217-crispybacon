@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TransactionCategory {
+enum TransactionCategory: String, Codable {
     case bills
     case education
     case entertainment
