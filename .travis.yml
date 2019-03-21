@@ -1,3 +1,5 @@
+before_install:
+  - gem install cocoapods
 language: objective-c
 osx_image: xcode10.1
 xcode_project: bacon.xcodeproj
