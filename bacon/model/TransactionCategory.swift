@@ -12,15 +12,13 @@ enum TransactionCategory {
     case bills
     case education
     case entertainment
-    case fee
     case food
     case gift
-    case health
+    case salary
     case investment
     case loan
     case miscellaneous
     case personal
-    case shopping
     case transport
     case travel
 }

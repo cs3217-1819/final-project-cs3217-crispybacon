@@ -11,11 +11,10 @@ import UIKit
 class AddTransactionViewController: UIViewController {
 
     var isExpenditure = true
-
+    @IBOutlet weak var amountField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func addButtonPressed(_ sender: UIButton) {
@@ -29,6 +28,7 @@ class AddTransactionViewController: UIViewController {
         let frequency = captureFrequency()
         let category = captureCategory()
         let amount = captureAmount()
+        // Fabian, this is what I need from you
         // model.addTrasaction(date, type, frequency, category, amount)
     }
     
@@ -53,7 +53,11 @@ class AddTransactionViewController: UIViewController {
     }
     
     private func captureAmount() -> Decimal {
-        return 00.00
+        // No error handling yet
+        // PS: apparently iPad does not support number only keyboards...
+        let amountString = amountField.text
+        let amountDecimal = Decimal(string: amountString ?? "00.00")
+        return amountDecimal ?? 00.00
     }
 }
 
