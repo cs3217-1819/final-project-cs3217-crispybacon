@@ -65,6 +65,22 @@ class StorageCouchBaseDB {
     }
 
     func saveTransaction(_ transaction: Transaction) throws {
-        // TODO
+        do {
+            let transactionDocument = MutableDocument(data: try transaction.asDictionary())
+            try transactionDatabase.saveDocument(transactionDocument)
+        } catch {
+            throw StorageError(message: "Transaction couldn't be saved into database.")
+        }
+    }
+}
+
+// Extension for Encodable to encode codable structs into a dictionary
+extension Encodable {
+    func asDictionary() throws -> [String: Any] {
+        let data = try JSONEncoder().encode(self)
+        guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+            throw NSError()
+        }
+        return dictionary
     }
 }
