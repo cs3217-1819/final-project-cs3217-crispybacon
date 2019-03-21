@@ -216,6 +216,9 @@
                                     <constraint firstAttribute="width" constant="70" id="hXx-AW-HCs"/>
                                 </constraints>
                                 <state key="normal" title="Food"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="m2n-h6-sb6"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brf-fv-1bm">
                                 <rect key="frame" x="125" y="397" width="70" height="70"/>
@@ -225,6 +228,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <state key="normal" title="Entertainment"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="J2T-UD-j7O"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UG0-Kd-FYS">
                                 <rect key="frame" x="225" y="317" width="70" height="70"/>
@@ -234,6 +240,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Bills"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="Xr7-Mo-Eql"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hJq-if-Wdl">
                                 <rect key="frame" x="349" y="237" width="70" height="70"/>
@@ -243,6 +252,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Transport"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="6ca-lP-COm"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nW7-YY-KKw">
                                 <rect key="frame" x="473" y="317" width="70" height="70"/>
@@ -252,6 +264,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Travel"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="LZe-aP-lI1"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nhY-Mf-toA">
                                 <rect key="frame" x="573" y="397" width="70" height="70"/>
@@ -261,6 +276,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Education"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="xHI-7T-S13"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRz-ae-Hnn">
                                 <rect key="frame" x="648" y="477" width="70" height="70"/>
@@ -270,6 +288,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Personal"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="Unn-nd-VU6"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bE5-wV-FRq">
                                 <rect key="frame" x="573" y="557" width="70" height="70"/>
@@ -279,6 +300,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <state key="normal" title="Miscellaneous"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="8aw-22-haG"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cfm-r1-N6F">
                                 <rect key="frame" x="473" y="637" width="70" height="70"/>
@@ -288,6 +312,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Investment"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="6Je-aA-0eV"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHI-sM-IDp">
                                 <rect key="frame" x="349" y="717" width="70" height="70"/>
@@ -297,6 +324,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <state key="normal" title="Salary"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="WQA-u9-fWN"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbG-2w-veK">
                                 <rect key="frame" x="225" y="637" width="70" height="70"/>
@@ -306,6 +336,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Loan"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="aCM-86-5Bz"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6r-Wh-9RA">
                                 <rect key="frame" x="125" y="557" width="70" height="70"/>
@@ -315,6 +348,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="Gift"/>
+                                <connections>
+                                    <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="DUn-sG-Q2j"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LrK-Yu-LCW">
                                 <rect key="frame" x="214" y="500" width="50" height="24"/>
@@ -377,6 +413,8 @@
                     </view>
                     <connections>
                         <outlet property="amountField" destination="jz8-oh-b8u" id="PwB-h0-j7g"/>
+                        <outlet property="categoryLabel" destination="9OH-EA-Fun" id="atw-mp-iPV"/>
+                        <outlet property="modeLabel" destination="LrK-Yu-LCW" id="ziF-wV-dfN"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="addToMainSuccess" id="tM7-n6-JRD"/>
                     </connections>
                 </viewController>

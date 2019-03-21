@@ -8,17 +8,17 @@
 
 import Foundation
 
-enum TransactionCategory {
-    case bills
-    case education
-    case entertainment
-    case food
-    case gift
-    case salary
-    case investment
-    case loan
-    case miscellaneous
-    case personal
-    case transport
-    case travel
+enum TransactionCategory: String {
+    case bills = "Bills"
+    case education = "Education"
+    case entertainment = "Entertainment"
+    case food = "Food"
+    case gift = "Gift"
+    case salary = "Salary"
+    case investment = "Investment"
+    case loan = "Loan"
+    case miscellaneous = "Miscellaneous"
+    case personal = "Personal"
+    case transport = "Transport"
+    case travel = "Travel"
 }

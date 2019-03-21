@@ -11,10 +11,25 @@ import UIKit
 class AddTransactionViewController: UIViewController {
 
     var isExpenditure = true
+    var selectedCategory = TransactionCategory.food
+
     @IBOutlet weak var amountField: UITextField!
+    @IBOutlet weak var modeLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if isExpenditure {
+            modeLabel.text = "-"
+        } else {
+            modeLabel.text = "+"
+        }
+        categoryLabel.text = "Food"
+    }
+
+    @IBAction func categoryButtonPressed(_ sender: UIButton) {
+        selectedCategory = TransactionCategory(rawValue: sender.title(for: .normal) ?? "Food") ?? .food
+        categoryLabel.text = sender.title(for: .normal) ?? "Food"
     }
 
     @IBAction func addButtonPressed(_ sender: UIButton) {
@@ -28,14 +43,15 @@ class AddTransactionViewController: UIViewController {
         let frequency = captureFrequency()
         let category = captureCategory()
         let amount = captureAmount()
+
         // Fabian, this is what I need from you
         // model.addTrasaction(date, type, frequency, category, amount)
     }
-    
+
     private func captureDate() -> Date {
         return Date()
     }
-    
+
     private func captureType() -> TransactionType {
         if isExpenditure {
             return .expenditure
@@ -43,15 +59,15 @@ class AddTransactionViewController: UIViewController {
             return .income
         }
     }
-    
+
     private func captureFrequency() -> TransactionFrequency {
         return try! TransactionFrequency(nature: .oneTime, interval: nil, repeats: nil)
     }
     
     private func captureCategory() -> TransactionCategory {
-        return .food
+        return selectedCategory
     }
-    
+
     private func captureAmount() -> Decimal {
         // No error handling yet
         // PS: apparently iPad does not support number only keyboards...
