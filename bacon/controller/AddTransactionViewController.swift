@@ -10,12 +10,12 @@ import UIKit
 
 class AddTransactionViewController: UIViewController {
 
-    var isExpenditure = true
-    var selectedCategory = TransactionCategory.food
+    var isExpenditure = Config.defaultIsExpenditure
+    private var selectedCategory = Config.defaultCategory
 
-    @IBOutlet weak var amountField: UITextField!
-    @IBOutlet weak var modeLabel: UILabel!
-    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet private weak var amountField: UITextField!
+    @IBOutlet private weak var modeLabel: UILabel!
+    @IBOutlet private weak var categoryLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +24,13 @@ class AddTransactionViewController: UIViewController {
         } else {
             modeLabel.text = "+"
         }
-        categoryLabel.text = "Food"
+        categoryLabel.text = Config.defaultCategoryString
     }
 
     @IBAction func categoryButtonPressed(_ sender: UIButton) {
-        selectedCategory = TransactionCategory(rawValue: sender.title(for: .normal) ?? "Food") ?? .food
-        categoryLabel.text = sender.title(for: .normal) ?? "Food"
+        let userInput = sender.title(for: .normal) ?? Config.defaultCategoryString
+        selectedCategory = TransactionCategory(rawValue: userInput) ?? Config.defaultCategory
+        categoryLabel.text = sender.title(for: .normal) ?? Config.defaultCategoryString
     }
 
     @IBAction func addButtonPressed(_ sender: UIButton) {
@@ -72,8 +73,8 @@ class AddTransactionViewController: UIViewController {
         // No error handling yet
         // PS: apparently iPad does not support number only keyboards...
         let amountString = amountField.text
-        let amountDecimal = Decimal(string: amountString ?? "00.00")
-        return amountDecimal ?? 00.00
+        let amountDecimal = Decimal(string: amountString ?? Config.defaultAmountString)
+        return amountDecimal ?? Config.defaultAmount
     }
 }
 
