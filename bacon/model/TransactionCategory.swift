@@ -9,18 +9,16 @@
 import Foundation
 
 enum TransactionCategory: String, Codable {
-    case bills
-    case education
-    case entertainment
-    case fee
-    case food
-    case gift
-    case health
-    case investment
-    case loan
-    case miscellaneous
-    case personal
-    case shopping
-    case transport
-    case travel
+    case bills = "Bills"
+    case education = "Education"
+    case entertainment = "Entertainment"
+    case food = "Food"
+    case gift = "Gift"
+    case salary = "Salary"
+    case investment = "Investment"
+    case loan = "Loan"
+    case miscellaneous = "Miscellaneous"
+    case personal = "Personal"
+    case transport = "Transport"
+    case travel = "Travel"
 }
