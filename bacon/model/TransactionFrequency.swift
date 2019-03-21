@@ -26,14 +26,15 @@ struct TransactionFrequency: Codable {
     let repeats: Int?
 
     /// Creates a TransactionFrequency instance.
+    /// `interval` and `repeats` may be omitted only if `nature == .oneTime` (if they are specified, they will be ignored).
     /// - Parameters:
     ///     - nature: The nature of the transaction frequency.
     ///     - interval: The recurring interval of a recurring transaction.
     ///     - repeats: The number of times a recurring transaction is to be repeated for (e.g. 2 repeats create 3 transactions).
     ///         If `repeats` is provided, it must be >= 1.
-    /// - Note: `interval` and `repeats` will be set to `nil` if `nature == .oneTime`, and any provided arguments are ignored.
-    /// - Throws: `InitializationError` if invalid arguments are provided.
-    init(nature: TransactionFrequencyNature, interval: TransactionFrequencyInterval?, repeats: Int?) throws {
+    /// - Throws: `InitializationError` if `nature == .recurring` and either `interval` or `repeats` is not provided,
+    ///     or if an invalid `repeats` value is provided.
+    init(nature: TransactionFrequencyNature, interval: TransactionFrequencyInterval? = nil, repeats: Int? = nil) throws {
         self.nature = nature
 
         switch nature {
