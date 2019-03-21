@@ -18,5 +18,9 @@ class StorageManager {
         concreteStorage = try StorageCouchBaseDB()
     }
 
+    func saveTransaction(_ transaction: Transaction) throws {
+        try concreteStorage.saveTransaction(transaction)
+    }
+
     // func loadTransaction() with different filters
 }
