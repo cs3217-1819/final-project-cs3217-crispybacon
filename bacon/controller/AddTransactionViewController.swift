@@ -24,6 +24,36 @@ class AddTransactionViewController: UIViewController {
     }
 
     private func captureInputs() {
+        let date = captureDate()
+        let type = captureType()
+        let frequency = captureFrequency()
+        let category = captureCategory()
+        let amount = captureAmount()
+        // model.addTrasaction(date, type, frequency, category, amount)
+    }
+    
+    private func captureDate() -> Date {
+        return Date()
+    }
+    
+    private func captureType() -> TransactionType {
+        if isExpenditure {
+            return .expenditure
+        } else {
+            return .income
+        }
+    }
+    
+    private func captureFrequency() -> TransactionFrequency {
+        return try! TransactionFrequency(nature: .oneTime, interval: nil, repeats: nil)
+    }
+    
+    private func captureCategory() -> TransactionCategory {
+        return .food
+    }
+    
+    private func captureAmount() -> Decimal {
+        return 00.00
     }
 }
 
