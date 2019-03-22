@@ -20,7 +20,7 @@ enum TransactionFrequencyInterval: String, Codable {
     case yearly
 }
 
-struct TransactionFrequency {
+struct TransactionFrequency: Codable {
     let nature: TransactionFrequencyNature
     let interval: TransactionFrequencyInterval?
     let repeats: Int?
