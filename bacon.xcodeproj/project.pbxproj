@@ -16,6 +16,8 @@
 		8F6A7A4D2240B584002E695A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F6A7A4B2240B584002E695A /* LaunchScreen.storyboard */; };
 		8F6A7A582240B584002E695A /* baconTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A572240B584002E695A /* baconTests.swift */; };
 		8F6A7A632240B584002E695A /* baconUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A622240B584002E695A /* baconUITests.swift */; };
+		8F845CE722446EE1007A992D /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F845CE622446EE1007A992D /* TransactionTests.swift */; };
+		8F845CE922446F1E007A992D /* TransactionFrequencyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F845CE822446F1E007A992D /* TransactionFrequencyTests.swift */; };
 		8FD5F7CB2240E7620023A7FC /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7CA2240E7620023A7FC /* Transaction.swift */; };
 		8FD5F7CD2240E8F20023A7FC /* TransactionFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7CC2240E8F20023A7FC /* TransactionFrequency.swift */; };
 		8FD5F7D02240EA700023A7FC /* InitializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7CF2240EA700023A7FC /* InitializationError.swift */; };
@@ -67,6 +69,8 @@
 		8F6A7A5E2240B584002E695A /* baconUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = baconUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F6A7A622240B584002E695A /* baconUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = baconUITests.swift; sourceTree = "<group>"; };
 		8F6A7A642240B584002E695A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F845CE622446EE1007A992D /* TransactionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTests.swift; sourceTree = "<group>"; };
+		8F845CE822446F1E007A992D /* TransactionFrequencyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFrequencyTests.swift; sourceTree = "<group>"; };
 		8FBEDD8B3903E2EC8591BBD1 /* Pods-baconUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8FD5F7CA2240E7620023A7FC /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		8FD5F7CC2240E8F20023A7FC /* TransactionFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFrequency.swift; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 			children = (
 				8F6A7A572240B584002E695A /* baconTests.swift */,
 				8F6A7A592240B584002E695A /* Info.plist */,
+				8F845CE622446EE1007A992D /* TransactionTests.swift */,
+				8F845CE822446F1E007A992D /* TransactionFrequencyTests.swift */,
 			);
 			path = baconTests;
 			sourceTree = "<group>";
@@ -498,6 +504,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F845CE922446F1E007A992D /* TransactionFrequencyTests.swift in Sources */,
+				8F845CE722446EE1007A992D /* TransactionTests.swift in Sources */,
 				8F6A7A582240B584002E695A /* baconTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
