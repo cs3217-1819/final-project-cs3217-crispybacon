@@ -20,7 +20,7 @@ enum TransactionFrequencyInterval: String, Codable {
     case yearly
 }
 
-struct TransactionFrequency: Codable {
+struct TransactionFrequency: Codable, Equatable {
     let nature: TransactionFrequencyNature
     let interval: TransactionFrequencyInterval?
     let repeats: Int?
@@ -54,5 +54,12 @@ struct TransactionFrequency: Codable {
             self.interval = interval
             self.repeats = repeats
         }
+    }
+
+    /// Convenience initializer for one time transactions.
+    /// This is equivalent to `init(nature: nature, interval: nil, repeats: nil`.
+    /// Therefore, this will fail is `nature != .oneTime`.
+    init(nature: TransactionFrequencyNature) throws {
+        try self.init(nature: nature, interval: nil, repeats: nil)
     }
 }
