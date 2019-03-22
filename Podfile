@@ -7,6 +7,7 @@ target 'bacon' do
 
   # Pods for bacon
   pod 'StitchLocalMongoDBService', '~> 5.0.0'
+  pod 'SwiftyBeaver'
 
   target 'baconTests' do
     inherit! :search_paths

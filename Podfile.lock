@@ -20,9 +20,11 @@ PODS:
   - StitchLocalMongoDBService (5.0.0):
     - StitchCore (= 5.0.0)
     - StitchCoreLocalMongoDBService (= 5.0.0)
+  - SwiftyBeaver (1.6.2)
 
 DEPENDENCIES:
   - StitchLocalMongoDBService (~> 5.0.0)
+  - SwiftyBeaver
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -35,6 +37,7 @@ SPEC REPOS:
     - StitchCoreLocalMongoDBService
     - StitchCoreSDK
     - StitchLocalMongoDBService
+    - SwiftyBeaver
 
 SPEC CHECKSUMS:
   mongo-embedded-c-driver: b46360baa15fc142baae80628822f26663220bde
@@ -46,7 +49,8 @@ SPEC CHECKSUMS:
   StitchCoreLocalMongoDBService: 1bbf70c8ae412be7d4e5747d72352ab74b0e97ef
   StitchCoreSDK: e5adeeea0589eba4b4d6fc956ffdff437bf477cb
   StitchLocalMongoDBService: d637c8dc539fa594351b233f5522a79524469cb0
+  SwiftyBeaver: 8e67ab3cd94389cbbb7a9c7cc02748d98bfee68e
 
-PODFILE CHECKSUM: d4abe7b002bdb7318717ab4475543f350b6c6a06
+PODFILE CHECKSUM: 8178275f83f45771b7d49963f6a3a5082823eade
 
 COCOAPODS: 1.6.1
