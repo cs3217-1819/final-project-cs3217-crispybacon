@@ -72,6 +72,28 @@ class StorageCouchBaseDB {
             throw StorageError(message: "Transaction couldn't be saved into database.")
         }
     }
+
+    func loadTransactions(ofType type: TransactionType, list limit: Int) throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all())
+                                .from(DataSource.database(transactionDatabase))
+                                .where(Expression.property("type").equalTo(Expression.string(type.rawValue)))
+                                .orderBy(Ordering.property("date").descending())
+                                .limit(Expression.int(limit))
+        do {
+            var transactions: [Transaction] = Array()
+            for result in try query.execute().allResults() {
+                let currentTransaction = try Transaction(dictionary: result.toDictionary())
+                transactions.append(currentTransaction)
+            }
+            return transactions
+        } catch let error {
+            if error is InitializationError {
+                throw error
+            } else {
+                throw StorageError(message: "Transactions of type \(type) couldn't be loaded from database.")
+            }
+        }
+    }
 }
 
 // Extension for Encodable to encode codable structs into a dictionary
