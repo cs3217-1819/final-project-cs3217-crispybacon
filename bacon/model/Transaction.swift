@@ -31,7 +31,14 @@ struct Transaction: Codable {
          category: TransactionCategory,
          amount: Decimal,
          description: String = "") throws {
+        log.info("""
+            Transaction:init() with the following arguments:
+            date=\(date) type=\(type) frequency=\(frequency) category=\(category)
+            amount=\(amount) description=\(description)
+            """)
+
         guard amount > 0 else {
+            log.info("amount <= 0. Throwing InitializationError.")
             throw InitializationError(message: "`amount` must be greater than 0")
         }
 

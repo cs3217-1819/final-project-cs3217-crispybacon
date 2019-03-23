@@ -6,7 +6,8 @@ target 'bacon' do
   use_frameworks!
 
   # Pods for bacon
-  pod 'CouchbaseLite-Swift', '~> 2.1.1'
+  pod 'StitchLocalMongoDBService', '~> 5.0.0'
+  pod 'SwiftyBeaver'
 
   target 'baconTests' do
     inherit! :search_paths
