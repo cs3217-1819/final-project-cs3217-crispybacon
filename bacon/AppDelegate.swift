@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import SwiftyBeaver
+
+let log = SwiftyBeaver.self
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let console = ConsoleDestination() // Log to Xcode console
+        let file = FileDestination() // Log to default swiftybeaver.log file
+        log.addDestination(console)
+        log.addDestination(file)
+
         // Override point for customization after application launch.
         return true
     }

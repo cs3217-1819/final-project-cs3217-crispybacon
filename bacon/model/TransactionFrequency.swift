@@ -34,20 +34,33 @@ struct TransactionFrequency: Codable, Equatable {
     /// - Note: `interval` and `repeats` will be set to `nil` if `nature == .oneTime`, and any provided arguments are ignored.
     /// - Throws: `InitializationError` if invalid arguments are provided.
     init(nature: TransactionFrequencyNature, interval: TransactionFrequencyInterval?, repeats: Int?) throws {
+        log.info("""
+            TransactionFrequency:init() using the designated initializer with the following arguments:
+            nature=\(nature) interval=\(String(describing: interval)) repeats=\(String(describing: repeats))
+            """)
+
         self.nature = nature
 
         switch nature {
         case .oneTime:
+            log.debug("nature == .oneTime")
+
             self.interval = nil
             self.repeats = nil
+
         case .recurring:
+            log.debug("nature == .recurring")
+
             guard let interval = interval else {
+                log.info("interval == nil. Throwing InitializationError.")
                 throw InitializationError(message: "`interval` must be provided")
             }
             guard let repeats = repeats else {
+                log.info("repeats == nil. Throwing InitializationError.")
                 throw InitializationError(message: "`repeats` must be provided")
             }
             guard repeats >= 1 else {
+                log.info("repeats <= 0. Throwing InitializationError.")
                 throw InitializationError(message: "`repeats` must be at least 1")
             }
 
@@ -60,6 +73,7 @@ struct TransactionFrequency: Codable, Equatable {
     /// This is equivalent to `init(nature: nature, interval: nil, repeats: nil`.
     /// Therefore, this will fail is `nature != .oneTime`.
     init(nature: TransactionFrequencyNature) throws {
+        log.info("TransactionFrequency:init() using the convenience initializer")
         try self.init(nature: nature, interval: nil, repeats: nil)
     }
 }
