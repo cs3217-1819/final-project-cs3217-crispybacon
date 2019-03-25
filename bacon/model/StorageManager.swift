@@ -22,5 +22,7 @@ class StorageManager {
         try concreteStorage.saveTransaction(transaction)
     }
 
-    // func loadTransaction() with different filters
+    func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction] {
+        return try concreteStorage.loadTransactions(ofType: type, limit: limit)
+    }
 }

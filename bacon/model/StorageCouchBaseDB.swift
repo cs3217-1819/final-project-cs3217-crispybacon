@@ -64,16 +64,30 @@ class StorageCouchBaseDB {
         return folderPath
     }
 
-    func saveTransaction(_ transaction: Transaction) throws {
+    private func createMutableDocument(from transaction: Transaction) throws -> MutableDocument {
         do {
-            let transactionDocument = MutableDocument(data: try transaction.asDictionary())
-            try transactionDatabase.saveDocument(transactionDocument)
+            let transactionData = try transaction.asDictionary()
+            let transactionDocument = MutableDocument(data: transactionData)
+            return transactionDocument
         } catch {
-            throw StorageError(message: "Transaction couldn't be saved into database.")
+            throw StorageError(message: "Transaction couldn't be encoded into MutableDocument.")
         }
     }
 
-    func loadTransactions(ofType type: TransactionType, list limit: Int) throws -> [Transaction] {
+    func saveTransaction(_ transaction: Transaction) throws {
+        do {
+            let transactionDocument = try createMutableDocument(from: transaction)
+            try transactionDatabase.saveDocument(transactionDocument)
+        } catch let error {
+            if error is StorageError {
+                throw error
+            } else {
+                throw StorageError(message: "Transaction couldn't be saved into database.")
+            }
+        }
+    }
+
+    func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction] {
         let query = QueryBuilder.select(SelectResult.all())
                                 .from(DataSource.database(transactionDatabase))
                                 .where(Expression.property("type").equalTo(Expression.string(type.rawValue)))
@@ -82,7 +96,16 @@ class StorageCouchBaseDB {
         do {
             var transactions: [Transaction] = Array()
             for result in try query.execute().allResults() {
-                let currentTransaction = try Transaction(dictionary: result.toDictionary())
+                guard let transactionDictonary = result.toDictionary()["transactions"]else {
+                    throw StorageError(message: "Transactions of type \(type) couldn't be loaded from database.")
+                }
+                let transactionData = try JSONSerialization.data(withJSONObject: transactionDictonary, options: [])
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .formatted(dateFormatter)
+                let currentTransaction = try decoder.decode(Transaction.self, from: transactionData)
                 transactions.append(currentTransaction)
             }
             return transactions
@@ -99,7 +122,12 @@ class StorageCouchBaseDB {
 // Extension for Encodable to encode codable structs into a dictionary
 extension Encodable {
     func asDictionary() throws -> [String: Any] {
-        let data = try JSONEncoder().encode(self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .formatted(dateFormatter)
+        let data = try encoder.encode(self)
         guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
             throw NSError()
         }
