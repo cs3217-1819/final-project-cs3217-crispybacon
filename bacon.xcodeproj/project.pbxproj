@@ -452,7 +452,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-bacon/Pods-bacon-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-bacon/Pods-bacon-frameworks.sh",
 				"${PODS_ROOT}/CouchbaseLite-Swift/iOS/CouchbaseLiteSwift.framework",
 				"${PODS_ROOT}/CouchbaseLite-Swift/iOS/CouchbaseLiteSwift.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
@@ -467,7 +467,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-bacon/Pods-bacon-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-bacon/Pods-bacon-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
