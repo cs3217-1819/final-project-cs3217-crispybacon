@@ -2,17 +2,10 @@
 branches:
   only:
   - master
-  
+before_install:
+  - gem install cocoapods
+  - pod repo update
 language: objective-c
 osx_image: xcode10.1
-
-before_install:
-  - brew update
-install:
-  - brew upgrade swiftlint
-  - gem install cocoapods
-before_script:
-  - pod repo update
 script:
   - xcodebuild clean test -workspace bacon.xcworkspace -scheme bacon -destination "platform=iOS Simulator,name=iPhone 7,OS=12.1" -quiet | xcpretty
-  - swiftlint
