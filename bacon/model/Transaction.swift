@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Transaction: Codable, Equatable {
-    let date: Date
+struct Transaction: Codable {
+    let time: TransactionTime
     let type: TransactionType
     let frequency: TransactionFrequency
     let category: TransactionCategory
@@ -18,14 +18,14 @@ struct Transaction: Codable, Equatable {
 
     /// Creates a Transaction instance.
     /// - Parameters:
-    ///     - date: The transaction date.
+    ///     - time: The transaction time, as represented by a TransactionTime object.
     ///     - type: The transaction type.
     ///     - frequency: The transaction frequency.
     ///     - category: The transaction category.
     ///     - amount: The transaction amount. Must be > 0.
     ///     - description: An optional description of the transaction. Defaults to an empty string.
     /// - Throws: `InitializationError` if `amount <= 0`.
-    init(date: Date,
+    init(time: TransactionTime,
          type: TransactionType,
          frequency: TransactionFrequency,
          category: TransactionCategory,
@@ -33,7 +33,7 @@ struct Transaction: Codable, Equatable {
          description: String = "") throws {
         log.info("""
             Transaction:init() with the following arguments:
-            date=\(date) type=\(type) frequency=\(frequency) category=\(category)
+            time=\(time) type=\(type) frequency=\(frequency) category=\(category)
             amount=\(amount) description=\(description)
             """)
 
@@ -42,7 +42,7 @@ struct Transaction: Codable, Equatable {
             throw InitializationError(message: "`amount` must be greater than 0")
         }
 
-        self.date = date
+        self.time = time
         self.type = type
         self.frequency = frequency
         self.category = category
