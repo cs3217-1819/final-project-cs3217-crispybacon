@@ -6,9 +6,11 @@ language: objective-c
 osx_image: xcode10.1
 
 before_install:
+  - brew update && brew upgrade swiftlint
   - gem install cocoapods
   - pod repo update
 install:
   - pod install
 script:
   - xcodebuild clean test -workspace bacon.xcworkspace -scheme bacon -destination "platform=iOS Simulator,name=iPhone 7,OS=12.1" -quiet | xcpretty
+  - swiftlint
