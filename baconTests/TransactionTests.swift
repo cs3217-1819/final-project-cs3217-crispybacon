@@ -10,16 +10,16 @@ import XCTest
 @testable import bacon
 
 class TransactionTests: XCTestCase {
-    let testDate = Date()
+    let testTime = TransactionTime(Date())
     let testFrequency = try! TransactionFrequency(nature: .oneTime)
 
     func test_init_validInput_success() {
-        let transaction = try! Transaction(date: testDate,
+        let transaction = try! Transaction(time: testTime,
                                            type: .expenditure,
                                            frequency: testFrequency,
                                            category: .bills,
                                            amount: 1)
-        XCTAssertEqual(transaction.date, testDate)
+        XCTAssertEqual(transaction.time, testTime)
         XCTAssertEqual(transaction.type, .expenditure)
         XCTAssertEqual(transaction.frequency, testFrequency)
         XCTAssertEqual(transaction.category, .bills)
@@ -28,7 +28,7 @@ class TransactionTests: XCTestCase {
     }
 
     func test_init_invalidNegativeAmount() {
-        XCTAssertThrowsError(try Transaction(date: testDate,
+        XCTAssertThrowsError(try Transaction(time: testTime,
                                              type: .expenditure,
                                              frequency: testFrequency,
                                              category: .bills,
@@ -38,7 +38,7 @@ class TransactionTests: XCTestCase {
     }
 
     func test_init_invalidZeroAmount() {
-        XCTAssertThrowsError(try Transaction(date: testDate,
+        XCTAssertThrowsError(try Transaction(time: testTime,
                                              type: .expenditure,
                                              frequency: testFrequency,
                                              category: .bills,
