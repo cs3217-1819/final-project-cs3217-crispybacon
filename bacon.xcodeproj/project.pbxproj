@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0B931CE7463280668924F212 /* Pods_baconTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 894FB0A0BC60BFB913FD0FD0 /* Pods_baconTests.framework */; };
+		8F3121D9224A39D100A9A554 /* TransactionTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3121D8224A39D100A9A554 /* TransactionTime.swift */; };
+		8F3121DB224A3B9800A9A554 /* TransactionTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */; };
 		8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A3F2240B583002E695A /* AppDelegate.swift */; };
 		8F6A7A422240B583002E695A /* MainPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A412240B583002E695A /* MainPageViewController.swift */; };
 		8F6A7A452240B583002E695A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F6A7A432240B583002E695A /* Main.storyboard */; };
@@ -55,6 +57,8 @@
 		4701C832F23C08627A348028 /* Pods_bacon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bacon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6542309D6C94355D2328ACB3 /* Pods-bacon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bacon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bacon/Pods-bacon.debug.xcconfig"; sourceTree = "<group>"; };
 		894FB0A0BC60BFB913FD0FD0 /* Pods_baconTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_baconTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F3121D8224A39D100A9A554 /* TransactionTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTime.swift; sourceTree = "<group>"; };
+		8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTimeTests.swift; sourceTree = "<group>"; };
 		8F6A7A3C2240B583002E695A /* bacon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bacon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F6A7A3F2240B583002E695A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F6A7A412240B583002E695A /* MainPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPageViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 				8F6A7A592240B584002E695A /* Info.plist */,
 				8F845CE622446EE1007A992D /* TransactionTests.swift */,
 				8F845CE822446F1E007A992D /* TransactionFrequencyTests.swift */,
+				8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */,
 			);
 			path = baconTests;
 			sourceTree = "<group>";
@@ -217,6 +222,7 @@
 				8FD5F7D42240F50B0023A7FC /* TransactionType.swift */,
 				8FD5F7D22240EE8C0023A7FC /* TransactionCategory.swift */,
 				8FD5F7CC2240E8F20023A7FC /* TransactionFrequency.swift */,
+				8F3121D8224A39D100A9A554 /* TransactionTime.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -493,6 +499,7 @@
 				9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */,
 				8FD5F7D32240EE8C0023A7FC /* TransactionCategory.swift in Sources */,
 				BEE6B6692243F79C0077DFD7 /* Config.swift in Sources */,
+				8F3121D9224A39D100A9A554 /* TransactionTime.swift in Sources */,
 				8FD5F7D02240EA700023A7FC /* InitializationError.swift in Sources */,
 				BEE6B6622240C9F10077DFD7 /* TransactionsViewController.swift in Sources */,
 				8FD5F7CD2240E8F20023A7FC /* TransactionFrequency.swift in Sources */,
@@ -507,6 +514,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F845CE922446F1E007A992D /* TransactionFrequencyTests.swift in Sources */,
+				8F3121DB224A3B9800A9A554 /* TransactionTimeTests.swift in Sources */,
 				8F845CE722446EE1007A992D /* TransactionTests.swift in Sources */,
 				8F6A7A582240B584002E695A /* baconTests.swift in Sources */,
 			);
