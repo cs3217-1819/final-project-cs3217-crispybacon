@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Transaction: Codable {
+struct Transaction: Codable, Equatable {
     let time: TransactionTime
     let type: TransactionType
     let frequency: TransactionFrequency

@@ -1,56 +1,20 @@
 PODS:
-  - mongo-embedded-c-driver (1.13.0-4.0.4)
-  - mongo_embedded (4.0.4)
-  - mongoc_embedded (4.0.4):
-    - mongo-embedded-c-driver (~> 1.13.0-4.0.4)
-    - mongo_embedded (~> 4.0.4)
-  - MongoMobile (0.0.7):
-    - mongo_embedded (~> 4.0.4)
-    - mongoc_embedded (~> 4.0.4)
-    - MongoSwift (~> 0.0.9)
-  - MongoSwift (0.0.9):
-    - mongo-embedded-c-driver (~> 1.13.0-4.0.0)
-  - StitchCore (5.0.0):
-    - StitchCoreSDK (= 5.0.0)
-  - StitchCoreLocalMongoDBService (5.0.0):
-    - MongoMobile (= 0.0.7)
-    - StitchCoreSDK (= 5.0.0)
-  - StitchCoreSDK (5.0.0):
-    - MongoSwift (= 0.0.9)
-  - StitchLocalMongoDBService (5.0.0):
-    - StitchCore (= 5.0.0)
-    - StitchCoreLocalMongoDBService (= 5.0.0)
+  - CouchbaseLite-Swift (2.1.3)
   - SwiftyBeaver (1.6.2)
 
 DEPENDENCIES:
-  - StitchLocalMongoDBService (~> 5.0.0)
+  - CouchbaseLite-Swift (~> 2.1.1)
   - SwiftyBeaver
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - mongo-embedded-c-driver
-    - mongo_embedded
-    - mongoc_embedded
-    - MongoMobile
-    - MongoSwift
-    - StitchCore
-    - StitchCoreLocalMongoDBService
-    - StitchCoreSDK
-    - StitchLocalMongoDBService
+    - CouchbaseLite-Swift
     - SwiftyBeaver
 
 SPEC CHECKSUMS:
-  mongo-embedded-c-driver: b46360baa15fc142baae80628822f26663220bde
-  mongo_embedded: e413134eb6b60544e7278add03007f8fe384a00c
-  mongoc_embedded: 41aadbb756b07070d6f0471192a84750cb42c580
-  MongoMobile: 6059b76325afe5fbb1072ae0fe47addc122591c6
-  MongoSwift: c7420b38a7e223439667f8c50aefada29c270df8
-  StitchCore: d865978249f7a1d9c47227c8b8b79abfd486e8ab
-  StitchCoreLocalMongoDBService: 1bbf70c8ae412be7d4e5747d72352ab74b0e97ef
-  StitchCoreSDK: e5adeeea0589eba4b4d6fc956ffdff437bf477cb
-  StitchLocalMongoDBService: d637c8dc539fa594351b233f5522a79524469cb0
+  CouchbaseLite-Swift: 4e1c64ac055b7681dd1cd28bf09b3eb5f5d17847
   SwiftyBeaver: 8e67ab3cd94389cbbb7a9c7cc02748d98bfee68e
 
-PODFILE CHECKSUM: 8178275f83f45771b7d49963f6a3a5082823eade
+PODFILE CHECKSUM: 132075d043ab9a8262667dc6f53f7a6d15bd9eea
 
 COCOAPODS: 1.6.1

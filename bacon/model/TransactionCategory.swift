@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum TransactionCategory: String, Codable {
+enum TransactionCategory: String, Codable, Equatable {
     case bills = "Bills"
     case education = "Education"
     case entertainment = "Entertainment"

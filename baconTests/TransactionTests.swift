@@ -47,4 +47,17 @@ class TransactionTests: XCTestCase {
         }
     }
 
+    func test_transaction_equal() {
+        let transaction = try! Transaction(time: testTime,
+                                           type: .expenditure,
+                                           frequency: testFrequency,
+                                           category: .bills,
+                                           amount: 1)
+        let transaction2 = try! Transaction(time: testTime,
+                                            type: .expenditure,
+                                            frequency: testFrequency,
+                                            category: .bills,
+                                            amount: 1)
+        XCTAssertEqual(transaction, transaction2)
+    }
 }

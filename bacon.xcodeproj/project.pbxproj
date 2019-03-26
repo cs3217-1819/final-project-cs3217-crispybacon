@@ -26,7 +26,10 @@
 		8FD5F7D32240EE8C0023A7FC /* TransactionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7D22240EE8C0023A7FC /* TransactionCategory.swift */; };
 		8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7D42240F50B0023A7FC /* TransactionType.swift */; };
 		9F2E21D72240F90800C5A31E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9F2E21D62240F90800C5A31E /* README.md */; };
+		9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */; };
+		9F79E46E2246463F00BCDDE8 /* StorageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */; };
 		9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7FD1132240CD51001E1A8E /* StorageManager.swift */; };
+		9FB4E16E224419880005403F /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB4E16D224419880005403F /* StorageError.swift */; };
 		BEE6B6622240C9F10077DFD7 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */; };
 		BEE6B6642240D0770077DFD7 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */; };
 		BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */; };
@@ -83,7 +86,10 @@
 		8FD5F7D42240F50B0023A7FC /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
 		9620A3D3E871F6AA3491DCDF /* Pods-baconTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F2E21D62240F90800C5A31E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCouchBaseDB.swift; sourceTree = "<group>"; };
+		9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerTests.swift; sourceTree = "<group>"; };
 		9F7FD1132240CD51001E1A8E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		9FB4E16D224419880005403F /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
 		BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
@@ -160,8 +166,8 @@
 		8F6A7A3E2240B583002E695A /* bacon */ = {
 			isa = PBXGroup;
 			children = (
-				8FD5F7CE2240EA530023A7FC /* commons */,
 				8F6A7A3F2240B583002E695A /* AppDelegate.swift */,
+				8FD5F7CE2240EA530023A7FC /* commons */,
 				9F7FD1122240CBFF001E1A8E /* model */,
 				9F2E21D52240F86100C5A31E /* controller */,
 				8F6A7A432240B583002E695A /* Main.storyboard */,
@@ -178,6 +184,7 @@
 			children = (
 				8F6A7A572240B584002E695A /* baconTests.swift */,
 				8F6A7A592240B584002E695A /* Info.plist */,
+				9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */,
 				8F845CE622446EE1007A992D /* TransactionTests.swift */,
 				8F845CE822446F1E007A992D /* TransactionFrequencyTests.swift */,
 				8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */,
@@ -198,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				8FD5F7CF2240EA700023A7FC /* InitializationError.swift */,
+				9FB4E16D224419880005403F /* StorageError.swift */,
 				BEE6B6682243F79C0077DFD7 /* Config.swift */,
 			);
 			path = commons;
@@ -218,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				9F7FD1132240CD51001E1A8E /* StorageManager.swift */,
+				9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */,
 				8FD5F7CA2240E7620023A7FC /* Transaction.swift */,
 				8FD5F7D42240F50B0023A7FC /* TransactionType.swift */,
 				8FD5F7D22240EE8C0023A7FC /* TransactionCategory.swift */,
@@ -248,7 +257,7 @@
 				8F6A7A382240B583002E695A /* Sources */,
 				8F6A7A392240B583002E695A /* Frameworks */,
 				8F6A7A3A2240B583002E695A /* Resources */,
-				FD306B9DD9ACB6EA07CC41C1 /* [CP] Embed Pods Frameworks */,
+				CBD90862E033C7512FC11550 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -435,7 +444,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FD306B9DD9ACB6EA07CC41C1 /* [CP] Embed Pods Frameworks */ = {
+		CBD90862E033C7512FC11550 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -444,41 +453,17 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-bacon/Pods-bacon-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/MongoMobile/MongoMobile.framework",
-				"${BUILT_PRODUCTS_DIR}/MongoSwift/MongoSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/StitchCore/StitchCore.framework",
-				"${BUILT_PRODUCTS_DIR}/StitchCoreLocalMongoDBService/StitchCoreLocalMongoDBService.framework",
-				"${BUILT_PRODUCTS_DIR}/StitchCoreSDK/StitchCoreSDK.framework",
-				"${BUILT_PRODUCTS_DIR}/StitchLocalMongoDBService/StitchLocalMongoDBService.framework",
+				"${PODS_ROOT}/CouchbaseLite-Swift/iOS/CouchbaseLiteSwift.framework",
+				"${PODS_ROOT}/CouchbaseLite-Swift/iOS/CouchbaseLiteSwift.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
-				"${PODS_ROOT}/mongo-embedded-c-driver/iPhoneOS/Frameworks/bson.framework",
-				"${PODS_ROOT}/mongo-embedded-c-driver/iPhoneOS/Frameworks/bson.framework.dSYM",
-				"${PODS_ROOT}/mongo-embedded-c-driver/iPhoneOS/Frameworks/mongoc.framework",
-				"${PODS_ROOT}/mongo-embedded-c-driver/iPhoneOS/Frameworks/mongoc.framework.dSYM",
-				"${PODS_ROOT}/mongo_embedded/iPhoneOS/Frameworks/mongo_embedded.framework",
-				"${PODS_ROOT}/mongo_embedded/iPhoneOS/Frameworks/mongo_embedded.framework.dSYM",
-				"${PODS_ROOT}/mongoc_embedded/iPhoneOS/Frameworks/mongoc_embedded.framework",
-				"${PODS_ROOT}/mongoc_embedded/iPhoneOS/Frameworks/mongoc_embedded.framework.dSYM",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MongoMobile.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MongoSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StitchCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StitchCoreLocalMongoDBService.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StitchCoreSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StitchLocalMongoDBService.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CouchbaseLiteSwift.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/CouchbaseLiteSwift.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/bson.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/bson.framework.dSYM",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/mongoc.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/mongoc.framework.dSYM",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/mongo_embedded.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/mongo_embedded.framework.dSYM",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/mongoc_embedded.framework",
-				"${DWARF_DSYM_FOLDER_PATH}/mongoc_embedded.framework.dSYM",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -494,8 +479,10 @@
 			files = (
 				8FD5F7CB2240E7620023A7FC /* Transaction.swift in Sources */,
 				8F6A7A422240B583002E695A /* MainPageViewController.swift in Sources */,
+				9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */,
 				8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */,
 				BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */,
+				9FB4E16E224419880005403F /* StorageError.swift in Sources */,
 				9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */,
 				8FD5F7D32240EE8C0023A7FC /* TransactionCategory.swift in Sources */,
 				BEE6B6692243F79C0077DFD7 /* Config.swift in Sources */,
@@ -517,6 +504,7 @@
 				8F3121DB224A3B9800A9A554 /* TransactionTimeTests.swift in Sources */,
 				8F845CE722446EE1007A992D /* TransactionTests.swift in Sources */,
 				8F6A7A582240B584002E695A /* baconTests.swift in Sources */,
+				9F79E46E2246463F00BCDDE8 /* StorageManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,7 +673,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = bacon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -704,7 +692,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W76H98A34A;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = bacon/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
