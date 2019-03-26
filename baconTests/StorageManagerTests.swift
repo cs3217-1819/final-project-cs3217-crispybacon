@@ -17,13 +17,13 @@ class StorageManagerTests: XCTestCase {
 
     func test_saveTransaction() {
         let database = try! StorageManager()
-        let transaction = try! Transaction(date: Date(),
+        let transaction = try! Transaction(time: TransactionTime(Date()),
                                            type: .expenditure,
                                            frequency: TransactionFrequency(nature: .oneTime),
                                            category: .bills,
                                            amount: 1)
         XCTAssertNoThrow(try database.saveTransaction(transaction))
-        // Test that the transaction loaded out is the same
-        // Need to modify transaction equality checking
+        let loadedTransaction = try! database.loadTransactions(ofType: .expenditure, limit: 1)
+        XCTAssertEqual(transaction, loadedTransaction.first)
     }
 }

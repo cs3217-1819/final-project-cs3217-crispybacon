@@ -100,12 +100,7 @@ class StorageCouchBaseDB {
                     throw StorageError(message: "Transactions of type \(type) couldn't be loaded from database.")
                 }
                 let transactionData = try JSONSerialization.data(withJSONObject: transactionDictonary, options: [])
-                let dateFormatter = DateFormatter()
-                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .formatted(dateFormatter)
-                let currentTransaction = try decoder.decode(Transaction.self, from: transactionData)
+                let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
                 transactions.append(currentTransaction)
             }
             return transactions
@@ -122,12 +117,7 @@ class StorageCouchBaseDB {
 // Extension for Encodable to encode codable structs into a dictionary
 extension Encodable {
     func asDictionary() throws -> [String: Any] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .formatted(dateFormatter)
-        let data = try encoder.encode(self)
+        let data = try JSONEncoder().encode(self)
         guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
             throw NSError()
         }
