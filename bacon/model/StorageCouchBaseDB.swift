@@ -17,7 +17,7 @@ private enum DatabaseCollections: String {
 }
 
 class StorageCouchBaseDB {
-    private let transactionDatabase: Database
+    private var transactionDatabase: Database
 
     init() throws {
         // Initialize database
@@ -74,6 +74,17 @@ class StorageCouchBaseDB {
         }
     }
 
+    func clearTransactionDatabase() -> Bool {
+        do {
+            try transactionDatabase.delete()
+            // Reinitialize database
+            transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
+            return true
+        } catch {
+            return false
+        }
+    }
+
     func saveTransaction(_ transaction: Transaction) throws {
         do {
             let transactionDocument = try createMutableDocument(from: transaction)
@@ -96,11 +107,11 @@ class StorageCouchBaseDB {
         do {
             var transactions: [Transaction] = Array()
             for result in try query.execute().allResults() {
-                guard let transactionDictonary =
+                guard let transactionDictionary =
                         result.toDictionary()[DatabaseCollections.transactions.rawValue] as? [String: Any] else {
                     throw StorageError(message: "Could not read Document loaded from database as Dictionary.")
                 }
-                let transactionData = try JSONSerialization.data(withJSONObject: transactionDictonary, options: [])
+                let transactionData = try JSONSerialization.data(withJSONObject: transactionDictionary, options: [])
                 let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
                 transactions.append(currentTransaction)
             }

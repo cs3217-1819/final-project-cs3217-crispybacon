@@ -25,4 +25,9 @@ class StorageManager {
     func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction] {
         return try concreteStorage.loadTransactions(ofType: type, limit: limit)
     }
+
+    @discardableResult
+    func clearTransactionDatabase() -> Bool {
+        return concreteStorage.clearTransactionDatabase()
+    }
 }
