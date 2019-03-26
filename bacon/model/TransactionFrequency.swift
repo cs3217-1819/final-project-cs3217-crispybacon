@@ -8,12 +8,12 @@
 
 import Foundation
 
-enum TransactionFrequencyNature: String, Codable {
+enum TransactionFrequencyNature: String, Codable, Equatable {
     case oneTime
     case recurring
 }
 
-enum TransactionFrequencyInterval: String, Codable {
+enum TransactionFrequencyInterval: String, Codable, Equatable {
     case daily
     case weekly
     case monthly
