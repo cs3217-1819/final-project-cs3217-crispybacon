@@ -17,7 +17,7 @@ private enum DatabaseCollections: String {
 }
 
 class StorageCouchBaseDB {
-    private var transactionDatabase: Database
+    private let transactionDatabase: Database
 
     init() throws {
         // Initialize database
@@ -38,7 +38,7 @@ class StorageCouchBaseDB {
             options.directory = databaseFolderPath
             // Create a new database or get handle to existing database at specified path
             return try Database(name: name.rawValue, config: options)
-        } catch let error {
+        } catch {
             if error is InitializationError {
                 throw error
             } else {
@@ -78,7 +78,7 @@ class StorageCouchBaseDB {
         do {
             let transactionDocument = try createMutableDocument(from: transaction)
             try transactionDatabase.saveDocument(transactionDocument)
-        } catch let error {
+        } catch {
             if error is StorageError {
                 throw error
             } else {
@@ -91,20 +91,21 @@ class StorageCouchBaseDB {
         let query = QueryBuilder.select(SelectResult.all())
                                 .from(DataSource.database(transactionDatabase))
                                 .where(Expression.property("type").equalTo(Expression.string(type.rawValue)))
-                                .orderBy(Ordering.property("date").descending())
+                                //.orderBy(Ordering.property("date").descending())
                                 .limit(Expression.int(limit))
         do {
             var transactions: [Transaction] = Array()
             for result in try query.execute().allResults() {
-                guard let transactionDictonary = result.toDictionary()["transactions"]else {
-                    throw StorageError(message: "Transactions of type \(type) couldn't be loaded from database.")
+                guard let transactionDictonary =
+                        result.toDictionary()[DatabaseCollections.transactions.rawValue] as? [String: Any] else {
+                    throw StorageError(message: "Could not read Document loaded from database as Dictionary.")
                 }
                 let transactionData = try JSONSerialization.data(withJSONObject: transactionDictonary, options: [])
                 let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
                 transactions.append(currentTransaction)
             }
             return transactions
-        } catch let error {
+        } catch {
             if error is InitializationError {
                 throw error
             } else {
