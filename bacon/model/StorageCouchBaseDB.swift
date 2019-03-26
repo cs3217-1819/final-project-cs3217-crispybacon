@@ -37,11 +37,19 @@ class StorageCouchBaseDB {
             // Set the folder path for the CouchbaseLite Database
             options.directory = databaseFolderPath
             // Create a new database or get handle to existing database at specified path
+            log.info("""
+                Accessing/Creating Database with the following arguments:
+                name=\(name) directory path=\(databaseFolderPath)
+                """)
             return try Database(name: name.rawValue, config: options)
         } catch {
             if error is InitializationError {
                 throw error
             } else {
+                log.info("""
+                    Encounter error while accessing/creating Database.
+                    Throwing InitializationError.
+                    """)
                 throw InitializationError(message: "unable to access embedded \(name.rawValue) mobile database.")
             }
         }
@@ -57,6 +65,10 @@ class StorageCouchBaseDB {
                                                 withIntermediateDirectories: true,
                                                 attributes: nil)
             } catch {
+                log.info("""
+                    Encounter error while creating directory at \(folderPath).
+                    Throwing InitializationError.
+                """)
                 throw InitializationError(message:
                     "Database directory path is non-existent and encountered error creating directory: \(folderPath)")
             }
@@ -70,18 +82,25 @@ class StorageCouchBaseDB {
             let transactionDocument = MutableDocument(data: transactionData)
             return transactionDocument
         } catch {
+            log.info("Encounter error encoding transaction into MutableDocument. Throwing StorageError.")
             throw StorageError(message: "Transaction couldn't be encoded into MutableDocument.")
         }
     }
 
-    func clearTransactionDatabase() -> Bool {
+    func clearTransactionDatabase() throws {
         do {
             try transactionDatabase.delete()
             // Reinitialize database
             transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
-            return true
+            log.info("Transaction Database cleared and reinitialized.")
         } catch {
-            return false
+            if error is StorageError {
+                log.info("Encounter error while reinitializing transaction database. Throwing StorageError.")
+                throw error
+            } else {
+                log.info("Encounter error while clearing transaction database. Throwing StorageError.")
+                throw StorageError(message: "Encounter error while clearing Transaction Database.")
+            }
         }
     }
 
@@ -89,10 +108,12 @@ class StorageCouchBaseDB {
         do {
             let transactionDocument = try createMutableDocument(from: transaction)
             try transactionDatabase.saveDocument(transactionDocument)
+            log.info("Transaction \(transaction) saved into database.")
         } catch {
             if error is StorageError {
                 throw error
             } else {
+                log.info("Encounter error saving transation into database. Throwing StorageError.")
                 throw StorageError(message: "Transaction couldn't be saved into database.")
             }
         }
@@ -115,11 +136,14 @@ class StorageCouchBaseDB {
                 let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
                 transactions.append(currentTransaction)
             }
+            log.info("Loaded \(limit) transactions of type \(type) from database.")
             return transactions
         } catch {
-            if error is InitializationError {
-                throw error
+            if error is DecodingError {
+                log.info("Encounter error decoding data from database. Throwing StorageError.")
+                throw StorageError(message: "Data loaded from database couldn't be decoded back as Transactions.")
             } else {
+                log.info("Encounter error loading data from database. Throwing StorageError.")
                 throw StorageError(message: "Transactions of type \(type) couldn't be loaded from database.")
             }
         }

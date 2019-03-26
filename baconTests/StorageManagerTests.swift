@@ -17,7 +17,7 @@ class StorageManagerTests: XCTestCase {
 
     func test_saveTransaction() {
         let database = try! StorageManager()
-        database.clearTransactionDatabase()
+        try! database.clearTransactionDatabase()
         let transaction = try! Transaction(time: TransactionTime(Date()),
                                            type: .expenditure,
                                            frequency: TransactionFrequency(nature: .oneTime),
