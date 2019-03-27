@@ -10,18 +10,18 @@ import XCTest
 @testable import bacon
 
 class TransactionTests: XCTestCase {
-    let testTime = TransactionTime(Date())
+    let testDate = Date()
     // swiftlint:disable force_try
     let testFrequency = try! TransactionFrequency(nature: .oneTime)
 
     func test_init_validInput_success() {
-        let transaction = try! Transaction(time: testTime,
+        let transaction = try! Transaction(date: testDate,
                                            type: .expenditure,
                                            frequency: testFrequency,
                                            category: .bills,
                                            amount: 1)
         // swiftlint:enable force_try
-        XCTAssertEqual(transaction.time, testTime)
+        XCTAssertEqual(transaction.date, testDate)
         XCTAssertEqual(transaction.type, .expenditure)
         XCTAssertEqual(transaction.frequency, testFrequency)
         XCTAssertEqual(transaction.category, .bills)
@@ -30,7 +30,7 @@ class TransactionTests: XCTestCase {
     }
 
     func test_init_invalidNegativeAmount() {
-        XCTAssertThrowsError(try Transaction(time: testTime,
+        XCTAssertThrowsError(try Transaction(date: testDate,
                                              type: .expenditure,
                                              frequency: testFrequency,
                                              category: .bills,
@@ -40,7 +40,7 @@ class TransactionTests: XCTestCase {
     }
 
     func test_init_invalidZeroAmount() {
-        XCTAssertThrowsError(try Transaction(time: testTime,
+        XCTAssertThrowsError(try Transaction(date: testDate,
                                              type: .expenditure,
                                              frequency: testFrequency,
                                              category: .bills,
@@ -51,12 +51,12 @@ class TransactionTests: XCTestCase {
 
     func test_transaction_equal() {
         // swiftlint:disable force_try
-        let transaction = try! Transaction(time: testTime,
+        let transaction = try! Transaction(date: testDate,
                                            type: .expenditure,
                                            frequency: testFrequency,
                                            category: .bills,
                                            amount: 1)
-        let transaction2 = try! Transaction(time: testTime,
+        let transaction2 = try! Transaction(date: testDate,
                                             type: .expenditure,
                                             frequency: testFrequency,
                                             category: .bills,
