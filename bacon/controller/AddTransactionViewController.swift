@@ -10,19 +10,19 @@ import UIKit
 
 class AddTransactionViewController: UIViewController {
 
-    var mode = Constants.defaultMode
+    var transactionType = Constants.defaultTransactionType
     private var selectedCategory = Constants.defaultCategory
 
     @IBOutlet private weak var amountField: UITextField!
-    @IBOutlet private weak var modeLabel: UILabel!
+    @IBOutlet private weak var typeLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if mode == .expenditure {
-            modeLabel.text = "-"
+        if transactionType == .expenditure {
+            typeLabel.text = "-"
         } else {
-            modeLabel.text = "+"
+            typeLabel.text = "+"
         }
         categoryLabel.text = Constants.defaultCategoryString
     }
@@ -54,7 +54,7 @@ class AddTransactionViewController: UIViewController {
     }
 
     private func captureType() -> TransactionType {
-        return mode
+        return transactionType
     }
 
     private func captureFrequency() -> TransactionFrequency {

@@ -10,9 +10,9 @@ import Foundation
 
 class Constants {
     // Add Transaction Page Constants
-    static let defaultMode = TransactionType.expenditure
-    static let defaultCategoryString = "Food"
+    static let defaultTransactionType = TransactionType.expenditure
     static let defaultCategory = TransactionCategory.food
+    static let defaultCategoryString = Constants.defaultCategory.rawValue
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
 }
