@@ -443,16 +443,36 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwb-3y-yBX" customClass="RotatedView" customModule="bacon" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="7" width="728" height="165"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="closedLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ElU-Qa-5Q1">
+                                                            <rect key="frame" x="317.5" y="72" width="93" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
+                                                        <constraint firstItem="ElU-Qa-5Q1" firstAttribute="centerY" secondItem="iwb-3y-yBX" secondAttribute="centerY" id="5bE-oW-1m9"/>
                                                         <constraint firstAttribute="height" constant="165" id="BHp-Ok-DUh"/>
+                                                        <constraint firstItem="ElU-Qa-5Q1" firstAttribute="centerX" secondItem="iwb-3y-yBX" secondAttribute="centerX" id="G7K-YQ-Wxc"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dj4-cx-5sd">
                                                     <rect key="frame" x="20" y="180" width="728" height="479"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="openLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXi-UZ-XZ0">
+                                                            <rect key="frame" x="296" y="221.5" width="136" height="36"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                            <color key="textColor" red="1" green="0.85478358099999996" blue="0.25316954279999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="479" id="Sdw-GV-JsN"/>
+                                                        <constraint firstItem="pXi-UZ-XZ0" firstAttribute="centerY" secondItem="dj4-cx-5sd" secondAttribute="centerY" id="uZv-Lc-ZS4"/>
+                                                        <constraint firstItem="pXi-UZ-XZ0" firstAttribute="centerX" secondItem="dj4-cx-5sd" secondAttribute="centerX" id="xVD-Xl-Hjz"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -471,10 +491,12 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="closedLabel" destination="ElU-Qa-5Q1" id="Wvw-Cr-hr7"/>
                                             <outlet property="containerView" destination="dj4-cx-5sd" id="xlq-3B-XYq"/>
                                             <outlet property="containerViewTop" destination="8mD-iM-aZ5" id="DVb-Gs-lDm"/>
                                             <outlet property="foregroundView" destination="iwb-3y-yBX" id="9Md-59-tQQ"/>
                                             <outlet property="foregroundViewTop" destination="1tk-5y-B53" id="JUZ-cV-Rju"/>
+                                            <outlet property="openLabel" destination="pXi-UZ-XZ0" id="m28-zT-RNl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -499,7 +521,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uGh-dA-pXs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="801" y="-558"/>
+            <point key="canvasLocation" x="800.78125" y="-558.3984375"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

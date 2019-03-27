@@ -6,9 +6,26 @@
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class TransactionCell: FoldingCell {
+
+    @IBOutlet private weak var openLabel: UILabel!
+    @IBOutlet private weak var closedLabel: UILabel!
+
+    var number: Int = 0 {
+        didSet {
+            closedLabel.text = String(number)
+            openLabel.text = String(number)
+        }
+    }
+
+    override func awakeFromNib() {
+        foregroundView.layer.cornerRadius = 10
+        foregroundView.layer.masksToBounds = true
+        super.awakeFromNib()
+    }
+
     override func animationDuration(_ itemIndex: NSInteger, type: AnimationType) -> TimeInterval {
 
         // durations count equal it itemCount
