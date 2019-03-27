@@ -433,6 +433,50 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wxi-zi-XoU">
                                 <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="transactionCell" id="gKp-LO-4WI" customClass="TransactionCell" customModule="bacon" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="768" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gKp-LO-4WI" id="tAD-aD-cjL">
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwb-3y-yBX" customClass="ForegroundView" customModule="bacon" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="8" width="752" height="75"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="75" id="BHp-Ok-DUh"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dj4-cx-5sd">
+                                                    <rect key="frame" x="8" y="97" width="752" height="456"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="456" id="Sdw-GV-JsN"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iwb-3y-yBX" firstAttribute="leading" secondItem="tAD-aD-cjL" secondAttribute="leading" constant="8" id="0CM-Xd-bmt"/>
+                                                <constraint firstItem="iwb-3y-yBX" firstAttribute="top" secondItem="tAD-aD-cjL" secondAttribute="top" constant="8" id="1tk-5y-B53"/>
+                                                <constraint firstItem="dj4-cx-5sd" firstAttribute="leading" secondItem="tAD-aD-cjL" secondAttribute="leading" constant="8" id="3iW-no-77F"/>
+                                                <constraint firstItem="dj4-cx-5sd" firstAttribute="top" secondItem="tAD-aD-cjL" secondAttribute="top" constant="97" id="8mD-iM-aZ5"/>
+                                                <constraint firstAttribute="trailing" secondItem="dj4-cx-5sd" secondAttribute="trailing" constant="8" id="i6d-JU-XlM"/>
+                                                <constraint firstAttribute="trailing" secondItem="iwb-3y-yBX" secondAttribute="trailing" constant="8" id="yr1-6A-qYn"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="containerView" destination="dj4-cx-5sd" id="xlq-3B-XYq"/>
+                                            <outlet property="containerViewTop" destination="8mD-iM-aZ5" id="DVb-Gs-lDm"/>
+                                            <outlet property="foregroundView" destination="iwb-3y-yBX" id="9Md-59-tQQ"/>
+                                            <outlet property="foregroundViewTop" destination="1tk-5y-B53" id="JUZ-cV-Rju"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="DTU-VI-2oa" id="Wm4-Ka-ElQ"/>
+                                    <outlet property="delegate" destination="DTU-VI-2oa" id="9Lj-fo-ij5"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -444,6 +488,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2yH-Go-pk1"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="Wxi-zi-XoU" id="0cE-oP-dMw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uGh-dA-pXs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
