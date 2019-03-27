@@ -16,6 +16,7 @@ class StorageManagerTests: XCTestCase {
     }
 
     func test_saveTransaction() {
+        // swiftlint:disable force_try
         let database = try! StorageManager()
         try! database.clearTransactionDatabase()
         let transaction = try! Transaction(time: TransactionTime(Date()),
@@ -26,5 +27,6 @@ class StorageManagerTests: XCTestCase {
         XCTAssertNoThrow(try database.saveTransaction(transaction))
         let loadedTransaction = try! database.loadTransactions(ofType: .expenditure, limit: 1)
         XCTAssertEqual(transaction, loadedTransaction.first)
+        // swiftlint:enable force_try
     }
 }

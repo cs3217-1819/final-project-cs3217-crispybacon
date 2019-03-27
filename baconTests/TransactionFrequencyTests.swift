@@ -12,47 +12,53 @@ import XCTest
 class TransactionFrequencyTests: XCTestCase {
 
     func test_init_oneTime_validInput() {
-        let tf = try! TransactionFrequency(nature: .oneTime)
-        XCTAssertEqual(tf.nature, .oneTime)
-        XCTAssertNil(tf.interval)
-        XCTAssertNil(tf.repeats)
+        // swiftlint:disable force_try
+        let transactionFrequency = try! TransactionFrequency(nature: .oneTime)
+        // swiftlint:enable force_try
+        XCTAssertEqual(transactionFrequency.nature, .oneTime)
+        XCTAssertNil(transactionFrequency.interval)
+        XCTAssertNil(transactionFrequency.repeats)
     }
 
     func test_init_oneTime_extraInput() {
-        let tf = try! TransactionFrequency(nature: .oneTime, interval: .daily, repeats: 10)
+        // swiftlint:disable force_try
+        let transactionFrequency = try! TransactionFrequency(nature: .oneTime, interval: .daily, repeats: 10)
+        // swiftlint:enable force_try
         // Initializer should ignore `interval` and `repeats` arguments when instantiating a oneTime transaction
-        XCTAssertEqual(tf.nature, .oneTime)
-        XCTAssertNil(tf.interval)
-        XCTAssertNil(tf.repeats)
+        XCTAssertEqual(transactionFrequency.nature, .oneTime)
+        XCTAssertNil(transactionFrequency.interval)
+        XCTAssertNil(transactionFrequency.repeats)
     }
 
     func test_init_recurring_validInput() {
-        let tf = try! TransactionFrequency(nature: .recurring, interval: .daily, repeats: 10)
-        XCTAssertEqual(tf.nature, .recurring)
-        XCTAssertEqual(tf.interval, .daily)
-        XCTAssertEqual(tf.repeats, 10)
+        // swiftlint:disable force_try
+        let transactionFrequency = try! TransactionFrequency(nature: .recurring, interval: .daily, repeats: 10)
+        // swiftlint:enable force_try
+        XCTAssertEqual(transactionFrequency.nature, .recurring)
+        XCTAssertEqual(transactionFrequency.interval, .daily)
+        XCTAssertEqual(transactionFrequency.repeats, 10)
     }
 
     func test_init_recurring_missingInterval() {
-        XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: nil, repeats: 10)) { (err) in
+        XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: nil, repeats: 10)) { err in
             XCTAssertTrue(type(of: err) == InitializationError.self)
         }
     }
 
     func test_init_recurring_missingRepeats() {
-        XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: .daily, repeats: nil)) { (err) in
+        XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: .daily, repeats: nil)) { err in
             XCTAssertTrue(type(of: err) == InitializationError.self)
         }
     }
 
     func test_init_recurring_invalidNegativeRepeats() {
-        XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: .daily, repeats: -5)) { (err) in
+        XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: .daily, repeats: -5)) { err in
             XCTAssertTrue(type(of: err) == InitializationError.self)
         }
     }
 
     func test_init_recurring_invalidZeroRepeats() {
-        XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: .daily, repeats: 0)) { (err) in
+        XCTAssertThrowsError(try TransactionFrequency(nature: .recurring, interval: .daily, repeats: 0)) { err in
             XCTAssertTrue(type(of: err) == InitializationError.self)
         }
     }

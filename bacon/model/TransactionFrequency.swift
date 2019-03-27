@@ -29,9 +29,10 @@ struct TransactionFrequency: Codable, Equatable {
     /// - Parameters:
     ///     - nature: The nature of the transaction frequency.
     ///     - interval: The recurring interval of a recurring transaction.
-    ///     - repeats: The number of times a recurring transaction is to be repeated for (e.g. 2 repeats create 3 transactions).
-    ///         If `repeats` is provided, it must be >= 1.
-    /// - Note: `interval` and `repeats` will be set to `nil` if `nature == .oneTime`, and any provided arguments are ignored.
+    ///     - repeats: The number of times a recurring transaction is to be repeated for
+    ///         (e.g. 2 repeats create 3 transactions). If `repeats` is provided, it must be >= 1.
+    /// - Note: `interval` and `repeats` will be set to `nil` if `nature == .oneTime`,
+    ///     and any provided arguments are ignored.
     /// - Throws: `InitializationError` if invalid arguments are provided.
     init(nature: TransactionFrequencyNature, interval: TransactionFrequencyInterval?, repeats: Int?) throws {
         log.info("""

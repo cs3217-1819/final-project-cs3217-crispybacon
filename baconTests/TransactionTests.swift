@@ -11,6 +11,7 @@ import XCTest
 
 class TransactionTests: XCTestCase {
     let testTime = TransactionTime(Date())
+    // swiftlint:disable force_try
     let testFrequency = try! TransactionFrequency(nature: .oneTime)
 
     func test_init_validInput_success() {
@@ -19,6 +20,7 @@ class TransactionTests: XCTestCase {
                                            frequency: testFrequency,
                                            category: .bills,
                                            amount: 1)
+        // swiftlint:enable force_try
         XCTAssertEqual(transaction.time, testTime)
         XCTAssertEqual(transaction.type, .expenditure)
         XCTAssertEqual(transaction.frequency, testFrequency)
@@ -32,7 +34,7 @@ class TransactionTests: XCTestCase {
                                              type: .expenditure,
                                              frequency: testFrequency,
                                              category: .bills,
-                                             amount: -1)) { (err) in
+                                             amount: -1)) { err in
                                                 XCTAssertTrue(type(of: err) == InitializationError.self)
         }
     }
@@ -42,12 +44,13 @@ class TransactionTests: XCTestCase {
                                              type: .expenditure,
                                              frequency: testFrequency,
                                              category: .bills,
-                                             amount: 0)) { (err) in
+                                             amount: 0)) { err in
                                                 XCTAssertTrue(type(of: err) == InitializationError.self)
         }
     }
 
     func test_transaction_equal() {
+        // swiftlint:disable force_try
         let transaction = try! Transaction(time: testTime,
                                            type: .expenditure,
                                            frequency: testFrequency,
@@ -58,6 +61,7 @@ class TransactionTests: XCTestCase {
                                             frequency: testFrequency,
                                             category: .bills,
                                             amount: 1)
+        // swiftlint:enable force_try
         XCTAssertEqual(transaction, transaction2)
     }
 }
