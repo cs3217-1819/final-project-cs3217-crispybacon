@@ -22,15 +22,15 @@ class StorageManager {
         return concreteStorage.getNumberOfTransactionsInDatabase()
     }
 
+    func clearTransactionDatabase() throws {
+        return try concreteStorage.clearTransactionDatabase()
+    }
+
     func saveTransaction(_ transaction: Transaction) throws {
         try concreteStorage.saveTransaction(transaction)
     }
 
     func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction] {
         return try concreteStorage.loadTransactions(ofType: type, limit: limit)
-    }
-
-    func clearTransactionDatabase() throws {
-        return try concreteStorage.clearTransactionDatabase()
     }
 }

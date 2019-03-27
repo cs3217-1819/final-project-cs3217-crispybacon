@@ -15,6 +15,20 @@ class StorageManagerTests: XCTestCase {
         XCTAssertNoThrow(try StorageManager())
     }
 
+    func test_getNumberOfTransactionsInDatabase() {
+        // swiftlint:disable force_try
+
+        let database = try! StorageManager()
+        XCTAssertNoThrow(try database.clearTransactionDatabase())
+        // Empty database should return 0 for getNumberOfTransactionsInDatabase()
+        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
+        // Add some transactions into database
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionExpenditure01))
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionExpenditure02))
+        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 2)
+        // swiftlint:enable force_try
+    }
+
     func test_clearTransactionDatabase() {
         // swiftlint:disable force_try
         let database = try! StorageManager()
