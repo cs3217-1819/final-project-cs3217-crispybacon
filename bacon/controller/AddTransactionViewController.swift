@@ -29,6 +29,10 @@ class AddTransactionViewController: UIViewController {
 
     @IBAction func categoryButtonPressed(_ sender: UIButton) {
         let userInput = sender.title(for: .normal) ?? Constants.defaultCategoryString
+        log.info("""
+            AddTransactionViewController.categoryButtonPressed() with arguments:
+            sender.title=\(userInput)
+            """)
         selectedCategory = TransactionCategory(rawValue: userInput) ?? Constants.defaultCategory
         categoryLabel.text = sender.title(for: .normal) ?? Constants.defaultCategoryString
     }
@@ -44,6 +48,11 @@ class AddTransactionViewController: UIViewController {
         let frequency = captureFrequency()
         let category = captureCategory()
         let amount = captureAmount()
+        
+        log.info("""
+            AddTransactionViewController.captureInputs() with inputs captured:
+            date=\(date), type=\(type), frequency=\(frequency), category=\(category), amount=\(amount),
+            """)
 
         // Fabian, this is what I need from you
         // model.addTrasaction(date, type, frequency, category, amount)
