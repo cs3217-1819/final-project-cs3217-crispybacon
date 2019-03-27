@@ -32,13 +32,13 @@ extension MainPageViewController {
             guard let addController = segue.destination as? AddTransactionViewController else {
                 return
             }
-            addController.isExpenditure = true
+            addController.transactionType = .expenditure
         }
         if segue.identifier == "mainToAddTransactionIn" {
             guard let addController = segue.destination as? AddTransactionViewController else {
                 return
             }
-            addController.isExpenditure = false
+            addController.transactionType = .income
         }
     }
 }

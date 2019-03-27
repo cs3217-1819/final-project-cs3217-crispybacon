@@ -10,27 +10,31 @@ import UIKit
 
 class AddTransactionViewController: UIViewController {
 
-    var isExpenditure = Config.defaultIsExpenditure
-    private var selectedCategory = Config.defaultCategory
+    var transactionType = Constants.defaultTransactionType
+    private var selectedCategory = Constants.defaultCategory
 
     @IBOutlet private weak var amountField: UITextField!
-    @IBOutlet private weak var modeLabel: UILabel!
+    @IBOutlet private weak var typeLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if isExpenditure {
-            modeLabel.text = "-"
+        if transactionType == .expenditure {
+            typeLabel.text = "-"
         } else {
-            modeLabel.text = "+"
+            typeLabel.text = "+"
         }
-        categoryLabel.text = Config.defaultCategoryString
+        categoryLabel.text = Constants.defaultCategoryString
     }
 
     @IBAction func categoryButtonPressed(_ sender: UIButton) {
-        let userInput = sender.title(for: .normal) ?? Config.defaultCategoryString
-        selectedCategory = TransactionCategory(rawValue: userInput) ?? Config.defaultCategory
-        categoryLabel.text = sender.title(for: .normal) ?? Config.defaultCategoryString
+        let userInput = sender.title(for: .normal) ?? Constants.defaultCategoryString
+        log.info("""
+            AddTransactionViewController.categoryButtonPressed() with arguments:
+            sender.title=\(userInput)
+            """)
+        selectedCategory = TransactionCategory(rawValue: userInput) ?? Constants.defaultCategory
+        categoryLabel.text = sender.title(for: .normal) ?? Constants.defaultCategoryString
     }
 
     @IBAction func addButtonPressed(_ sender: UIButton) {
@@ -44,6 +48,11 @@ class AddTransactionViewController: UIViewController {
         let frequency = captureFrequency()
         let category = captureCategory()
         let amount = captureAmount()
+        
+        log.info("""
+            AddTransactionViewController.captureInputs() with inputs captured:
+            date=\(date), type=\(type), frequency=\(frequency), category=\(category), amount=\(amount)
+            """)
 
         // Fabian, this is what I need from you
         // model.addTrasaction(date, type, frequency, category, amount)
@@ -54,11 +63,7 @@ class AddTransactionViewController: UIViewController {
     }
 
     private func captureType() -> TransactionType {
-        if isExpenditure {
-            return .expenditure
-        } else {
-            return .income
-        }
+        return transactionType
     }
 
     private func captureFrequency() -> TransactionFrequency {
@@ -75,8 +80,8 @@ class AddTransactionViewController: UIViewController {
         // No error handling yet
         // PS: apparently iPad does not support number only keyboards...
         let amountString = amountField.text
-        let amountDecimal = Decimal(string: amountString ?? Config.defaultAmountString)
-        return amountDecimal ?? Config.defaultAmount
+        let amountDecimal = Decimal(string: amountString ?? Constants.defaultAmountString)
+        return amountDecimal ?? Constants.defaultAmount
     }
 }
 
