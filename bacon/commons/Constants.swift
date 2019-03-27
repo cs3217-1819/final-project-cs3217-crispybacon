@@ -8,8 +8,8 @@
 
 import Foundation
 
-class Config {
-    static let defaultIsExpenditure = true
+class Constants {
+    static let defaultMode = TransactionType.expenditure
     static let defaultCategoryString = "Food"
     static let defaultCategory = TransactionCategory.food
     static let defaultAmount: Decimal = 0
