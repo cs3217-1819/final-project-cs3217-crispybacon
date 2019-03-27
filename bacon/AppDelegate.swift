@@ -6,6 +6,8 @@
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
 
+// swiftlint:disable all
+
 import UIKit
 import CoreData
 import SwiftyBeaver
@@ -99,3 +101,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// swiftlint:enable all
