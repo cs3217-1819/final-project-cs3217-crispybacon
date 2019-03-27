@@ -434,37 +434,42 @@
                                 <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="transactionCell" id="gKp-LO-4WI" customClass="TransactionCell" customModule="bacon" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="768" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="transactionCell" rowHeight="667" id="gKp-LO-4WI" customClass="TransactionCell" customModule="bacon" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="768" height="667"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gKp-LO-4WI" id="tAD-aD-cjL">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="666.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwb-3y-yBX" customClass="ForegroundView" customModule="bacon" customModuleProvider="target">
-                                                    <rect key="frame" x="8" y="8" width="752" height="75"/>
+                                                    <rect key="frame" x="20" y="7" width="728" height="165"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="75" id="BHp-Ok-DUh"/>
+                                                        <constraint firstAttribute="height" constant="165" id="BHp-Ok-DUh"/>
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dj4-cx-5sd">
-                                                    <rect key="frame" x="8" y="97" width="752" height="456"/>
+                                                    <rect key="frame" x="20" y="180" width="728" height="479"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="456" id="Sdw-GV-JsN"/>
+                                                        <constraint firstAttribute="height" constant="479" id="Sdw-GV-JsN"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="iwb-3y-yBX" firstAttribute="leading" secondItem="tAD-aD-cjL" secondAttribute="leading" constant="8" id="0CM-Xd-bmt"/>
-                                                <constraint firstItem="iwb-3y-yBX" firstAttribute="top" secondItem="tAD-aD-cjL" secondAttribute="top" constant="8" id="1tk-5y-B53"/>
-                                                <constraint firstItem="dj4-cx-5sd" firstAttribute="leading" secondItem="tAD-aD-cjL" secondAttribute="leading" constant="8" id="3iW-no-77F"/>
-                                                <constraint firstItem="dj4-cx-5sd" firstAttribute="top" secondItem="tAD-aD-cjL" secondAttribute="top" constant="97" id="8mD-iM-aZ5"/>
-                                                <constraint firstAttribute="trailing" secondItem="dj4-cx-5sd" secondAttribute="trailing" constant="8" id="i6d-JU-XlM"/>
-                                                <constraint firstAttribute="trailing" secondItem="iwb-3y-yBX" secondAttribute="trailing" constant="8" id="yr1-6A-qYn"/>
+                                                <constraint firstItem="iwb-3y-yBX" firstAttribute="leading" secondItem="tAD-aD-cjL" secondAttribute="leading" constant="20" id="0CM-Xd-bmt"/>
+                                                <constraint firstItem="iwb-3y-yBX" firstAttribute="top" secondItem="tAD-aD-cjL" secondAttribute="top" constant="7" id="1tk-5y-B53"/>
+                                                <constraint firstItem="dj4-cx-5sd" firstAttribute="leading" secondItem="tAD-aD-cjL" secondAttribute="leading" constant="20" id="3iW-no-77F"/>
+                                                <constraint firstItem="dj4-cx-5sd" firstAttribute="top" secondItem="tAD-aD-cjL" secondAttribute="top" constant="180" id="8mD-iM-aZ5"/>
+                                                <constraint firstAttribute="trailing" secondItem="dj4-cx-5sd" secondAttribute="trailing" constant="20" id="i6d-JU-XlM"/>
+                                                <constraint firstAttribute="trailing" secondItem="iwb-3y-yBX" secondAttribute="trailing" constant="20" id="yr1-6A-qYn"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="itemCount">
+                                                <integer key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="containerView" destination="dj4-cx-5sd" id="xlq-3B-XYq"/>
                                             <outlet property="containerViewTop" destination="8mD-iM-aZ5" id="DVb-Gs-lDm"/>
