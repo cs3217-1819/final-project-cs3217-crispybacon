@@ -79,9 +79,6 @@ class StorageManagerTests: XCTestCase {
         // Check that the transactions loaded out are equal and in reverse chronological order
         XCTAssertEqual(loadedExpenditureTransaction, expenditureTransactions)
 
-        // Clear database
-        try! database.clearTransactionDatabase()
-        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
         // Save 3 transactions of type income
         let incomeTransactions = [TestUtils.validTransactionIncome03,
                                   TestUtils.validTransactionIncome02,
