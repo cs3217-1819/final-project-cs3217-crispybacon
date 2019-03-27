@@ -51,7 +51,7 @@ class AddTransactionViewController: UIViewController {
         
         log.info("""
             AddTransactionViewController.captureInputs() with inputs captured:
-            date=\(date), type=\(type), frequency=\(frequency), category=\(category), amount=\(amount),
+            date=\(date), type=\(type), frequency=\(frequency), category=\(category), amount=\(amount)
             """)
 
         // Fabian, this is what I need from you

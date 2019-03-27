@@ -38,7 +38,7 @@ class StorageCouchBaseDB {
             options.directory = databaseFolderPath
             // Create a new database or get handle to existing database at specified path
             log.info("""
-                StorageCouchBaseDB.openOrCreateEmbeddedDatabase() with the following arguments:
+                StorageCouchBaseDB.openOrCreateEmbeddedDatabase() with arguments:
                 name=\(name) directory path=\(databaseFolderPath)
                 """)
             return try Database(name: name.rawValue, config: options)
