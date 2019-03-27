@@ -144,7 +144,7 @@ class StorageCouchBaseDB {
         }
     }
 
-    func getTransactionsFromQuery(_ query: Query) throws -> [Transaction] {
+    private func getTransactionsFromQuery(_ query: Query) throws -> [Transaction] {
         do {
             var transactions: [Transaction] = Array()
             for result in try query.execute().allResults() {
@@ -176,6 +176,18 @@ class StorageCouchBaseDB {
         }
     }
 
+    func loadTransactions(limit: Int) throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all())
+            .from(DataSource.database(transactionDatabase))
+            .orderBy(Ordering.property("date").descending())
+            .limit(Expression.int(limit))
+        log.info("""
+            StorageCouchBaseDB.loadTransactions() with arguments:
+            limit=\(limit).
+            """)
+        return try getTransactionsFromQuery(query)
+    }
+
     func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction] {
         let query = QueryBuilder.select(SelectResult.all())
                                 .from(DataSource.database(transactionDatabase))
@@ -184,7 +196,20 @@ class StorageCouchBaseDB {
                                 .limit(Expression.int(limit))
         log.info("""
             StorageCouchBaseDB.loadTransactions() with arguments:
-            limit=\(limit) ofType=\(type).
+            ofType=\(type) limit=\(limit).
+            """)
+        return try getTransactionsFromQuery(query)
+    }
+
+    func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all())
+            .from(DataSource.database(transactionDatabase))
+            .where(Expression.property("category").equalTo(Expression.string(category.rawValue)))
+            .orderBy(Ordering.property("date").descending())
+            .limit(Expression.int(limit))
+        log.info("""
+            StorageCouchBaseDB.loadTransactions() with arguments:
+            ofCategory=\(category) limit=\(limit).
             """)
         return try getTransactionsFromQuery(query)
     }
