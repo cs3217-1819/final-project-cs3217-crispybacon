@@ -441,7 +441,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="768" height="667"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwb-3y-yBX" customClass="ForegroundView" customModule="bacon" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iwb-3y-yBX" customClass="RotatedView" customModule="bacon" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="7" width="728" height="165"/>
                                                     <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
