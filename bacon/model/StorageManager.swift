@@ -36,8 +36,15 @@ class StorageManager {
     /// - Returns:
     ///     the specified number of transactions in reverse chronological order.
     ///     If there are no transactions saved, an empty array is returned.
-    /// - Throws: `StorageError`
+    /// - Throws:
+    ///     `InvalidArgumentError` if limit < 0
+    ///     `StorageError`
     func loadTransactions(limit: Int) throws -> [Transaction] {
+        guard limit >= 0 else {
+            throw InvalidArgumentError(message: """
+                Limit: \(limit) passed into LoadTransactions(limit..) should be non-negative.
+                """)
+        }
         return try concreteStorage.loadTransactions(limit: limit)
     }
 
@@ -48,8 +55,15 @@ class StorageManager {
     /// - Returns:
     ///     the specified number of transactions of the specified type in reverse chronological order.
     ///     If no transactions saved fulfill the requirement, an empty array is returned.
-    /// - Throws: `StorageError`
+    /// - Throws:
+    ///     `InvalidArgumentError` if limit < 0
+    ///     `StorageError`
     func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction] {
+        guard limit >= 0 else {
+            throw InvalidArgumentError(message: """
+                Limit: \(limit) passed into LoadTransactions(ofType..) should be non-negative.
+                """)
+        }
         return try concreteStorage.loadTransactions(ofType: type, limit: limit)
     }
 
@@ -60,8 +74,15 @@ class StorageManager {
     /// - Returns:
     ///     the specified number of transactions of the specified category in reverse chronological order.
     ///     If no transactions saved fulfill the requirement, an empty array is returned.
-    /// - Throws: `StorageError`
+    /// - Throws:
+    ///     `InvalidArgumentError` if limit < 0
+    ///     `StorageError`
     func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
+        guard limit >= 0 else {
+            throw InvalidArgumentError(message: """
+                Limit: \(limit) passed into LoadTransactions(ofCategory..) should be non-negative.
+                """)
+        }
         return try concreteStorage.loadTransactions(ofCategory: category, limit: limit)
     }
 }

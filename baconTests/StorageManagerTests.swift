@@ -73,6 +73,11 @@ class StorageManagerTests: XCTestCase {
         XCTAssertEqual(loadedTransactions, transactions)
     }
 
+    func test_invalid_loadTransactions_limit() {
+        let database = try! StorageManager()
+        XCTAssertThrowsError(try database.loadTransactions(limit: -1))
+    }
+
     func test_loadTransactions_OfType() {
         let database = try! StorageManager()
         // Clear database
@@ -111,6 +116,11 @@ class StorageManagerTests: XCTestCase {
         XCTAssertEqual(loadedTransactions.count, 1)
     }
 
+    func test_invalid_loadTransactions_OfType() {
+        let database = try! StorageManager()
+        XCTAssertThrowsError(try database.loadTransactions(ofType: .expenditure, limit: -1))
+    }
+
     func test_loadTransactions_OfCategory() {
         let database = try! StorageManager()
         // Clear database
@@ -147,6 +157,11 @@ class StorageManagerTests: XCTestCase {
         // Test limit
         let loadedTransactions = try! database.loadTransactions(ofCategory: .food, limit: 1)
         XCTAssertEqual(loadedTransactions.count, 1)
+    }
+
+    func test_invalid_loadTransactions_OfCategory() {
+        let database = try! StorageManager()
+        XCTAssertThrowsError(try database.loadTransactions(ofCategory: .travel, limit: -1))
     }
 
     // swiftlint:enable force_try
