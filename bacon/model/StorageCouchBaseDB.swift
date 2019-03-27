@@ -87,6 +87,10 @@ class StorageCouchBaseDB {
         }
     }
 
+    func getNumberOfTransactionsInDatabase() -> Double {
+        return Double(transactionDatabase.count)
+    }
+
     func clearTransactionDatabase() throws {
         do {
             try transactionDatabase.delete()

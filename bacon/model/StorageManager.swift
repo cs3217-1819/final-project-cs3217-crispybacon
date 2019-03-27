@@ -18,6 +18,10 @@ class StorageManager {
         concreteStorage = try StorageCouchBaseDB()
     }
 
+    func getNumberOfTransactionsInDatabase() -> Double {
+        return concreteStorage.getNumberOfTransactionsInDatabase()
+    }
+
     func saveTransaction(_ transaction: Transaction) throws {
         try concreteStorage.saveTransaction(transaction)
     }
