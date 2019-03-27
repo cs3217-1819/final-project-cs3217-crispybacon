@@ -16,7 +16,7 @@ class AddTransactionViewController: UIViewController {
     @IBOutlet private weak var amountField: UITextField!
     @IBOutlet private weak var modeLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if isExpenditure {
@@ -62,9 +62,11 @@ class AddTransactionViewController: UIViewController {
     }
 
     private func captureFrequency() -> TransactionFrequency {
+        // swiftlint:disable force_try
         return try! TransactionFrequency(nature: .oneTime, interval: nil, repeats: nil)
+        // swiftlint:enable force_try
     }
-    
+
     private func captureCategory() -> TransactionCategory {
         return selectedCategory
     }
