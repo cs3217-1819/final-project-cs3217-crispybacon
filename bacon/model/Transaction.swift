@@ -9,7 +9,7 @@
 import Foundation
 
 struct Transaction: Codable, Equatable {
-    let time: TransactionTime
+    let date: Date
     let type: TransactionType
     let frequency: TransactionFrequency
     let category: TransactionCategory
@@ -25,7 +25,7 @@ struct Transaction: Codable, Equatable {
     ///     - amount: The transaction amount. Must be > 0.
     ///     - description: An optional description of the transaction. Defaults to an empty string.
     /// - Throws: `InitializationError` if `amount <= 0`.
-    init(time: TransactionTime,
+    init(date: Date,
          type: TransactionType,
          frequency: TransactionFrequency,
          category: TransactionCategory,
@@ -33,7 +33,7 @@ struct Transaction: Codable, Equatable {
          description: String = "") throws {
         log.info("""
             Transaction:init() with the following arguments:
-            time=\(time) type=\(type) frequency=\(frequency) category=\(category)
+            date=\(date) type=\(type) frequency=\(frequency) category=\(category)
             amount=\(amount) description=\(description)
             """)
 
@@ -42,7 +42,7 @@ struct Transaction: Codable, Equatable {
             throw InitializationError(message: "`amount` must be greater than 0")
         }
 
-        self.time = time
+        self.date = date
         self.type = type
         self.frequency = frequency
         self.category = category

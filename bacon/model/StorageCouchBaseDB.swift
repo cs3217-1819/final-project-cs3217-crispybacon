@@ -123,7 +123,7 @@ class StorageCouchBaseDB {
         let query = QueryBuilder.select(SelectResult.all())
                                 .from(DataSource.database(transactionDatabase))
                                 .where(Expression.property("type").equalTo(Expression.string(type.rawValue)))
-                                //.orderBy(Ordering.property("date").descending())
+                                .orderBy(Ordering.property("date").descending())
                                 .limit(Expression.int(limit))
         do {
             var transactions: [Transaction] = Array()

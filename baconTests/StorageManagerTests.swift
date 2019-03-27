@@ -19,7 +19,7 @@ class StorageManagerTests: XCTestCase {
         // swiftlint:disable force_try
         let database = try! StorageManager()
         try! database.clearTransactionDatabase()
-        let transaction = try! Transaction(time: TransactionTime(Date()),
+        let transaction = try! Transaction(date: Date(),
                                            type: .expenditure,
                                            frequency: TransactionFrequency(nature: .oneTime),
                                            category: .bills,
