@@ -11,12 +11,42 @@ import Foundation
 /// Represents a mutable transaction.
 class Transaction: Codable, Observable {
 
-    private var _date: Date
-    private var _type: TransactionType
-    private var _frequency: TransactionFrequency
-    private var _category: TransactionCategory
-    private var _amount: Decimal
-    private var _description: String
+    var date: Date {
+        didSet {
+            log.info("Set date=\(date)")
+            notifyObserversOfSelf()
+        }
+    }
+    var type: TransactionType {
+        didSet {
+            log.info("Set type=\(type)")
+            notifyObserversOfSelf()
+        }
+    }
+    var frequency: TransactionFrequency {
+        didSet {
+            log.info("Set frequency=\(frequency)")
+            notifyObserversOfSelf()
+        }
+    }
+    var category: TransactionCategory {
+        didSet {
+            log.info("Set category=\(category)")
+            notifyObserversOfSelf()
+        }
+    }
+    var amount: Decimal {
+        didSet {
+            log.info("Set amount=\(amount)")
+            notifyObserversOfSelf()
+        }
+    }
+    var description: String {
+        didSet {
+            log.info("Set description=\(description)")
+            notifyObserversOfSelf()
+        }
+    }
 
     var observers: [Observer] = []
 
@@ -24,12 +54,12 @@ class Transaction: Codable, Observable {
     // We exclude the "observers" property from being encoded/decoded,
     // since that information should not be persistent across sessions.
     private enum CodingKeys: String, CodingKey {
-        case _date
-        case _type
-        case _frequency
-        case _category
-        case _amount
-        case _description
+        case date
+        case type
+        case frequency
+        case category
+        case amount
+        case description
     }
 
     /// Creates a Transaction instance.
@@ -58,12 +88,12 @@ class Transaction: Codable, Observable {
             throw InitializationError(message: "`amount` must be greater than 0")
         }
 
-        _date = date
-        _type = type
-        _frequency = frequency
-        _category = category
-        _amount = amount
-        _description = description
+        self.date = date
+        self.type = type
+        self.frequency = frequency
+        self.category = category
+        self.amount = amount
+        self.description = description
     }
 
     /// Notifies all observers of changes to self.
@@ -71,79 +101,6 @@ class Transaction: Codable, Observable {
     private func notifyObserversOfSelf() {
         log.info("Notifying observers of new self")
         notifyObservers(self)
-    }
-
-    // Public computed properties
-    var date: Date {
-        get {
-            return _date
-        }
-
-        set(newDate) {
-            log.info("Setting date=\(newDate)")
-            _date = newDate
-            notifyObserversOfSelf()
-        }
-    }
-
-    var type: TransactionType {
-        get {
-            return _type
-        }
-
-        set(newType) {
-            log.info("Setting type=\(newType)")
-            _type = newType
-            notifyObserversOfSelf()
-        }
-    }
-
-    var frequency: TransactionFrequency {
-        get {
-            return _frequency
-        }
-
-        set(newFrequency) {
-            log.info("Setting frequency=\(newFrequency)")
-            _frequency = newFrequency
-            notifyObserversOfSelf()
-        }
-    }
-
-    var category: TransactionCategory {
-        get {
-            return _category
-        }
-
-        set(newCategory) {
-            log.info("Setting category=\(newCategory)")
-            _category = newCategory
-            notifyObserversOfSelf()
-        }
-    }
-
-    var amount: Decimal {
-        get {
-            return _amount
-        }
-
-        set(newAmount) {
-            log.info("Setting amount=\(newAmount)")
-            _amount = newAmount
-            notifyObserversOfSelf()
-        }
-    }
-
-    var description: String {
-        get {
-            return _description
-        }
-
-        set(newDescription) {
-            log.info("Setting description=\(newDescription)")
-            _description = newDescription
-            notifyObserversOfSelf()
-        }
     }
 
 }
