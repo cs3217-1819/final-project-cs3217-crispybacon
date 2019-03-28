@@ -9,27 +9,29 @@
 import Foundation
 
 /// Observable (Subject) protocol in the Observer-Subject pattern.
-protocol Observable {
+/// - Note: This protocol only allows conformance by classes.
+///     See: https://benoitpasquier.com/observer-design-pattern-swift/
+protocol Observable: class {
 
     var observers: [Observer] { get set }
 
 }
 
-/// Implement default functionality for Observable protocol.
+/// Implements default functionality for Observable protocol.
 extension Observable {
 
     /// Registers an observer to the current observable subject.
-    mutating func registerObserver(_ observer: Observer) {
+    func registerObserver(_ observer: Observer) {
         observers.append(observer)
     }
 
     /// Unregisters an observer to the current observable subject.
-    /// - Requires: `observer` must be a Class type.
-    mutating func unregisterObserver(_ observer: Observer) {
+    func unregisterObserver(_ observer: Observer) {
         observers = observers.filter { $0 !== observer }
     }
 
-    func notifyObservers<T>(value: T) {
+    /// Notifies all observers of a value.
+    func notifyObservers(_ value: Any) {
         for observer in observers {
             observer.notify(value)
         }
