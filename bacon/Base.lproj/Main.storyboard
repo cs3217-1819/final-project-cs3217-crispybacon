@@ -352,8 +352,8 @@
                                     <action selector="categoryButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="DUn-sG-Q2j"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LrK-Yu-LCW">
-                                <rect key="frame" x="214" y="500" width="50" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LrK-Yu-LCW">
+                                <rect key="frame" x="222" y="500" width="42" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -414,7 +414,7 @@
                     <connections>
                         <outlet property="amountField" destination="jz8-oh-b8u" id="PwB-h0-j7g"/>
                         <outlet property="categoryLabel" destination="9OH-EA-Fun" id="atw-mp-iPV"/>
-                        <outlet property="modeLabel" destination="LrK-Yu-LCW" id="ziF-wV-dfN"/>
+                        <outlet property="typeLabel" destination="LrK-Yu-LCW" id="ziF-wV-dfN"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="addToMainSuccess" id="tM7-n6-JRD"/>
                     </connections>
                 </viewController>
