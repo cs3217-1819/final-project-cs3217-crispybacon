@@ -6,12 +6,13 @@
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
 
+// swiftlint:disable force_try
+
 import XCTest
 @testable import bacon
 
 class TransactionTests: XCTestCase {
     let testDate = Date()
-    // swiftlint:disable force_try
     let testFrequency = try! TransactionFrequency(nature: .oneTime)
 
     func test_init_validInput_success() {
@@ -20,7 +21,6 @@ class TransactionTests: XCTestCase {
                                            frequency: testFrequency,
                                            category: .bills,
                                            amount: 1)
-        // swiftlint:enable force_try
         XCTAssertEqual(transaction.date, testDate)
         XCTAssertEqual(transaction.type, .expenditure)
         XCTAssertEqual(transaction.frequency, testFrequency)
@@ -50,7 +50,6 @@ class TransactionTests: XCTestCase {
     }
 
     func test_transaction_equal() {
-        // swiftlint:disable force_try
         let transaction = try! Transaction(date: testDate,
                                            type: .expenditure,
                                            frequency: testFrequency,
@@ -66,19 +65,16 @@ class TransactionTests: XCTestCase {
                                             frequency: testFrequency,
                                             category: .food,
                                             amount: 3)
-        // swiftlint:enable force_try
         XCTAssertEqual(transaction, transaction2)
         XCTAssertNotEqual(transaction, transaction3)
     }
 
     func test_transactionObservable() {
-        // swiftlint:disable force_try
         let transaction = try! Transaction(date: testDate,
                                            type: .expenditure,
                                            frequency: testFrequency,
                                            category: .bills,
                                            amount: 1)
-        // swiftlint:enable force_try
 
         let observer = DummyObserver()
         transaction.registerObserver(observer)
@@ -90,3 +86,5 @@ class TransactionTests: XCTestCase {
         XCTAssertEqual(observer.notifiedCount, 2)
     }
 }
+
+// swiftlint:enable force_try
