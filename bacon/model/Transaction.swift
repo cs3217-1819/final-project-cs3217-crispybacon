@@ -8,13 +8,14 @@
 
 import Foundation
 
-struct Transaction: Codable, Equatable {
-    let date: Date
-    let type: TransactionType
-    let frequency: TransactionFrequency
-    let category: TransactionCategory
-    let amount: Decimal
-    let description: String
+class Transaction: Codable {
+
+    var date: Date
+    var type: TransactionType
+    var frequency: TransactionFrequency
+    var category: TransactionCategory
+    var amount: Decimal
+    var description: String
 
     /// Creates a Transaction instance.
     /// - Parameters:
@@ -49,4 +50,18 @@ struct Transaction: Codable, Equatable {
         self.amount = amount
         self.description = description
     }
+
+}
+
+extension Transaction: Equatable {
+
+    static func == (lhs: Transaction, rhs: Transaction) -> Bool {
+        return lhs.date == rhs.date
+            && lhs.type == rhs.type
+            && lhs.frequency == rhs.frequency
+            && lhs.category == rhs.category
+            && lhs.amount == rhs.amount
+            && lhs.description == rhs.description
+    }
+
 }
