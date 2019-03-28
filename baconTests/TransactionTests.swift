@@ -61,7 +61,13 @@ class TransactionTests: XCTestCase {
                                             frequency: testFrequency,
                                             category: .bills,
                                             amount: 1)
+        let transaction3 = try! Transaction(date: testDate,
+                                            type: .income,
+                                            frequency: testFrequency,
+                                            category: .food,
+                                            amount: 3)
         // swiftlint:enable force_try
         XCTAssertEqual(transaction, transaction2)
+        XCTAssertNotEqual(transaction, transaction3)
     }
 }
