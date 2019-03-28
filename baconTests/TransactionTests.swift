@@ -70,4 +70,23 @@ class TransactionTests: XCTestCase {
         XCTAssertEqual(transaction, transaction2)
         XCTAssertNotEqual(transaction, transaction3)
     }
+
+    func test_transactionObservable() {
+        // swiftlint:disable force_try
+        let transaction = try! Transaction(date: testDate,
+                                           type: .expenditure,
+                                           frequency: testFrequency,
+                                           category: .bills,
+                                           amount: 1)
+        // swiftlint:enable force_try
+
+        let observer = DummyObserver()
+        transaction.registerObserver(observer)
+
+        XCTAssertEqual(observer.notifiedCount, 0)
+        transaction.amount = 2 // Set amount to new value
+        XCTAssertEqual(observer.notifiedCount, 1)
+        transaction.amount = 2 // Set amount to same value
+        XCTAssertEqual(observer.notifiedCount, 2)
+    }
 }
