@@ -48,7 +48,7 @@ class AddTransactionViewController: UIViewController {
         let frequency = captureFrequency()
         let category = captureCategory()
         let amount = captureAmount()
-        
+
         log.info("""
             AddTransactionViewController.captureInputs() with inputs captured:
             date=\(date), type=\(type), frequency=\(frequency), category=\(category), amount=\(amount)
