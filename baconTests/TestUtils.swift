@@ -8,11 +8,42 @@
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 @testable import bacon
 
 class TestUtils {
     // swiftlint:disable force_try
+
+    // Sample CLLocation instances naming conventions:
+    //      - 'sampleCLLocation'
+    //      - Number indicates a unique set of CLLocation properties
+    //      - Alphabet indicates multiple CLLocation instances with identical properties (optional)
+
+    static let locationTimestamp = Date(timeIntervalSince1970: 1000)
+
+    static let sampleCLLocation1A = CLLocation(coordinate: CLLocationCoordinate2DMake(1, 2),
+                                               altitude: 3,
+                                               horizontalAccuracy: 4,
+                                               verticalAccuracy: 5,
+                                               course: 6,
+                                               speed: 7,
+                                               timestamp: locationTimestamp)
+    static let sampleCLLocation1B = CLLocation(coordinate: CLLocationCoordinate2DMake(1, 2),
+                                               altitude: 3,
+                                               horizontalAccuracy: 4,
+                                               verticalAccuracy: 5,
+                                               course: 6,
+                                               speed: 7,
+                                               timestamp: locationTimestamp)
+
+    static let sampleCLLocation2 = CLLocation(coordinate: CLLocationCoordinate2DMake(2, 3),
+                                              altitude: 4,
+                                              horizontalAccuracy: 5,
+                                              verticalAccuracy: 6,
+                                              course: 7,
+                                              speed: 8,
+                                              timestamp: locationTimestamp)
 
     // Valid Transactions for testing naming convention:
     //     - 'valid / invalid'
