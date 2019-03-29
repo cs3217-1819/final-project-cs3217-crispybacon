@@ -116,4 +116,8 @@ extension Transaction: Equatable {
             && lhs.description == rhs.description
     }
 
+    static func != (lhs: Transaction, rhs: Transaction) -> Bool {
+        return !(lhs == rhs)
+    }
+
 }
