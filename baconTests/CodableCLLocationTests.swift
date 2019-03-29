@@ -11,6 +11,7 @@ import XCTest
 @testable import bacon
 
 class CodableCLLocationTests: XCTestCase {
+    // swiftlint:disable force_try
 
     func test_equality() {
         // We test for ==, !=, and isEqual()
@@ -37,4 +38,5 @@ class CodableCLLocationTests: XCTestCase {
         XCTAssertEqual(testCodableLocation, decodedLocation)
     }
 
+    // swiftlint:enable force_try
 }

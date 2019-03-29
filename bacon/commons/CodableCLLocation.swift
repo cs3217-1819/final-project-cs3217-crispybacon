@@ -47,7 +47,7 @@ extension CLLocation: Equatable {
 
     // Although CLLocation conforms to Equatable already, it is using NSObject's == function.
     // As a result, 2 CLLocation instances which have the exact properties are considered to be unequal.
-    // This method overrides that default implementation to actually compare instance properties when detemrining equality.
+    // This method overrides that default implementation to compare instance properties when determining equality.
     // See: https://stackoverflow.com/questions/46207883/how-does-cllocation-implement-the-equatable-protocol
     static func == (lhs: CLLocation, rhs: CLLocation) -> Bool {
         return lhs.coordinate.latitude == rhs.coordinate.latitude
