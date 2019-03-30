@@ -78,6 +78,27 @@ class StorageManagerTests: XCTestCase {
         XCTAssertThrowsError(try database.loadTransactions(limit: -1))
     }
 
+    func test_loadTransactions_after() {
+        let database = try! StorageManager()
+        // Clear database
+        try! database.clearTransactionDatabase()
+        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
+        // Test loading empty database
+        XCTAssertTrue(try database.loadTransactions(after: TestUtils.january1st2019time0800, limit: 10).isEmpty)
+        XCTAssertTrue(try database.loadTransactions(after: TestUtils.january1st2019time0800, limit: 0).isEmpty)
+
+        // Save transactions
+        let transactions = [TestUtils.validTransactionDate02,
+                            TestUtils.validTransactionDate01point2]
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate01))
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate01point2))
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate02))
+        let loadedTransactions = try! database.loadTransactions(after: TestUtils.january1st2019time0800, limit: 5)
+        XCTAssertEqual(loadedTransactions.count, 2)
+        // Check that the transactions loaded out are equal and in reverse chronological order
+        XCTAssertEqual(loadedTransactions, transactions)
+    }
+
     func test_loadTransactions_OfType() {
         let database = try! StorageManager()
         // Clear database

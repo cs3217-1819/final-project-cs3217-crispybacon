@@ -15,4 +15,16 @@ class Constants {
     static let defaultCategoryString = Constants.defaultCategory.rawValue
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
+
+    // Date Formatter
+    static func getDateFormatter() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }
+
+    // Dictionary Key for Transaction fields for use in Database
+    static let typeKey = "type"
+    static let categoryKey = "category"
+    static let rawDateKey = "rawDate"
 }

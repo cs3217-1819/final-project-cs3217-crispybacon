@@ -120,5 +120,31 @@ class TestUtils {
                          category: .transport,
                          amount: 25.0)
 
+    // TRANSACTION - TIME
+    static let january1st2019time0800 = Constants.getDateFormatter().date(from: "2019-01-01 08:00:00")!
+    static let january1st2019time1000 = Constants.getDateFormatter().date(from: "2019-01-01 10:00:00")!
+    static let january5th2019time1230 = Constants.getDateFormatter().date(from: "2019-01-05 12:30:00")!
+
+    static let validTransactionDate01 =
+        try! Transaction(date: january1st2019time0800,
+                         type: .expenditure,
+                         frequency: try! TransactionFrequency(nature: .oneTime),
+                         category: .transport,
+                         amount: 12.60)
+    static let validTransactionDate01point2 =
+        try! Transaction(date: january1st2019time1000,
+                         type: .income,
+                         frequency: try! TransactionFrequency(nature: .oneTime),
+                         category: .food,
+                         amount: 1.20)
+    static let validTransactionDate02 =
+        try! Transaction(date: january5th2019time1230,
+                         type: .expenditure,
+                         frequency: try! TransactionFrequency(nature: .recurring,
+                                                              interval: TransactionFrequencyInterval.weekly,
+                                                              repeats: 5),
+                         category: .transport,
+                         amount: 40.0)
+
     // swiftlint:enable force_try
 }
