@@ -42,7 +42,7 @@ open class FoldingCell: UITableViewCell {
     @IBInspectable open var itemCount: NSInteger = 2
     
     /// The color of the back cell
-    @IBInspectable open var backViewColor: UIColor = UIColor.brown
+    @IBInspectable open var backViewColor: UIColor = UIColor.gray
     
     var animationItemViews: [RotatedView]?
     

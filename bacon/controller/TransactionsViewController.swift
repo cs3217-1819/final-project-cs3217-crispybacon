@@ -64,7 +64,6 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
             cell.unfold(true, animated: false, completion: nil)
         }
 
-        cell.number = indexPath.row + 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
