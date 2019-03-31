@@ -11,11 +11,9 @@ import UIKit
 class TransactionCell: FoldingCell {
 
     @IBOutlet private weak var openLabel: UILabel!
-    @IBOutlet private weak var closedLabel: UILabel!
 
     var number: Int = 0 {
         didSet {
-            closedLabel.text = String(number)
             openLabel.text = String(number)
         }
     }
