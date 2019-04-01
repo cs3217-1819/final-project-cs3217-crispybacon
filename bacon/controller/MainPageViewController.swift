@@ -10,11 +10,16 @@ import UIKit
 
 class MainPageViewController: UIViewController {
 
+    @IBOutlet private weak var coinView: UIImageView!
+
     var isUpdateNeeded = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        animateFloatingCoin()
     }
 
     @IBAction func coinSwipedUp(_ sender: UISwipeGestureRecognizer) {
@@ -23,6 +28,17 @@ class MainPageViewController: UIViewController {
 
     @IBAction func coinSwipedDown(_ sender: UISwipeGestureRecognizer) {
         performSegue(withIdentifier: "mainToAddTransactionIn", sender: nil)
+    }
+}
+
+extension MainPageViewController {
+    func animateFloatingCoin() {
+        let currentFrame = coinView.frame
+        UIView.animate(withDuration: 0.7, delay: 0,
+                       options: [.repeat, .autoreverse, .allowUserInteraction], animations: {
+            self.coinView.frame = CGRect(x: currentFrame.minX, y: currentFrame.minY + 70.0,
+                                         width: currentFrame.width, height: currentFrame.height)
+        }, completion: nil)
     }
 }
 
