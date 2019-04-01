@@ -13,14 +13,15 @@ import Foundation
 
 class TestUtils {
     // swiftlint:disable force_try
+    // swiftlint:disable force_unwrapping
 
     // Valid Transactions for testing naming convention:
     //     - 'valid / invalid'
     //     - 'Transaction'
-    //     - The field that is constant
+    //     - The field that is constant (with the exception of date)
     //     - The number indicates the ordering of the date in the transaction
     //       (Chronological order)
-    //     * Note that excluding date and the constant field, the rest of the
+    //     * Note that excluding the constant field, the rest of the
     //       transaction properties should differ from each other.
     // --------------------------------------------------
 
@@ -41,7 +42,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .recurring,
-                                                              interval: TransactionFrequencyInterval.weekly,
+                                                              interval: .weekly,
                                                               repeats: 2),
                          category: .entertainment,
                          amount: 5.0)
@@ -49,7 +50,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(3_000)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .recurring,
-                                                              interval: TransactionFrequencyInterval.weekly,
+                                                              interval: .weekly,
                                                               repeats: 1),
                          category: .investment,
                          amount: 100.0)
@@ -65,7 +66,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .recurring,
-                                                              interval: TransactionFrequencyInterval.monthly,
+                                                              interval: .monthly,
                                                               repeats: 3),
                          category: .food,
                          amount: 12.80)
@@ -87,7 +88,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .recurring,
-                                                              interval: TransactionFrequencyInterval.monthly,
+                                                              interval: .monthly,
                                                               repeats: 1),
                          category: .food,
                          amount: 5.00)
@@ -115,7 +116,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .recurring,
-                                                              interval: TransactionFrequencyInterval.weekly,
+                                                              interval: .weekly,
                                                               repeats: 5),
                          category: .transport,
                          amount: 25.0)
@@ -123,6 +124,8 @@ class TestUtils {
     // TRANSACTION - TIME
     static let january1st2019time0800 = Constants.getDateFormatter().date(from: "2019-01-01 08:00:00")!
     static let january1st2019time1000 = Constants.getDateFormatter().date(from: "2019-01-01 10:00:00")!
+    static let january2nd2019time1320 = Constants.getDateFormatter().date(from: "2019-01-02 13:20:00")!
+    static let january2nd2019time1500 = Constants.getDateFormatter().date(from: "2019-01-02 15:00:00")!
     static let january5th2019time1230 = Constants.getDateFormatter().date(from: "2019-01-05 12:30:00")!
 
     static let validTransactionDate01 =
@@ -138,13 +141,28 @@ class TestUtils {
                          category: .food,
                          amount: 1.20)
     static let validTransactionDate02 =
+        try! Transaction(date: january2nd2019time1320,
+                         type: .expenditure,
+                         frequency: try! TransactionFrequency(nature: .recurring,
+                                                              interval: .monthly,
+                                                              repeats: 3),
+                         category: .bills,
+                         amount: 150.00)
+    static let validTransactionDate02point2 =
+        try! Transaction(date: january2nd2019time1500,
+                         type: .income,
+                         frequency: try! TransactionFrequency(nature: .oneTime),
+                         category: .food,
+                         amount: 13.70)
+    static let validTransactionDate03 =
         try! Transaction(date: january5th2019time1230,
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .recurring,
-                                                              interval: TransactionFrequencyInterval.weekly,
+                                                              interval: .weekly,
                                                               repeats: 5),
                          category: .transport,
                          amount: 40.0)
 
     // swiftlint:enable force_try
+    // swiftlint:enable force_unwrapping
 }

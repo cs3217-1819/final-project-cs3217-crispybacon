@@ -88,11 +88,11 @@ class StorageManagerTests: XCTestCase {
         XCTAssertTrue(try database.loadTransactions(after: TestUtils.january1st2019time0800, limit: 0).isEmpty)
 
         // Save transactions
-        let transactions = [TestUtils.validTransactionDate02,
+        let transactions = [TestUtils.validTransactionDate03,
                             TestUtils.validTransactionDate01point2]
         XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate01))
         XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate01point2))
-        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate02))
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate03))
         let loadedTransactions = try! database.loadTransactions(after: TestUtils.january1st2019time0800, limit: 5)
         XCTAssertEqual(loadedTransactions.count, 2)
         // Check that the transactions loaded out are equal and in reverse chronological order
@@ -122,7 +122,7 @@ class StorageManagerTests: XCTestCase {
                             TestUtils.validTransactionDate01]
         XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate01))
         XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate01point2))
-        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate02))
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate03))
         let loadedTransactions = try! database.loadTransactions(before: TestUtils.january5th2019time1230, limit: 5)
         XCTAssertEqual(loadedTransactions.count, 2)
         // Check that the transactions loaded out are equal and in reverse chronological order
@@ -136,6 +136,31 @@ class StorageManagerTests: XCTestCase {
     func test_invalid_loadTransactions_before() {
         let database = try! StorageManager()
         XCTAssertThrowsError(try database.loadTransactions(before: TestUtils.january5th2019time1230, limit: -3))
+    }
+
+    func test_loadTransactions_from_to() {
+        let database = try! StorageManager()
+        // Clear database
+        try! database.clearTransactionDatabase()
+        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
+        // Test loading empty database
+        XCTAssertTrue(try database.loadTransactions(from: TestUtils.january1st2019time0800,
+                                                    to: TestUtils.january5th2019time1230).isEmpty)
+
+        // Save transactions
+        let transactions = [TestUtils.validTransactionDate02point2,
+                            TestUtils.validTransactionDate02,
+                            TestUtils.validTransactionDate01point2]
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate01))
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate01point2))
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate02))
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate02point2))
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate03))
+        let loadedTransactions = try! database.loadTransactions(from: TestUtils.january1st2019time1000,
+                                                                to: TestUtils.january2nd2019time1500)
+        XCTAssertEqual(loadedTransactions.count, 3)
+        // Check that the transactions loaded out are equal and in reverse chronological order
+        XCTAssertEqual(loadedTransactions, transactions)
     }
 
     func test_loadTransactions_OfType() {

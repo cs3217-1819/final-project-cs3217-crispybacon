@@ -86,6 +86,19 @@ class StorageManager {
         return try concreteStorage.loadTransactions(before: date, limit: limit)
     }
 
+    /// Loads a collection of Transaction between the 2 dates specified inclusively.
+    /// - Parameters:
+    ///     - from: The start date
+    ///     - to: The end date
+    /// - Returns:
+    ///     every transactions that fall between the fromDate and toDate inclusively
+    ///     in reverse chronological order.
+    ///     If there are no transactions saved, an empty array is returned.
+    /// - Throws: `StorageError`
+    func loadTransactions(from fromDate: Date, to toDate: Date) throws -> [Transaction] {
+        return try concreteStorage.loadTransactions(from: fromDate, to: toDate)
+    }
+
     /// Loads a collection of Transaction with the requirements specified.
     /// - Parameters:
     ///     - type: The transaction type.
