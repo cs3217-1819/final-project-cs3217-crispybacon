@@ -20,11 +20,19 @@ class AddTransactionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if transactionType == .expenditure {
-            typeLabel.text = "-"
+            setExpenditureType()
         } else {
-            typeLabel.text = "+"
+            setIncomeType()
         }
         categoryLabel.text = Constants.defaultCategoryString
+    }
+
+    @IBAction func typeFieldPressed(_ sender: UITapGestureRecognizer) {
+        if transactionType == .expenditure {
+            setIncomeType()
+        } else {
+            setExpenditureType()
+        }
     }
 
     @IBAction func categoryButtonPressed(_ sender: UIButton) {
@@ -82,6 +90,20 @@ class AddTransactionViewController: UIViewController {
         let amountString = amountField.text
         let amountDecimal = Decimal(string: amountString ?? Constants.defaultAmountString)
         return amountDecimal ?? Constants.defaultAmount
+    }
+
+    private func setExpenditureType() {
+        transactionType = .expenditure
+        typeLabel.text = "-"
+        typeLabel.textColor = UIColor.red
+        categoryLabel.textColor = UIColor.red
+    }
+
+    private func setIncomeType() {
+        transactionType = .income
+        typeLabel.text = "+"
+        typeLabel.textColor = UIColor.green
+        categoryLabel.textColor = UIColor.green
     }
 }
 
