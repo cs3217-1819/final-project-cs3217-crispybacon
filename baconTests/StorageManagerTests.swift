@@ -97,6 +97,45 @@ class StorageManagerTests: XCTestCase {
         XCTAssertEqual(loadedTransactions.count, 2)
         // Check that the transactions loaded out are equal and in reverse chronological order
         XCTAssertEqual(loadedTransactions, transactions)
+
+        // Test limit
+        let limitedTransactions = try! database.loadTransactions(after: TestUtils.january1st2019time0800, limit: 1)
+        XCTAssertEqual(limitedTransactions.count, 1)
+    }
+
+    func test_invalid_loadTransactions_after() {
+        let database = try! StorageManager()
+        XCTAssertThrowsError(try database.loadTransactions(after: TestUtils.january5th2019time1230, limit: -1))
+    }
+
+    func test_loadTransactions_before() {
+        let database = try! StorageManager()
+        // Clear database
+        try! database.clearTransactionDatabase()
+        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
+        // Test loading empty database
+        XCTAssertTrue(try database.loadTransactions(before: TestUtils.january1st2019time0800, limit: 10).isEmpty)
+        XCTAssertTrue(try database.loadTransactions(before: TestUtils.january1st2019time0800, limit: 0).isEmpty)
+
+        // Save transactions
+        let transactions = [TestUtils.validTransactionDate01point2,
+                            TestUtils.validTransactionDate01]
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate01))
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate01point2))
+        XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionDate02))
+        let loadedTransactions = try! database.loadTransactions(before: TestUtils.january5th2019time1230, limit: 5)
+        XCTAssertEqual(loadedTransactions.count, 2)
+        // Check that the transactions loaded out are equal and in reverse chronological order
+        XCTAssertEqual(loadedTransactions, transactions)
+
+        // Test limit
+        let limitedTransactions = try! database.loadTransactions(before: TestUtils.january5th2019time1230, limit: 1)
+        XCTAssertEqual(limitedTransactions.count, 1)
+    }
+
+    func test_invalid_loadTransactions_before() {
+        let database = try! StorageManager()
+        XCTAssertThrowsError(try database.loadTransactions(before: TestUtils.january5th2019time1230, limit: -3))
     }
 
     func test_loadTransactions_OfType() {

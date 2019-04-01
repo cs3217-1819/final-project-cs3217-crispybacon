@@ -203,6 +203,19 @@ class StorageCouchBaseDB {
         return try getTransactionsFromQuery(query)
     }
 
+    func loadTransactions(before date: Date, limit: Int) throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all())
+            .from(DataSource.database(transactionDatabase))
+            .where(Expression.property(Constants.rawDateKey).lessThan(Expression.date(date)))
+            .orderBy(Ordering.property(Constants.rawDateKey).descending())
+            .limit(Expression.int(limit))
+        log.info("""
+            StorageCouchBaseDB.loadTransactions() with arguments:
+            before=\(date) limit=\(limit).
+            """)
+        return try getTransactionsFromQuery(query)
+    }
+
     func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction] {
         let query = QueryBuilder.select(SelectResult.all())
                                 .from(DataSource.database(transactionDatabase))

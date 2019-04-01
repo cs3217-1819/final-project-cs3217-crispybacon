@@ -67,6 +67,25 @@ class StorageManager {
         return try concreteStorage.loadTransactions(after: date, limit: limit)
     }
 
+    /// Loads a collection of Transaction before the date specified.
+    /// - Parameters:
+    ///     - date: The boundary date
+    ///     - limit: The number of transaction to load.
+    /// - Returns:
+    ///     the specified number of transactions in reverse chronological order.
+    ///     If there are no transactions saved, an empty array is returned.
+    /// - Throws:
+    ///     `InvalidArgumentError` if limit < 0
+    ///     `StorageError`
+    func loadTransactions(before date: Date, limit: Int) throws -> [Transaction] {
+        guard limit >= 0 else {
+            throw InvalidArgumentError(message: """
+                Limit: \(limit) passed into LoadTransactions(before..) should be non-negative.
+                """)
+        }
+        return try concreteStorage.loadTransactions(before: date, limit: limit)
+    }
+
     /// Loads a collection of Transaction with the requirements specified.
     /// - Parameters:
     ///     - type: The transaction type.
