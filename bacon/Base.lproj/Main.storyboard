@@ -56,38 +56,69 @@
                                 </connections>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="lWb-fz-Emn" userLabel="Buttons View">
-                                <rect key="frame" x="0.0" y="994" width="768" height="30"/>
+                                <rect key="frame" x="0.0" y="974" width="768" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNB-yy-VNW" userLabel="Transactions">
-                                        <rect key="frame" x="0.0" y="0.0" width="192" height="30"/>
-                                        <state key="normal" title="Transactions"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="192" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                        <state key="normal" title="Transactions">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <segue destination="DTU-VI-2oa" kind="show" identifier="mainToTransaction" id="Nsf-ue-a2a"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ec-Uk-Ak7" userLabel="Analysis">
-                                        <rect key="frame" x="192" y="0.0" width="192" height="30"/>
-                                        <state key="normal" title="Analysis"/>
+                                        <rect key="frame" x="192" y="0.0" width="192" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                        <state key="normal" title="Analysis">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                         <connections>
                                             <segue destination="Tp5-rL-sjF" kind="show" identifier="mainToAnalysis" id="B4o-FO-fhd"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0f-Dn-zcg" userLabel="Wishlist">
-                                        <rect key="frame" x="384" y="0.0" width="192" height="30"/>
-                                        <state key="normal" title="Wishlist"/>
+                                        <rect key="frame" x="384" y="0.0" width="192" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                        <state key="normal" title="Wishlist">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EK7-qi-sDI" userLabel="Bacon">
-                                        <rect key="frame" x="576" y="0.0" width="192" height="30"/>
-                                        <state key="normal" title="Bacon"/>
+                                        <rect key="frame" x="576" y="0.0" width="192" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                        <state key="normal" title="Wardrobe">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Av9-vQ-A4L"/>
+                                </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlD-kM-NbW" userLabel="Plus View">
+                                <rect key="frame" x="354" y="964" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="eXz-CF-kDv"/>
+                                    <constraint firstAttribute="height" constant="60" id="mc8-cr-5tk"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="plus"/>
+                                <connections>
+                                    <action selector="plusButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="nZW-oa-6PY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="lWb-fz-Emn" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3v9-4J-Lqb"/>
                             <constraint firstItem="w77-sl-pTn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="978-E5-ztn"/>
+                            <constraint firstItem="XlD-kM-NbW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Fbi-QR-q2R"/>
                             <constraint firstItem="srG-5J-sOi" firstAttribute="top" secondItem="w77-sl-pTn" secondAttribute="bottom" constant="40" id="Lek-GU-fHS"/>
                             <constraint firstItem="5Iu-o9-Qlj" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ohx-f2-VWu"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lWb-fz-Emn" secondAttribute="trailing" id="SyP-JY-nFQ"/>
@@ -95,6 +126,7 @@
                             <constraint firstItem="lWb-fz-Emn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hZd-Bk-QkM"/>
                             <constraint firstItem="w77-sl-pTn" firstAttribute="top" secondItem="5Iu-o9-Qlj" secondAttribute="bottom" constant="10" id="jk4-Xn-J82"/>
                             <constraint firstItem="srG-5J-sOi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nRe-2e-8Nl"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="XlD-kM-NbW" secondAttribute="bottom" id="sIe-3q-fSV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -832,8 +864,9 @@
     <resources>
         <image name="coin" width="887" height="885"/>
         <image name="demo" width="659" height="727"/>
+        <image name="plus" width="294" height="294"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8Ch-jd-bcE"/>
+        <segue reference="nRX-mK-th1"/>
     </inferredMetricsTieBreakers>
 </document>

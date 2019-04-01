@@ -22,6 +22,10 @@ class MainPageViewController: UIViewController {
         animateFloatingCoin()
     }
 
+    @IBAction func plusButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "mainToAddTransactionEx", sender: nil)
+    }
+
     @IBAction func coinSwipedUp(_ sender: UISwipeGestureRecognizer) {
         performSegue(withIdentifier: "mainToAddTransactionEx", sender: nil)
     }
