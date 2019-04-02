@@ -82,6 +82,7 @@ class StorageCouchBaseDB {
         do {
             let transactionData = try transaction.asDictionary()
             let transactionDocument = MutableDocument(data: transactionData)
+            transactionDocument.setDate(transaction.date, forKey: Constants.rawDateKey)
             return transactionDocument
         } catch {
             log.info("""
@@ -144,45 +145,114 @@ class StorageCouchBaseDB {
         }
     }
 
-    func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction] {
-        let query = QueryBuilder.select(SelectResult.all())
-                                .from(DataSource.database(transactionDatabase))
-                                .where(Expression.property("type").equalTo(Expression.string(type.rawValue)))
-                                .orderBy(Ordering.property("date").descending())
-                                .limit(Expression.int(limit))
+    private func getTransactionsFromQuery(_ query: Query) throws -> [Transaction] {
         do {
             var transactions: [Transaction] = Array()
             for result in try query.execute().allResults() {
-                guard let transactionDictionary =
-                        result.toDictionary()[DatabaseCollections.transactions.rawValue] as? [String: Any] else {
-                    throw StorageError(message: "Could not read Document loaded from database as Dictionary.")
+                guard var transactionDictionary =
+                    result.toDictionary()[DatabaseCollections.transactions.rawValue] as? [String: Any] else {
+                        throw StorageError(message: "Could not read Document loaded from database as Dictionary.")
                 }
+                transactionDictionary.removeValue(forKey: Constants.rawDateKey)
                 let transactionData = try JSONSerialization.data(withJSONObject: transactionDictionary, options: [])
                 let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
                 transactions.append(currentTransaction)
             }
-            log.info("""
-                StorageCouchBaseDB.loadTransactions() with arguments:
-                limit=\(limit) ofType=\(type).
-            """)
             return transactions
         } catch {
             if error is DecodingError {
                 log.info("""
-                    StorageCouchBaseDB.loadTransactions():
+                    StorageCouchBaseDB.getTransactionsFromQuery():
                     Encounter error decoding data from database.
                     Throwing StorageError.
                 """)
                 throw StorageError(message: "Data loaded from database couldn't be decoded back as Transactions.")
             } else {
                 log.info("""
-                    StorageCouchBaseDB.loadTransactions():
+                    StorageCouchBaseDB.getTransactionsFromQuery():
                     Encounter error loading data from database.
                     Throwing StorageError.
                 """)
-                throw StorageError(message: "Transactions of type \(type) couldn't be loaded from database.")
+                throw StorageError(message: "Transactions data couldn't be loaded from database.")
             }
         }
+    }
+
+    func loadTransactions(limit: Int) throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all())
+            .from(DataSource.database(transactionDatabase))
+            .orderBy(Ordering.property(Constants.rawDateKey).descending())
+            .limit(Expression.int(limit))
+        log.info("""
+            StorageCouchBaseDB.loadTransactions() with arguments:
+            limit=\(limit).
+            """)
+        return try getTransactionsFromQuery(query)
+    }
+
+    func loadTransactions(after date: Date, limit: Int) throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all())
+            .from(DataSource.database(transactionDatabase))
+            .where(Expression.property(Constants.rawDateKey).greaterThan(Expression.date(date)))
+            .orderBy(Ordering.property(Constants.rawDateKey).descending())
+            .limit(Expression.int(limit))
+        log.info("""
+            StorageCouchBaseDB.loadTransactions() with arguments:
+            after=\(date) limit=\(limit).
+            """)
+        return try getTransactionsFromQuery(query)
+    }
+
+    func loadTransactions(before date: Date, limit: Int) throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all())
+            .from(DataSource.database(transactionDatabase))
+            .where(Expression.property(Constants.rawDateKey).lessThan(Expression.date(date)))
+            .orderBy(Ordering.property(Constants.rawDateKey).descending())
+            .limit(Expression.int(limit))
+        log.info("""
+            StorageCouchBaseDB.loadTransactions() with arguments:
+            before=\(date) limit=\(limit).
+            """)
+        return try getTransactionsFromQuery(query)
+    }
+
+    func loadTransactions(from fromDate: Date, to toDate: Date) throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all())
+            .from(DataSource.database(transactionDatabase))
+            .where(Expression.property(Constants.rawDateKey)
+                .between(Expression.date(fromDate), and: Expression.date(toDate)))
+            .orderBy(Ordering.property(Constants.rawDateKey).descending())
+        log.info("""
+            StorageCouchBaseDB.loadTransactions() with arguments:
+            from=\(fromDate) to=\(toDate).
+            """)
+        return try getTransactionsFromQuery(query)
+    }
+
+    func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all())
+                                .from(DataSource.database(transactionDatabase))
+                                .where(Expression.property(Constants.typeKey).equalTo(Expression.string(type.rawValue)))
+                                .orderBy(Ordering.property(Constants.rawDateKey).descending())
+                                .limit(Expression.int(limit))
+        log.info("""
+            StorageCouchBaseDB.loadTransactions() with arguments:
+            ofType=\(type) limit=\(limit).
+            """)
+        return try getTransactionsFromQuery(query)
+    }
+
+    func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all())
+            .from(DataSource.database(transactionDatabase))
+            .where(Expression.property(Constants.categoryKey).equalTo(Expression.string(category.rawValue)))
+            .orderBy(Ordering.property(Constants.rawDateKey).descending())
+            .limit(Expression.int(limit))
+        log.info("""
+            StorageCouchBaseDB.loadTransactions() with arguments:
+            ofCategory=\(category) limit=\(limit).
+            """)
+        return try getTransactionsFromQuery(query)
     }
 }
 

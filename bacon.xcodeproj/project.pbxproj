@@ -31,6 +31,7 @@
 		9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */; };
 		9F79E46E2246463F00BCDDE8 /* StorageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */; };
 		9F7C6DE6224B66F5003E7702 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7C6DE5224B66F5003E7702 /* TestUtils.swift */; };
+		9F7C6DE9224B9C75003E7702 /* InvalidArgumentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7C6DE8224B9C75003E7702 /* InvalidArgumentError.swift */; };
 		9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7FD1132240CD51001E1A8E /* StorageManager.swift */; };
 		9FB4E16E224419880005403F /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FB4E16D224419880005403F /* StorageError.swift */; };
 		BEE6B6622240C9F10077DFD7 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */; };
@@ -94,6 +95,7 @@
 		9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCouchBaseDB.swift; sourceTree = "<group>"; };
 		9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerTests.swift; sourceTree = "<group>"; };
 		9F7C6DE5224B66F5003E7702 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		9F7C6DE8224B9C75003E7702 /* InvalidArgumentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidArgumentError.swift; sourceTree = "<group>"; };
 		9F7FD1132240CD51001E1A8E /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		9FB4E16D224419880005403F /* StorageError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
 		BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				8FD5F7CF2240EA700023A7FC /* InitializationError.swift */,
+				9F7C6DE8224B9C75003E7702 /* InvalidArgumentError.swift */,
 				9FB4E16D224419880005403F /* StorageError.swift */,
 				BEE6B6682243F79C0077DFD7 /* Constants.swift */,
 				8F8487E0224DA874001F881C /* CodableCLLocation.swift */,
@@ -267,6 +270,7 @@
 				8F6A7A392240B583002E695A /* Frameworks */,
 				8F6A7A3A2240B583002E695A /* Resources */,
 				CBD90862E033C7512FC11550 /* [CP] Embed Pods Frameworks */,
+				9F7C6DE7224B8EE9003E7702 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -431,6 +435,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9F7C6DE7224B8EE9003E7702 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		C3B87F0B5CFDEA20286725BD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -490,6 +511,7 @@
 				8F6A7A422240B583002E695A /* MainPageViewController.swift in Sources */,
 				9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */,
 				8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */,
+				9F7C6DE9224B9C75003E7702 /* InvalidArgumentError.swift in Sources */,
 				BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */,
 				9FB4E16E224419880005403F /* StorageError.swift in Sources */,
 				9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */,
