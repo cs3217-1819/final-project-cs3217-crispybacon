@@ -12,21 +12,17 @@
 import Foundation
 
 class StorageManager {
-    /// Singleton instance
-    static let sharedStorage: StorageManager? = StorageManager()
-    // MARK: - Properties
+
     private let concreteStorage: StorageCouchBaseDB
 
-    private init?() {
-        do {
-            concreteStorage = try StorageCouchBaseDB()
-        } catch {
-            log.info("""
-                StorageManager.init() :
-                Encounter error initializing concrete database.
-                """)
-            return nil
+    init() throws {
+        guard let sharedDatabase = StorageCouchBaseDB.sharedDatabase else {
+            throw StorageError(message: "Unable to access singleton instance of concrete database class")
         }
+        concreteStorage = sharedDatabase
+        log.info("""
+            StorageManager initialized using StorageManager.init()
+            """)
     }
 
     func getNumberOfTransactionsInDatabase() -> Double {

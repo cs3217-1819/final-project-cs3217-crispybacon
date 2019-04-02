@@ -9,8 +9,12 @@
 import Foundation
 
 class CoreLogic {
-    init() {
 
+    // MARK: - Properties
+    private let transactionManager: TransactionManager
+
+    init() throws {
+        transactionManager = try TransactionManager()
     }
 
     func recordTransaction(date: Date, type: TransactionType, frequency: TransactionFrequency,
@@ -24,9 +28,6 @@ class CoreLogic {
             date=\(date) type=\(type) frequency=\(frequency) category=\(category) amount=\(amount)
             description=\(description) location=\(location as Optional).
             """)
-        guard let storageManager = StorageManager.sharedStorage else {
-            throw StorageError(message: "Encounter error accessing storage manager instance in CoreLogic.")
-        }
-        try storageManager.saveTransaction(currentTransaction)
+        try transactionManager.saveTransaction(currentTransaction)
     }
 }

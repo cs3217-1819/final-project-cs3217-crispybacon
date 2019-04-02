@@ -11,14 +11,13 @@ import XCTest
 
 class StorageManagerTests: XCTestCase {
     // swiftlint:disable force_try
-    // swiftlint:disable force_unwrapping
 
     func test_init_success() {
-        XCTAssertNotNil(StorageManager.sharedStorage)
+        XCTAssertNoThrow(try StorageManager())
     }
 
     func test_getNumberOfTransactionsInDatabase() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         XCTAssertNoThrow(try database.clearTransactionDatabase())
         // Empty database should return 0 for getNumberOfTransactionsInDatabase()
         XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
@@ -29,7 +28,7 @@ class StorageManagerTests: XCTestCase {
     }
 
     func test_clearTransactionDatabase() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         // If database is empty, save a transaction
         if database.getNumberOfTransactionsInDatabase() == 0 {
             XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionExpenditure01))
@@ -41,7 +40,7 @@ class StorageManagerTests: XCTestCase {
 
     // This Test case might need to be updated when storage deals with transaction ids
     func test_saveTransaction() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         try! database.clearTransactionDatabase()
         XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
         XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionExpenditure01))
@@ -51,7 +50,7 @@ class StorageManagerTests: XCTestCase {
     }
 
     func test_loadTransactions_limit() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         // Clear database
         try! database.clearTransactionDatabase()
         XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
@@ -75,12 +74,12 @@ class StorageManagerTests: XCTestCase {
     }
 
     func test_invalid_loadTransactions_limit() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         XCTAssertThrowsError(try database.loadTransactions(limit: -1))
     }
 
     func test_loadTransactions_after() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         // Clear database
         try! database.clearTransactionDatabase()
         XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
@@ -105,12 +104,12 @@ class StorageManagerTests: XCTestCase {
     }
 
     func test_invalid_loadTransactions_after() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         XCTAssertThrowsError(try database.loadTransactions(after: TestUtils.january5th2019time1230, limit: -1))
     }
 
     func test_loadTransactions_before() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         // Clear database
         try! database.clearTransactionDatabase()
         XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
@@ -135,12 +134,12 @@ class StorageManagerTests: XCTestCase {
     }
 
     func test_invalid_loadTransactions_before() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         XCTAssertThrowsError(try database.loadTransactions(before: TestUtils.january5th2019time1230, limit: -3))
     }
 
     func test_loadTransactions_from_to() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         // Clear database
         try! database.clearTransactionDatabase()
         XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
@@ -165,7 +164,7 @@ class StorageManagerTests: XCTestCase {
     }
 
     func test_loadTransactions_OfType() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         // Clear database
         try! database.clearTransactionDatabase()
         XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
@@ -203,12 +202,12 @@ class StorageManagerTests: XCTestCase {
     }
 
     func test_invalid_loadTransactions_OfType() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         XCTAssertThrowsError(try database.loadTransactions(ofType: .expenditure, limit: -1))
     }
 
     func test_loadTransactions_OfCategory() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         // Clear database
         try! database.clearTransactionDatabase()
         XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
@@ -246,10 +245,9 @@ class StorageManagerTests: XCTestCase {
     }
 
     func test_invalid_loadTransactions_OfCategory() {
-        let database = StorageManager.sharedStorage!
+        let database = try! StorageManager()
         XCTAssertThrowsError(try database.loadTransactions(ofCategory: .travel, limit: -1))
     }
 
     // swiftlint:enable force_try
-    // swiftlint:enable force_unwrapping
 }

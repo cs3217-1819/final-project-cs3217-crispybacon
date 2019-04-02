@@ -17,11 +17,26 @@ private enum DatabaseCollections: String {
 }
 
 class StorageCouchBaseDB {
+    static let sharedDatabase: StorageCouchBaseDB? = StorageCouchBaseDB()
+
+    // MARK: - Properties
     private var transactionDatabase: Database
 
-    init() throws {
+    private init?() {
         // Initialize database
-        transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
+        do {
+            transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
+            log.info("""
+                StorageCouchBaseDB.init() :
+                Initializing singleton instance of couchbase database.
+                """)
+        } catch {
+            log.info("""
+                StorageManager.init() :
+                Encounter error initializing couchbase database.
+                """)
+            return nil
+        }
     }
 
     private static func openOrCreateEmbeddedDatabase(name: DatabaseCollections) throws -> Database {
