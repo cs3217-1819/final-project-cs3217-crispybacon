@@ -41,7 +41,7 @@ class StorageManagerTests: XCTestCase {
     // This Test case might need to be updated when storage deals with transaction ids
     func test_saveTransaction() {
         let database = try! StorageManager()
-        try! database.clearTransactionDatabase()
+        XCTAssertNoThrow(try database.clearTransactionDatabase())
         XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
         XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionExpenditure01))
         // Load the transaction out of database and check if its the one that was saved

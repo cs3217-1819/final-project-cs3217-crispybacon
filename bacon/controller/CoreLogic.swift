@@ -17,6 +17,14 @@ class CoreLogic {
         transactionManager = try TransactionManager()
     }
 
+    func getTotalTransactionsRecorded() -> Double {
+        return transactionManager.getNumberOfTransactionsInDatabase()
+    }
+
+    func clearAllTransactions() throws {
+        try transactionManager.clearTransactionDatabase()
+    }
+
     func recordTransaction(date: Date, type: TransactionType, frequency: TransactionFrequency,
                            category: TransactionCategory, amount: Decimal, description: String,
                            location: CodableCLLocation? = nil ) throws {
@@ -29,5 +37,36 @@ class CoreLogic {
             description=\(description) location=\(location as Optional).
             """)
         try transactionManager.saveTransaction(currentTransaction)
+    }
+
+    func loadTransactions(month: Int, year: Int) throws -> [Transaction] {
+        guard month > 0 && month < 13 else {
+            throw InvalidArgumentError(message: "Month should be an integer ranging from 1 to 12.")
+        }
+        guard year >= 0 && year < 10_000 else {
+            throw InvalidArgumentError(message: "Year should be an integer ranging from 0000 to 9999")
+        }
+        let monthString = String(format: "%02d", month)
+        guard let startDate = Constants.getDateFormatter().date(from: "\(year)-\(monthString)-01 00:00:00") else {
+            throw InitializationError(message: """
+                Unable to initialize start date from month and year given in CoreLogic.loadTransaction().
+            """)
+        }
+        guard let daysInMonth = Calendar.current.range(of: .day, in: .month, for: startDate)?.count else {
+            throw InitializationError(message: """
+                Unable to identify number of days in month supplied in CoreLogic.loadTransaction().
+            """)
+        }
+        guard let endDate = Constants.getDateFormatter()
+            .date(from: "\(year)-\(monthString)-\(daysInMonth) 23:59:59") else {
+            throw InitializationError(message: """
+                Unable to initialize end date from month and year given in CoreLogic.loadTransaction().
+            """)
+        }
+        log.info("""
+            CoreLogic.loadTransaction() with arguments:
+            month=\(month) year=\(year).
+            """)
+        return try transactionManager.loadTransactions(from: startDate, to: endDate)
     }
 }
