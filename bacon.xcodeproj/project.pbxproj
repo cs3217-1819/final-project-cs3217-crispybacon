@@ -25,6 +25,7 @@
 		8F8487DD224BC4C7001F881C /* ObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8487DC224BC4C7001F881C /* ObserverTests.swift */; };
 		8F8487E1224DA874001F881C /* CodableCLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8487E0224DA874001F881C /* CodableCLLocation.swift */; };
 		8F8487E3224DA98A001F881C /* CodableCLLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8487E2224DA98A001F881C /* CodableCLLocationTests.swift */; };
+		8FD0EC8B22533E3E00FCCBFB /* CodableUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD0EC8A22533E3E00FCCBFB /* CodableUIImage.swift */; };
 		8FD5F7CB2240E7620023A7FC /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7CA2240E7620023A7FC /* Transaction.swift */; };
 		8FD5F7CD2240E8F20023A7FC /* TransactionFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7CC2240E8F20023A7FC /* TransactionFrequency.swift */; };
 		8FD5F7D02240EA700023A7FC /* InitializationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7CF2240EA700023A7FC /* InitializationError.swift */; };
@@ -93,6 +94,7 @@
 		8F8487E0224DA874001F881C /* CodableCLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableCLLocation.swift; sourceTree = "<group>"; };
 		8F8487E2224DA98A001F881C /* CodableCLLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableCLLocationTests.swift; sourceTree = "<group>"; };
 		8FBEDD8B3903E2EC8591BBD1 /* Pods-baconUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8FD0EC8A22533E3E00FCCBFB /* CodableUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUIImage.swift; sourceTree = "<group>"; };
 		8FD5F7CA2240E7620023A7FC /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		8FD5F7CC2240E8F20023A7FC /* TransactionFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionFrequency.swift; sourceTree = "<group>"; };
 		8FD5F7CF2240EA700023A7FC /* InitializationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializationError.swift; sourceTree = "<group>"; };
@@ -229,11 +231,11 @@
 				8FD5F7CF2240EA700023A7FC /* InitializationError.swift */,
 				9F7C6DE8224B9C75003E7702 /* InvalidArgumentError.swift */,
 				9FB4E16D224419880005403F /* StorageError.swift */,
-				BEE6B6682243F79C0077DFD7 /* Config.swift */,
 				8F8487D8224B7909001F881C /* Observer.swift */,
 				8F8487DA224B7D7D001F881C /* Observable.swift */,
 				BEE6B6682243F79C0077DFD7 /* Constants.swift */,
 				8F8487E0224DA874001F881C /* CodableCLLocation.swift */,
+				8FD0EC8A22533E3E00FCCBFB /* CodableUIImage.swift */,
 			);
 			path = commons;
 			sourceTree = "<group>";
@@ -540,6 +542,7 @@
 				BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */,
 				9FB4E16E224419880005403F /* StorageError.swift in Sources */,
 				8F8487D9224B7909001F881C /* Observer.swift in Sources */,
+				8FD0EC8B22533E3E00FCCBFB /* CodableUIImage.swift in Sources */,
 				9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */,
 				8FD5F7D32240EE8C0023A7FC /* TransactionCategory.swift in Sources */,
 				BEE6B6692243F79C0077DFD7 /* Constants.swift in Sources */,
