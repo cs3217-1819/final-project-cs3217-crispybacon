@@ -43,7 +43,7 @@ extension CLLocation: Encodable {
 }
 
 // MARK: CLLocation: Equatable
-extension CLLocation: Equatable {
+extension CLLocation {
 
     // Although CLLocation conforms to Equatable already, it is using NSObject's == function.
     // As a result, 2 CLLocation instances which have the exact properties are considered to be unequal.

@@ -16,7 +16,7 @@ import UIKit
 // However, testing shows that this does not always work as expected.
 //
 // This extension overrides the default isEqual() method to compare using only image data.
-extension UIImage: Equatable {
+extension UIImage {
 
     static func == (lhs: UIImage, rhs: UIImage) -> Bool {
         return lhs.pngData()?.base64EncodedString() == rhs.pngData()?.base64EncodedString()
