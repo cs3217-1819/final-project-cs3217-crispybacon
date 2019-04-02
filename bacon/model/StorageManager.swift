@@ -12,10 +12,21 @@
 import Foundation
 
 class StorageManager {
-    private var concreteStorage: StorageCouchBaseDB
+    /// Singleton instance
+    static let sharedStorage: StorageManager? = StorageManager()
+    // MARK: - Properties
+    private let concreteStorage: StorageCouchBaseDB
 
-    init() throws {
-        concreteStorage = try StorageCouchBaseDB()
+    private init?() {
+        do {
+            concreteStorage = try StorageCouchBaseDB()
+        } catch {
+            log.info("""
+                StorageManager.init() :
+                Encounter error initializing concrete database.
+                """)
+            return nil
+        }
     }
 
     func getNumberOfTransactionsInDatabase() -> Double {
