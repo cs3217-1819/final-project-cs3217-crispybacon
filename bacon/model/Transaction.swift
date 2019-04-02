@@ -47,6 +47,12 @@ class Transaction: Codable, Observable {
             notifyObserversOfSelf()
         }
     }
+    var location: CodableCLLocation? {
+        didSet {
+            log.info("Set location=\(String(describing: location))")
+            notifyObserversOfSelf()
+        }
+    }
 
     var observers: [Observer] = []
 
@@ -60,6 +66,7 @@ class Transaction: Codable, Observable {
         case category
         case amount
         case description
+        case location
     }
 
     /// Creates a Transaction instance.
@@ -76,11 +83,12 @@ class Transaction: Codable, Observable {
          frequency: TransactionFrequency,
          category: TransactionCategory,
          amount: Decimal,
-         description: String = "") throws {
+         description: String = "",
+         location: CodableCLLocation? = nil) throws {
         log.info("""
             Transaction:init() with the following arguments:
             date=\(date) type=\(type) frequency=\(frequency) category=\(category)
-            amount=\(amount) description=\(description)
+            amount=\(amount) description=\(description) location=\(String(describing: location))
             """)
 
         guard amount > 0 else {
@@ -94,6 +102,7 @@ class Transaction: Codable, Observable {
         self.category = category
         self.amount = amount
         self.description = description
+        self.location = location
     }
 
     /// Notifies all observers of changes to self.
@@ -114,6 +123,7 @@ extension Transaction: Equatable {
             && lhs.category == rhs.category
             && lhs.amount == rhs.amount
             && lhs.description == rhs.description
+            && lhs.location == rhs.location
     }
 
     static func != (lhs: Transaction, rhs: Transaction) -> Bool {
