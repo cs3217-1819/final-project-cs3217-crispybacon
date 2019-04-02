@@ -47,6 +47,12 @@ class Transaction: Codable, Observable {
             notifyObserversOfSelf()
         }
     }
+    var image: CodableUIImage? {
+        didSet {
+            log.info("Updated image")
+            notifyObserversOfSelf()
+        }
+    }
     var location: CodableCLLocation? {
         didSet {
             log.info("Set location=\(String(describing: location))")
@@ -66,6 +72,7 @@ class Transaction: Codable, Observable {
         case category
         case amount
         case description
+        case image
         case location
     }
 
@@ -84,6 +91,7 @@ class Transaction: Codable, Observable {
          category: TransactionCategory,
          amount: Decimal,
          description: String = "",
+         image: CodableUIImage? = nil,
          location: CodableCLLocation? = nil) throws {
         log.info("""
             Transaction:init() with the following arguments:
@@ -102,6 +110,7 @@ class Transaction: Codable, Observable {
         self.category = category
         self.amount = amount
         self.description = description
+        self.image = image
         self.location = location
     }
 
@@ -123,6 +132,7 @@ extension Transaction: Equatable {
             && lhs.category == rhs.category
             && lhs.amount == rhs.amount
             && lhs.description == rhs.description
+            && lhs.image == rhs.image
             && lhs.location == rhs.location
     }
 
