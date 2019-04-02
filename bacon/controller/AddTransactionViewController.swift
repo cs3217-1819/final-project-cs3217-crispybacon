@@ -10,9 +10,10 @@ import UIKit
 import CoreLocation
 
 class AddTransactionViewController: UIViewController {
-    
+
     let locationManager = CLLocationManager()
     let geoCoder = CLGeocoder()
+
     var transactionType = Constants.defaultTransactionType
     private var selectedCategory = Constants.defaultCategory
     private var photo: UIImage?
@@ -22,29 +23,30 @@ class AddTransactionViewController: UIViewController {
     @IBOutlet private weak var typeLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
     @IBOutlet private weak var descriptionField: UITextField!
-    @IBOutlet weak var locationLabel: UILabel!
-    
+    @IBOutlet private weak var locationLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Set up transaction type
         if transactionType == .expenditure {
             setExpenditureType()
         } else {
             setIncomeType()
         }
         categoryLabel.text = Constants.defaultCategoryString
-        
+
+        // Request permission for location services
         self.locationManager.requestAlwaysAuthorization()
-        
-        // For use in foreground
         self.locationManager.requestWhenInUseAuthorization()
-        
+
+        // Get location immediately
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters // hard coded for now
             locationManager.startUpdatingLocation()
+            captureLocation()
         }
-        
-        captureLocation()
     }
 
     @IBAction func typeFieldPressed(_ sender: UITapGestureRecognizer) {
@@ -136,7 +138,7 @@ class AddTransactionViewController: UIViewController {
         }
         return CodableUIImage(image)
     }
-    
+
     private func captureLocation() {
         guard let location = locationManager.location else {
             return
@@ -144,7 +146,7 @@ class AddTransactionViewController: UIViewController {
         // Display
         geoCoder.reverseGeocodeLocation(location) { placemarks, _ in
             if let place = placemarks?.first {
-                self.locationLabel.text = "\(place)"
+                self.locationLabel.text = "\(place)" // need to format a bit
             }
         }
         userLocation = CodableCLLocation(location)
@@ -181,12 +183,6 @@ extension AddTransactionViewController: UINavigationControllerDelegate, UIImageP
 }
 
 extension AddTransactionViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else {
-            return // ?
-        }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
-    }
 }
 
 extension AddTransactionViewController {
