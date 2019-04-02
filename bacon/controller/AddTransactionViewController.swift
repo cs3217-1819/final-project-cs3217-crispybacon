@@ -110,8 +110,8 @@ class AddTransactionViewController: UIViewController {
         return userInput ?? Constants.defaultDescription
     }
 
-    private func capturePhoto() -> Data? {
-        return photo?.jpegData(compressionQuality: 1.0)
+    private func capturePhoto() -> UIImage? {
+        return photo
     }
 
     private func setExpenditureType() {
