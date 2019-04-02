@@ -24,7 +24,8 @@ struct CodableUIImage: Codable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        let imageData = image.jpegData(compressionQuality: 1.0)
+        let imageData = image.pngData() // Using pngData() instead of jpegData() allows lossless conversion,
+            // which allows CodableUIImage to be testable
         let encodedImageData = imageData?.base64EncodedString()
 
         try container.encode(encodedImageData, forKey: .encodedImageData)
