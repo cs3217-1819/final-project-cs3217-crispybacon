@@ -9,6 +9,9 @@
 import Foundation
 
 class Constants {
+    // Global
+    static let currencySymbol = Locale.current.currencySymbol ?? "$"
+
     // Add Transaction Page Constants
     static let defaultTransactionType = TransactionType.expenditure
     static let defaultCategory = TransactionCategory.food
