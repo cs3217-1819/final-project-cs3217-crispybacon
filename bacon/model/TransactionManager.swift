@@ -8,7 +8,11 @@
 
 import Foundation
 
-class TransactionManager {
+class TransactionManager: Observer {
+    func notify(_ value: Any) {
+        // To be filled
+    }
+
     private let storageManager: StorageManager
 
     init() throws {
@@ -16,6 +20,11 @@ class TransactionManager {
         log.info("""
             ModelManager initialized using ModelManager.init()
             """)
+    }
+
+    private func observeTransactions(_ transactions: [Transaction]) -> [Transaction] {
+        transactions.forEach { transaction in transaction.registerObserver(self) }
+        return transactions
     }
 
     func getNumberOfTransactionsInDatabase() -> Double {
@@ -31,26 +40,32 @@ class TransactionManager {
     }
 
     func loadTransactions(limit: Int) throws -> [Transaction] {
-        return try storageManager.loadTransactions(limit: limit)
+        let transactions = try storageManager.loadTransactions(limit: limit)
+        return observeTransactions(transactions)
     }
 
     func loadTransactions(after date: Date, limit: Int) throws -> [Transaction] {
-        return try storageManager.loadTransactions(after: date, limit: limit)
+        let transactions = try storageManager.loadTransactions(after: date, limit: limit)
+        return observeTransactions(transactions)
     }
 
     func loadTransactions(before date: Date, limit: Int) throws -> [Transaction] {
-        return try storageManager.loadTransactions(before: date, limit: limit)
+        let transactions = try storageManager.loadTransactions(before: date, limit: limit)
+        return observeTransactions(transactions)
     }
 
     func loadTransactions(from fromDate: Date, to toDate: Date) throws -> [Transaction] {
-        return try storageManager.loadTransactions(from: fromDate, to: toDate)
+        let transactions = try storageManager.loadTransactions(from: fromDate, to: toDate)
+        return observeTransactions(transactions)
     }
 
     func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction] {
-        return try storageManager.loadTransactions(ofType: type, limit: limit)
+        let transactions = try storageManager.loadTransactions(ofType: type, limit: limit)
+        return observeTransactions(transactions)
     }
 
     func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
-        return try storageManager.loadTransactions(ofCategory: category, limit: limit)
+        let transactions = try storageManager.loadTransactions(ofCategory: category, limit: limit)
+        return observeTransactions(transactions)
     }
 }
