@@ -489,6 +489,7 @@
                         <outlet property="amountField" destination="jz8-oh-b8u" id="PwB-h0-j7g"/>
                         <outlet property="categoryLabel" destination="9OH-EA-Fun" id="atw-mp-iPV"/>
                         <outlet property="descriptionField" destination="fCt-k9-eKX" id="YBF-lJ-VkR"/>
+                        <outlet property="locationLabel" destination="8hC-jC-7Kl" id="6b4-EV-shM"/>
                         <outlet property="typeLabel" destination="LrK-Yu-LCW" id="ziF-wV-dfN"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="addToMainSuccess" id="tM7-n6-JRD"/>
                     </connections>

@@ -7,18 +7,23 @@
 //
 
 import UIKit
+import CoreLocation
 
 class AddTransactionViewController: UIViewController {
-
+    
+    let locationManager = CLLocationManager()
+    let geoCoder = CLGeocoder()
     var transactionType = Constants.defaultTransactionType
     private var selectedCategory = Constants.defaultCategory
     private var photo: UIImage?
+    private var userLocation: CodableCLLocation?
 
     @IBOutlet private weak var amountField: UITextField!
     @IBOutlet private weak var typeLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
     @IBOutlet private weak var descriptionField: UITextField!
-
+    @IBOutlet weak var locationLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if transactionType == .expenditure {
@@ -27,6 +32,19 @@ class AddTransactionViewController: UIViewController {
             setIncomeType()
         }
         categoryLabel.text = Constants.defaultCategoryString
+        
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
+        captureLocation()
     }
 
     @IBAction func typeFieldPressed(_ sender: UITapGestureRecognizer) {
@@ -68,11 +86,13 @@ class AddTransactionViewController: UIViewController {
         let amount = captureAmount()
         let description = captureDescription()
         let photo = capturePhoto()
+        let location = userLocation
 
         log.info("""
             AddTransactionViewController.captureInputs() with inputs captured:
             date=\(date), type=\(type), frequency=\(frequency), category=\(category),
-            amount=\(amount), description=\(description), photo=\(String(describing: photo))
+            amount=\(amount), description=\(description), photo=\(String(describing: photo)),
+            location=\(String(describing: location)))
             """)
 
         // Fabian, this is what I need from you
@@ -110,8 +130,24 @@ class AddTransactionViewController: UIViewController {
         return userInput ?? Constants.defaultDescription
     }
 
-    private func capturePhoto() -> UIImage? {
-        return photo
+    private func capturePhoto() -> CodableUIImage? {
+        guard let image = photo else {
+            return nil
+        }
+        return CodableUIImage(image)
+    }
+    
+    private func captureLocation() {
+        guard let location = locationManager.location else {
+            return
+        }
+        // Display
+        geoCoder.reverseGeocodeLocation(location) { placemarks, _ in
+            if let place = placemarks?.first {
+                self.locationLabel.text = "\(place)"
+            }
+        }
+        userLocation = CodableCLLocation(location)
     }
 
     private func setExpenditureType() {
@@ -141,6 +177,15 @@ extension AddTransactionViewController: UINavigationControllerDelegate, UIImageP
             return
         }
         photo = image
+    }
+}
+
+extension AddTransactionViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else {
+            return // ?
+        }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
     }
 }
 
