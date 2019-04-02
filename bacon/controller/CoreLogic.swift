@@ -25,12 +25,17 @@ class CoreLogic {
         try transactionManager.clearTransactionDatabase()
     }
 
-    func recordTransaction(date: Date, type: TransactionType, frequency: TransactionFrequency,
-                           category: TransactionCategory, amount: Decimal, description: String,
-                           location: CodableCLLocation? = nil ) throws {
+    func recordTransaction(date: Date,
+                           type: TransactionType,
+                           frequency: TransactionFrequency,
+                           category: TransactionCategory,
+                           amount: Decimal,
+                           description: String,
+                           image: CodableUIImage? = nil,
+                           location: CodableCLLocation? = nil) throws {
         let currentTransaction = try Transaction(date: date, type: type, frequency: frequency,
                                                  category: category, amount: amount, description: description,
-                                                 location: location)
+                                                 image: image, location: location)
         log.info("""
             CoreLogic.recordTransaction() with arguments:
             date=\(date) type=\(type) frequency=\(frequency) category=\(category) amount=\(amount)

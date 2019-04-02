@@ -28,6 +28,7 @@ class CoreLogicTests: XCTestCase {
                                                          category: .food,
                                                          amount: 16.50,
                                                          description: "",
+                                                         image: CodableUIImage(TestUtils.redHeartPng),
                                                          location: CodableCLLocation(TestUtils.sampleCLLocation2)))
         XCTAssertEqual(coreLogic.getTotalTransactionsRecorded(), 1)
     }
@@ -57,15 +58,19 @@ class CoreLogicTests: XCTestCase {
                                            frequency: TransactionFrequency(nature: .oneTime),
                                            category: .travel,
                                            amount: 1_200,
-                                           description: "Thailand 5 days 4 night.")
+                                           description: "Thailand 5 days 4 night.",
+                                           image: CodableUIImage(TestUtils.redHeartJpg),
+                                           location: CodableCLLocation(TestUtils.sampleCLLocation1A))
         XCTAssertNoThrow(try coreLogic.recordTransaction(date: TestUtils.january5th2019time1230,
                                                          type: .income,
                                                          frequency: TransactionFrequency(nature: .oneTime),
                                                          category: .travel,
                                                          amount: 1_200,
-                                                         description: "Thailand 5 days 4 night."))
+                                                         description: "Thailand 5 days 4 night.",
+                                                         image: CodableUIImage(TestUtils.redHeartJpg),
+                                                         location: CodableCLLocation(TestUtils.sampleCLLocation1A)))
         // Load the transaction out of database and check if its the one that was saved
-        let loadedTransaction = try! coreLogic.loadTransactions(month: 1, year: 2019)
+        let loadedTransaction = try! coreLogic.loadTransactions(month: 1, year: 2_019)
         XCTAssertEqual(transaction, loadedTransaction.first)
     }
 }
