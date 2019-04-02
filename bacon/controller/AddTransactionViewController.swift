@@ -7,24 +7,46 @@
 //
 
 import UIKit
+import CoreLocation
 
 class AddTransactionViewController: UIViewController {
 
+    let locationManager = CLLocationManager()
+    let geoCoder = CLGeocoder()
+
     var transactionType = Constants.defaultTransactionType
     private var selectedCategory = Constants.defaultCategory
+    private var photo: UIImage?
+    private var userLocation: CodableCLLocation?
 
     @IBOutlet private weak var amountField: UITextField!
     @IBOutlet private weak var typeLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
+    @IBOutlet private weak var descriptionField: UITextField!
+    @IBOutlet private weak var locationLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Set up transaction type
         if transactionType == .expenditure {
             setExpenditureType()
         } else {
             setIncomeType()
         }
         categoryLabel.text = Constants.defaultCategoryString
+
+        // Request permission for location services
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+
+        // Get location immediately
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters // hard coded for now
+            locationManager.startUpdatingLocation()
+            captureLocation()
+        }
     }
 
     @IBAction func typeFieldPressed(_ sender: UITapGestureRecognizer) {
@@ -45,6 +67,14 @@ class AddTransactionViewController: UIViewController {
         categoryLabel.text = sender.title(for: .normal) ?? Constants.defaultCategoryString
     }
 
+    @IBAction func photoButtonPressed(_ sender: UIButton) {
+        let camera = UIImagePickerController()
+        camera.sourceType = .camera
+        camera.allowsEditing = true
+        camera.delegate = self
+        present(camera, animated: true)
+    }
+
     @IBAction func addButtonPressed(_ sender: UIButton) {
         captureInputs()
         performSegue(withIdentifier: "addToMainSuccess", sender: nil)
@@ -56,10 +86,15 @@ class AddTransactionViewController: UIViewController {
         let frequency = captureFrequency()
         let category = captureCategory()
         let amount = captureAmount()
+        let description = captureDescription()
+        let photo = capturePhoto()
+        let location = userLocation
 
         log.info("""
             AddTransactionViewController.captureInputs() with inputs captured:
-            date=\(date), type=\(type), frequency=\(frequency), category=\(category), amount=\(amount)
+            date=\(date), type=\(type), frequency=\(frequency), category=\(category),
+            amount=\(amount), description=\(description), photo=\(String(describing: photo)),
+            location=\(String(describing: location)))
             """)
 
         // Fabian, this is what I need from you
@@ -92,19 +127,62 @@ class AddTransactionViewController: UIViewController {
         return amountDecimal ?? Constants.defaultAmount
     }
 
+    private func captureDescription() -> String {
+        let userInput = descriptionField.text
+        return userInput ?? Constants.defaultDescription
+    }
+
+    private func capturePhoto() -> CodableUIImage? {
+        guard let image = photo else {
+            return nil
+        }
+        return CodableUIImage(image)
+    }
+
+    private func captureLocation() {
+        guard let location = locationManager.location else {
+            return
+        }
+        // Display
+        geoCoder.reverseGeocodeLocation(location) { placemarks, _ in
+            if let place = placemarks?.first {
+                self.locationLabel.text = "\(place)" // need to format a bit
+            }
+        }
+        userLocation = CodableCLLocation(location)
+    }
+
     private func setExpenditureType() {
         transactionType = .expenditure
-        typeLabel.text = "-"
+        typeLabel.text = "- \(Constants.currencySymbol)"
         typeLabel.textColor = UIColor.red
         categoryLabel.textColor = UIColor.red
     }
 
     private func setIncomeType() {
         transactionType = .income
-        typeLabel.text = "+"
+        typeLabel.text = "+ \(Constants.currencySymbol)"
         typeLabel.textColor = UIColor.green
         categoryLabel.textColor = UIColor.green
     }
+}
+
+extension AddTransactionViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        picker.dismiss(animated: true)
+        guard let image = info[.editedImage] as? UIImage else {
+            log.info("""
+                AddTransactionViewController.didFinishPickingMediaWithInfo():
+                No image found!
+                """)
+            return
+        }
+        photo = image
+    }
+}
+
+extension AddTransactionViewController: CLLocationManagerDelegate {
 }
 
 extension AddTransactionViewController {

@@ -9,12 +9,16 @@
 import Foundation
 
 class Constants {
+    // Global
+    static let currencySymbol = Locale.current.currencySymbol ?? "$"
+
     // Add Transaction Page Constants
     static let defaultTransactionType = TransactionType.expenditure
     static let defaultCategory = TransactionCategory.food
     static let defaultCategoryString = Constants.defaultCategory.rawValue
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
+    static let defaultDescription = ""
 
     // Date Formatter
     static func getDateFormatter() -> DateFormatter {
