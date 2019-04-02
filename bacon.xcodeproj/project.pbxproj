@@ -41,6 +41,8 @@
 		BEE6B6642240D0770077DFD7 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */; };
 		BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */; };
 		BEE6B6692243F79C0077DFD7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6682243F79C0077DFD7 /* Constants.swift */; };
+		BEF38D0B224BA1C500BC8927 /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF38D0A224BA1C500BC8927 /* FoldingCell.swift */; };
+		BEF38D0D224BA2C400BC8927 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF38D0C224BA2C400BC8927 /* TransactionCell.swift */; };
 		C288EBE898DE7040D8233568 /* Pods_baconUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */; };
 		D15E5FA942198228451024EA /* Pods_bacon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4701C832F23C08627A348028 /* Pods_bacon.framework */; };
 /* End PBXBuildFile section */
@@ -108,6 +110,8 @@
 		BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
 		BEE6B6682243F79C0077DFD7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BEF38D0A224BA1C500BC8927 /* FoldingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldingCell.swift; sourceTree = "<group>"; };
+		BEF38D0C224BA2C400BC8927 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		CA24B1D1138A1F0774F42251 /* Pods-baconTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD379625D2CF2952EA2B2E6A /* Pods-baconUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F38C0C0022ADF9C5F622445F /* Pods-bacon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bacon.release.xcconfig"; path = "Pods/Target Support Files/Pods-bacon/Pods-bacon.release.xcconfig"; sourceTree = "<group>"; };
@@ -183,6 +187,7 @@
 				8F6A7A3F2240B583002E695A /* AppDelegate.swift */,
 				8FD5F7CE2240EA530023A7FC /* commons */,
 				9F7FD1122240CBFF001E1A8E /* model */,
+				BEF38D09224B9FEC00BC8927 /* view */,
 				9F2E21D52240F86100C5A31E /* controller */,
 				8F6A7A432240B583002E695A /* Main.storyboard */,
 				8F6A7A492240B584002E695A /* Assets.xcassets */,
@@ -266,6 +271,15 @@
 				40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BEF38D09224B9FEC00BC8927 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				BEF38D0A224BA1C500BC8927 /* FoldingCell.swift */,
+				BEF38D0C224BA2C400BC8927 /* TransactionCell.swift */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -518,6 +532,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FD5F7CB2240E7620023A7FC /* Transaction.swift in Sources */,
+				BEF38D0B224BA1C500BC8927 /* FoldingCell.swift in Sources */,
 				8F6A7A422240B583002E695A /* MainPageViewController.swift in Sources */,
 				9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */,
 				8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */,
@@ -533,6 +548,7 @@
 				8F8487E1224DA874001F881C /* CodableCLLocation.swift in Sources */,
 				BEE6B6622240C9F10077DFD7 /* TransactionsViewController.swift in Sources */,
 				8FD5F7CD2240E8F20023A7FC /* TransactionFrequency.swift in Sources */,
+				BEF38D0D224BA2C400BC8927 /* TransactionCell.swift in Sources */,
 				8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */,
 				8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */,
 				8F8487DB224B7D7D001F881C /* Observable.swift in Sources */,
