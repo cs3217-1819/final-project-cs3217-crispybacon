@@ -17,7 +17,7 @@ class AddTransactionViewController: UIViewController {
     var transactionType = Constants.defaultTransactionType
     private var selectedCategory = Constants.defaultCategory
     private var photo: UIImage?
-    private var userLocation: CodableCLLocation?
+    private var location: CLLocation?
 
     @IBOutlet private weak var amountField: UITextField!
     @IBOutlet private weak var typeLabel: UILabel!
@@ -40,12 +40,12 @@ class AddTransactionViewController: UIViewController {
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
 
-        // Get location immediately
+        // Get current location immediately
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters // hard coded for now
             locationManager.startUpdatingLocation()
-            captureLocation()
+            getCurrentLocation()
         }
     }
 
@@ -88,7 +88,7 @@ class AddTransactionViewController: UIViewController {
         let amount = captureAmount()
         let description = captureDescription()
         let photo = capturePhoto()
-        let location = userLocation
+        let location = captureLocation()
 
         log.info("""
             AddTransactionViewController.captureInputs() with inputs captured:
@@ -139,17 +139,27 @@ class AddTransactionViewController: UIViewController {
         return CodableUIImage(image)
     }
 
-    private func captureLocation() {
-        guard let location = locationManager.location else {
+    private func captureLocation() -> CodableCLLocation? {
+        guard let location = location else {
+            return nil
+        }
+        return CodableCLLocation(location)
+    }
+
+    private func getCurrentLocation() {
+        guard let currentLocation = locationManager.location else {
             return
         }
-        // Display
+        displayLocation(currentLocation)
+        location = currentLocation
+    }
+
+    private func displayLocation(_ location: CLLocation) {
         geoCoder.reverseGeocodeLocation(location) { placemarks, _ in
             if let place = placemarks?.first {
                 self.locationLabel.text = "\(place)" // need to format a bit
             }
         }
-        userLocation = CodableCLLocation(location)
     }
 
     private func setExpenditureType() {
