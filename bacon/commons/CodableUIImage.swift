@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-/// Codable wrapper around CLLocation.
-struct CodableUIImage: Codable {
+/// Codable and Equatable wrapper around CLLocation.
+struct CodableUIImage: Codable, Equatable {
 
     let image: UIImage
 
