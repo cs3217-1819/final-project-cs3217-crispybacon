@@ -8,13 +8,59 @@
 
 import Foundation
 
-struct Transaction: Codable, Equatable {
-    let date: Date
-    let type: TransactionType
-    let frequency: TransactionFrequency
-    let category: TransactionCategory
-    let amount: Decimal
-    let description: String
+/// Represents a mutable transaction.
+class Transaction: Codable, Observable {
+
+    var date: Date {
+        didSet {
+            log.info("Set date=\(date)")
+            notifyObserversOfSelf()
+        }
+    }
+    var type: TransactionType {
+        didSet {
+            log.info("Set type=\(type)")
+            notifyObserversOfSelf()
+        }
+    }
+    var frequency: TransactionFrequency {
+        didSet {
+            log.info("Set frequency=\(frequency)")
+            notifyObserversOfSelf()
+        }
+    }
+    var category: TransactionCategory {
+        didSet {
+            log.info("Set category=\(category)")
+            notifyObserversOfSelf()
+        }
+    }
+    var amount: Decimal {
+        didSet {
+            log.info("Set amount=\(amount)")
+            notifyObserversOfSelf()
+        }
+    }
+    var description: String {
+        didSet {
+            log.info("Set description=\(description)")
+            notifyObserversOfSelf()
+        }
+    }
+
+    var observers: [Observer] = []
+
+    // See: https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types
+    // We exclude the "observers" property from being encoded/decoded,
+    // since that information should not be persistent across sessions.
+    private enum CodingKeys: String, CodingKey {
+        case date
+        case type
+        case frequency
+        case category
+        case amount
+        case description
+    }
 
     /// Creates a Transaction instance.
     /// - Parameters:
@@ -49,4 +95,29 @@ struct Transaction: Codable, Equatable {
         self.amount = amount
         self.description = description
     }
+
+    /// Notifies all observers of changes to self.
+    /// This should be called after any mutation to a Transaction instance.
+    private func notifyObserversOfSelf() {
+        log.info("Notifying observers of new self")
+        notifyObservers(self)
+    }
+
+}
+
+extension Transaction: Equatable {
+
+    static func == (lhs: Transaction, rhs: Transaction) -> Bool {
+        return lhs.date == rhs.date
+            && lhs.type == rhs.type
+            && lhs.frequency == rhs.frequency
+            && lhs.category == rhs.category
+            && lhs.amount == rhs.amount
+            && lhs.description == rhs.description
+    }
+
+    static func != (lhs: Transaction, rhs: Transaction) -> Bool {
+        return !(lhs == rhs)
+    }
+
 }
