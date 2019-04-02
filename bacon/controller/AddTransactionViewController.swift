@@ -12,6 +12,7 @@ class AddTransactionViewController: UIViewController {
 
     var transactionType = Constants.defaultTransactionType
     private var selectedCategory = Constants.defaultCategory
+    private var photo: UIImage?
 
     @IBOutlet private weak var amountField: UITextField!
     @IBOutlet private weak var typeLabel: UILabel!
@@ -46,6 +47,14 @@ class AddTransactionViewController: UIViewController {
         categoryLabel.text = sender.title(for: .normal) ?? Constants.defaultCategoryString
     }
 
+    @IBAction func photoButtonPressed(_ sender: UIButton) {
+        let camera = UIImagePickerController()
+        camera.sourceType = .camera
+        camera.allowsEditing = true
+        camera.delegate = self
+        present(camera, animated: true)
+    }
+
     @IBAction func addButtonPressed(_ sender: UIButton) {
         captureInputs()
         performSegue(withIdentifier: "addToMainSuccess", sender: nil)
@@ -57,10 +66,13 @@ class AddTransactionViewController: UIViewController {
         let frequency = captureFrequency()
         let category = captureCategory()
         let amount = captureAmount()
+        let description = captureDescription()
+        let photo = capturePhoto()
 
         log.info("""
             AddTransactionViewController.captureInputs() with inputs captured:
-            date=\(date), type=\(type), frequency=\(frequency), category=\(category), amount=\(amount)
+            date=\(date), type=\(type), frequency=\(frequency), category=\(category),
+            amount=\(amount), description=\(description), photo=\(String(describing: photo))
             """)
 
         // Fabian, this is what I need from you
@@ -98,18 +110,37 @@ class AddTransactionViewController: UIViewController {
         return userInput ?? Constants.defaultDescription
     }
 
+    private func capturePhoto() -> Data? {
+        return photo?.jpegData(compressionQuality: 1.0)
+    }
+
     private func setExpenditureType() {
         transactionType = .expenditure
-        typeLabel.text = "-"
+        typeLabel.text = "- $"
         typeLabel.textColor = UIColor.red
         categoryLabel.textColor = UIColor.red
     }
 
     private func setIncomeType() {
         transactionType = .income
-        typeLabel.text = "+"
+        typeLabel.text = "+ $"
         typeLabel.textColor = UIColor.green
         categoryLabel.textColor = UIColor.green
+    }
+}
+
+extension AddTransactionViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        picker.dismiss(animated: true)
+        guard let image = info[.editedImage] as? UIImage else {
+            log.info("""
+                AddTransactionViewController.didFinishPickingMediaWithInfo():
+                No image found!
+                """)
+            return
+        }
+        photo = image
     }
 }
 
