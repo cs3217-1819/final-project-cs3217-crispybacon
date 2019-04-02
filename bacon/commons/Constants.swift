@@ -15,6 +15,7 @@ class Constants {
     static let defaultCategoryString = Constants.defaultCategory.rawValue
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
+    static let defaultDescription = ""
 
     // Date Formatter
     static func getDateFormatter() -> DateFormatter {

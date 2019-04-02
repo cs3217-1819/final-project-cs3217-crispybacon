@@ -16,6 +16,7 @@ class AddTransactionViewController: UIViewController {
     @IBOutlet private weak var amountField: UITextField!
     @IBOutlet private weak var typeLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
+    @IBOutlet private weak var descriptionField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,6 +91,11 @@ class AddTransactionViewController: UIViewController {
         let amountString = amountField.text
         let amountDecimal = Decimal(string: amountString ?? Constants.defaultAmountString)
         return amountDecimal ?? Constants.defaultAmount
+    }
+
+    private func captureDescription() -> String {
+        let userInput = descriptionField.text
+        return userInput ?? Constants.defaultDescription
     }
 
     private func setExpenditureType() {
