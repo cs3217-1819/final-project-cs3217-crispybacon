@@ -39,10 +39,12 @@ struct CodableUIImage: Codable {
             fatalError("This should never happen")
         }
 
-        guard image = UIImage(data: imageData) else {
+        guard let reconstructedImage = UIImage(data: imageData) else {
             // Maybe we could throw and/or log if this happens
             fatalError("This should never happen")
         }
+
+        image = reconstructedImage
     }
 
 }
