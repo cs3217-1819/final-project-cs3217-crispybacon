@@ -10,6 +10,7 @@
 
 import CoreLocation
 import Foundation
+import UIKit
 @testable import bacon
 
 class TestUtils {
@@ -20,6 +21,7 @@ class TestUtils {
     //      - 'sampleCLLocation'
     //      - Number indicates a unique set of CLLocation properties
     //      - Alphabet indicates multiple CLLocation instances with identical properties (optional)
+    // --------------------------------------------------
 
     static let locationTimestamp = Date(timeIntervalSince1970: 1_000)
 
@@ -46,6 +48,12 @@ class TestUtils {
                                               speed: 8,
                                               timestamp: locationTimestamp)
 
+    // Sample UIImages for testing:
+    // --------------------------------------------------
+
+    static let redHeartJpg = UIImage(named: "red-heart-jpg")!
+    static let redHeartPng = UIImage(named: "red-heart-png")!
+
     // Valid Transactions for testing naming convention:
     //     - 'valid / invalid'
     //     - 'Transaction'
@@ -62,13 +70,17 @@ class TestUtils {
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
                          category: .education,
-                         amount: 10.0)
+                         amount: 10.0,
+                         image: CodableUIImage(redHeartJpg),
+                         location: CodableCLLocation(sampleCLLocation1A))
     static let validTransactionExpenditure02 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
                          category: .entertainment,
-                         amount: 5.0)
+                         amount: 5.0,
+                         image: CodableUIImage(redHeartPng),
+                         location: CodableCLLocation(sampleCLLocation2))
     static let validTransactionExpenditure03 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
                          type: .expenditure,
@@ -100,13 +112,15 @@ class TestUtils {
                                                               interval: .monthly,
                                                               repeats: 3),
                          category: .food,
-                         amount: 12.80)
+                         amount: 12.80,
+                         image: CodableUIImage(redHeartPng))
     static let validTransactionIncome03 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
                          category: .bills,
-                         amount: 1)
+                         amount: 1,
+                         location: CodableCLLocation(sampleCLLocation1B))
 
     // TRANSACTION - CATEGORY - FOOD
     static let validTransactionFood01 =
@@ -122,13 +136,15 @@ class TestUtils {
                                                               interval: .monthly,
                                                               repeats: 1),
                          category: .food,
-                         amount: 5.00)
+                         amount: 5.00,
+                         location: CodableCLLocation(sampleCLLocation1A))
     static let validTransactionFood03 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
                          category: .food,
-                         amount: 1.50)
+                         amount: 1.50,
+                         image: CodableUIImage(redHeartJpg))
 
     // TRANSACTION - CATEGORY - TRANSPORT
     static let validTransactionTransport01 =
@@ -136,7 +152,8 @@ class TestUtils {
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
                          category: .transport,
-                         amount: 8.99)
+                         amount: 8.99,
+                         location: CodableCLLocation(sampleCLLocation2))
     static let validTransactionTransport02 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
                          type: .income,
@@ -170,7 +187,8 @@ class TestUtils {
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
                          category: .food,
-                         amount: 1.20)
+                         amount: 1.20,
+                         location: CodableCLLocation(sampleCLLocation1B))
     static let validTransactionDate02 =
         try! Transaction(date: january2nd2019time1320,
                          type: .expenditure,
@@ -178,13 +196,15 @@ class TestUtils {
                                                               interval: .monthly,
                                                               repeats: 3),
                          category: .bills,
-                         amount: 150.00)
+                         amount: 150.00,
+                         image: CodableUIImage(redHeartPng))
     static let validTransactionDate02point2 =
         try! Transaction(date: january2nd2019time1500,
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
                          category: .food,
-                         amount: 13.70)
+                         amount: 13.70,
+                         location: CodableCLLocation(sampleCLLocation1A))
     static let validTransactionDate03 =
         try! Transaction(date: january5th2019time1230,
                          type: .expenditure,

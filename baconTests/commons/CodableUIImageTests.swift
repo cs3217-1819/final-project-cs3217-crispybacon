@@ -11,10 +11,9 @@ import XCTest
 
 class CodableUIImageTests: XCTestCase {
     // swiftlint:disable force_try
-    // swiftlint: disable force_unwrapping
 
     func test_encode_decode_jpg() {
-        let testImage = UIImage(named: "red-heart-jpg")!
+        let testImage = TestUtils.redHeartJpg
 
         let encoder = JSONEncoder()
         let encodedImageData = try! encoder.encode(CodableUIImage(testImage))
@@ -29,7 +28,7 @@ class CodableUIImageTests: XCTestCase {
     }
 
     func test_encode_decode_png() {
-        let testImage = UIImage(named: "red-heart-png")!
+        let testImage = TestUtils.redHeartPng
 
         let encoder = JSONEncoder()
         let encodedImageData = try! encoder.encode(CodableUIImage(testImage))
@@ -44,5 +43,4 @@ class CodableUIImageTests: XCTestCase {
     }
 
     // swiftlint:enable force_try
-    // swiftlint:enable force_unwrapping
 }
