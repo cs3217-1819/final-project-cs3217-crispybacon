@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Contacts
 
 class Constants {
     // Global
@@ -19,6 +20,7 @@ class Constants {
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
     static let defaultDescription = ""
+    static let defaultPostalAddress = CNPostalAddress.init()
 
     // Date Formatter
     static func getDateFormatter() -> DateFormatter {

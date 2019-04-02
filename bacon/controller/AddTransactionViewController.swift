@@ -157,7 +157,7 @@ class AddTransactionViewController: UIViewController {
     private func displayLocation(_ location: CLLocation) {
         geoCoder.reverseGeocodeLocation(location) { placemarks, _ in
             if let place = placemarks?.first {
-                self.locationLabel.text = "\(place)" // need to format a bit
+                self.locationLabel.text = String(place)
             }
         }
     }
