@@ -98,7 +98,7 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         let displayedIndex = arrayIndex + 1
 
         // FoldingCell-specific congigurations
-        let durations: [TimeInterval] = [0.26, 0.2, 0.2]
+        let durations: [TimeInterval] = Constants.animatoinDuration
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
 

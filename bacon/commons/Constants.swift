@@ -25,6 +25,7 @@ class Constants {
 
     // Trsansactions Page
     static let defaultImage = UIImage(named: "dummy")
+    static let animatoinDuration = [0.26, 0.20, 0.20]
 
     // Date Formatter
     static func getDateFormatter() -> DateFormatter {

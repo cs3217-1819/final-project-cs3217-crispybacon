@@ -17,9 +17,9 @@ class TransactionCell: FoldingCell {
     }
 
     override func animationDuration(_ itemIndex: NSInteger, type: AnimationType) -> TimeInterval {
-
+        // timing animation for each view
         // durations count equal it itemCount
-        let durations = [0.26, 0.20, 0.20] // timing animation for each view
+        let durations = Constants.animatoinDuration
         return durations[itemIndex]
     }
 
