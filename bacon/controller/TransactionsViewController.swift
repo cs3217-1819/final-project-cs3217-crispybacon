@@ -33,7 +33,7 @@ class TransactionsViewController: UIViewController {
 
     private func loadCurrentMonthTransactions() {
         guard let core = core else {
-            print("")
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
             return
         }
         do {
@@ -43,7 +43,7 @@ class TransactionsViewController: UIViewController {
             let currentYear = calendar.component(.year, from: currentDate)
             try currentMonthTransactions = core.loadTransactions(month: currentMonth, year: currentYear)
         } catch {
-            print(error)
+            self.handleError(error: error, customMessage: Constants.transactionLoadFailureMessage)
         }
     }
 

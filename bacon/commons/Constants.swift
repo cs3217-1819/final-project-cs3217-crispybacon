@@ -14,6 +14,10 @@ class Constants {
     // Global
     static let currencySymbol = Locale.current.currencySymbol ?? "$"
     static let defaultPostalAddress = CNPostalAddress()
+    static let warningTitle = "🐷WARNING🐷"
+    static let coreFailureMessage = "Unable to run Bacon!"
+    static let transactionAddFailureMessage = "Unable to add transaction!"
+    static let transactionLoadFailureMessage = "Unable to load transactions!"
 
     // Add Transaction Page
     static let defaultTransactionType = TransactionType.expenditure

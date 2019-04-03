@@ -22,7 +22,7 @@ class MainPageViewController: UIViewController {
             do {
                 try core = CoreLogic()
             } catch {
-                print(error)
+                self.handleError(error: error, customMessage: Constants.coreFailureMessage)
             }
         }
     }

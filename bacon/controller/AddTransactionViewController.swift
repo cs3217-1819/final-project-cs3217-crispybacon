@@ -82,7 +82,7 @@ class AddTransactionViewController: UIViewController {
 
     private func captureInputs() {
         guard let coreLogic = core else {
-            print("")
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
             return
         }
 
@@ -107,7 +107,7 @@ class AddTransactionViewController: UIViewController {
                                             category: category, amount: amount, description: description,
                                             image: photo, location: location)
         } catch {
-            print(error)
+            self.handleError(error: error, customMessage: Constants.transactionAddFailureMessage)
         }
     }
 
