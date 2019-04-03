@@ -40,7 +40,7 @@ extension UIImage: Equatable {
 
 // MARK: CodableUIImage
 /// Codable and Equatable wrapper around CLLocation.
-struct CodableUIImage: Codable, Equatable {
+struct CodableUIImage: Codable, Equatable, Hashable {
 
     let image: UIImage
 
