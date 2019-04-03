@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: Transaction class
 /// Represents a mutable transaction.
 class Transaction: Codable, Observable {
 
@@ -123,6 +124,7 @@ class Transaction: Codable, Observable {
 
 }
 
+// MARK: Transaction: Equatable
 extension Transaction: Equatable {
 
     static func == (lhs: Transaction, rhs: Transaction) -> Bool {
@@ -141,3 +143,24 @@ extension Transaction: Equatable {
     }
 
 }
+
+// MARK: Transaction: Hashable
+extension Transaction: Hashable {
+
+    // See: https://developer.apple.com/documentation/swift/hashable/2995575-hash
+    // See also: https://developer.apple.com/documentation/swift/hashable/1540917-hashvalue where
+    //      Apple states that hashValue is deprecated as a Hashable requirement,
+    //      and to use func hash(into:) instead.
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(date)
+        hasher.combine(type)
+        hasher.combine(frequency)
+        hasher.combine(category)
+        hasher.combine(amount)
+        hasher.combine(description)
+        hasher.combine(image)
+        hasher.combine(location)
+    }
+
+}
+
