@@ -118,10 +118,13 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
 
         let closedAmountView = cell.viewWithTag(15) as? UILabel
         let openAmountView = cell.viewWithTag(7) as? UILabel
+        let type = currentMonthTransactions[arrayIndex].type
+        let typeString = type == .expenditure ? "-" : "+"
         let amount = currentMonthTransactions[arrayIndex].amount
-        let amountString = NumberFormatter().string(from: amount as NSNumber)
-        closedAmountView?.text = amountString
-        openAmountView?.text = amountString
+        let amountString = amount.toFormattedString
+        let finalString = typeString + Constants.currencySymbol + (amountString ?? Constants.defaultAmountString)
+        closedAmountView?.text = finalString
+        openAmountView?.text = finalString
 
         let closedCategoryView = cell.viewWithTag(4) as? UILabel
         let openCategoryView = cell.viewWithTag(12) as? UILabel
