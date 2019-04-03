@@ -7,25 +7,48 @@
 //
 
 import UIKit
+import CoreLocation
 
 class TransactionsViewController: UIViewController {
 
     enum Const {
         static let closeCellHeight: CGFloat = 179
         static let openCellHeight: CGFloat = 488
-        static let rowsCount = 10
     }
 
+    var core: CoreLogic?
     var cellHeights: [CGFloat] = []
+    var currentMonthTransactions = [Transaction]()
+    var rowsCount: Int {
+        return currentMonthTransactions.count
+    }
 
     @IBOutlet private weak var tableView: UITableView! // not being used yet
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        loadCurrentMonthTransactions()
+        setUpTableView()
     }
-    private func setup() {
-        cellHeights = Array(repeating: Const.closeCellHeight, count: Const.rowsCount)
+
+    private func loadCurrentMonthTransactions() {
+        guard let core = core else {
+            print("")
+            return
+        }
+        do {
+            let calendar = Calendar.current
+            let currentDate = Date()
+            let currentMonth = calendar.component(.month, from: currentDate)
+            let currentYear = calendar.component(.year, from: currentDate)
+            try currentMonthTransactions = core.loadTransactions(month: currentMonth, year: currentYear)
+        } catch {
+            print(error)
+        }
+    }
+
+    private func setUpTableView() {
+        cellHeights = Array(repeating: Const.closeCellHeight, count: rowsCount)
         tableView.estimatedRowHeight = Const.closeCellHeight
         tableView.rowHeight = UITableView.automaticDimension
         //tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background"))
@@ -48,7 +71,7 @@ class TransactionsViewController: UIViewController {
 
 extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
-        return 10
+        return rowsCount
     }
 
     func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -71,9 +94,60 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         guard let cell = rawCell as? FoldingCell else {
             return rawCell
         }
+        let arrayIndex = indexPath.row
+        let displayedIndex = arrayIndex + 1
+
+        // FoldingCell-specific congigurations
         let durations: [TimeInterval] = [0.26, 0.2, 0.2]
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
+
+        // Configure views to show data
+        let closedNumberView = cell.viewWithTag(13) as? UILabel
+        let openNumberView = cell.viewWithTag(5) as? UILabel
+        closedNumberView?.text = String(displayedIndex)
+        openNumberView?.text = String(displayedIndex)
+
+        let closedDateView = cell.viewWithTag(14) as? UILabel
+        let openDateView = cell.viewWithTag(9) as? UILabel
+        let openTimeView = cell.viewWithTag(10) as? UILabel
+        let date = currentMonthTransactions[arrayIndex].date
+        closedDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
+        openDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
+        openTimeView?.text = Constants.getTimeOnlyFormatter().string(from: date)
+
+        let closedAmountView = cell.viewWithTag(15) as? UILabel
+        let openAmountView = cell.viewWithTag(7) as? UILabel
+        let amount = currentMonthTransactions[arrayIndex].amount
+        let amountString = NumberFormatter().string(from: amount as NSNumber)
+        closedAmountView?.text = amountString
+        openAmountView?.text = amountString
+
+        let closedCategoryView = cell.viewWithTag(4) as? UILabel
+        let openCategoryView = cell.viewWithTag(12) as? UILabel
+        let category = currentMonthTransactions[arrayIndex].category
+        let categoryString = category.rawValue
+        closedCategoryView?.text = categoryString
+        openCategoryView?.text = categoryString
+
+        let locationView = cell.viewWithTag(11) as? UILabel
+        let codableLocation = currentMonthTransactions[arrayIndex].location
+        if let location = codableLocation?.location {
+            let geoCoder = CLGeocoder()
+            geoCoder.reverseGeocodeLocation(location) { placemarks, _ in
+                if let place = placemarks?.first {
+                    locationView?.text = String(place)
+                }
+            }
+        }
+
+        let imageView = cell.viewWithTag(6) as? UIImageView
+        let codableImgae = currentMonthTransactions[arrayIndex].image
+        if let image = codableImgae?.image {
+            imageView?.image = image
+        }
+
+        //  icon is not set yet
         return cell
     }
 

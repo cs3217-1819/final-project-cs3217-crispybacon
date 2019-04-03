@@ -13,7 +13,7 @@ class AddTransactionViewController: UIViewController {
 
     let locationManager = CLLocationManager()
     let geoCoder = CLGeocoder()
-
+    var core: CoreLogic?
     var transactionType = Constants.defaultTransactionType
     private var selectedCategory = Constants.defaultCategory
     private var photo: UIImage?
@@ -81,6 +81,11 @@ class AddTransactionViewController: UIViewController {
     }
 
     private func captureInputs() {
+        guard let coreLogic = core else {
+            print("")
+            return
+        }
+
         let date = captureDate()
         let type = captureType()
         let frequency = captureFrequency()
@@ -97,8 +102,13 @@ class AddTransactionViewController: UIViewController {
             location=\(String(describing: location)))
             """)
 
-        // Fabian, this is what I need from you
-        // model.addTrasaction(date, type, frequency, category, amount)
+        do {
+            try coreLogic.recordTransaction(date: date, type: type, frequency: frequency,
+                                            category: category, amount: amount, description: description,
+                                            image: photo, location: location)
+        } catch {
+            print(error)
+        }
     }
 
     private func captureDate() -> Date {
@@ -201,6 +211,7 @@ extension AddTransactionViewController {
             guard let mainController = segue.destination as? MainPageViewController else {
                 return
             }
+            mainController.core = core
             mainController.isUpdateNeeded = true
         }
     }

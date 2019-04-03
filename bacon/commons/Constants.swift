@@ -12,6 +12,7 @@ import Contacts
 class Constants {
     // Global
     static let currencySymbol = Locale.current.currencySymbol ?? "$"
+    static let defaultPostalAddress = CNPostalAddress()
 
     // Add Transaction Page Constants
     static let defaultTransactionType = TransactionType.expenditure
@@ -20,12 +21,21 @@ class Constants {
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
     static let defaultDescription = ""
-    static let defaultPostalAddress = CNPostalAddress()
 
     // Date Formatter
     static func getDateFormatter() -> DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }
+    static func getDateOnlyFormatter() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }
+    static func getTimeOnlyFormatter() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
         return formatter
     }
 

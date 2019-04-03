@@ -10,12 +10,21 @@ import UIKit
 
 class MainPageViewController: UIViewController {
 
+    var core: CoreLogic?
+
     @IBOutlet private weak var coinView: UIImageView!
 
     var isUpdateNeeded = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        if core == nil {
+            do {
+                try core = CoreLogic()
+            } catch {
+                print(error)
+            }
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -53,12 +62,20 @@ extension MainPageViewController {
                 return
             }
             addController.transactionType = .expenditure
+            addController.core = core
         }
         if segue.identifier == "mainToAddTransactionIn" {
             guard let addController = segue.destination as? AddTransactionViewController else {
                 return
             }
             addController.transactionType = .income
+            addController.core = core
+        }
+        if segue.identifier == "mainToTransactions" {
+            guard let transactionsController = segue.destination as? TransactionsViewController else {
+                return
+            }
+            transactionsController.core = core
         }
     }
 }
