@@ -22,4 +22,10 @@ class TransactionCell: FoldingCell {
         let durations = [0.26, 0.20, 0.20] // timing animation for each view
         return durations[itemIndex]
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        let imageView = self.viewWithTag(6) as? UIImageView
+        imageView?.image = Constants.defaultImage
+    }
 }

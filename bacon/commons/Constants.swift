@@ -8,19 +8,23 @@
 
 import Foundation
 import Contacts
+import UIKit
 
 class Constants {
     // Global
     static let currencySymbol = Locale.current.currencySymbol ?? "$"
     static let defaultPostalAddress = CNPostalAddress()
 
-    // Add Transaction Page Constants
+    // Add Transaction Page
     static let defaultTransactionType = TransactionType.expenditure
     static let defaultCategory = TransactionCategory.food
     static let defaultCategoryString = Constants.defaultCategory.rawValue
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
     static let defaultDescription = ""
+
+    // Trsansactions Page
+    static let defaultImage = UIImage(named: "dummy")
 
     // Date Formatter
     static func getDateFormatter() -> DateFormatter {
