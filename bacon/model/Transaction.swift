@@ -12,6 +12,12 @@ import Foundation
 /// Represents a mutable transaction.
 class Transaction: Codable, Observable {
 
+    // Support transaction deletion through the delete() method.
+    // These variables should be externally readable but not settable.
+    private(set) var isDeleted = false
+    private(set) var deleteSuccessCallback: () -> Void = {}
+    private(set) var deleteFailureCallback: (String) -> Void = { _ in }
+
     var date: Date {
         didSet {
             log.info("Set date=\(date)")
@@ -120,6 +126,18 @@ class Transaction: Codable, Observable {
     private func notifyObserversOfSelf() {
         log.info("Notifying observers of new self")
         notifyObservers(self)
+    }
+
+    /// Deletes this transaction. Accepts 2 optional parameters.
+    /// - Parameters:
+    ///     - successCallback: Will be called when the transaction is successfully deleted.
+    ///     - failureCallback: Will be called with an error message if an error occurs while attempting to delete the transaction.
+    func delete(successCallback: @escaping () -> Void = {},
+                failureCallback: @escaping (String) -> Void = { _ in }) {
+        isDeleted = true
+        deleteSuccessCallback = successCallback
+        deleteFailureCallback = failureCallback
+        notifyObserversOfSelf()
     }
 
 }
