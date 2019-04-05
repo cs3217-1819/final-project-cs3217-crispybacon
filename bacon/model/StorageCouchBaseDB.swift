@@ -21,11 +21,15 @@ class StorageCouchBaseDB {
 
     // MARK: - Properties
     private var transactionDatabase: Database
+    // Dictionary to provide a mapping from instantiated `Transaction` objects
+    // to their unique id in the databse.
+    private var transactionMapping: [Transaction: String]
 
     private init?() {
         // Initialize database
         do {
             transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
+            transactionMapping = [:]
             log.info("""
                 StorageCouchBaseDB.init() :
                 Initializing singleton instance of couchbase database.
@@ -172,6 +176,9 @@ class StorageCouchBaseDB {
                 let transactionData = try JSONSerialization.data(withJSONObject: transactionDictionary, options: [])
                 let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
                 transactions.append(currentTransaction)
+                // Retrieve and store the mapping of transaction to its id in database
+                let id = result.string(forKey: "id")
+                transactionMapping[currentTransaction] = id
             }
             return transactions
         } catch {
@@ -194,7 +201,7 @@ class StorageCouchBaseDB {
     }
 
     func loadTransactions(limit: Int) throws -> [Transaction] {
-        let query = QueryBuilder.select(SelectResult.all())
+        let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(transactionDatabase))
             .orderBy(Ordering.property(Constants.rawDateKey).descending())
             .limit(Expression.int(limit))
@@ -206,7 +213,7 @@ class StorageCouchBaseDB {
     }
 
     func loadTransactions(after date: Date, limit: Int) throws -> [Transaction] {
-        let query = QueryBuilder.select(SelectResult.all())
+        let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(transactionDatabase))
             .where(Expression.property(Constants.rawDateKey).greaterThan(Expression.date(date)))
             .orderBy(Ordering.property(Constants.rawDateKey).descending())
@@ -219,7 +226,7 @@ class StorageCouchBaseDB {
     }
 
     func loadTransactions(before date: Date, limit: Int) throws -> [Transaction] {
-        let query = QueryBuilder.select(SelectResult.all())
+        let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(transactionDatabase))
             .where(Expression.property(Constants.rawDateKey).lessThan(Expression.date(date)))
             .orderBy(Ordering.property(Constants.rawDateKey).descending())
@@ -232,7 +239,7 @@ class StorageCouchBaseDB {
     }
 
     func loadTransactions(from fromDate: Date, to toDate: Date) throws -> [Transaction] {
-        let query = QueryBuilder.select(SelectResult.all())
+        let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(transactionDatabase))
             .where(Expression.property(Constants.rawDateKey)
                 .between(Expression.date(fromDate), and: Expression.date(toDate)))
@@ -245,7 +252,7 @@ class StorageCouchBaseDB {
     }
 
     func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction] {
-        let query = QueryBuilder.select(SelectResult.all())
+        let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
                                 .from(DataSource.database(transactionDatabase))
                                 .where(Expression.property(Constants.typeKey).equalTo(Expression.string(type.rawValue)))
                                 .orderBy(Ordering.property(Constants.rawDateKey).descending())
@@ -258,7 +265,7 @@ class StorageCouchBaseDB {
     }
 
     func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
-        let query = QueryBuilder.select(SelectResult.all())
+        let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(transactionDatabase))
             .where(Expression.property(Constants.categoryKey).equalTo(Expression.string(category.rawValue)))
             .orderBy(Ordering.property(Constants.rawDateKey).descending())
