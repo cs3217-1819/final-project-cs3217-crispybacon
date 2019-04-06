@@ -67,8 +67,8 @@ class StorageManagerTests: XCTestCase {
         XCTAssertEqual(transactions, loadedTransactions)
 
         // Remove 2 transactions
-        XCTAssertNoThrow(try database.deleteTransaction(transactions[2]))
-        XCTAssertNoThrow(try database.deleteTransaction(transactions[1]))
+        XCTAssertNoThrow(try database.deleteTransaction(loadedTransactions[2]))
+        XCTAssertNoThrow(try database.deleteTransaction(loadedTransactions[1]))
         // Check if the 2 transactions are really deleted
         XCTAssertEqual([transactions[0]], try database.loadTransactions(limit: 3))
     }
