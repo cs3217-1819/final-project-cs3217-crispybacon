@@ -103,21 +103,21 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         cell.durationsForCollapsedState = durations
 
         // Configure views to show data
-        let closedNumberView = cell.viewWithTag(13) as? UILabel
-        let openNumberView = cell.viewWithTag(5) as? UILabel
+        let closedNumberView = cell.viewWithTag(Constants.closedNumberView) as? UILabel
+        let openNumberView = cell.viewWithTag(Constants.openNumberView) as? UILabel
         closedNumberView?.text = String(displayedIndex)
         openNumberView?.text = String(displayedIndex)
 
-        let closedDateView = cell.viewWithTag(14) as? UILabel
-        let openDateView = cell.viewWithTag(9) as? UILabel
-        let openTimeView = cell.viewWithTag(10) as? UILabel
+        let closedDateView = cell.viewWithTag(Constants.closedDateView) as? UILabel
+        let openDateView = cell.viewWithTag(Constants.openDateView) as? UILabel
+        let openTimeView = cell.viewWithTag(Constants.openTimeView) as? UILabel
         let date = currentMonthTransactions[arrayIndex].date
         closedDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
         openDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
         openTimeView?.text = Constants.getTimeOnlyFormatter().string(from: date)
 
-        let closedAmountView = cell.viewWithTag(15) as? UILabel
-        let openAmountView = cell.viewWithTag(7) as? UILabel
+        let closedAmountView = cell.viewWithTag(Constants.closedAmountView) as? UILabel
+        let openAmountView = cell.viewWithTag(Constants.openAmountView) as? UILabel
         let type = currentMonthTransactions[arrayIndex].type
         let typeString = type == .expenditure ? "-" : "+"
         let amount = currentMonthTransactions[arrayIndex].amount
@@ -126,14 +126,14 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         closedAmountView?.text = finalString
         openAmountView?.text = finalString
 
-        let closedCategoryView = cell.viewWithTag(4) as? UILabel
-        let openCategoryView = cell.viewWithTag(12) as? UILabel
+        let closedCategoryView = cell.viewWithTag(Constants.closedCategoryView) as? UILabel
+        let openCategoryView = cell.viewWithTag(Constants.openCategoryView) as? UILabel
         let category = currentMonthTransactions[arrayIndex].category
         let categoryString = category.rawValue
         closedCategoryView?.text = categoryString
         openCategoryView?.text = categoryString
 
-        let locationView = cell.viewWithTag(11) as? UILabel
+        let locationView = cell.viewWithTag(Constants.locationView) as? UILabel
         let codableLocation = currentMonthTransactions[arrayIndex].location
         if let location = codableLocation?.location {
             let geoCoder = CLGeocoder()
@@ -144,7 +144,7 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
             }
         }
 
-        let imageView = cell.viewWithTag(6) as? UIImageView
+        let imageView = cell.viewWithTag(Constants.imageView) as? UIImageView
         let codableImgae = currentMonthTransactions[arrayIndex].image
         if let image = codableImgae?.image {
             imageView?.image = image
