@@ -65,7 +65,7 @@ class TransactionTests: XCTestCase {
                                             frequency: testFrequency,
                                             category: .food,
                                             amount: 3)
-        XCTAssertEqual(transaction, transaction2)
+        XCTAssertTrue(transaction.equals(transaction2))
         XCTAssertNotEqual(transaction, transaction3)
     }
 
