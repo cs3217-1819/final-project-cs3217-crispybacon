@@ -33,6 +33,9 @@ extension UIViewController {
         if let initError = error as? InitializationError {
             self.alertUser(title: Constants.warningTitle, message: initError.message)
         }
+        if let storageError = error as? StorageError {
+            self.alertUser(title: Constants.warningTitle, message: storageError.message)
+        }
         if let argError = error as? InvalidArgumentError {
             self.alertUser(title: Constants.warningTitle, message: argError.message)
         } else {
