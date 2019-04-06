@@ -157,7 +157,7 @@ class StorageCouchBaseDB {
             } else {
                 log.info("""
                     StorageCouchBaseDB.saveTransaction():
-                    Encounter error saving transation into database.
+                    Encounter error saving transaction into database.
                     Throwing StorageError.
                 """)
                 throw StorageError(message: "Transaction couldn't be saved into database.")
@@ -168,11 +168,23 @@ class StorageCouchBaseDB {
     func deleteTransaction(_ transaction: Transaction) throws {
         // Fetch the specific document from database
         guard let transactionId = transactionMapping[transaction] else {
+            log.info("""
+                StorageCouchBaseDB.deleteTransaction():
+                Encounter error deleting transaction from database.
+                Unable to find mapping of transaction object to its unique id in the database.
+                Throwing StorageError.
+            """)
             throw StorageError(message: """
-                Unable to find mapping of transaction object to it's unique id in the database.
+                Unable to find mapping of transaction object to its unique id in the database.
             """)
         }
         guard let transactionDocument = transactionDatabase.document(withID: transactionId) else {
+            log.info("""
+                StorageCouchBaseDB.deleteTransaction():
+                Encounter error deleting transaction from database.
+                Unable to retrieve transaction document in database using id from mapping.
+                Throwing StorageError.
+            """)
             throw StorageError(message: """
                 Unable to retrieve transaction document in database using id from mapping.
             """)
