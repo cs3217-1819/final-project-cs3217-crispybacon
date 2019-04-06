@@ -38,7 +38,6 @@ class StorageManagerTests: XCTestCase {
         XCTAssertTrue(database.getNumberOfTransactionsInDatabase() == 0)
     }
 
-    // This Test case might need to be updated when storage deals with transaction ids
     func test_saveTransaction() {
         let database = try! StorageManager()
         XCTAssertNoThrow(try database.clearTransactionDatabase())
@@ -47,6 +46,31 @@ class StorageManagerTests: XCTestCase {
         // Load the transaction out of database and check if its the one that was saved
         let loadedTransaction = try! database.loadTransactions(ofType: .expenditure, limit: 1)
         XCTAssertEqual(TestUtils.validTransactionExpenditure01, loadedTransaction.first)
+    }
+
+    func test_deleteTransaction() {
+        let database = try! StorageManager()
+        // Clear database
+        XCTAssertNoThrow(try database.clearTransactionDatabase())
+        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
+        // Test deleting empty database
+        XCTAssertThrowsError(try database.deleteTransaction(TestUtils.validTransactionDate01))
+        // Save some transactions
+        let transactions = [TestUtils.validTransactionDate03,
+                            TestUtils.validTransactionDate02,
+                            TestUtils.validTransactionDate01]
+        XCTAssertNoThrow(try database.saveTransaction(transactions[1]))
+        XCTAssertNoThrow(try database.saveTransaction(transactions[2]))
+        XCTAssertNoThrow(try database.saveTransaction(transactions[0]))
+        // Check transactions are saved in the database
+        let loadedTransactions = try! database.loadTransactions(limit: 3)
+        XCTAssertEqual(transactions, loadedTransactions)
+
+        // Remove 2 transactions
+        XCTAssertNoThrow(try database.deleteTransaction(transactions[2]))
+        XCTAssertNoThrow(try database.deleteTransaction(transactions[1]))
+        // Check if the 2 transactions are really deleted
+        XCTAssertEqual([transactions[0]], try database.loadTransactions(limit: 3))
     }
 
     func test_loadTransactions_limit() {
