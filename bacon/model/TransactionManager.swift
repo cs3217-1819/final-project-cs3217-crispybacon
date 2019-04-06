@@ -10,7 +10,23 @@ import Foundation
 
 class TransactionManager: Observer {
     func notify(_ value: Any) {
-        // To be filled
+        let transaction = value as! Transaction
+
+        // Handle transaction deletion
+        if (transaction.isDeleted) {
+            /* Undelete when StorageManager association is created
+
+             do {
+                // Try deleting it through StorageManager
+                transaction.deleteSuccessCallback()
+            } catch {
+                transaction.deleteFailureCallback(error)
+            }
+
+             */
+        }
+
+        // To be filled in
     }
 
     private let storageManager: StorageManager
