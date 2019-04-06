@@ -13,11 +13,11 @@ class AddTransactionViewController: UIViewController {
 
     let locationManager = CLLocationManager()
     let geoCoder = CLGeocoder()
-
+    var core: CoreLogic?
     var transactionType = Constants.defaultTransactionType
     private var selectedCategory = Constants.defaultCategory
     private var photo: UIImage?
-    private var userLocation: CodableCLLocation?
+    private var location: CLLocation?
 
     @IBOutlet private weak var amountField: UITextField!
     @IBOutlet private weak var typeLabel: UILabel!
@@ -40,12 +40,12 @@ class AddTransactionViewController: UIViewController {
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
 
-        // Get location immediately
+        // Get current location immediately
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters // hard coded for now
             locationManager.startUpdatingLocation()
-            captureLocation()
+            getCurrentLocation()
         }
     }
 
@@ -81,6 +81,11 @@ class AddTransactionViewController: UIViewController {
     }
 
     private func captureInputs() {
+        guard let coreLogic = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+
         let date = captureDate()
         let type = captureType()
         let frequency = captureFrequency()
@@ -88,7 +93,7 @@ class AddTransactionViewController: UIViewController {
         let amount = captureAmount()
         let description = captureDescription()
         let photo = capturePhoto()
-        let location = userLocation
+        let location = captureLocation()
 
         log.info("""
             AddTransactionViewController.captureInputs() with inputs captured:
@@ -97,8 +102,13 @@ class AddTransactionViewController: UIViewController {
             location=\(String(describing: location)))
             """)
 
-        // Fabian, this is what I need from you
-        // model.addTrasaction(date, type, frequency, category, amount)
+        do {
+            try coreLogic.recordTransaction(date: date, type: type, frequency: frequency,
+                                            category: category, amount: amount, description: description,
+                                            image: photo, location: location)
+        } catch {
+            self.handleError(error: error, customMessage: Constants.transactionAddFailureMessage)
+        }
     }
 
     private func captureDate() -> Date {
@@ -139,17 +149,27 @@ class AddTransactionViewController: UIViewController {
         return CodableUIImage(image)
     }
 
-    private func captureLocation() {
-        guard let location = locationManager.location else {
+    private func captureLocation() -> CodableCLLocation? {
+        guard let location = location else {
+            return nil
+        }
+        return CodableCLLocation(location)
+    }
+
+    private func getCurrentLocation() {
+        guard let currentLocation = locationManager.location else {
             return
         }
-        // Display
+        displayLocation(currentLocation)
+        location = currentLocation
+    }
+
+    private func displayLocation(_ location: CLLocation) {
         geoCoder.reverseGeocodeLocation(location) { placemarks, _ in
             if let place = placemarks?.first {
-                self.locationLabel.text = "\(place)" // need to format a bit
+                self.locationLabel.text = String(place)
             }
         }
-        userLocation = CodableCLLocation(location)
     }
 
     private func setExpenditureType() {
@@ -191,6 +211,7 @@ extension AddTransactionViewController {
             guard let mainController = segue.destination as? MainPageViewController else {
                 return
             }
+            mainController.core = core
             mainController.isUpdateNeeded = true
         }
     }

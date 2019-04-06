@@ -9,35 +9,6 @@
 import Foundation
 import UIKit
 
-// MARK: UIImage: Equatable
-// Although UIImage conforms to Equatable already, it is using NSObject's isEqual() method.
-// According to Apple's UIImage documentation (https://developer.apple.com/documentation/uikit/uiimage),
-// this is "the only reliable way to determine whether two images contain the same image data".
-// However, testing shows that this does not always work as expected.
-//
-// This extension overrides the default isEqual() method to compare using only image data.
-extension UIImage: Equatable {
-
-    static func == (lhs: UIImage, rhs: UIImage) -> Bool {
-        return lhs.pngData()?.base64EncodedString() == rhs.pngData()?.base64EncodedString()
-    }
-
-    // Override the != comparison too to use the negation of ==.
-    static func != (lhs: UIImage, rhs: UIImage) -> Bool {
-        return !(lhs == rhs)
-    }
-
-    // Override NSObject's isEqual() method to use == logic as defined above.
-    override open func isEqual(_ object: Any?) -> Bool {
-        guard let other = object as? UIImage else {
-            return false
-        }
-
-        return self == other
-    }
-
-}
-
 // MARK: CodableUIImage
 /// Codable and Equatable wrapper around CLLocation.
 struct CodableUIImage: Codable, Equatable, Hashable {

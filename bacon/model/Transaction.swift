@@ -153,8 +153,8 @@ extension Transaction: Equatable {
             && lhs.category == rhs.category
             && lhs.amount == rhs.amount
             && lhs.description == rhs.description
-            && lhs.image == rhs.image
             && lhs.location == rhs.location
+            && lhs.image?.image.pngData()?.base64EncodedString() == rhs.image?.image.pngData()?.base64EncodedString()
     }
 
     static func != (lhs: Transaction, rhs: Transaction) -> Bool {
