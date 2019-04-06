@@ -8,19 +8,19 @@
 
 import Foundation
 
-enum TransactionFrequencyNature: String, Codable, Equatable {
+enum TransactionFrequencyNature: String, Codable, Equatable, Hashable {
     case oneTime
     case recurring
 }
 
-enum TransactionFrequencyInterval: String, Codable, Equatable {
+enum TransactionFrequencyInterval: String, Codable, Equatable, Hashable {
     case daily
     case weekly
     case monthly
     case yearly
 }
 
-struct TransactionFrequency: Codable, Equatable {
+struct TransactionFrequency: Codable, Equatable, Hashable {
     let nature: TransactionFrequencyNature
     let interval: TransactionFrequencyInterval?
     let repeats: Int?

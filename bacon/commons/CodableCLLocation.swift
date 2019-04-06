@@ -80,7 +80,7 @@ extension CLLocation {
 
 // MARK: CodableCLLocation
 /// Codable and Equatable wrapper around CLLocation.
-struct CodableCLLocation: Codable, Equatable {
+struct CodableCLLocation: Codable, Equatable, Hashable {
 
     let location: CLLocation
 

@@ -37,6 +37,10 @@ class StorageManager {
         try concreteStorage.saveTransaction(transaction)
     }
 
+    func deleteTransaction(_ transaction: Transaction) throws {
+        try concreteStorage.deleteTransaction(transaction)
+    }
+
     /// Loads a collection of Transaction.
     /// - Parameters:
     ///     - limit: The number of transaction to load.

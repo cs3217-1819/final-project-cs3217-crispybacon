@@ -8,8 +8,15 @@
 
 import Foundation
 
+// MARK: Transaction class
 /// Represents a mutable transaction.
 class Transaction: Codable, Observable {
+
+    // Support transaction deletion through the delete() method.
+    // These variables should be externally readable but not settable.
+    private(set) var isDeleted = false
+    private(set) var deleteSuccessCallback: () -> Void = {}
+    private(set) var deleteFailureCallback: (String) -> Void = { _ in }
 
     var date: Date {
         didSet {
@@ -121,8 +128,22 @@ class Transaction: Codable, Observable {
         notifyObservers(self)
     }
 
+    /// Deletes this transaction. Accepts 2 optional parameters.
+    /// - Parameters:
+    ///     - successCallback: Will be called when the transaction is successfully deleted.
+    ///     - failureCallback: Will be called with an error message if an error occurs
+    ///                        while attempting to delete the transaction.
+    func delete(successCallback: @escaping () -> Void = {},
+                failureCallback: @escaping (String) -> Void = { _ in }) {
+        isDeleted = true
+        deleteSuccessCallback = successCallback
+        deleteFailureCallback = failureCallback
+        notifyObserversOfSelf()
+    }
+
 }
 
+// MARK: Transaction: Equatable
 extension Transaction: Equatable {
 
     static func == (lhs: Transaction, rhs: Transaction) -> Bool {
@@ -138,6 +159,26 @@ extension Transaction: Equatable {
 
     static func != (lhs: Transaction, rhs: Transaction) -> Bool {
         return !(lhs == rhs)
+    }
+
+}
+
+// MARK: Transaction: Hashable
+extension Transaction: Hashable {
+
+    // See: https://developer.apple.com/documentation/swift/hashable/2995575-hash
+    // See also: https://developer.apple.com/documentation/swift/hashable/1540917-hashvalue where
+    //      Apple states that hashValue is deprecated as a Hashable requirement,
+    //      and to use func hash(into:) instead.
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(date)
+        hasher.combine(type)
+        hasher.combine(frequency)
+        hasher.combine(category)
+        hasher.combine(amount)
+        hasher.combine(description)
+        hasher.combine(image)
+        hasher.combine(location)
     }
 
 }
