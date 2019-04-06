@@ -146,19 +146,21 @@ class Transaction: Codable, Observable {
 // MARK: Transaction: Equatable
 extension Transaction: Equatable {
 
-    static func == (lhs: Transaction, rhs: Transaction) -> Bool {
-        return lhs.date == rhs.date
-            && lhs.type == rhs.type
-            && lhs.frequency == rhs.frequency
-            && lhs.category == rhs.category
-            && lhs.amount == rhs.amount
-            && lhs.description == rhs.description
-            && lhs.location == rhs.location
-            && lhs.image?.image.pngData()?.base64EncodedString() == rhs.image?.image.pngData()?.base64EncodedString()
+    /// Compares 2 transactions.
+    /// - Returns: true if they have equal properties.
+    func equals(_ transaction: Transaction) -> Bool {
+        return date == transaction.date
+            && type == transaction.type
+            && frequency == transaction.frequency
+            && category == transaction.category
+            && amount == transaction.amount
+            && description == transaction.description
+            && location == transaction.location
+            && image?.image.pngData()?.base64EncodedString() == transaction.image?.image.pngData()?.base64EncodedString()
     }
 
-    static func != (lhs: Transaction, rhs: Transaction) -> Bool {
-        return !(lhs == rhs)
+    static func == (lhs: Transaction, rhs: Transaction) -> Bool {
+        return lhs === rhs
     }
 
 }
@@ -166,19 +168,10 @@ extension Transaction: Equatable {
 // MARK: Transaction: Hashable
 extension Transaction: Hashable {
 
-    // See: https://developer.apple.com/documentation/swift/hashable/2995575-hash
-    // See also: https://developer.apple.com/documentation/swift/hashable/1540917-hashvalue where
-    //      Apple states that hashValue is deprecated as a Hashable requirement,
-    //      and to use func hash(into:) instead.
+    // We use ObjectIdentifier(self) so 2 distinct but equivalent transactions hash to different values,
+    // which is what we want
     func hash(into hasher: inout Hasher) {
-        hasher.combine(date)
-        hasher.combine(type)
-        hasher.combine(frequency)
-        hasher.combine(category)
-        hasher.combine(amount)
-        hasher.combine(description)
-        hasher.combine(image)
-        hasher.combine(location)
+        hasher.combine(ObjectIdentifier(self))
     }
 
 }
