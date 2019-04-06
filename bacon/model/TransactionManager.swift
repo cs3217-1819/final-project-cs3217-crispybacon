@@ -9,25 +9,6 @@
 import Foundation
 
 class TransactionManager: Observer {
-    func notify(_ value: Any) {
-        let transaction = value as! Transaction
-
-        // Handle transaction deletion
-        if (transaction.isDeleted) {
-            /* Undelete when StorageManager association is created
-
-             do {
-                // Try deleting it through StorageManager
-                transaction.deleteSuccessCallback()
-            } catch {
-                transaction.deleteFailureCallback(error)
-            }
-
-             */
-        }
-
-        // To be filled in
-    }
 
     private let storageManager: StorageManager
 
@@ -36,6 +17,23 @@ class TransactionManager: Observer {
         log.info("""
             ModelManager initialized using ModelManager.init()
             """)
+    }
+
+    func notify(_ value: Any) {
+        guard let transaction = value as? Transaction else {
+            // Observer is responsible of knowing what object types it observes
+            fatalError("Unable to type cast observed value to Transaction.")
+        }
+        // Handle transaction deletion
+        if transaction.isDeleted {
+            do {
+                // Try deleting it through StorageManager
+                try storageManager.deleteTransaction(transaction)
+                transaction.deleteSuccessCallback()
+            } catch {
+                transaction.deleteFailureCallback(error.localizedDescription)
+            }
+        }
     }
 
     private func observeTransactions(_ transactions: [Transaction]) -> [Transaction] {

@@ -120,6 +120,7 @@ class StorageCouchBaseDB {
     func clearTransactionDatabase() throws {
         do {
             try transactionDatabase.delete()
+            transactionMapping.removeAll()
             // Reinitialize database
             transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
             log.info("Entered method StorageCouchBaseDB.clearTransactionDatabase()")
@@ -164,6 +165,40 @@ class StorageCouchBaseDB {
         }
     }
 
+    func deleteTransaction(_ transaction: Transaction) throws {
+        // Fetch the specific document from database
+        guard let transactionId = transactionMapping[transaction] else {
+            throw StorageError(message: """
+                Unable to find mapping of transaction object to it's unique id in the database.
+            """)
+        }
+        guard let transactionDocument = transactionDatabase.document(withID: transactionId) else {
+            throw StorageError(message: """
+                Unable to retrieve transaction document in database using id from mapping.
+            """)
+        }
+        log.info("""
+            StorageCouchBaseDB.deleteTransaction() with argument:
+            transaction:\(transaction).
+        """)
+        // Delete the document
+        do {
+            try transactionDatabase.deleteDocument(transactionDocument)
+            // Delete the mapping
+            transactionMapping.removeValue(forKey: transaction)
+        } catch {
+            log.info("""
+                StorageCouchBaseDB.deleteTransaction() with argument:
+                transaction:\(transaction).
+                Encounter error deleting transaction from database.
+                Throwing StorageError.
+            """)
+            throw StorageError(message: """
+                Encounter error deleting \(transaction) from database.
+            """)
+        }
+    }
+
     private func getTransactionsFromQuery(_ query: Query) throws -> [Transaction] {
         do {
             var transactions: [Transaction] = Array()
@@ -177,8 +212,10 @@ class StorageCouchBaseDB {
                 let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
                 transactions.append(currentTransaction)
                 // Retrieve and store the mapping of transaction to its id in database
-                let id = result.string(forKey: "id")
-                transactionMapping[currentTransaction] = id
+                let transactionDatabaseId = result.string(forKey: "id")
+                if transactionMapping[currentTransaction] == nil {
+                    transactionMapping[currentTransaction] = transactionDatabaseId
+                }
             }
             return transactions
         } catch {
