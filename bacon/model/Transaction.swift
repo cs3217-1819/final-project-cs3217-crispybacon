@@ -131,7 +131,8 @@ class Transaction: Codable, Observable {
     /// Deletes this transaction. Accepts 2 optional parameters.
     /// - Parameters:
     ///     - successCallback: Will be called when the transaction is successfully deleted.
-    ///     - failureCallback: Will be called with an error message if an error occurs while attempting to delete the transaction.
+    ///     - failureCallback: Will be called with an error message if an error occurs
+    ///                        while attempting to delete the transaction.
     func delete(successCallback: @escaping () -> Void = {},
                 failureCallback: @escaping (String) -> Void = { _ in }) {
         isDeleted = true
