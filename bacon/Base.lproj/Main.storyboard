@@ -33,7 +33,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin" translatesAutoresizingMaskIntoConstraints="NO" id="5Iu-o9-Qlj" userLabel="Coin View">
-                                <rect key="frame" x="319" y="122" width="130" height="130"/>
+                                <rect key="frame" x="319" y="200" width="130" height="130"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="Omc-PZ-qr6"/>
@@ -106,6 +106,7 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="lWb-fz-Emn" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="3v9-4J-Lqb"/>
+                            <constraint firstItem="5Iu-o9-Qlj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="130" id="8ek-qu-Icx"/>
                             <constraint firstItem="w77-sl-pTn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="978-E5-ztn"/>
                             <constraint firstItem="XlD-kM-NbW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Fbi-QR-q2R"/>
                             <constraint firstItem="srG-5J-sOi" firstAttribute="top" secondItem="w77-sl-pTn" secondAttribute="bottom" constant="40" id="Lek-GU-fHS"/>
@@ -113,7 +114,6 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lWb-fz-Emn" secondAttribute="trailing" id="SyP-JY-nFQ"/>
                             <constraint firstItem="w77-sl-pTn" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="cvr-vF-ahn"/>
                             <constraint firstItem="lWb-fz-Emn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hZd-Bk-QkM"/>
-                            <constraint firstItem="w77-sl-pTn" firstAttribute="top" secondItem="5Iu-o9-Qlj" secondAttribute="bottom" constant="10" id="jk4-Xn-J82"/>
                             <constraint firstItem="srG-5J-sOi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nRe-2e-8Nl"/>
                             <constraint firstAttribute="bottomMargin" secondItem="XlD-kM-NbW" secondAttribute="bottom" id="sIe-3q-fSV"/>
                         </constraints>

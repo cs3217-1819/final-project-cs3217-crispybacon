@@ -18,12 +18,10 @@ class MainPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if core == nil {
-            do {
-                try core = CoreLogic()
-            } catch {
-                self.handleError(error: error, customMessage: Constants.coreFailureMessage)
-            }
+        do {
+            try core = CoreLogic()
+        } catch {
+            self.handleError(error: error, customMessage: Constants.coreFailureMessage)
         }
     }
 
@@ -47,9 +45,11 @@ class MainPageViewController: UIViewController {
 extension MainPageViewController {
     func animateFloatingCoin() {
         let currentFrame = coinView.frame
+        coinView.frame = CGRect(x: currentFrame.minX, y: 130.0,
+                                width: currentFrame.width, height: currentFrame.height)
         UIView.animate(withDuration: 0.7, delay: 0,
                        options: [.repeat, .autoreverse, .allowUserInteraction], animations: {
-            self.coinView.frame = CGRect(x: currentFrame.minX, y: currentFrame.minY + 70.0,
+            self.coinView.frame = CGRect(x: currentFrame.minX, y: 200.0,
                                          width: currentFrame.width, height: currentFrame.height)
         }, completion: nil)
     }
