@@ -187,4 +187,23 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         }, completion: nil)
     }
 
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.currentMonthTransactions[indexPath.row].delete(successCallback: {
+                self.currentMonthTransactions.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.perform(#selector(self.reloadTable), with: nil, afterDelay: 0.4)
+            }, failureCallback: { errorMessage in
+                self.alertUser(title: Constants.warningTitle, message: errorMessage)
+            })
+        }
+    }
+
+    @objc func reloadTable() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+
 }
