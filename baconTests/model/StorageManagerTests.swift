@@ -45,7 +45,7 @@ class StorageManagerTests: XCTestCase {
         XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionExpenditure01))
         // Load the transaction out of database and check if its the one that was saved
         let loadedTransaction = try! database.loadTransactions(ofType: .expenditure, limit: 1)
-        XCTAssertEqual(TestUtils.validTransactionExpenditure01, loadedTransaction.first)
+        XCTAssertTrue(TestUtils.validTransactionExpenditure01.equals(loadedTransaction[0]))
     }
 
     func test_deleteTransaction() {
@@ -63,14 +63,19 @@ class StorageManagerTests: XCTestCase {
         XCTAssertNoThrow(try database.saveTransaction(transactions[2]))
         XCTAssertNoThrow(try database.saveTransaction(transactions[0]))
         // Check transactions are saved in the database
-        let loadedTransactions = try! database.loadTransactions(limit: 3)
-        XCTAssertEqual(transactions, loadedTransactions)
+        var loadedTransactions = try! database.loadTransactions(limit: 3)
+        XCTAssertEqual(transactions.count, loadedTransactions.count)
+        for (index, transaction) in transactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransactions[index]))
+        }
 
         // Remove 2 transactions
         XCTAssertNoThrow(try database.deleteTransaction(loadedTransactions[2]))
         XCTAssertNoThrow(try database.deleteTransaction(loadedTransactions[1]))
         // Check if the 2 transactions are really deleted
-        XCTAssertEqual([transactions[0]], try database.loadTransactions(limit: 3))
+        loadedTransactions = try! database.loadTransactions(limit: 3)
+        XCTAssertEqual(loadedTransactions.count, 1)
+        XCTAssertTrue(transactions[0].equals(loadedTransactions[0]))
     }
 
     func test_loadTransactions_limit() {
@@ -94,7 +99,9 @@ class StorageManagerTests: XCTestCase {
         let loadedTransactions = try! database.loadTransactions(limit: 4)
         XCTAssertEqual(loadedTransactions.count, 4)
         // Check that the transactions loaded out are equal and in reverse chronological order
-        XCTAssertEqual(loadedTransactions, transactions)
+        for (index, transaction) in transactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransactions[index]))
+        }
     }
 
     func test_invalid_loadTransactions_limit() {
@@ -120,7 +127,9 @@ class StorageManagerTests: XCTestCase {
         let loadedTransactions = try! database.loadTransactions(after: TestUtils.january1st2019time0800, limit: 5)
         XCTAssertEqual(loadedTransactions.count, 2)
         // Check that the transactions loaded out are equal and in reverse chronological order
-        XCTAssertEqual(loadedTransactions, transactions)
+        for (index, transaction) in transactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransactions[index]))
+        }
 
         // Test limit
         let limitedTransactions = try! database.loadTransactions(after: TestUtils.january1st2019time0800, limit: 1)
@@ -150,7 +159,9 @@ class StorageManagerTests: XCTestCase {
         let loadedTransactions = try! database.loadTransactions(before: TestUtils.january5th2019time1230, limit: 5)
         XCTAssertEqual(loadedTransactions.count, 2)
         // Check that the transactions loaded out are equal and in reverse chronological order
-        XCTAssertEqual(loadedTransactions, transactions)
+        for (index, transaction) in transactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransactions[index]))
+        }
 
         // Test limit
         let limitedTransactions = try! database.loadTransactions(before: TestUtils.january5th2019time1230, limit: 1)
@@ -184,7 +195,9 @@ class StorageManagerTests: XCTestCase {
                                                                 to: TestUtils.january2nd2019time1500)
         XCTAssertEqual(loadedTransactions.count, 3)
         // Check that the transactions loaded out are equal and in reverse chronological order
-        XCTAssertEqual(loadedTransactions, transactions)
+        for (index, transaction) in transactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransactions[index]))
+        }
     }
 
     func test_loadTransactions_OfType() {
@@ -206,7 +219,9 @@ class StorageManagerTests: XCTestCase {
         let loadedExpenditureTransactions = try! database.loadTransactions(ofType: .expenditure, limit: 5)
         XCTAssertEqual(loadedExpenditureTransactions.count, 3)
         // Check that the transactions loaded out are equal and in reverse chronological order
-        XCTAssertEqual(loadedExpenditureTransactions, expenditureTransactions)
+        for (index, transaction) in expenditureTransactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedExpenditureTransactions[index]))
+        }
 
         // Save 3 transactions of type income
         let incomeTransactions = [TestUtils.validTransactionIncome03,
@@ -218,7 +233,9 @@ class StorageManagerTests: XCTestCase {
         let loadedIncomeTransactions = try! database.loadTransactions(ofType: .income, limit: 5)
         XCTAssertEqual(loadedIncomeTransactions.count, 3)
         // Check that the transactions loaded out are equal and in reverse chronological order
-        XCTAssertEqual(loadedIncomeTransactions, incomeTransactions)
+        for (index, transaction) in incomeTransactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedIncomeTransactions[index]))
+        }
 
         // Test limit
         let loadedTransactions = try! database.loadTransactions(ofType: .income, limit: 1)
@@ -249,7 +266,10 @@ class StorageManagerTests: XCTestCase {
         let loadedFoodTransactions = try! database.loadTransactions(ofCategory: .food, limit: 5)
         XCTAssertEqual(loadedFoodTransactions.count, 3)
         // Check that the transactions loaded out are equal and in reverse chronological order
-        XCTAssertEqual(loadedFoodTransactions, foodTransactions)
+        for (index, transaction) in foodTransactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedFoodTransactions[index]))
+        }
+
 
         // Save 3 transactinos of category .transport
         let transportTransactions = [TestUtils.validTransactionTransport03,
@@ -261,7 +281,9 @@ class StorageManagerTests: XCTestCase {
         let loadedTransportTransactions = try! database.loadTransactions(ofCategory: .transport, limit: 3)
         XCTAssertEqual(loadedTransportTransactions.count, 3)
         // Check that the transactions loaded out are equal and in reverse chronological order
-        XCTAssertEqual(loadedTransportTransactions, transportTransactions)
+        for (index, transaction) in transportTransactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransportTransactions[index]))
+        }
 
         // Test limit
         let loadedTransactions = try! database.loadTransactions(ofCategory: .food, limit: 1)

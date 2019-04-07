@@ -71,6 +71,6 @@ class CoreLogicTests: XCTestCase {
                                                          location: CodableCLLocation(TestUtils.sampleCLLocation1A)))
         // Load the transaction out of database and check if its the one that was saved
         let loadedTransaction = try! coreLogic.loadTransactions(month: 1, year: 2_019)
-        XCTAssertEqual(transaction, loadedTransaction.first)
+        XCTAssertTrue(transaction.equals(loadedTransaction[0]))
     }
 }
