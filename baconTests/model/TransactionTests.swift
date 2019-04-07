@@ -99,8 +99,12 @@ class TransactionTests: XCTestCase {
                                             amount: 1)
 
         XCTAssertTrue(transaction1.equals(transaction2))
-        XCTAssertNotEqual(transaction1, transaction2) // We override == to check for ===
-        XCTAssertNotEqual(transaction1.hashValue, transaction2.hashValue) // Hash values should be derived from object identifiers
+
+        // We override == to check for ===
+        XCTAssertNotEqual(transaction1, transaction2)
+
+        // Hash values should be derived from object identifiers
+        XCTAssertNotEqual(transaction1.hashValue, transaction2.hashValue)
 
         var dict: [Transaction: Int] = [:]
         var set: Set<Transaction> = []

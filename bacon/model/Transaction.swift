@@ -156,7 +156,8 @@ extension Transaction {
             && amount == transaction.amount
             && description == transaction.description
             && location == transaction.location
-            && image?.image.pngData()?.base64EncodedString() == transaction.image?.image.pngData()?.base64EncodedString()
+            && image?.image.pngData()?.base64EncodedString()
+                == transaction.image?.image.pngData()?.base64EncodedString()
     }
 
 }

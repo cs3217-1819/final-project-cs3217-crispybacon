@@ -270,7 +270,6 @@ class StorageManagerTests: XCTestCase {
             XCTAssertTrue(transaction.equals(loadedFoodTransactions[index]))
         }
 
-
         // Save 3 transactinos of category .transport
         let transportTransactions = [TestUtils.validTransactionTransport03,
                                      TestUtils.validTransactionTransport02,
