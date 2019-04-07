@@ -23,7 +23,7 @@ class TransactionsViewController: UIViewController {
         return currentMonthTransactions.count
     }
 
-    @IBOutlet private weak var tableView: UITableView! // not being used yet
+    @IBOutlet private weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +51,6 @@ class TransactionsViewController: UIViewController {
         cellHeights = Array(repeating: Const.closeCellHeight, count: rowsCount)
         tableView.estimatedRowHeight = Const.closeCellHeight
         tableView.rowHeight = UITableView.automaticDimension
-        //tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background"))
         if #available(iOS 10.0, *) {
             tableView.refreshControl = UIRefreshControl()
             tableView.refreshControl?.addTarget(self, action: #selector(refreshHandler), for: .valueChanged)
