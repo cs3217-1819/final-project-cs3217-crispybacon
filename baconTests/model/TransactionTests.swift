@@ -85,6 +85,37 @@ class TransactionTests: XCTestCase {
         transaction.amount = 2 // Set amount to same value
         XCTAssertEqual(observer.notifiedCount, 2)
     }
+
+    func test_transactionHashable() {
+        let transaction1 = try! Transaction(date: testDate,
+                                            type: .expenditure,
+                                            frequency: testFrequency,
+                                            category: .bills,
+                                            amount: 1)
+        let transaction2 = try! Transaction(date: testDate,
+                                            type: .expenditure,
+                                            frequency: testFrequency,
+                                            category: .bills,
+                                            amount: 1)
+
+        XCTAssertTrue(transaction1.equals(transaction2))
+        XCTAssertNotEqual(transaction1, transaction2) // We override == to check for ===
+        XCTAssertNotEqual(transaction1.hashValue, transaction2.hashValue) // Hash values should be derived from object identifiers
+
+        var dict: [Transaction: Int] = [:]
+        var set: Set<Transaction> = []
+
+        dict[transaction1] = 1
+        dict[transaction2] = 2
+        set.insert(transaction1)
+
+        XCTAssertEqual(dict[transaction1], 1)
+        XCTAssertEqual(dict[transaction2], 2)
+        XCTAssertEqual(set.count, 1)
+
+        set.insert(transaction2)
+        XCTAssertEqual(set.count, 2)
+    }
 }
 
 // swiftlint:enable force_try
