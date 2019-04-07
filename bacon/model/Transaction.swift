@@ -159,6 +159,9 @@ extension Transaction: Equatable {
             && image?.image.pngData()?.base64EncodedString() == transaction.image?.image.pngData()?.base64EncodedString()
     }
 
+    // We check for identity so we don't end up with a situation where
+    // transaction1 == transaction2 but transaction1 has a different hash value from transaction2.
+    // For comparison of transaction properties, use .equals() instead.
     static func == (lhs: Transaction, rhs: Transaction) -> Bool {
         return lhs === rhs
     }
@@ -168,8 +171,8 @@ extension Transaction: Equatable {
 // MARK: Transaction: Hashable
 extension Transaction: Hashable {
 
-    // We use ObjectIdentifier(self) so 2 distinct but equivalent transactions hash to different values,
-    // which is what we want
+    // We use ObjectIdentifier(self) so 2 distinct but equivalent transactions hash to different values.
+    // This lets us map distinct Transaction objects to arbitrary values, even if some may be equivalent.
     func hash(into hasher: inout Hasher) {
         hasher.combine(ObjectIdentifier(self))
     }
