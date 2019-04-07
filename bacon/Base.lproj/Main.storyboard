@@ -656,7 +656,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TIME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i79-cw-PH4">
                                                                             <rect key="frame" x="0.0" y="8" width="331.5" height="16"/>
                                                                             <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="13"/>
-                                                                            <color key="textColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="0.49546030410000003" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="textColor" red="0.56858229640000002" green="0.56865292789999999" blue="0.5685583353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" tag="9" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGv-2B-3uh">
@@ -755,29 +755,28 @@
                                                         <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dGX-fE-g1J" userLabel="ThirdContainerView" customClass="RotatedView" customModule="bacon" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="330" width="728" height="72"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G6K-qT-YD2">
-                                                                    <rect key="frame" x="22" y="15.5" width="684" height="41"/>
-                                                                    <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="41" id="M6g-0P-P10"/>
-                                                                    </constraints>
-                                                                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
-                                                                    <state key="normal" title="Edit">
-                                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                    </state>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                            <integer key="value" value="10"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                </button>
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="16" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No description was provided" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8E-tU-YTL">
+                                                                    <rect key="frame" x="22" y="36" width="684" height="21"/>
+                                                                    <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
+                                                                    <color key="textColor" red="0.20392156859999999" green="0.23921568630000001" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DESCRIPTION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfN-3v-mwp">
+                                                                    <rect key="frame" x="22" y="16" width="684" height="16"/>
+                                                                    <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="13"/>
+                                                                    <color key="textColor" red="0.56858229640000002" green="0.56865292789999999" blue="0.5685583353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
-                                                                <constraint firstItem="G6K-qT-YD2" firstAttribute="centerY" secondItem="dGX-fE-g1J" secondAttribute="centerY" id="TFI-QI-ArR"/>
-                                                                <constraint firstItem="G6K-qT-YD2" firstAttribute="leading" secondItem="dGX-fE-g1J" secondAttribute="leading" constant="22" id="V5K-2Z-Cyp"/>
+                                                                <constraint firstAttribute="trailing" secondItem="z8E-tU-YTL" secondAttribute="trailing" constant="22" id="R8s-SW-0et"/>
+                                                                <constraint firstItem="z8E-tU-YTL" firstAttribute="leading" secondItem="dGX-fE-g1J" secondAttribute="leading" constant="22" id="Uoc-k8-3g3"/>
+                                                                <constraint firstAttribute="bottom" secondItem="cfN-3v-mwp" secondAttribute="bottom" constant="40" id="WoT-kS-VmO"/>
                                                                 <constraint firstAttribute="height" constant="72" id="bhg-sm-N0b"/>
-                                                                <constraint firstAttribute="trailing" secondItem="G6K-qT-YD2" secondAttribute="trailing" constant="22" id="hIJ-IC-xWd"/>
+                                                                <constraint firstItem="cfN-3v-mwp" firstAttribute="leading" secondItem="dGX-fE-g1J" secondAttribute="leading" constant="22" id="fDK-iy-cYY"/>
+                                                                <constraint firstAttribute="bottom" secondItem="z8E-tU-YTL" secondAttribute="bottom" constant="15" id="m3K-er-1SD"/>
+                                                                <constraint firstAttribute="trailing" secondItem="cfN-3v-mwp" secondAttribute="trailing" constant="22" id="mrx-B1-ti5"/>
                                                             </constraints>
                                                         </view>
                                                         <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jBr-Fh-Bgt" userLabel="BottomContainerView" customClass="RotatedView" customModule="bacon" customModuleProvider="target">
@@ -792,12 +791,12 @@
                                                                 </view>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AC6-aR-wf3">
                                                                     <rect key="frame" x="22" y="3" width="684" height="41"/>
-                                                                    <color key="backgroundColor" red="0.86724821891191706" green="0.26096677763382525" blue="0.18586268497696079" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="41" id="RPl-Ta-iyF"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
-                                                                    <state key="normal" title="Delete">
+                                                                    <state key="normal" title="Edit">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>

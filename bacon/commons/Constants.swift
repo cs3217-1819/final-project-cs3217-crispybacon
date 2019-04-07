@@ -29,6 +29,7 @@ class Constants {
 
     // Trsansactions Page
     static let defaultImage = UIImage(named: "dummy")
+    static let defaultDescriptionToDisplay = "No description was provided"
     static let animatoinDuration = [0.26, 0.20, 0.20]
     static let closedNumberView = 13
     static let openNumberView = 5
@@ -41,6 +42,7 @@ class Constants {
     static let openCategoryView = 12
     static let locationView = 11
     static let imageView = 6
+    static let descriptionView = 16
 
     // Date Formatter
     static func getDateFormatter() -> DateFormatter {

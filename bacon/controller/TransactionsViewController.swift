@@ -148,6 +148,16 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         let codableImgae = currentMonthTransactions[arrayIndex].image
         if let image = codableImgae?.image {
             imageView?.image = image
+        } else {
+            imageView?.image = Constants.defaultImage
+        }
+
+        let descriptionView = cell.viewWithTag(Constants.descriptionView) as? UILabel
+        let description = currentMonthTransactions[arrayIndex].description
+        if description == Constants.defaultDescription {
+            descriptionView?.text = Constants.defaultDescriptionToDisplay
+        } else {
+            descriptionView?.text = description
         }
 
         //  icon is not set yet
