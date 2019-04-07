@@ -45,6 +45,7 @@
 		BE665F972253A455002EBA74 /* String+initFromCLPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE665F962253A455002EBA74 /* String+initFromCLPlacemark.swift */; };
 		BEC574402254A301001793EC /* Decimal+toFormattedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC5743F2254A301001793EC /* Decimal+toFormattedString.swift */; };
 		BEC574442254B714001793EC /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC574432254B714001793EC /* UIViewController+Alert.swift */; };
+		BEC57446225A3DC9001793EC /* PreviewImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC57445225A3DC9001793EC /* PreviewImageView.swift */; };
 		BEE6B6622240C9F10077DFD7 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */; };
 		BEE6B6642240D0770077DFD7 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */; };
 		BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */; };
@@ -122,6 +123,7 @@
 		BE665F962253A455002EBA74 /* String+initFromCLPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+initFromCLPlacemark.swift"; sourceTree = "<group>"; };
 		BEC5743F2254A301001793EC /* Decimal+toFormattedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+toFormattedString.swift"; sourceTree = "<group>"; };
 		BEC574432254B714001793EC /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		BEC57445225A3DC9001793EC /* PreviewImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageView.swift; sourceTree = "<group>"; };
 		BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 			children = (
 				BEF38D0A224BA1C500BC8927 /* FoldingCell.swift */,
 				BEF38D0C224BA2C400BC8927 /* TransactionCell.swift */,
+				BEC57445225A3DC9001793EC /* PreviewImageView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -584,6 +587,7 @@
 				9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */,
 				8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */,
 				9F7C6DE9224B9C75003E7702 /* InvalidArgumentError.swift in Sources */,
+				BEC57446225A3DC9001793EC /* PreviewImageView.swift in Sources */,
 				BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */,
 				9FB4E16E224419880005403F /* StorageError.swift in Sources */,
 				8F8487D9224B7909001F881C /* Observer.swift in Sources */,

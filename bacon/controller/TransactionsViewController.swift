@@ -58,6 +58,7 @@ class TransactionsViewController: UIViewController {
         }
     }
 
+    // swiftlint:disable attributes
     @objc func refreshHandler() {
         let deadlineTime = DispatchTime.now() + .seconds(1)
         DispatchQueue.main.asyncAfter(deadline: deadlineTime) { [weak self] in
@@ -67,6 +68,7 @@ class TransactionsViewController: UIViewController {
             self?.tableView.reloadData()
         }
     }
+    // swiftlint:enable attributes
 }
 
 extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -210,10 +212,12 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
 
+    // swiftlint:disable attributes
     @objc func reloadTable() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
+    // swiftlint:enable attributes
 
 }
