@@ -52,4 +52,9 @@ class Constants {
     static let typeKey = "type"
     static let categoryKey = "category"
     static let rawDateKey = "rawDate"
+
+    // UID of budget in database
+    // There should only be one budget saved in the database
+    // Hence saveBudget always uses this UID.
+    static let budgetUID = "1"
 }

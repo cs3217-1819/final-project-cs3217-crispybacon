@@ -14,4 +14,29 @@ import CouchbaseLiteSwift
 
 extension StorageCouchBaseDB {
 
+    func clearBudgetDatabase() throws {
+        do {
+            try budgetDatabase.delete()
+            // Reinitialize database
+            budgetDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .budget)
+            log.info("Entered method StorageCouchBaseDB.clearBudgetDatabase()")
+        } catch {
+            if error is StorageError {
+                log.info("""
+                    StorageCouchBaseDB.clearBudgetDatabase():
+                    Encounter error while reinitializing budget database.
+                    Throwing StorageError.
+                """)
+                throw error
+            } else {
+                log.info("""
+                    StorageCouchBaseDB.clearBudgetDatabase():
+                    Encounter error while clearing budget database.
+                    Throwing StorageError.
+                """)
+                throw StorageError(message: "Encounter error while clearing Budget Database.")
+            }
+        }
+    }
+
 }

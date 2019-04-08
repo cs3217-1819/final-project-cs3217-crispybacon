@@ -100,6 +100,7 @@ class StorageCouchBaseDB {
         return folderPath
     }
 
+    // Method to encode a Transaction class to its MutableDocument counterpart
     func createMutableDocument(from transaction: Transaction) throws -> MutableDocument {
         do {
             let transactionData = try transaction.asDictionary()
@@ -108,11 +109,27 @@ class StorageCouchBaseDB {
             return transactionDocument
         } catch {
             log.info("""
-                StorageCouchBaseDB.createMutableDocument()
+                StorageCouchBaseDB.createMutableDocument(): transaction
                 Encounter error encoding transaction into MutableDocument.
                 Throwing StorageError.
             """)
             throw StorageError(message: "Transaction couldn't be encoded into MutableDocument.")
+        }
+    }
+
+    // Method to encode a Budget struct to its MutableDocument counterpart
+    func createMutableDocument(from budget: Budget) throws -> MutableDocument {
+        do {
+            let budgetData = try budget.asDictionary()
+            let budgetDocument = MutableDocument(id: Constants.budgetUID, data: budgetData)
+            return budgetDocument
+        } catch {
+            log.info("""
+                StorageCouchBaseDB.createMutableDocument(): budget
+                Encounter error encoding budget into MutableDocument.
+                Throwing StorageError.
+            """)
+            throw StorageError(message: "Budget couldn't be encoded into MutableDocument.")
         }
     }
 }
