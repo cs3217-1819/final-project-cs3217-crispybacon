@@ -29,16 +29,32 @@ class StorageManager {
         return concreteStorage.getNumberOfTransactionsInDatabase()
     }
 
+    func getNumberOfBudgetsInDatabase() -> Double {
+        return concreteStorage.getNumberOfBudgetsInDatabase()
+    }
+
     func clearTransactionDatabase() throws {
         return try concreteStorage.clearTransactionDatabase()
+    }
+
+    func clearBudgetDatabase() throws {
+        return try concreteStorage.clearBudgetDatabase()
     }
 
     func saveTransaction(_ transaction: Transaction) throws {
         try concreteStorage.saveTransaction(transaction)
     }
 
+    func saveBudget(_ budget: Budget) throws {
+        try concreteStorage.saveBudget(budget)
+    }
+
     func deleteTransaction(_ transaction: Transaction) throws {
         try concreteStorage.deleteTransaction(transaction)
+    }
+
+    func loadBudget() throws -> Budget {
+        return try concreteStorage.loadBudget()
     }
 
     /// Loads a collection of Transaction.
