@@ -38,6 +38,7 @@
 		9F71AEF5225B3707005F043A /* StorageCouchBaseDB+Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */; };
 		9F71AEF7225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */; };
 		9F71AEF9225B3D84005F043A /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEF8225B3D84005F043A /* Budget.swift */; };
+		9F71AEFB225B4117005F043A /* BudgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEFA225B4116005F043A /* BudgetTests.swift */; };
 		9F79E46E2246463F00BCDDE8 /* StorageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */; };
 		9F7C6DE6224B66F5003E7702 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7C6DE5224B66F5003E7702 /* TestUtils.swift */; };
 		9F7C6DE9224B9C75003E7702 /* InvalidArgumentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7C6DE8224B9C75003E7702 /* InvalidArgumentError.swift */; };
@@ -119,6 +120,7 @@
 		9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Budget.swift"; sourceTree = "<group>"; };
 		9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Transaction.swift"; sourceTree = "<group>"; };
 		9F71AEF8225B3D84005F043A /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
+		9F71AEFA225B4116005F043A /* BudgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetTests.swift; sourceTree = "<group>"; };
 		9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerTests.swift; sourceTree = "<group>"; };
 		9F7C6DE5224B66F5003E7702 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		9F7C6DE8224B9C75003E7702 /* InvalidArgumentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidArgumentError.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				8F845CE622446EE1007A992D /* TransactionTests.swift */,
 				8F845CE822446F1E007A992D /* TransactionFrequencyTests.swift */,
 				8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */,
+				9F71AEFA225B4116005F043A /* BudgetTests.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				8F8487E3224DA98A001F881C /* CodableCLLocationTests.swift in Sources */,
 				8F6A7A582240B584002E695A /* baconTests.swift in Sources */,
 				9F79E46E2246463F00BCDDE8 /* StorageManagerTests.swift in Sources */,
+				9F71AEFB225B4117005F043A /* BudgetTests.swift in Sources */,
 				8F8487DD224BC4C7001F881C /* ObserverTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
