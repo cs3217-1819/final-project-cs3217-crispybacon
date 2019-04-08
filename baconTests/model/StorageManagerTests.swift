@@ -27,6 +27,16 @@ class StorageManagerTests: XCTestCase {
         XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 2)
     }
 
+    func test_getNumberOfBudgetsInDatabase() {
+        let database = try! StorageManager()
+        XCTAssertNoThrow(try database.clearBudgetDatabase())
+        // Empty database should return 0 for getNumberOfBudgetsInDatabase()
+        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 0)
+        // Add budget into database
+        XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget01))
+        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 1)
+    }
+
     func test_clearTransactionDatabase() {
         let database = try! StorageManager()
         // If database is empty, save a transaction
@@ -36,6 +46,17 @@ class StorageManagerTests: XCTestCase {
         XCTAssertTrue(database.getNumberOfTransactionsInDatabase() > 0)
         XCTAssertNoThrow(try database.clearTransactionDatabase())
         XCTAssertTrue(database.getNumberOfTransactionsInDatabase() == 0)
+    }
+
+    func test_clearBudgetDatabase() {
+        let database = try! StorageManager()
+        // If database is empty, save a budget
+        if database.getNumberOfBudgetsInDatabase() == 0 {
+            XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget02))
+        }
+        XCTAssertTrue(database.getNumberOfBudgetsInDatabase() > 0)
+        XCTAssertNoThrow(try database.clearBudgetDatabase())
+        XCTAssertTrue(database.getNumberOfBudgetsInDatabase() == 0)
     }
 
     func test_saveTransaction() {
