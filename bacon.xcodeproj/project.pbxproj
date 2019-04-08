@@ -35,6 +35,8 @@
 		8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7D42240F50B0023A7FC /* TransactionType.swift */; };
 		9F2E21D72240F90800C5A31E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9F2E21D62240F90800C5A31E /* README.md */; };
 		9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */; };
+		9F71AEF5225B3707005F043A /* StorageCouchBaseDB+Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */; };
+		9F71AEF7225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */; };
 		9F79E46E2246463F00BCDDE8 /* StorageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */; };
 		9F7C6DE6224B66F5003E7702 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7C6DE5224B66F5003E7702 /* TestUtils.swift */; };
 		9F7C6DE9224B9C75003E7702 /* InvalidArgumentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7C6DE8224B9C75003E7702 /* InvalidArgumentError.swift */; };
@@ -113,6 +115,8 @@
 		9620A3D3E871F6AA3491DCDF /* Pods-baconTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F2E21D62240F90800C5A31E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCouchBaseDB.swift; sourceTree = "<group>"; };
+		9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Budget.swift"; sourceTree = "<group>"; };
+		9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Transaction.swift"; sourceTree = "<group>"; };
 		9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerTests.swift; sourceTree = "<group>"; };
 		9F7C6DE5224B66F5003E7702 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		9F7C6DE8224B9C75003E7702 /* InvalidArgumentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidArgumentError.swift; sourceTree = "<group>"; };
@@ -274,6 +278,8 @@
 			children = (
 				9F7FD1132240CD51001E1A8E /* StorageManager.swift */,
 				9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */,
+				9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */,
+				9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */,
 				9F965F8522535B9300AF6092 /* TransactionManager.swift */,
 				8FD5F7CA2240E7620023A7FC /* Transaction.swift */,
 				8FD5F7D42240F50B0023A7FC /* TransactionType.swift */,
@@ -581,11 +587,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F71AEF5225B3707005F043A /* StorageCouchBaseDB+Budget.swift in Sources */,
 				8FD5F7CB2240E7620023A7FC /* Transaction.swift in Sources */,
 				8F0B2073225A464D001AF3BA /* HashableClass.swift in Sources */,
 				BEF38D0B224BA1C500BC8927 /* FoldingCell.swift in Sources */,
 				8F6A7A422240B583002E695A /* MainPageViewController.swift in Sources */,
 				9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */,
+				9F71AEF7225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift in Sources */,
 				8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */,
 				9F7C6DE9224B9C75003E7702 /* InvalidArgumentError.swift in Sources */,
 				BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */,
