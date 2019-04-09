@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: Transaction class
 /// Represents a mutable transaction.
-class Transaction: Codable, Observable {
+class Transaction: HashableClass, Codable, Observable {
 
     // Support transaction deletion through the delete() method.
     // These variables should be externally readable but not settable.
@@ -143,8 +143,8 @@ class Transaction: Codable, Observable {
 
 }
 
-// MARK: Transaction: Equatable
-extension Transaction: Equatable {
+// MARK: Transaction: equals()
+extension Transaction {
 
     /// Compares 2 transactions.
     /// - Returns: true if they have equal properties.
@@ -156,25 +156,8 @@ extension Transaction: Equatable {
             && amount == transaction.amount
             && description == transaction.description
             && location == transaction.location
-            && image?.image.pngData()?.base64EncodedString() == transaction.image?.image.pngData()?.base64EncodedString()
-    }
-
-    // We check for identity so we don't end up with a situation where
-    // transaction1 == transaction2 but transaction1 has a different hash value from transaction2.
-    // For comparison of transaction properties, use .equals() instead.
-    static func == (lhs: Transaction, rhs: Transaction) -> Bool {
-        return lhs === rhs
-    }
-
-}
-
-// MARK: Transaction: Hashable
-extension Transaction: Hashable {
-
-    // We use ObjectIdentifier(self) so 2 distinct but equivalent transactions hash to different values.
-    // This lets us map distinct Transaction objects to arbitrary values, even if some may be equivalent.
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(self))
+            && image?.image.pngData()?.base64EncodedString()
+                == transaction.image?.image.pngData()?.base64EncodedString()
     }
 
 }
