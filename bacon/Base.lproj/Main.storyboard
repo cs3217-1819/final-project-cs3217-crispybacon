@@ -747,7 +747,6 @@
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="VTj-g0-EYc">
                     <connections>
-                        <action selector="likeWhat:" destination="Kkb-EH-aei" id="c2f-e8-SFD"/>
                         <segue destination="pQO-Bo-fSI" kind="show" identifier="" id="QVA-mP-HWT"/>
                     </connections>
                 </tapGestureRecognizer>
