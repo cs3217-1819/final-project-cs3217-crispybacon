@@ -48,6 +48,9 @@ class Constants {
     static func getDateFormatter() -> DateFormatter {
         return generateFormatter(format: "yyyy-MM-dd HH:mm:ss")
     }
+    static func getDateLessPreciseFormatter() -> DateFormatter {
+        return generateFormatter(format: "yyyy-MM-dd HH:mm")
+    }
     static func getDateOnlyFormatter() -> DateFormatter {
         return generateFormatter(format: "yyyy-MM-dd")
     }

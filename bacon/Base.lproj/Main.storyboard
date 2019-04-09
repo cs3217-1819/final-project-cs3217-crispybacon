@@ -204,7 +204,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P4J-Gl-5Fe">
-                                <rect key="frame" x="20" y="70" width="728" height="640"/>
+                                <rect key="frame" x="20" y="20" width="728" height="640"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jY7-Ac-Ui5">
                                         <rect key="frame" x="0.0" y="0.0" width="728" height="640"/>
@@ -379,7 +379,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctF-rt-1fD">
-                                <rect key="frame" x="20" y="730" width="728" height="100"/>
+                                <rect key="frame" x="20" y="680" width="728" height="100"/>
                                 <subviews>
                                     <datePicker alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Dhg-1T-FbK">
                                         <rect key="frame" x="200" y="0.0" width="328" height="100"/>
@@ -414,6 +414,9 @@
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="confirmButtonPressed:" destination="pQO-Bo-fSI" eventType="touchUpInside" id="tPa-O0-rhR"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -433,7 +436,9 @@
                     <connections>
                         <outlet property="calendarView" destination="f9k-N0-JxY" id="nl2-17-NlE"/>
                         <outlet property="monthLabel" destination="cOA-bQ-Xnl" id="WgR-gd-0fw"/>
+                        <outlet property="timePicker" destination="Dhg-1T-FbK" id="Un3-8O-OLb"/>
                         <outlet property="yaerLabel" destination="4bx-xs-8H9" id="K7X-XL-MTQ"/>
+                        <segue destination="Kkb-EH-aei" kind="show" identifier="timeToAddSuccess" id="XgG-fg-vtg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZz-6a-CSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -728,6 +733,7 @@
                         <outlet property="categoryLabel" destination="9OH-EA-Fun" id="atw-mp-iPV"/>
                         <outlet property="descriptionField" destination="fCt-k9-eKX" id="YBF-lJ-VkR"/>
                         <outlet property="locationLabel" destination="8hC-jC-7Kl" id="6b4-EV-shM"/>
+                        <outlet property="timeLabel" destination="8ow-WL-Cpp" id="WYk-co-6Ef"/>
                         <outlet property="typeLabel" destination="LrK-Yu-LCW" id="ziF-wV-dfN"/>
                         <segue destination="taX-Qr-VBM" kind="show" identifier="addToMainSuccess" id="tM7-n6-JRD"/>
                     </connections>
@@ -1167,6 +1173,7 @@
         <image name="plus" width="294" height="294"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nRX-mK-th1"/>
+        <segue reference="QVA-mP-HWT"/>
+        <segue reference="XgG-fg-vtg"/>
     </inferredMetricsTieBreakers>
 </document>

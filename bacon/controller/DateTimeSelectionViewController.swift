@@ -11,8 +11,10 @@ import JTAppleCalendar
 
 class DateTimeSelectionViewController: UIViewController {
     private let formatter = Constants.getDateOnlyFormatter()
-    var referenceDate = Date()
+    private var referenceDate = Date()
+    private var selectedDate = Date()
 
+    @IBOutlet private weak var timePicker: UIDatePicker!
     @IBOutlet private weak var calendarView: JTAppleCalendarView!
     @IBOutlet private weak var monthLabel: UILabel!
     @IBOutlet private weak var yaerLabel: UILabel!
@@ -28,6 +30,33 @@ class DateTimeSelectionViewController: UIViewController {
         calendarView.visibleDates { visibleDates in
             self.setUpYearAndMonthLabels(from: visibleDates)
         }
+    }
+
+    @IBAction func confirmButtonPressed(_ sender: UIButton) {
+        let date = captureDateFromCalender()
+        let time = captureTimeFromPicker()
+        selectedDate = combineDateTime(date: date, time: time)
+        performSegue(withIdentifier: "timeToAddSuccess", sender: nil)
+    }
+
+    private func captureDateFromCalender() -> Date {
+        return calendarView.selectedDates.first ?? referenceDate
+    }
+
+    private func captureTimeFromPicker() -> Date {
+        return timePicker.date
+    }
+
+    private func combineDateTime(date: Date, time: Date) -> Date {
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: date)
+        let month = calendar.component(.month, from: date)
+        let day = calendar.component(.day, from: date)
+        let hour = calendar.component(.hour, from: time)
+        let minute = calendar.component(.minute, from: time)
+        let components = DateComponents(year: year, month: month, day: day,
+                                        hour: hour, minute: minute, second: 0)
+        return calendar.date(from: components) ?? date
     }
 
     func setUpYearAndMonthLabels(from visibleDates: DateSegmentInfo) {
@@ -105,5 +134,16 @@ extension DateTimeSelectionViewController: JTAppleCalendarViewDelegate, JTAppleC
 
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         setUpYearAndMonthLabels(from: visibleDates)
+    }
+}
+
+extension DateTimeSelectionViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "timeToAddSuccess" {
+            guard let addController = segue.destination as? AddTransactionViewController else {
+                return
+            }
+            addController.dateTime = selectedDate
+        }
     }
 }
