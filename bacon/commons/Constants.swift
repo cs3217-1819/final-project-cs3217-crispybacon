@@ -69,8 +69,10 @@ class Constants {
     }
     // Only 20 years are allowed because it affects loading speed
     // but can always change this part
+    // swiftlint:disable force_unwrapping
     static let minDate = getDateFormatter().date(from: "2009-01-01 00:00:00")!
     static let maxDate = getDateFormatter().date(from: "2029-01-01 23:59:59")!
+    // swiftlint:enable force_unwrapping
 
     // Dictionary Key for Transaction fields for use in Database
     static let typeKey = "type"
