@@ -195,6 +195,72 @@
             </objects>
             <point key="canvasLocation" x="1566.40625" y="198.6328125"/>
         </scene>
+        <!--Ib Calendar Data Source-->
+        <scene sceneID="iYz-cL-90e">
+            <objects>
+                <viewController id="pQO-Bo-fSI" customClass="DateTimeSelectionViewController" customModule="bacon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="A0z-cT-pFJ">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f9k-N0-JxY" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
+                                <rect key="frame" x="0.0" y="70" width="768" height="700"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="700" id="xZB-iN-w05"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Vup-Sn-OiA">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CalendarCell" id="su3-Bt-Dyl" customClass="CalendarCell" customModule="bacon" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYl-M1-QWs">
+                                                    <rect key="frame" x="4" y="14.5" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="nYl-M1-QWs" firstAttribute="centerX" secondItem="su3-Bt-Dyl" secondAttribute="centerX" id="RcW-yQ-xaS"/>
+                                            <constraint firstItem="nYl-M1-QWs" firstAttribute="centerY" secondItem="su3-Bt-Dyl" secondAttribute="centerY" id="fMw-dg-XUN"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dateLabel" destination="nYl-M1-QWs" id="Pa4-69-tIt"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="pQO-Bo-fSI" id="GXF-vR-mez"/>
+                                    <outlet property="delegate" destination="pQO-Bo-fSI" id="ALn-Vp-2Fs"/>
+                                    <outlet property="ibCalendarDataSource" destination="pQO-Bo-fSI" id="uTv-KH-fQX"/>
+                                    <outlet property="ibCalendarDelegate" destination="pQO-Bo-fSI" id="Zkl-V3-Ccc"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="f9k-N0-JxY" firstAttribute="leading" secondItem="9hu-KQ-S7W" secondAttribute="leading" id="B1L-Lt-jl6"/>
+                            <constraint firstItem="f9k-N0-JxY" firstAttribute="top" secondItem="9hu-KQ-S7W" secondAttribute="top" id="g2p-BX-HGy"/>
+                            <constraint firstItem="9hu-KQ-S7W" firstAttribute="trailing" secondItem="f9k-N0-JxY" secondAttribute="trailing" id="xTH-DZ-RYd"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9hu-KQ-S7W"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GZz-6a-CSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="19" y="-1355"/>
+        </scene>
         <!--Add Transaction View Controller-->
         <scene sceneID="pgF-Qq-W08">
             <objects>
@@ -229,11 +295,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ow-WL-Cpp">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ow-WL-Cpp">
                                 <rect key="frame" x="100" y="824.5" width="568" height="19.5"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="VTj-g0-EYc" appends="YES" id="Xes-BF-n7T"/>
+                                </connections>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hC-jC-7Kl">
                                 <rect key="frame" x="100" y="854" width="568" height="19.5"/>
@@ -488,6 +557,12 @@
                 <tapGestureRecognizer id="6DH-nI-EhV">
                     <connections>
                         <action selector="typeFieldPressed:" destination="Kkb-EH-aei" id="KPd-ma-RpD"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="VTj-g0-EYc">
+                    <connections>
+                        <action selector="likeWhat:" destination="Kkb-EH-aei" id="c2f-e8-SFD"/>
+                        <segue destination="pQO-Bo-fSI" kind="show" identifier="" id="QVA-mP-HWT"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

@@ -185,6 +185,7 @@ class AddTransactionViewController: UIViewController {
         typeLabel.textColor = UIColor.green
         categoryLabel.textColor = UIColor.green
     }
+
 }
 
 extension AddTransactionViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {

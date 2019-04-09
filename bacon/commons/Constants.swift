@@ -46,18 +46,19 @@ class Constants {
 
     // Date Formatter
     static func getDateFormatter() -> DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return formatter
+        return generateFormatter(format: "yyyy-MM-dd HH:mm:ss")
     }
     static func getDateOnlyFormatter() -> DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
+        return generateFormatter(format: "yyyy-MM-dd")
     }
     static func getTimeOnlyFormatter() -> DateFormatter {
+        return generateFormatter(format: "HH:mm")
+    }
+    static private func generateFormatter(format: String) -> DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateFormat = format
+        formatter.timeZone = Calendar.current.timeZone
+        formatter.locale = Calendar.current.locale
         return formatter
     }
 

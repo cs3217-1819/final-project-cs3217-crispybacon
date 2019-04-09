@@ -47,6 +47,8 @@
 		BEC574402254A301001793EC /* Decimal+toFormattedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC5743F2254A301001793EC /* Decimal+toFormattedString.swift */; };
 		BEC574442254B714001793EC /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC574432254B714001793EC /* UIViewController+Alert.swift */; };
 		BEC57446225A3DC9001793EC /* PreviewImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC57445225A3DC9001793EC /* PreviewImageView.swift */; };
+		BEC5744A225C9F90001793EC /* DateTimeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC57449225C9F90001793EC /* DateTimeSelectionViewController.swift */; };
+		BEC5744C225CA0AD001793EC /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC5744B225CA0AD001793EC /* CalendarCell.swift */; };
 		BEE6B6622240C9F10077DFD7 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */; };
 		BEE6B6642240D0770077DFD7 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */; };
 		BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */; };
@@ -126,6 +128,8 @@
 		BEC5743F2254A301001793EC /* Decimal+toFormattedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decimal+toFormattedString.swift"; sourceTree = "<group>"; };
 		BEC574432254B714001793EC /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		BEC57445225A3DC9001793EC /* PreviewImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageView.swift; sourceTree = "<group>"; };
+		BEC57449225C9F90001793EC /* DateTimeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeSelectionViewController.swift; sourceTree = "<group>"; };
+		BEC5744B225CA0AD001793EC /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
@@ -263,6 +267,7 @@
 			children = (
 				8F6A7A412240B583002E695A /* MainPageViewController.swift */,
 				BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */,
+				BEC57449225C9F90001793EC /* DateTimeSelectionViewController.swift */,
 				BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */,
 				BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */,
 				9F965F8322533E5500AF6092 /* CoreLogic.swift */,
@@ -331,6 +336,7 @@
 				BEF38D0A224BA1C500BC8927 /* FoldingCell.swift */,
 				BEF38D0C224BA2C400BC8927 /* TransactionCell.swift */,
 				BEC57445225A3DC9001793EC /* PreviewImageView.swift */,
+				BEC5744B225CA0AD001793EC /* CalendarCell.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -593,6 +599,7 @@
 				9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */,
 				8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */,
 				9F7C6DE9224B9C75003E7702 /* InvalidArgumentError.swift in Sources */,
+				BEC5744C225CA0AD001793EC /* CalendarCell.swift in Sources */,
 				BEC57446225A3DC9001793EC /* PreviewImageView.swift in Sources */,
 				BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */,
 				9FB4E16E224419880005403F /* StorageError.swift in Sources */,
@@ -601,6 +608,7 @@
 				9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */,
 				8FD5F7D32240EE8C0023A7FC /* TransactionCategory.swift in Sources */,
 				BEE6B6692243F79C0077DFD7 /* Constants.swift in Sources */,
+				BEC5744A225C9F90001793EC /* DateTimeSelectionViewController.swift in Sources */,
 				BEC574402254A301001793EC /* Decimal+toFormattedString.swift in Sources */,
 				8F3121D9224A39D100A9A554 /* TransactionTime.swift in Sources */,
 				8FD5F7D02240EA700023A7FC /* InitializationError.swift in Sources */,
