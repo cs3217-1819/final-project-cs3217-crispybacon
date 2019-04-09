@@ -12,7 +12,7 @@ import JTAppleCalendar
 class DateTimeSelectionViewController: UIViewController {
     private let formatter = Constants.getDateOnlyFormatter()
     private var referenceDate = Date()
-    private var selectedDate = Date()
+    var selectedDate = Date()
 
     @IBOutlet private weak var timePicker: UIDatePicker!
     @IBOutlet private weak var calendarView: JTAppleCalendarView!
@@ -36,7 +36,7 @@ class DateTimeSelectionViewController: UIViewController {
         let date = captureDateFromCalender()
         let time = captureTimeFromPicker()
         selectedDate = combineDateTime(date: date, time: time)
-        performSegue(withIdentifier: "timeToAddSuccess", sender: nil)
+        performSegue(withIdentifier: "unwindToAdd", sender: nil)
     }
 
     private func captureDateFromCalender() -> Date {
@@ -134,16 +134,5 @@ extension DateTimeSelectionViewController: JTAppleCalendarViewDelegate, JTAppleC
 
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         setUpYearAndMonthLabels(from: visibleDates)
-    }
-}
-
-extension DateTimeSelectionViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "timeToAddSuccess" {
-            guard let addController = segue.destination as? AddTransactionViewController else {
-                return
-            }
-            addController.dateTime = selectedDate
-        }
     }
 }

@@ -225,4 +225,9 @@ extension AddTransactionViewController {
             mainController.isUpdateNeeded = true
         }
     }
+    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
+        if let calendarViewController = segue.source as? DateTimeSelectionViewController {
+            dateTime = calendarViewController.selectedDate
+        }
+    }
 }
