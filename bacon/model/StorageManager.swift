@@ -45,6 +45,9 @@ class StorageManager {
         try concreteStorage.saveTransaction(transaction)
     }
 
+    /// Saves a budget into the database
+    /// There will always only be at most one budget existing in the database
+    /// In other words, calling saveBudget will overwrite any existing budget data.
     func saveBudget(_ budget: Budget) throws {
         try concreteStorage.saveBudget(budget)
     }

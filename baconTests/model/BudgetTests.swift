@@ -15,8 +15,8 @@ class BudgetTests: XCTestCase {
         let budget = try! Budget(from: TestUtils.january1st2019time0800,
                                  to: TestUtils.january2nd2019time1320,
                                  amount: 10)
-        XCTAssertEqual(budget.from, TestUtils.january1st2019time0800)
-        XCTAssertEqual(budget.to, TestUtils.january2nd2019time1320)
+        XCTAssertEqual(budget.fromDate, TestUtils.january1st2019time0800)
+        XCTAssertEqual(budget.toDate, TestUtils.january2nd2019time1320)
         XCTAssertEqual(budget.amount, 10)
     }
 

@@ -8,20 +8,20 @@
 
 import Foundation
 
-struct Budget: Codable {
-    let from: Date
-    let to: Date
+struct Budget: Codable, Equatable {
+    let fromDate: Date
+    let toDate: Date
     let amount: Decimal
 
-    init (from: Date, to: Date, amount: Decimal) throws {
-        guard from < to else {
+    init (from fromDate: Date, to toDate: Date, amount: Decimal) throws {
+        guard fromDate < toDate else {
             throw InitializationError(message: "'from' date must not be equivalent or later than 'to' date.")
         }
         guard amount >= 0 else {
             throw InitializationError(message: "Budget must be of a non-negative value.")
         }
-        self.from = from
-        self.to = to
+        self.fromDate = fromDate
+        self.toDate = toDate
         self.amount = amount
     }
 }

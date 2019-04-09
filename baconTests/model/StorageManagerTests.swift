@@ -69,6 +69,21 @@ class StorageManagerTests: XCTestCase {
         XCTAssertTrue(TestUtils.validTransactionExpenditure01.equals(loadedTransaction[0]))
     }
 
+    func test_saveBudget() {
+        let database = try! StorageManager()
+        XCTAssertNoThrow(try database.clearBudgetDatabase())
+        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 0)
+        XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget01))
+        // Load the budget out of database and check if its the one that was saved
+        let budget = try! database.loadBudget()
+        XCTAssertEqual(budget, TestUtils.validBudget01)
+
+        // Test that calling saveBudget again will overwrite existing data and not add on to it
+        XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget02))
+        let updatedBudget = try! database.loadBudget()
+        XCTAssertEqual(updatedBudget, TestUtils.validBudget02)
+    }
+
     func test_deleteTransaction() {
         let database = try! StorageManager()
         // Clear database
