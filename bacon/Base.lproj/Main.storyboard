@@ -307,9 +307,6 @@
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="f9k-N0-JxY" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
                                                 <rect key="frame" x="0.0" y="140" width="728" height="500"/>
                                                 <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="700" id="xZB-iN-w05"/>
-                                                </constraints>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Vup-Sn-OiA">
                                                     <size key="itemSize" width="95" height="98"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -381,11 +378,54 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctF-rt-1fD">
+                                <rect key="frame" x="20" y="730" width="728" height="100"/>
+                                <subviews>
+                                    <datePicker alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Dhg-1T-FbK">
+                                        <rect key="frame" x="200" y="0.0" width="328" height="100"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="576519579.57148194">
+                                            <!--2019-04-09 16:19:39 +0000-->
+                                        </date>
+                                    </datePicker>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Dhg-1T-FbK" secondAttribute="bottom" id="0XP-LD-jfA"/>
+                                    <constraint firstItem="Dhg-1T-FbK" firstAttribute="top" secondItem="ctF-rt-1fD" secondAttribute="top" id="1bt-b1-VnX"/>
+                                    <constraint firstItem="Dhg-1T-FbK" firstAttribute="leading" secondItem="ctF-rt-1fD" secondAttribute="leading" constant="200" id="MSP-OV-Ku0"/>
+                                    <constraint firstAttribute="trailing" secondItem="Dhg-1T-FbK" secondAttribute="trailing" constant="200" id="cCr-rH-2KR"/>
+                                    <constraint firstAttribute="height" constant="100" id="d76-io-eHW"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U2H-DD-Hcn">
+                                <rect key="frame" x="20" y="953" width="728" height="51"/>
+                                <color key="backgroundColor" red="0.43252096509999999" green="0.82577720210000005" blue="0.12604224820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Futura-CondensedExtraBold" family="Futura" pointSize="30"/>
+                                <state key="normal" title="Confirm">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ctF-rt-1fD" firstAttribute="leading" secondItem="9hu-KQ-S7W" secondAttribute="leading" constant="20" id="8CU-CT-Ghf"/>
+                            <constraint firstItem="ctF-rt-1fD" firstAttribute="top" secondItem="P4J-Gl-5Fe" secondAttribute="bottom" constant="20" id="91i-eQ-OKV"/>
+                            <constraint firstItem="U2H-DD-Hcn" firstAttribute="leading" secondItem="9hu-KQ-S7W" secondAttribute="leading" constant="20" id="Ta4-ez-s32"/>
+                            <constraint firstItem="9hu-KQ-S7W" firstAttribute="bottom" secondItem="U2H-DD-Hcn" secondAttribute="bottom" constant="20" id="WPm-Wu-TPR"/>
                             <constraint firstItem="P4J-Gl-5Fe" firstAttribute="top" secondItem="9hu-KQ-S7W" secondAttribute="top" id="Wf0-rB-jnm"/>
+                            <constraint firstItem="9hu-KQ-S7W" firstAttribute="trailing" secondItem="U2H-DD-Hcn" secondAttribute="trailing" constant="20" id="g2i-LL-eRr"/>
                             <constraint firstItem="9hu-KQ-S7W" firstAttribute="trailing" secondItem="P4J-Gl-5Fe" secondAttribute="trailing" constant="20" id="iNP-36-WRA"/>
+                            <constraint firstItem="9hu-KQ-S7W" firstAttribute="trailing" secondItem="ctF-rt-1fD" secondAttribute="trailing" constant="20" id="sCu-G1-eP1"/>
                             <constraint firstItem="P4J-Gl-5Fe" firstAttribute="leading" secondItem="9hu-KQ-S7W" secondAttribute="leading" constant="20" id="tps-hY-mjc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9hu-KQ-S7W"/>
