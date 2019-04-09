@@ -10,6 +10,8 @@ import UIKit
 import JTAppleCalendar
 
 class CalendarCell: JTAppleCell {
+    // swiftlint:disable private_outlet
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var selectedView: UIView!
+    // swiftlint:enable private_outlet
 }

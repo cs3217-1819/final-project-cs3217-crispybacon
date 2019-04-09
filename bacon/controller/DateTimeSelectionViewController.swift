@@ -12,8 +12,23 @@ import JTAppleCalendar
 class DateTimeSelectionViewController: UIViewController {
     let formatter = Constants.getDateOnlyFormatter()
 
+    @IBOutlet private weak var calendarView: JTAppleCalendarView!
+    @IBOutlet private weak var monthLabel: UILabel!
+    @IBOutlet private weak var yaerLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Set up year and month labels for the first loaded page
+        calendarView.visibleDates { visibleDates in
+            self.setUpYearAndMonthLabels(from: visibleDates)
+        }
+    }
+
+    func setUpYearAndMonthLabels(from visibleDates: DateSegmentInfo) {
+        let firstDate = visibleDates.monthDates.first?.date ?? Constants.defaultDate // could it be current?
+        yaerLabel.text = Constants.getYearOnlyFormatter().string(from: firstDate)
+        monthLabel.text = Constants.getMonthStringOnlyFormatter().string(from: firstDate)
     }
 
     func handleCellTextColor(view: JTAppleCell?, cellState: CellState) {
@@ -72,13 +87,6 @@ extension DateTimeSelectionViewController: JTAppleCalendarViewDelegate, JTAppleC
         // Reset cell to avoid reusing problem
         handleCellSelection(view: calendarCell, cellState: cellState)
         handleCellTextColor(view: calendarCell, cellState: cellState)
-        /*
-        if testCalendar.isDateInToday(date) {
-            myCustomCell.backgroundColor = red
-        } else {
-            myCustomCell.backgroundColor = white
-        }
-        */
     }
 
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
@@ -88,5 +96,9 @@ extension DateTimeSelectionViewController: JTAppleCalendarViewDelegate, JTAppleC
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date,
                   cell: JTAppleCell?, cellState: CellState) {
         handleCellSelection(view: cell, cellState: cellState)
+    }
+
+    func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
+        setUpYearAndMonthLabels(from: visibleDates)
     }
 }

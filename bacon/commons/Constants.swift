@@ -44,7 +44,7 @@ class Constants {
     static let imageView = 6
     static let descriptionView = 16
 
-    // Date Formatter
+    // Date
     static func getDateFormatter() -> DateFormatter {
         return generateFormatter(format: "yyyy-MM-dd HH:mm:ss")
     }
@@ -54,6 +54,12 @@ class Constants {
     static func getTimeOnlyFormatter() -> DateFormatter {
         return generateFormatter(format: "HH:mm")
     }
+    static func getYearOnlyFormatter() -> DateFormatter {
+        return generateFormatter(format: "yyyy")
+    }
+    static func getMonthStringOnlyFormatter() -> DateFormatter {
+        return generateFormatter(format: "MMMM")
+    }
     static private func generateFormatter(format: String) -> DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = format
@@ -61,6 +67,7 @@ class Constants {
         formatter.locale = Calendar.current.locale
         return formatter
     }
+    static let defaultDate = getDateFormatter().date(from: "2019-01-01 00:00:00")!
 
     // Dictionary Key for Transaction fields for use in Database
     static let typeKey = "type"
