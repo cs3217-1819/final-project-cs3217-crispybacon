@@ -15,7 +15,7 @@ class TransactionManager: Observer {
     init() throws {
         storageManager = try StorageManager()
         log.info("""
-            ModelManager initialized using ModelManager.init()
+            TransactionManager initialized using TransactionManager.init()
             """)
     }
 

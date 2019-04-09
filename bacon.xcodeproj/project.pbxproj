@@ -35,6 +35,8 @@
 		8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7D42240F50B0023A7FC /* TransactionType.swift */; };
 		9F2E21D72240F90800C5A31E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9F2E21D62240F90800C5A31E /* README.md */; };
 		9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */; };
+		9F67EF33225C96F9004F6D0B /* BudgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F67EF32225C96F9004F6D0B /* BudgetManager.swift */; };
+		9F67EF35225C9A73004F6D0B /* CoreLogicInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F67EF34225C9A73004F6D0B /* CoreLogicInterface.swift */; };
 		9F71AEF5225B3707005F043A /* StorageCouchBaseDB+Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */; };
 		9F71AEF7225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */; };
 		9F71AEF9225B3D84005F043A /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEF8225B3D84005F043A /* Budget.swift */; };
@@ -117,6 +119,8 @@
 		9620A3D3E871F6AA3491DCDF /* Pods-baconTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F2E21D62240F90800C5A31E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCouchBaseDB.swift; sourceTree = "<group>"; };
+		9F67EF32225C96F9004F6D0B /* BudgetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetManager.swift; sourceTree = "<group>"; };
+		9F67EF34225C9A73004F6D0B /* CoreLogicInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLogicInterface.swift; sourceTree = "<group>"; };
 		9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Budget.swift"; sourceTree = "<group>"; };
 		9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Transaction.swift"; sourceTree = "<group>"; };
 		9F71AEF8225B3D84005F043A /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
@@ -271,7 +275,11 @@
 				BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */,
 				BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */,
 				BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */,
+				9F67EF34225C9A73004F6D0B /* CoreLogicInterface.swift */,
 				9F965F8322533E5500AF6092 /* CoreLogic.swift */,
+				9F7FD1132240CD51001E1A8E /* StorageManager.swift */,
+				9F965F8522535B9300AF6092 /* TransactionManager.swift */,
+				9F67EF32225C96F9004F6D0B /* BudgetManager.swift */,
 				BEC574432254B714001793EC /* UIViewController+Alert.swift */,
 			);
 			path = controller;
@@ -280,11 +288,9 @@
 		9F7FD1122240CBFF001E1A8E /* model */ = {
 			isa = PBXGroup;
 			children = (
-				9F7FD1132240CD51001E1A8E /* StorageManager.swift */,
 				9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */,
 				9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */,
 				9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */,
-				9F965F8522535B9300AF6092 /* TransactionManager.swift */,
 				8FD5F7CA2240E7620023A7FC /* Transaction.swift */,
 				8FD5F7D42240F50B0023A7FC /* TransactionType.swift */,
 				8FD5F7D22240EE8C0023A7FC /* TransactionCategory.swift */,
@@ -610,6 +616,7 @@
 				9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */,
 				8FD5F7D32240EE8C0023A7FC /* TransactionCategory.swift in Sources */,
 				BEE6B6692243F79C0077DFD7 /* Constants.swift in Sources */,
+				9F67EF33225C96F9004F6D0B /* BudgetManager.swift in Sources */,
 				BEC574402254A301001793EC /* Decimal+toFormattedString.swift in Sources */,
 				8F3121D9224A39D100A9A554 /* TransactionTime.swift in Sources */,
 				8FD5F7D02240EA700023A7FC /* InitializationError.swift in Sources */,
@@ -623,6 +630,7 @@
 				8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */,
 				8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */,
 				8F8487DB224B7D7D001F881C /* Observable.swift in Sources */,
+				9F67EF35225C9A73004F6D0B /* CoreLogicInterface.swift in Sources */,
 				BEE6B6642240D0770077DFD7 /* AnalysisViewController.swift in Sources */,
 				BEC574442254B714001793EC /* UIViewController+Alert.swift in Sources */,
 			);
