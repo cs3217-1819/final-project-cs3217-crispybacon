@@ -312,6 +312,7 @@
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="dateLabel" destination="nYl-M1-QWs" id="Pa4-69-tIt"/>
+                                                    <outlet property="selectedView" destination="aho-1i-zwW" id="KWN-PA-58C"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>

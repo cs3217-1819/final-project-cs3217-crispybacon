@@ -15,6 +15,28 @@ class DateTimeSelectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+
+    func handleCellTextColor(view: JTAppleCell?, cellState: CellState) {
+        guard let cell = view as? CalendarCell else {
+            return
+        }
+        if cellState.dateBelongsTo == .thisMonth {
+            cell.dateLabel.textColor = UIColor.white
+        } else {
+            cell.dateLabel.textColor = UIColor.white.withAlphaComponent(0.4)
+        }
+    }
+
+    func handleCellSelection(view: JTAppleCell?, cellState: CellState) {
+        guard let cell = view as? CalendarCell else {
+            return
+        }
+        if cellState.isSelected {
+            cell.selectedView.isHidden = false
+        } else {
+            cell.selectedView.isHidden = true
+        }
+    }
 }
 
 extension DateTimeSelectionViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource {
@@ -46,6 +68,10 @@ extension DateTimeSelectionViewController: JTAppleCalendarViewDelegate, JTAppleC
 
     func sharedFunctionToConfigureCell(calendarCell: CalendarCell, cellState: CellState, date: Date) {
         calendarCell.dateLabel.text = cellState.text
+
+        // Reset cell to avoid reusing problem
+        handleCellSelection(view: calendarCell, cellState: cellState)
+        handleCellTextColor(view: calendarCell, cellState: cellState)
         /*
         if testCalendar.isDateInToday(date) {
             myCustomCell.backgroundColor = red
@@ -55,4 +81,12 @@ extension DateTimeSelectionViewController: JTAppleCalendarViewDelegate, JTAppleC
         */
     }
 
+    func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
+        handleCellSelection(view: cell, cellState: cellState)
+    }
+
+    func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date,
+                  cell: JTAppleCell?, cellState: CellState) {
+        handleCellSelection(view: cell, cellState: cellState)
+    }
 }
