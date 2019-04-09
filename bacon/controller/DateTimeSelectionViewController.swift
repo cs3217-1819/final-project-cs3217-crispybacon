@@ -10,7 +10,8 @@ import UIKit
 import JTAppleCalendar
 
 class DateTimeSelectionViewController: UIViewController {
-    let formatter = Constants.getDateOnlyFormatter()
+    private let formatter = Constants.getDateOnlyFormatter()
+    var referenceDate = Date()
 
     @IBOutlet private weak var calendarView: JTAppleCalendarView!
     @IBOutlet private weak var monthLabel: UILabel!
@@ -19,6 +20,10 @@ class DateTimeSelectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Set up the calendar to show the reference date (default to current date)
+        calendarView.scrollToDate(referenceDate, animateScroll: false)
+        calendarView.selectDates([referenceDate])
+
         // Set up year and month labels for the first loaded page
         calendarView.visibleDates { visibleDates in
             self.setUpYearAndMonthLabels(from: visibleDates)
@@ -26,7 +31,7 @@ class DateTimeSelectionViewController: UIViewController {
     }
 
     func setUpYearAndMonthLabels(from visibleDates: DateSegmentInfo) {
-        let firstDate = visibleDates.monthDates.first?.date ?? Constants.defaultDate // could it be current?
+        let firstDate = visibleDates.monthDates.first?.date ?? referenceDate
         yaerLabel.text = Constants.getYearOnlyFormatter().string(from: firstDate)
         monthLabel.text = Constants.getMonthStringOnlyFormatter().string(from: firstDate)
     }
@@ -57,8 +62,8 @@ class DateTimeSelectionViewController: UIViewController {
 extension DateTimeSelectionViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource {
 
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-        let start = formatter.date(from: "2017-01-01")! // Note
-        let end = formatter.date(from: "2017-12-31")! // Note
+        let start = Constants.minDate
+        let end = Constants.maxDate
         let parameters = ConfigurationParameters(startDate: start, endDate: end)
         return parameters
     }
