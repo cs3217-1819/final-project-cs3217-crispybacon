@@ -49,6 +49,26 @@ class TransactionTests: XCTestCase {
         }
     }
 
+    func test_editTransaction_validProperties() {
+        let transaction = try! Transaction(date: testDate,
+                                           type: .expenditure,
+                                           frequency: testFrequency,
+                                           category: .bills,
+                                           amount: 1)
+        XCTAssertNoThrow(try transaction.edit(type: .income))
+    }
+
+    func test_editTransaction_invalidProperties() {
+        let transaction = try! Transaction(date: testDate,
+                                           type: .expenditure,
+                                           frequency: testFrequency,
+                                           category: .bills,
+                                           amount: 1)
+        XCTAssertThrowsError(try transaction.edit(amount: -1)) { err in
+            XCTAssertTrue(type(of: err) == InvalidTransactionError.self)
+        }
+    }
+
     func test_transaction_equal() {
         let transaction = try! Transaction(date: testDate,
                                            type: .expenditure,
