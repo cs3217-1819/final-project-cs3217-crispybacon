@@ -10,6 +10,20 @@ import UIKit
 
 class TransactionCell: FoldingCell {
 
+    // swiftlint:disable private_outlet
+    @IBOutlet weak var descriptionView: UILabel!
+    @IBOutlet weak var openCategoryView: UILabel!
+    @IBOutlet weak var locationView: UILabel!
+    @IBOutlet weak var openTimeView: UILabel!
+    @IBOutlet weak var openDateView: UILabel!
+    @IBOutlet weak var iconView: UIImageView!
+    @IBOutlet weak var openAmountView: UILabel!
+    @IBOutlet weak var closedCategoryView: UILabel!
+    @IBOutlet weak var closedAmountView: UILabel!
+    @IBOutlet weak var closedDateView: UILabel!
+    @IBOutlet weak var closedNumberView: UILabel!
+    // swiftlint:enable private_outlet
+
     override func awakeFromNib() {
         foregroundView.layer.cornerRadius = 10
         foregroundView.layer.masksToBounds = true
@@ -21,11 +35,5 @@ class TransactionCell: FoldingCell {
         // durations count equal it itemCount
         let durations = Constants.animatoinDuration
         return durations[itemIndex]
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        let imageView = self.viewWithTag(6) as? UIImageView
-        imageView?.image = Constants.defaultImage
     }
 }

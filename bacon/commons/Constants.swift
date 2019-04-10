@@ -29,24 +29,42 @@ class Constants {
 
     // Trsansactions Page
     static let defaultImage = UIImage(named: "dummy")
+    static let defaultDescriptionToDisplay = "No description was provided"
     static let animatoinDuration = [0.26, 0.20, 0.20]
+    static let imageViewTag = 6
 
-    // Date Formatter
+    // Date
     static func getDateFormatter() -> DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return formatter
+        return generateFormatter(format: "yyyy-MM-dd HH:mm:ss")
+    }
+    static func getDateLessPreciseFormatter() -> DateFormatter {
+        return generateFormatter(format: "yyyy-MM-dd HH:mm")
     }
     static func getDateOnlyFormatter() -> DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
+        return generateFormatter(format: "yyyy-MM-dd")
     }
     static func getTimeOnlyFormatter() -> DateFormatter {
+        return generateFormatter(format: "HH:mm")
+    }
+    static func getYearOnlyFormatter() -> DateFormatter {
+        return generateFormatter(format: "yyyy")
+    }
+    static func getMonthStringOnlyFormatter() -> DateFormatter {
+        return generateFormatter(format: "MMMM")
+    }
+    static private func generateFormatter(format: String) -> DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
+        formatter.dateFormat = format
+        formatter.timeZone = Calendar.current.timeZone
+        formatter.locale = Calendar.current.locale
         return formatter
     }
+    // Only 20 years are allowed because it affects loading speed
+    // but can always change this part
+    // swiftlint:disable force_unwrapping
+    static let minDate = getDateFormatter().date(from: "2009-01-01 00:00:00")!
+    static let maxDate = getDateFormatter().date(from: "2029-01-01 23:59:59")!
+    // swiftlint:enable force_unwrapping
 
     // Dictionary Key for Transaction fields for use in Database
     static let typeKey = "type"

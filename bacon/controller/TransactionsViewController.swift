@@ -19,45 +19,73 @@ class TransactionsViewController: UIViewController {
     var core: CoreLogic?
     var cellHeights: [CGFloat] = []
     var currentMonthTransactions = [Transaction]()
+    var monthCounter = (0, 0) // is there a better way
     var rowsCount: Int {
         return currentMonthTransactions.count
     }
 
-    @IBOutlet private weak var tableView: UITableView! // not being used yet
+    @IBOutlet private weak var monthYearLabel: UILabel!
+    @IBOutlet private weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadCurrentMonthTransactions()
+
+        // Get current month and year and transactions
+        let calendar = Calendar.current
+        let currentDate = Date()
+        let currentMonth = calendar.component(.month, from: currentDate)
+        let currentYear = calendar.component(.year, from: currentDate)
+        monthCounter = (currentMonth, currentYear)
+        loadMonthTransactions()
         setUpTableView()
     }
 
-    private func loadCurrentMonthTransactions() {
+    private func loadMonthTransactions() {
         guard let core = core else {
             self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
             return
         }
         do {
-            let calendar = Calendar.current
-            let currentDate = Date()
-            let currentMonth = calendar.component(.month, from: currentDate)
-            let currentYear = calendar.component(.year, from: currentDate)
-            try currentMonthTransactions = core.loadTransactions(month: currentMonth, year: currentYear)
+            try currentMonthTransactions = core.loadTransactions(month: monthCounter.0, year: monthCounter.1)
+            tableView.reloadData()
+            monthYearLabel.text = String(monthCounter.0) + " " + String(monthCounter.1)
         } catch {
             self.handleError(error: error, customMessage: Constants.transactionLoadFailureMessage)
         }
+    }
+    @IBAction func prevButtonPressed(_ sender: UIButton) {
+        var month = monthCounter.0 - 1
+        var year = monthCounter.1
+        if month == 0 {
+            year -= 1
+            month = 12
+        }
+        monthCounter = (month, year)
+        loadMonthTransactions()
+    }
+
+    @IBAction func nextButtonPressed(_ sender: UIButton) {
+        var month = monthCounter.0 + 1
+        var year = monthCounter.1
+        if month == 13 {
+            year += 1
+            month = 1
+        }
+        monthCounter = (month, year)
+        loadMonthTransactions()
     }
 
     private func setUpTableView() {
         cellHeights = Array(repeating: Const.closeCellHeight, count: rowsCount)
         tableView.estimatedRowHeight = Const.closeCellHeight
         tableView.rowHeight = UITableView.automaticDimension
-        //tableView.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "background"))
         if #available(iOS 10.0, *) {
             tableView.refreshControl = UIRefreshControl()
             tableView.refreshControl?.addTarget(self, action: #selector(refreshHandler), for: .valueChanged)
         }
     }
 
+    // swiftlint:disable attributes
     @objc func refreshHandler() {
         let deadlineTime = DispatchTime.now() + .seconds(1)
         DispatchQueue.main.asyncAfter(deadline: deadlineTime) { [weak self] in
@@ -67,6 +95,7 @@ class TransactionsViewController: UIViewController {
             self?.tableView.reloadData()
         }
     }
+    // swiftlint:enable attributes
 }
 
 extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -91,7 +120,7 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let rawCell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath)
-        guard let cell = rawCell as? FoldingCell else {
+        guard let cell = rawCell as? TransactionCell else {
             return rawCell
         }
         let arrayIndex = indexPath.row
@@ -102,52 +131,49 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
 
-        // Configure views to show data
-        let closedNumberView = cell.viewWithTag(13) as? UILabel
-        let openNumberView = cell.viewWithTag(5) as? UILabel
-        closedNumberView?.text = String(displayedIndex)
-        openNumberView?.text = String(displayedIndex)
+        cell.closedNumberView.text = String(displayedIndex)
 
-        let closedDateView = cell.viewWithTag(14) as? UILabel
-        let openDateView = cell.viewWithTag(9) as? UILabel
-        let openTimeView = cell.viewWithTag(10) as? UILabel
         let date = currentMonthTransactions[arrayIndex].date
-        closedDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
-        openDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
-        openTimeView?.text = Constants.getTimeOnlyFormatter().string(from: date)
+        cell.closedDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
+        cell.openDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
+        cell.openTimeView?.text = Constants.getTimeOnlyFormatter().string(from: date)
 
-        let closedAmountView = cell.viewWithTag(15) as? UILabel
-        let openAmountView = cell.viewWithTag(7) as? UILabel
         let type = currentMonthTransactions[arrayIndex].type
         let typeString = type == .expenditure ? "-" : "+"
         let amount = currentMonthTransactions[arrayIndex].amount
         let amountString = amount.toFormattedString
         let finalString = typeString + Constants.currencySymbol + (amountString ?? Constants.defaultAmountString)
-        closedAmountView?.text = finalString
-        openAmountView?.text = finalString
+        cell.closedAmountView.text = finalString
+        cell.openAmountView.text = finalString
 
-        let closedCategoryView = cell.viewWithTag(4) as? UILabel
-        let openCategoryView = cell.viewWithTag(12) as? UILabel
         let category = currentMonthTransactions[arrayIndex].category
         let categoryString = category.rawValue
-        closedCategoryView?.text = categoryString
-        openCategoryView?.text = categoryString
+        cell.closedCategoryView?.text = categoryString
+        cell.openCategoryView?.text = categoryString
 
-        let locationView = cell.viewWithTag(11) as? UILabel
         let codableLocation = currentMonthTransactions[arrayIndex].location
         if let location = codableLocation?.location {
             let geoCoder = CLGeocoder()
             geoCoder.reverseGeocodeLocation(location) { placemarks, _ in
                 if let place = placemarks?.first {
-                    locationView?.text = String(place)
+                    cell.locationView?.text = String(place)
                 }
             }
         }
 
-        let imageView = cell.viewWithTag(6) as? UIImageView
+        let description = currentMonthTransactions[arrayIndex].description
+        if description == Constants.defaultDescription {
+            cell.descriptionView?.text = Constants.defaultDescriptionToDisplay
+        } else {
+            cell.descriptionView?.text = description
+        }
+
+        let imageView = cell.viewWithTag(Constants.imageViewTag) as? UIImageView
         let codableImgae = currentMonthTransactions[arrayIndex].image
         if let image = codableImgae?.image {
             imageView?.image = image
+        } else {
+            imageView?.image = Constants.defaultImage
         }
 
         //  icon is not set yet
@@ -186,5 +212,26 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
             tableView.endUpdates()
         }, completion: nil)
     }
+
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.currentMonthTransactions[indexPath.row].delete(successCallback: {
+                self.currentMonthTransactions.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.perform(#selector(self.reloadTable), with: nil, afterDelay: 0.4)
+            }, failureCallback: { errorMessage in
+                self.alertUser(title: Constants.warningTitle, message: errorMessage)
+            })
+        }
+    }
+
+    // swiftlint:disable attributes
+    @objc func reloadTable() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    // swiftlint:enable attributes
 
 }

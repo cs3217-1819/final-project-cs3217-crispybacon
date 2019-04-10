@@ -15,6 +15,7 @@ class AddTransactionViewController: UIViewController {
     let geoCoder = CLGeocoder()
     var core: CoreLogic?
     var transactionType = Constants.defaultTransactionType
+    var dateTime = Date()
     private var selectedCategory = Constants.defaultCategory
     private var photo: UIImage?
     private var location: CLLocation?
@@ -24,6 +25,7 @@ class AddTransactionViewController: UIViewController {
     @IBOutlet private weak var categoryLabel: UILabel!
     @IBOutlet private weak var descriptionField: UITextField!
     @IBOutlet private weak var locationLabel: UILabel!
+    @IBOutlet private weak var timeLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +49,11 @@ class AddTransactionViewController: UIViewController {
             locationManager.startUpdatingLocation()
             getCurrentLocation()
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        // Need to add display location and photo too when ready
+        displayDateTime(dateTime: dateTime)
     }
 
     @IBAction func typeFieldPressed(_ sender: UITapGestureRecognizer) {
@@ -112,7 +119,7 @@ class AddTransactionViewController: UIViewController {
     }
 
     private func captureDate() -> Date {
-        return Date()
+        return dateTime
     }
 
     private func captureType() -> TransactionType {
@@ -130,8 +137,6 @@ class AddTransactionViewController: UIViewController {
     }
 
     private func captureAmount() -> Decimal {
-        // No error handling yet
-        // PS: apparently iPad does not support number only keyboards...
         let amountString = amountField.text
         let amountDecimal = Decimal(string: amountString ?? Constants.defaultAmountString)
         return amountDecimal ?? Constants.defaultAmount
@@ -172,6 +177,10 @@ class AddTransactionViewController: UIViewController {
         }
     }
 
+    private func displayDateTime(dateTime: Date) {
+        timeLabel.text = Constants.getDateLessPreciseFormatter().string(from: dateTime)
+    }
+
     private func setExpenditureType() {
         transactionType = .expenditure
         typeLabel.text = "- \(Constants.currencySymbol)"
@@ -185,6 +194,7 @@ class AddTransactionViewController: UIViewController {
         typeLabel.textColor = UIColor.green
         categoryLabel.textColor = UIColor.green
     }
+
 }
 
 extension AddTransactionViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -213,6 +223,11 @@ extension AddTransactionViewController {
             }
             mainController.core = core
             mainController.isUpdateNeeded = true
+        }
+    }
+    @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
+        if let calendarViewController = segue.source as? DateTimeSelectionViewController {
+            dateTime = calendarViewController.selectedDate
         }
     }
 }

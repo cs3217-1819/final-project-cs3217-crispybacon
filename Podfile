@@ -8,6 +8,7 @@ target 'bacon' do
   # Pods for bacon
   pod 'CouchbaseLite-Swift', '~> 2.1.1'
   pod 'SwiftyBeaver'
+  pod 'JTAppleCalendar', '~> 7.0'
 
   target 'baconTests' do
     inherit! :search_paths
