@@ -48,7 +48,7 @@ class TransactionsViewController: UIViewController {
         do {
             try currentMonthTransactions = core.loadTransactions(month: monthCounter.0, year: monthCounter.1)
             tableView.reloadData()
-            monthYearLabel.text = String(monthCounter.0) + " " + String(monthCounter.1)
+            monthYearLabel.text = String(monthCounter.0) + "/" + String(monthCounter.1)
         } catch {
             self.handleError(error: error, customMessage: Constants.transactionLoadFailureMessage)
         }
