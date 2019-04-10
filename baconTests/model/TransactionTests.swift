@@ -12,16 +12,15 @@ import XCTest
 @testable import bacon
 
 class TransactionTests: XCTestCase {
-    let testDate = Date()
     let testFrequency = try! TransactionFrequency(nature: .oneTime)
 
     func test_init_validInput_success() {
-        let transaction = try! Transaction(date: testDate,
+        let transaction = try! Transaction(date: TestUtils.january1st2019time0800,
                                            type: .expenditure,
                                            frequency: testFrequency,
                                            category: .bills,
                                            amount: 1)
-        XCTAssertEqual(transaction.date, testDate)
+        XCTAssertEqual(transaction.date, TestUtils.january1st2019time0800)
         XCTAssertEqual(transaction.type, .expenditure)
         XCTAssertEqual(transaction.frequency, testFrequency)
         XCTAssertEqual(transaction.category, .bills)
@@ -30,7 +29,7 @@ class TransactionTests: XCTestCase {
     }
 
     func test_init_invalidNegativeAmount() {
-        XCTAssertThrowsError(try Transaction(date: testDate,
+        XCTAssertThrowsError(try Transaction(date: TestUtils.january1st2019time0800,
                                              type: .expenditure,
                                              frequency: testFrequency,
                                              category: .bills,
@@ -40,7 +39,7 @@ class TransactionTests: XCTestCase {
     }
 
     func test_init_invalidZeroAmount() {
-        XCTAssertThrowsError(try Transaction(date: testDate,
+        XCTAssertThrowsError(try Transaction(date: TestUtils.january1st2019time0800,
                                              type: .expenditure,
                                              frequency: testFrequency,
                                              category: .bills,
@@ -50,37 +49,39 @@ class TransactionTests: XCTestCase {
     }
 
     func test_editTransaction_validProperties() {
-        let transaction = try! Transaction(date: testDate,
-                                           type: .expenditure,
-                                           frequency: testFrequency,
-                                           category: .bills,
-                                           amount: 1)
-        XCTAssertNoThrow(try transaction.edit(type: .income))
+        // Stress test with all valid transactions
+        // Test with editing multiple properties (3 and 2), and single property
+        try! TestUtils.validTransactions.forEach { transaction in
+            XCTAssertNoThrow(try transaction.edit(date: TestUtils.january1st2019time0800,
+                                                  type: .expenditure,
+                                                  frequency: testFrequency))
+            XCTAssertNoThrow(try transaction.edit(category: .transport,
+                                                  amount: 100))
+            XCTAssertNoThrow(try transaction.edit(description: "foo"))
+        }
     }
 
     func test_editTransaction_invalidProperties() {
-        let transaction = try! Transaction(date: testDate,
-                                           type: .expenditure,
-                                           frequency: testFrequency,
-                                           category: .bills,
-                                           amount: 1)
-        XCTAssertThrowsError(try transaction.edit(amount: -1)) { err in
-            XCTAssertTrue(type(of: err) == InvalidTransactionError.self)
+        // Stress test with all valid transactions
+        try! TestUtils.validTransactions.forEach { transaction in
+            XCTAssertThrowsError(try transaction.edit(amount: -1)) { err in
+                XCTAssertTrue(err is InvalidTransactionError)
+            }
         }
     }
 
     func test_transaction_equal() {
-        let transaction = try! Transaction(date: testDate,
+        let transaction = try! Transaction(date: TestUtils.january1st2019time1000,
                                            type: .expenditure,
                                            frequency: testFrequency,
                                            category: .bills,
                                            amount: 1)
-        let transaction2 = try! Transaction(date: testDate,
+        let transaction2 = try! Transaction(date: TestUtils.january1st2019time1000,
                                             type: .expenditure,
                                             frequency: testFrequency,
                                             category: .bills,
                                             amount: 1)
-        let transaction3 = try! Transaction(date: testDate,
+        let transaction3 = try! Transaction(date: TestUtils.january1st2019time1000,
                                             type: .income,
                                             frequency: testFrequency,
                                             category: .food,
@@ -90,7 +91,7 @@ class TransactionTests: XCTestCase {
     }
 
     func test_transactionObservable() {
-        let transaction = try! Transaction(date: testDate,
+        let transaction = try! Transaction(date: TestUtils.january1st2019time1000,
                                            type: .expenditure,
                                            frequency: testFrequency,
                                            category: .bills,
@@ -107,12 +108,12 @@ class TransactionTests: XCTestCase {
     }
 
     func test_transactionHashable() {
-        let transaction1 = try! Transaction(date: testDate,
+        let transaction1 = try! Transaction(date: TestUtils.january2nd2019time1500,
                                             type: .expenditure,
                                             frequency: testFrequency,
                                             category: .bills,
                                             amount: 1)
-        let transaction2 = try! Transaction(date: testDate,
+        let transaction2 = try! Transaction(date: TestUtils.january2nd2019time1500,
                                             type: .expenditure,
                                             frequency: testFrequency,
                                             category: .bills,
