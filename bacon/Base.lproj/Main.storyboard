@@ -1116,10 +1116,21 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="closedAmountView" destination="5ta-Kw-tJf" id="2nF-MM-fGw"/>
+                                            <outlet property="closedCategoryView" destination="rAk-qQ-rWO" id="5xB-gQ-d4N"/>
+                                            <outlet property="closedDateView" destination="lNA-Dm-I1Z" id="1cT-5s-HhB"/>
+                                            <outlet property="closedNumberView" destination="IiH-hA-SFT" id="G0j-BV-oTc"/>
                                             <outlet property="containerView" destination="WZm-XW-u14" id="S1n-1h-bcd"/>
                                             <outlet property="containerViewTop" destination="RhN-Cv-XV7" id="xTV-8G-tjy"/>
+                                            <outlet property="descriptionView" destination="z8E-tU-YTL" id="KIh-k1-yqk"/>
                                             <outlet property="foregroundView" destination="Ep8-2r-QI7" id="umZ-Iz-iGH"/>
                                             <outlet property="foregroundViewTop" destination="fEZ-FV-5oz" id="hA8-bR-3As"/>
+                                            <outlet property="iconView" destination="FoP-gH-1dH" id="Jhv-ZJ-mc4"/>
+                                            <outlet property="locationView" destination="oCD-r0-esD" id="I4r-Zc-6iD"/>
+                                            <outlet property="openAmountView" destination="0Hv-ev-pzy" id="4Cd-0f-mhy"/>
+                                            <outlet property="openCategoryView" destination="Dep-9A-3UL" id="1Zb-yK-1Rk"/>
+                                            <outlet property="openDateView" destination="GGv-2B-3uh" id="U5f-nD-QN9"/>
+                                            <outlet property="openTimeView" destination="ajf-da-EaL" id="5tb-SE-fav"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

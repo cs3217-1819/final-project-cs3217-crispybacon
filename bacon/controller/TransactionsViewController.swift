@@ -92,7 +92,7 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let rawCell = tableView.dequeueReusableCell(withIdentifier: "transactionCell", for: indexPath)
-        guard let cell = rawCell as? FoldingCell else {
+        guard let cell = rawCell as? TransactionCell else {
             return rawCell
         }
         let arrayIndex = indexPath.row
@@ -103,62 +103,49 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
 
-        // Configure views to show data
-        let closedNumberView = cell.viewWithTag(Constants.closedNumberView) as? UILabel
-        let openNumberView = cell.viewWithTag(Constants.openNumberView) as? UILabel
-        closedNumberView?.text = String(displayedIndex)
-        openNumberView?.text = String(displayedIndex)
+        cell.closedNumberView.text = String(displayedIndex)
 
-        let closedDateView = cell.viewWithTag(Constants.closedDateView) as? UILabel
-        let openDateView = cell.viewWithTag(Constants.openDateView) as? UILabel
-        let openTimeView = cell.viewWithTag(Constants.openTimeView) as? UILabel
         let date = currentMonthTransactions[arrayIndex].date
-        closedDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
-        openDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
-        openTimeView?.text = Constants.getTimeOnlyFormatter().string(from: date)
+        cell.closedDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
+        cell.openDateView?.text = Constants.getDateOnlyFormatter().string(from: date)
+        cell.openTimeView?.text = Constants.getTimeOnlyFormatter().string(from: date)
 
-        let closedAmountView = cell.viewWithTag(Constants.closedAmountView) as? UILabel
-        let openAmountView = cell.viewWithTag(Constants.openAmountView) as? UILabel
         let type = currentMonthTransactions[arrayIndex].type
         let typeString = type == .expenditure ? "-" : "+"
         let amount = currentMonthTransactions[arrayIndex].amount
         let amountString = amount.toFormattedString
         let finalString = typeString + Constants.currencySymbol + (amountString ?? Constants.defaultAmountString)
-        closedAmountView?.text = finalString
-        openAmountView?.text = finalString
+        cell.closedAmountView.text = finalString
+        cell.openAmountView.text = finalString
 
-        let closedCategoryView = cell.viewWithTag(Constants.closedCategoryView) as? UILabel
-        let openCategoryView = cell.viewWithTag(Constants.openCategoryView) as? UILabel
         let category = currentMonthTransactions[arrayIndex].category
         let categoryString = category.rawValue
-        closedCategoryView?.text = categoryString
-        openCategoryView?.text = categoryString
+        cell.closedCategoryView?.text = categoryString
+        cell.openCategoryView?.text = categoryString
 
-        let locationView = cell.viewWithTag(Constants.locationView) as? UILabel
         let codableLocation = currentMonthTransactions[arrayIndex].location
         if let location = codableLocation?.location {
             let geoCoder = CLGeocoder()
             geoCoder.reverseGeocodeLocation(location) { placemarks, _ in
                 if let place = placemarks?.first {
-                    locationView?.text = String(place)
+                    cell.locationView?.text = String(place)
                 }
             }
         }
 
-        let imageView = cell.viewWithTag(Constants.imageView) as? UIImageView
+        let description = currentMonthTransactions[arrayIndex].description
+        if description == Constants.defaultDescription {
+            cell.descriptionView?.text = Constants.defaultDescriptionToDisplay
+        } else {
+            cell.descriptionView?.text = description
+        }
+
+        let imageView = cell.viewWithTag(Constants.imageViewTag) as? UIImageView
         let codableImgae = currentMonthTransactions[arrayIndex].image
         if let image = codableImgae?.image {
             imageView?.image = image
         } else {
             imageView?.image = Constants.defaultImage
-        }
-
-        let descriptionView = cell.viewWithTag(Constants.descriptionView) as? UILabel
-        let description = currentMonthTransactions[arrayIndex].description
-        if description == Constants.defaultDescription {
-            descriptionView?.text = Constants.defaultDescriptionToDisplay
-        } else {
-            descriptionView?.text = description
         }
 
         //  icon is not set yet

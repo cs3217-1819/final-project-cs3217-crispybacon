@@ -31,18 +31,7 @@ class Constants {
     static let defaultImage = UIImage(named: "dummy")
     static let defaultDescriptionToDisplay = "No description was provided"
     static let animatoinDuration = [0.26, 0.20, 0.20]
-    static let closedNumberView = 13
-    static let openNumberView = 5
-    static let closedDateView = 14
-    static let openDateView = 9
-    static let openTimeView = 10
-    static let closedAmountView = 15
-    static let openAmountView = 7
-    static let closedCategoryView = 4
-    static let openCategoryView = 12
-    static let locationView = 11
-    static let imageView = 6
-    static let descriptionView = 16
+    static let imageViewTag = 6
 
     // Date
     static func getDateFormatter() -> DateFormatter {
