@@ -100,11 +100,7 @@ class Transaction: HashableClass, Codable, Observable {
          description: String = "",
          image: CodableUIImage? = nil,
          location: CodableCLLocation? = nil) throws {
-        log.info("""
-            Transaction:init() with the following arguments:
-            date=\(date) type=\(type) frequency=\(frequency) category=\(category)
-            amount=\(amount) description=\(description) location=\(String(describing: location))
-            """)
+        log.info("Initializing Transaction object.")
 
         self.date = date
         self.type = type
@@ -126,8 +122,11 @@ class Transaction: HashableClass, Codable, Observable {
                          image: image,
                          location: location)
         } catch let error as InvalidTransactionError {
+            log.warning("Transaction initialization failed (InvalidTransactionError). Re-throwing as InitializationError.")
             throw InitializationError(message: error.message) // Propagate error as InitializationError
         }
+
+        log.info("Transaction initialization succeeded.")
     }
 
     /// Edits one or more properties of a Transaction object.
@@ -144,6 +143,7 @@ class Transaction: HashableClass, Codable, Observable {
               image: CodableUIImage? = nil,
               location: CodableCLLocation? = nil) throws {
         do {
+            log.info("Editing Transaction instance.")
             try validate(date: date,
                          type: type,
                          frequency: frequency,
@@ -153,6 +153,7 @@ class Transaction: HashableClass, Codable, Observable {
                          image: image,
                          location: location)
         } catch let error as InvalidTransactionError {
+            log.warning("Transaction editing failed (InvalidTransactionError. Rethrowing error.")
             throw error
         }
 
@@ -183,12 +184,13 @@ class Transaction: HashableClass, Codable, Observable {
             self.location = location
         }
 
+        log.info("Transaction editing succeeded.")
     }
 
     /// Notifies all observers of changes to self.
     /// This should be called after any mutation to a Transaction instance.
     private func notifyObserversOfSelf() {
-        log.info("Notifying observers of new self")
+        log.info("Notifying observers of new self.")
         notifyObservers(self)
     }
 
@@ -225,6 +227,8 @@ extension Transaction {
                           description: String? = nil,
                           image: CodableUIImage? = nil,
                           location: CodableCLLocation? = nil) throws {
+        log.info("Validating transaction properties.")
+
         /* Currently, we only validate `amount`.
          * This method should be extended as required in the future.
          * For each property to be checked, we first check that it is not nil,
@@ -233,8 +237,11 @@ extension Transaction {
 
         // Validation condition: amount should be > 0
         if (amount != nil && amount! <= 0) {
+            log.warning("Amount=\(String(describing: amount)) is invalid. Throwing InvalidTransactionError.")
             throw InvalidTransactionError(message: "amount=\(amount!) must be > 0")
         }
+
+        log.info("Transaction properties validation succeeded.")
     }
 
 }
