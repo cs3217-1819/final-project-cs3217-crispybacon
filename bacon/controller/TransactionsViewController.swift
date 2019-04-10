@@ -19,32 +19,60 @@ class TransactionsViewController: UIViewController {
     var core: CoreLogic?
     var cellHeights: [CGFloat] = []
     var currentMonthTransactions = [Transaction]()
+    var monthCounter = (0, 0) // is there a better way
     var rowsCount: Int {
         return currentMonthTransactions.count
     }
 
+    @IBOutlet private weak var monthYearLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadCurrentMonthTransactions()
+
+        // Get current month and year and transactions
+        let calendar = Calendar.current
+        let currentDate = Date()
+        let currentMonth = calendar.component(.month, from: currentDate)
+        let currentYear = calendar.component(.year, from: currentDate)
+        monthCounter = (currentMonth, currentYear)
+        loadMonthTransactions()
         setUpTableView()
     }
 
-    private func loadCurrentMonthTransactions() {
+    private func loadMonthTransactions() {
         guard let core = core else {
             self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
             return
         }
         do {
-            let calendar = Calendar.current
-            let currentDate = Date()
-            let currentMonth = calendar.component(.month, from: currentDate)
-            let currentYear = calendar.component(.year, from: currentDate)
-            try currentMonthTransactions = core.loadTransactions(month: currentMonth, year: currentYear)
+            try currentMonthTransactions = core.loadTransactions(month: monthCounter.0, year: monthCounter.1)
+            tableView.reloadData()
+            monthYearLabel.text = String(monthCounter.0) + " " + String(monthCounter.1)
         } catch {
             self.handleError(error: error, customMessage: Constants.transactionLoadFailureMessage)
         }
+    }
+    @IBAction func prevButtonPressed(_ sender: UIButton) {
+        var month = monthCounter.0 - 1
+        var year = monthCounter.1
+        if month == 0 {
+            year -= 1
+            month = 12
+        }
+        monthCounter = (month, year)
+        loadMonthTransactions()
+    }
+
+    @IBAction func nextButtonPressed(_ sender: UIButton) {
+        var month = monthCounter.0 + 1
+        var year = monthCounter.1
+        if month == 13 {
+            year += 1
+            month = 1
+        }
+        monthCounter = (month, year)
+        loadMonthTransactions()
     }
 
     private func setUpTableView() {

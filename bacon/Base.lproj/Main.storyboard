@@ -322,7 +322,7 @@
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aho-1i-zwW" userLabel="Selected Background">
-                                                                    <rect key="frame" x="22.5" y="20.5" width="50" height="50"/>
+                                                                    <rect key="frame" x="22.5" y="30" width="50" height="50"/>
                                                                     <color key="backgroundColor" red="0.77024561166763306" green="0.53339457511901855" blue="0.55773937702178955" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="1zF-uV-EBD"/>
@@ -335,7 +335,7 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nYl-M1-QWs">
-                                                                    <rect key="frame" x="22" y="27" width="51" height="36.5"/>
+                                                                    <rect key="frame" x="22" y="37" width="51" height="36.5"/>
                                                                     <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="30"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
@@ -1142,20 +1142,44 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ujW-aR-xay" userLabel="bar">
                                 <rect key="frame" x="20" y="75" width="728" height="40"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHe-R9-GH8">
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MONTH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHe-R9-GH8">
                                         <rect key="frame" x="0.0" y="0.0" width="728" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dJB-GR-kIf">
+                                        <rect key="frame" x="693" y="2" width="30" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="&gt;">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="nextButtonPressed:" destination="DTU-VI-2oa" eventType="touchUpInside" id="PKB-RN-uYD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xpf-J5-BKb">
+                                        <rect key="frame" x="5" y="2" width="30" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="&lt;">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="prevButtonPressed:" destination="DTU-VI-2oa" eventType="touchUpInside" id="bek-Me-Dhz"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="dJB-GR-kIf" secondAttribute="trailing" constant="5" id="2Ri-49-9ca"/>
                                     <constraint firstItem="iHe-R9-GH8" firstAttribute="leading" secondItem="ujW-aR-xay" secondAttribute="leading" id="6QF-1m-f2w"/>
                                     <constraint firstAttribute="bottom" secondItem="iHe-R9-GH8" secondAttribute="bottom" id="BEP-cv-hlD"/>
+                                    <constraint firstItem="dJB-GR-kIf" firstAttribute="centerY" secondItem="ujW-aR-xay" secondAttribute="centerY" id="TUz-Gn-HTE"/>
                                     <constraint firstAttribute="height" constant="40" id="ZWS-IL-bJz"/>
                                     <constraint firstItem="iHe-R9-GH8" firstAttribute="top" secondItem="ujW-aR-xay" secondAttribute="top" id="Zxu-76-PPN"/>
+                                    <constraint firstItem="xpf-J5-BKb" firstAttribute="centerY" secondItem="ujW-aR-xay" secondAttribute="centerY" id="ab9-86-T20"/>
+                                    <constraint firstItem="xpf-J5-BKb" firstAttribute="leading" secondItem="ujW-aR-xay" secondAttribute="leading" constant="5" id="ncf-5t-VpP"/>
                                     <constraint firstAttribute="trailing" secondItem="iHe-R9-GH8" secondAttribute="trailing" id="vFO-58-Uvt"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -1179,6 +1203,7 @@
                         <viewLayoutGuide key="safeArea" id="2yH-Go-pk1"/>
                     </view>
                     <connections>
+                        <outlet property="monthYearLabel" destination="iHe-R9-GH8" id="LWL-au-Qj2"/>
                         <outlet property="tableView" destination="Wxi-zi-XoU" id="0cE-oP-dMw"/>
                     </connections>
                 </viewController>
