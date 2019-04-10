@@ -80,9 +80,9 @@ class TransactionTests: XCTestCase {
         transaction.registerObserver(observer)
 
         XCTAssertEqual(observer.notifiedCount, 0)
-        transaction.amount = 2 // Set amount to new value
+        try! transaction.edit(amount: 2) // Set amount to new value
         XCTAssertEqual(observer.notifiedCount, 1)
-        transaction.amount = 2 // Set amount to same value
+        try! transaction.edit(amount: 2) // Set amount to same value
         XCTAssertEqual(observer.notifiedCount, 2)
     }
 
