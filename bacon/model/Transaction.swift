@@ -18,49 +18,49 @@ class Transaction: HashableClass, Codable, Observable {
     private(set) var deleteSuccessCallback: () -> Void = {}
     private(set) var deleteFailureCallback: (String) -> Void = { _ in }
 
-    var date: Date {
+    private(set) var date: Date {
         didSet {
             log.info("Set date=\(date)")
             notifyObserversOfSelf()
         }
     }
-    var type: TransactionType {
+    private(set) var type: TransactionType {
         didSet {
             log.info("Set type=\(type)")
             notifyObserversOfSelf()
         }
     }
-    var frequency: TransactionFrequency {
+    private(set) var frequency: TransactionFrequency {
         didSet {
             log.info("Set frequency=\(frequency)")
             notifyObserversOfSelf()
         }
     }
-    var category: TransactionCategory {
+    private(set) var category: TransactionCategory {
         didSet {
             log.info("Set category=\(category)")
             notifyObserversOfSelf()
         }
     }
-    var amount: Decimal {
+    private(set) var amount: Decimal {
         didSet {
             log.info("Set amount=\(amount)")
             notifyObserversOfSelf()
         }
     }
-    var description: String {
+    private(set) var description: String {
         didSet {
             log.info("Set description=\(description)")
             notifyObserversOfSelf()
         }
     }
-    var image: CodableUIImage? {
+    private(set) var image: CodableUIImage? {
         didSet {
             log.info("Updated image")
             notifyObserversOfSelf()
         }
     }
-    var location: CodableCLLocation? {
+    private(set) var location: CodableCLLocation? {
         didSet {
             log.info("Set location=\(String(describing: location))")
             notifyObserversOfSelf()
@@ -100,16 +100,7 @@ class Transaction: HashableClass, Codable, Observable {
          description: String = "",
          image: CodableUIImage? = nil,
          location: CodableCLLocation? = nil) throws {
-        log.info("""
-            Transaction:init() with the following arguments:
-            date=\(date) type=\(type) frequency=\(frequency) category=\(category)
-            amount=\(amount) description=\(description) location=\(String(describing: location))
-            """)
-
-        guard amount > 0 else {
-            log.info("amount <= 0. Throwing InitializationError.")
-            throw InitializationError(message: "`amount` must be greater than 0")
-        }
+        log.info("Initializing Transaction object.")
 
         self.date = date
         self.type = type
@@ -119,12 +110,87 @@ class Transaction: HashableClass, Codable, Observable {
         self.description = description
         self.image = image
         self.location = location
+
+        super.init()
+        do {
+            try validate(date: date,
+                         type: type,
+                         frequency: frequency,
+                         category: category,
+                         amount: amount,
+                         description: description,
+                         image: image,
+                         location: location)
+        } catch let error as InvalidTransactionError {
+            log.warning("Transaction initialization failed (InvalidTransactionError). Re-throwing as InitializationError.")
+            throw InitializationError(message: error.message) // Propagate error as InitializationError
+        }
+
+        log.info("Transaction initialization succeeded.")
+    }
+
+    /// Edits one or more properties of a Transaction object.
+    /// Pass in as many properties as should be edited.
+    /// - Note: If properties are valid, observers of this Transaction object are notified automatically.
+    ///     Otherwise, this Transaction object will not be mutated, and observers will not be notified.
+    /// - Throws: `InvalidTransactionError` if at least 1 property is invalid.
+    func edit(date: Date? = nil,
+              type: TransactionType? = nil,
+              frequency: TransactionFrequency? = nil,
+              category: TransactionCategory? = nil,
+              amount: Decimal? = nil,
+              description: String? = nil,
+              image: CodableUIImage? = nil,
+              location: CodableCLLocation? = nil) throws {
+        do {
+            log.info("Editing Transaction instance.")
+            try validate(date: date,
+                         type: type,
+                         frequency: frequency,
+                         category: category,
+                         amount: amount,
+                         description: description,
+                         image: image,
+                         location: location)
+        } catch let error as InvalidTransactionError {
+            log.warning("Transaction editing failed (InvalidTransactionError. Rethrowing error.")
+            throw error
+        }
+
+        // Update properties for those which are not nil
+
+        if let date = date {
+            self.date = date
+        }
+        if let type = type {
+            self.type = type
+        }
+        if let frequency = frequency {
+            self.frequency = frequency
+        }
+        if let category = category {
+            self.category = category
+        }
+        if let amount = amount {
+            self.amount = amount
+        }
+        if let description = description {
+            self.description = description
+        }
+        if let image = image {
+            self.image = image
+        }
+        if let location = location {
+            self.location = location
+        }
+
+        log.info("Transaction editing succeeded.")
     }
 
     /// Notifies all observers of changes to self.
     /// This should be called after any mutation to a Transaction instance.
     private func notifyObserversOfSelf() {
-        log.info("Notifying observers of new self")
+        log.info("Notifying observers of new self.")
         notifyObservers(self)
     }
 
@@ -139,6 +205,43 @@ class Transaction: HashableClass, Codable, Observable {
         deleteSuccessCallback = successCallback
         deleteFailureCallback = failureCallback
         notifyObserversOfSelf()
+    }
+
+}
+
+// MARK: Transaction validator
+struct InvalidTransactionError: Error {
+    let message: String
+}
+
+extension Transaction {
+
+    /// Validates the properties of a Transaction object.
+    /// Pass in as many properties as should be validated.
+    /// - Throws: `InvalidTransactionError` if at least 1 property is invalid.
+    private func validate(date: Date? = nil,
+                          type: TransactionType? = nil,
+                          frequency: TransactionFrequency? = nil,
+                          category: TransactionCategory? = nil,
+                          amount: Decimal? = nil,
+                          description: String? = nil,
+                          image: CodableUIImage? = nil,
+                          location: CodableCLLocation? = nil) throws {
+        log.info("Validating transaction properties.")
+
+        /* Currently, we only validate `amount`.
+         * This method should be extended as required in the future.
+         * For each property to be checked, we first check that it is not nil,
+         * since this method accepts transaction properties as optionals.
+         */
+
+        // Validation condition: amount should be > 0
+        if (amount != nil && amount! <= 0) {
+            log.warning("Amount=\(String(describing: amount)) is invalid. Throwing InvalidTransactionError.")
+            throw InvalidTransactionError(message: "amount=\(amount!) must be > 0")
+        }
+
+        log.info("Transaction properties validation succeeded.")
     }
 
 }
