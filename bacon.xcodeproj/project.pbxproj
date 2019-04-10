@@ -35,6 +35,12 @@
 		8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7D42240F50B0023A7FC /* TransactionType.swift */; };
 		9F2E21D72240F90800C5A31E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 9F2E21D62240F90800C5A31E /* README.md */; };
 		9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */; };
+		9F67EF33225C96F9004F6D0B /* BudgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F67EF32225C96F9004F6D0B /* BudgetManager.swift */; };
+		9F67EF35225C9A73004F6D0B /* CoreLogicInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F67EF34225C9A73004F6D0B /* CoreLogicInterface.swift */; };
+		9F71AEF5225B3707005F043A /* StorageCouchBaseDB+Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */; };
+		9F71AEF7225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */; };
+		9F71AEF9225B3D84005F043A /* Budget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEF8225B3D84005F043A /* Budget.swift */; };
+		9F71AEFB225B4117005F043A /* BudgetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F71AEFA225B4116005F043A /* BudgetTests.swift */; };
 		9F79E46E2246463F00BCDDE8 /* StorageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */; };
 		9F7C6DE6224B66F5003E7702 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7C6DE5224B66F5003E7702 /* TestUtils.swift */; };
 		9F7C6DE9224B9C75003E7702 /* InvalidArgumentError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7C6DE8224B9C75003E7702 /* InvalidArgumentError.swift */; };
@@ -116,6 +122,12 @@
 		9620A3D3E871F6AA3491DCDF /* Pods-baconTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F2E21D62240F90800C5A31E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCouchBaseDB.swift; sourceTree = "<group>"; };
+		9F67EF32225C96F9004F6D0B /* BudgetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetManager.swift; sourceTree = "<group>"; };
+		9F67EF34225C9A73004F6D0B /* CoreLogicInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLogicInterface.swift; sourceTree = "<group>"; };
+		9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Budget.swift"; sourceTree = "<group>"; };
+		9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Transaction.swift"; sourceTree = "<group>"; };
+		9F71AEF8225B3D84005F043A /* Budget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Budget.swift; sourceTree = "<group>"; };
+		9F71AEFA225B4116005F043A /* BudgetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetTests.swift; sourceTree = "<group>"; };
 		9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerTests.swift; sourceTree = "<group>"; };
 		9F7C6DE5224B66F5003E7702 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		9F7C6DE8224B9C75003E7702 /* InvalidArgumentError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvalidArgumentError.swift; sourceTree = "<group>"; };
@@ -270,7 +282,11 @@
 				BEC57449225C9F90001793EC /* DateTimeSelectionViewController.swift */,
 				BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */,
 				BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */,
+				9F67EF34225C9A73004F6D0B /* CoreLogicInterface.swift */,
 				9F965F8322533E5500AF6092 /* CoreLogic.swift */,
+				9F7FD1132240CD51001E1A8E /* StorageManager.swift */,
+				9F965F8522535B9300AF6092 /* TransactionManager.swift */,
+				9F67EF32225C96F9004F6D0B /* BudgetManager.swift */,
 				BEC574432254B714001793EC /* UIViewController+Alert.swift */,
 			);
 			path = controller;
@@ -279,14 +295,15 @@
 		9F7FD1122240CBFF001E1A8E /* model */ = {
 			isa = PBXGroup;
 			children = (
-				9F7FD1132240CD51001E1A8E /* StorageManager.swift */,
 				9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */,
-				9F965F8522535B9300AF6092 /* TransactionManager.swift */,
+				9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */,
+				9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */,
 				8FD5F7CA2240E7620023A7FC /* Transaction.swift */,
 				8FD5F7D42240F50B0023A7FC /* TransactionType.swift */,
 				8FD5F7D22240EE8C0023A7FC /* TransactionCategory.swift */,
 				8FD5F7CC2240E8F20023A7FC /* TransactionFrequency.swift */,
 				8F3121D8224A39D100A9A554 /* TransactionTime.swift */,
+				9F71AEF8225B3D84005F043A /* Budget.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -298,6 +315,7 @@
 				8F845CE622446EE1007A992D /* TransactionTests.swift */,
 				8F845CE822446F1E007A992D /* TransactionFrequencyTests.swift */,
 				8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */,
+				9F71AEFA225B4116005F043A /* BudgetTests.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -592,11 +610,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F71AEF5225B3707005F043A /* StorageCouchBaseDB+Budget.swift in Sources */,
 				8FD5F7CB2240E7620023A7FC /* Transaction.swift in Sources */,
+				9F71AEF9225B3D84005F043A /* Budget.swift in Sources */,
 				8F0B2073225A464D001AF3BA /* HashableClass.swift in Sources */,
 				BEF38D0B224BA1C500BC8927 /* FoldingCell.swift in Sources */,
 				8F6A7A422240B583002E695A /* MainPageViewController.swift in Sources */,
 				9F2E21D92240FE9000C5A31E /* StorageCouchBaseDB.swift in Sources */,
+				9F71AEF7225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift in Sources */,
 				8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */,
 				9F7C6DE9224B9C75003E7702 /* InvalidArgumentError.swift in Sources */,
 				BEC5744C225CA0AD001793EC /* CalendarCell.swift in Sources */,
@@ -609,6 +630,7 @@
 				8FD5F7D32240EE8C0023A7FC /* TransactionCategory.swift in Sources */,
 				BEE6B6692243F79C0077DFD7 /* Constants.swift in Sources */,
 				BEC5744A225C9F90001793EC /* DateTimeSelectionViewController.swift in Sources */,
+				9F67EF33225C96F9004F6D0B /* BudgetManager.swift in Sources */,
 				BEC574402254A301001793EC /* Decimal+toFormattedString.swift in Sources */,
 				8F3121D9224A39D100A9A554 /* TransactionTime.swift in Sources */,
 				8FD5F7D02240EA700023A7FC /* InitializationError.swift in Sources */,
@@ -622,6 +644,7 @@
 				8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */,
 				8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */,
 				8F8487DB224B7D7D001F881C /* Observable.swift in Sources */,
+				9F67EF35225C9A73004F6D0B /* CoreLogicInterface.swift in Sources */,
 				BEE6B6642240D0770077DFD7 /* AnalysisViewController.swift in Sources */,
 				BEC574442254B714001793EC /* UIViewController+Alert.swift in Sources */,
 			);
@@ -640,6 +663,7 @@
 				8F8487E3224DA98A001F881C /* CodableCLLocationTests.swift in Sources */,
 				8F6A7A582240B584002E695A /* baconTests.swift in Sources */,
 				9F79E46E2246463F00BCDDE8 /* StorageManagerTests.swift in Sources */,
+				9F71AEFB225B4117005F043A /* BudgetTests.swift in Sources */,
 				8F8487DD224BC4C7001F881C /* ObserverTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
