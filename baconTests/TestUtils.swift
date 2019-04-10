@@ -64,6 +64,27 @@ class TestUtils {
     //       transaction properties should differ from each other.
     // --------------------------------------------------
 
+    // An array containing ALL valid transactions defined in TestUtils.
+    // Remember to update this if you are creating new valid transactions.
+    static let validTransactions = [validTransactionExpenditure01,
+                                       validTransactionExpenditure02,
+                                       validTransactionExpenditure03,
+                                       validTransactionExpenditure04,
+                                       validTransactionIncome01,
+                                       validTransactionIncome02,
+                                       validTransactionIncome03,
+                                       validTransactionFood01,
+                                       validTransactionFood02,
+                                       validTransactionFood03,
+                                       validTransactionTransport01,
+                                       validTransactionTransport02,
+                                       validTransactionTransport03,
+                                       validTransactionDate01,
+                                       validTransactionDate01point2,
+                                       validTransactionDate02,
+                                       validTransactionDate02point2,
+                                       validTransactionDate03]
+
     // TRANSACTION - TYPE - EXPENDITURE
     static let validTransactionExpenditure01 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
@@ -170,6 +191,15 @@ class TestUtils {
                          amount: 25.0)
 
     // TRANSACTION - TIME
+
+    // An array containing ALL test dates defined in TestUtils.
+    // Remember to update this if you are creating a new valid date object.
+    static let testDates = [january1st2019time0800,
+                            january1st2019time1000,
+                            january2nd2019time1320,
+                            january2nd2019time1500,
+                            january5th2019time1230]
+
     static let january1st2019time0800 = Constants.getDateFormatter().date(from: "2019-01-01 08:00:00")!
     static let january1st2019time1000 = Constants.getDateFormatter().date(from: "2019-01-01 10:00:00")!
     static let january2nd2019time1320 = Constants.getDateFormatter().date(from: "2019-01-02 13:20:00")!
