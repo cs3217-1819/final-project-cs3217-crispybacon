@@ -106,11 +106,6 @@ class Transaction: HashableClass, Codable, Observable {
             amount=\(amount) description=\(description) location=\(String(describing: location))
             """)
 
-        guard amount > 0 else {
-            log.info("amount <= 0. Throwing InitializationError.")
-            throw InitializationError(message: "`amount` must be greater than 0")
-        }
-
         self.date = date
         self.type = type
         self.frequency = frequency
@@ -119,6 +114,20 @@ class Transaction: HashableClass, Codable, Observable {
         self.description = description
         self.image = image
         self.location = location
+
+        super.init()
+        do {
+            try validate(date: date,
+                         type: type,
+                         frequency: frequency,
+                         category: category,
+                         amount: amount,
+                         description: description,
+                         image: image,
+                         location: location)
+        } catch let error as InvalidTransactionError {
+            throw InitializationError(message: error.message) // Propagate error as InitializationError
+        }
     }
 
     /// Notifies all observers of changes to self.
@@ -139,6 +148,38 @@ class Transaction: HashableClass, Codable, Observable {
         deleteSuccessCallback = successCallback
         deleteFailureCallback = failureCallback
         notifyObserversOfSelf()
+    }
+
+}
+
+// MARK: Transaction validator
+struct InvalidTransactionError: Error {
+    let message: String
+}
+
+extension Transaction {
+
+    /// Validates the properties of a Transaction object.
+    /// Pass in as many properties as should be validated.
+    /// - Throws: `InvalidTransactionError` if at least 1 property is invalid.
+    private func validate(date: Date? = nil,
+                          type: TransactionType? = nil,
+                          frequency: TransactionFrequency? = nil,
+                          category: TransactionCategory? = nil,
+                          amount: Decimal? = nil,
+                          description: String? = nil,
+                          image: CodableUIImage? = nil,
+                          location: CodableCLLocation? = nil) throws {
+        /* Currently, we only validate `amount`.
+         * This method should be extended as required in the future.
+         * For each property to be checked, we first check that it is not nil,
+         * since this method accepts transaction properties as optionals.
+         */
+
+        // Validation condition: amount should be > 0
+        if (amount != nil && amount! <= 0) {
+            throw InvalidTransactionError(message: "amount=\(amount!) must be > 0")
+        }
     }
 
 }
