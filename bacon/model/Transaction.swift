@@ -130,6 +130,61 @@ class Transaction: HashableClass, Codable, Observable {
         }
     }
 
+    /// Edits one or more properties of a Transaction object.
+    /// Pass in as many properties as should be edited.
+    /// - Note: If properties are valid, observers of this Transaction object are notified automatically.
+    ///     Otherwise, this Transaction object will not be mutated, and observers will not be notified.
+    /// - Throws: `InvalidTransactionError` if at least 1 property is invalid.
+    func edit(date: Date? = nil,
+              type: TransactionType? = nil,
+              frequency: TransactionFrequency? = nil,
+              category: TransactionCategory? = nil,
+              amount: Decimal? = nil,
+              description: String? = nil,
+              image: CodableUIImage? = nil,
+              location: CodableCLLocation? = nil) throws {
+        do {
+            try validate(date: date,
+                         type: type,
+                         frequency: frequency,
+                         category: category,
+                         amount: amount,
+                         description: description,
+                         image: image,
+                         location: location)
+        } catch let error as InvalidTransactionError {
+            throw error
+        }
+
+        // Update properties for those which are not nil
+
+        if let date = date {
+            self.date = date
+        }
+        if let type = type {
+            self.type = type
+        }
+        if let frequency = frequency {
+            self.frequency = frequency
+        }
+        if let category = category {
+            self.category = category
+        }
+        if let amount = amount {
+            self.amount = amount
+        }
+        if let description = description {
+            self.description = description
+        }
+        if let image = image {
+            self.image = image
+        }
+        if let location = location {
+            self.location = location
+        }
+
+    }
+
     /// Notifies all observers of changes to self.
     /// This should be called after any mutation to a Transaction instance.
     private func notifyObserversOfSelf() {
