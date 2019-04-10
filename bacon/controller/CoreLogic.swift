@@ -8,15 +8,18 @@
 
 import Foundation
 
-class CoreLogic {
+class CoreLogic: CoreLogicInterface {
 
     // MARK: - Properties
     private let transactionManager: TransactionManager
+    private let budgetManager: BudgetManager
 
     init() throws {
         transactionManager = try TransactionManager()
+        budgetManager = try BudgetManager()
     }
 
+    // MARK: Transaction related
     func getTotalTransactionsRecorded() -> Double {
         return transactionManager.getNumberOfTransactionsInDatabase()
     }
@@ -73,5 +76,14 @@ class CoreLogic {
             month=\(month) year=\(year).
             """)
         return try transactionManager.loadTransactions(from: startDate, to: endDate)
+    }
+
+    // MARK: Budget related
+    func saveBudget(_ budget: Budget) throws {
+        try budgetManager.saveBudget(budget)
+    }
+
+    func loadBudget() throws -> Budget {
+        return try budgetManager.loadBudget()
     }
 }

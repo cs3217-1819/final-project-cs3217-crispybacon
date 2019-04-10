@@ -214,6 +214,12 @@ class TestUtils {
                          category: .transport,
                          amount: 40.0)
 
+    // VALID BUDGET INSTANCES
+    static let validBudget01 =
+        try! Budget(from: january1st2019time0800, to: january2nd2019time1320, amount: 15)
+    static let validBudget02 =
+        try! Budget(from: january2nd2019time1500, to: january5th2019time1230, amount: 23)
+
     // swiftlint:enable force_try
     // swiftlint:enable force_unwrapping
 }
