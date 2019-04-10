@@ -18,49 +18,49 @@ class Transaction: HashableClass, Codable, Observable {
     private(set) var deleteSuccessCallback: () -> Void = {}
     private(set) var deleteFailureCallback: (String) -> Void = { _ in }
 
-    var date: Date {
+    private(set) var date: Date {
         didSet {
             log.info("Set date=\(date)")
             notifyObserversOfSelf()
         }
     }
-    var type: TransactionType {
+    private(set) var type: TransactionType {
         didSet {
             log.info("Set type=\(type)")
             notifyObserversOfSelf()
         }
     }
-    var frequency: TransactionFrequency {
+    private(set) var frequency: TransactionFrequency {
         didSet {
             log.info("Set frequency=\(frequency)")
             notifyObserversOfSelf()
         }
     }
-    var category: TransactionCategory {
+    private(set) var category: TransactionCategory {
         didSet {
             log.info("Set category=\(category)")
             notifyObserversOfSelf()
         }
     }
-    var amount: Decimal {
+    private(set) var amount: Decimal {
         didSet {
             log.info("Set amount=\(amount)")
             notifyObserversOfSelf()
         }
     }
-    var description: String {
+    private(set) var description: String {
         didSet {
             log.info("Set description=\(description)")
             notifyObserversOfSelf()
         }
     }
-    var image: CodableUIImage? {
+    private(set) var image: CodableUIImage? {
         didSet {
             log.info("Updated image")
             notifyObserversOfSelf()
         }
     }
-    var location: CodableCLLocation? {
+    private(set) var location: CodableCLLocation? {
         didSet {
             log.info("Set location=\(String(describing: location))")
             notifyObserversOfSelf()
