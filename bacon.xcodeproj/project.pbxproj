@@ -55,6 +55,9 @@
 		BEC57446225A3DC9001793EC /* PreviewImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC57445225A3DC9001793EC /* PreviewImageView.swift */; };
 		BEC5744A225C9F90001793EC /* DateTimeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC57449225C9F90001793EC /* DateTimeSelectionViewController.swift */; };
 		BEC5744C225CA0AD001793EC /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC5744B225CA0AD001793EC /* CalendarCell.swift */; };
+		BEC57452225F8DA5001793EC /* TagSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC57451225F8DA5001793EC /* TagSelectionViewController.swift */; };
+		BEC57454225F8F0D001793EC /* ParentTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC57453225F8F0D001793EC /* ParentTagCell.swift */; };
+		BEC57456225F9442001793EC /* ChildTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC57455225F9442001793EC /* ChildTagCell.swift */; };
 		BEE6B6622240C9F10077DFD7 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */; };
 		BEE6B6642240D0770077DFD7 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */; };
 		BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */; };
@@ -142,6 +145,9 @@
 		BEC57445225A3DC9001793EC /* PreviewImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageView.swift; sourceTree = "<group>"; };
 		BEC57449225C9F90001793EC /* DateTimeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTimeSelectionViewController.swift; sourceTree = "<group>"; };
 		BEC5744B225CA0AD001793EC /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		BEC57451225F8DA5001793EC /* TagSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectionViewController.swift; sourceTree = "<group>"; };
+		BEC57453225F8F0D001793EC /* ParentTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentTagCell.swift; sourceTree = "<group>"; };
+		BEC57455225F9442001793EC /* ChildTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildTagCell.swift; sourceTree = "<group>"; };
 		BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
@@ -288,6 +294,7 @@
 				9F965F8522535B9300AF6092 /* TransactionManager.swift */,
 				9F67EF32225C96F9004F6D0B /* BudgetManager.swift */,
 				BEC574432254B714001793EC /* UIViewController+Alert.swift */,
+				BEC57451225F8DA5001793EC /* TagSelectionViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -355,6 +362,8 @@
 				BEF38D0C224BA2C400BC8927 /* TransactionCell.swift */,
 				BEC57445225A3DC9001793EC /* PreviewImageView.swift */,
 				BEC5744B225CA0AD001793EC /* CalendarCell.swift */,
+				BEC57453225F8F0D001793EC /* ParentTagCell.swift */,
+				BEC57455225F9442001793EC /* ChildTagCell.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -610,6 +619,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEC57452225F8DA5001793EC /* TagSelectionViewController.swift in Sources */,
 				9F71AEF5225B3707005F043A /* StorageCouchBaseDB+Budget.swift in Sources */,
 				8FD5F7CB2240E7620023A7FC /* Transaction.swift in Sources */,
 				9F71AEF9225B3D84005F043A /* Budget.swift in Sources */,
@@ -638,6 +648,7 @@
 				BE665F972253A455002EBA74 /* String+initFromCLPlacemark.swift in Sources */,
 				BEE6B6622240C9F10077DFD7 /* TransactionsViewController.swift in Sources */,
 				8FD5F7CD2240E8F20023A7FC /* TransactionFrequency.swift in Sources */,
+				BEC57454225F8F0D001793EC /* ParentTagCell.swift in Sources */,
 				9F965F8622535B9300AF6092 /* TransactionManager.swift in Sources */,
 				9F965F8422533E5500AF6092 /* CoreLogic.swift in Sources */,
 				BEF38D0D224BA2C400BC8927 /* TransactionCell.swift in Sources */,
@@ -645,6 +656,7 @@
 				8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */,
 				8F8487DB224B7D7D001F881C /* Observable.swift in Sources */,
 				9F67EF35225C9A73004F6D0B /* CoreLogicInterface.swift in Sources */,
+				BEC57456225F9442001793EC /* ChildTagCell.swift in Sources */,
 				BEE6B6642240D0770077DFD7 /* AnalysisViewController.swift in Sources */,
 				BEC574442254B714001793EC /* UIViewController+Alert.swift in Sources */,
 			);
