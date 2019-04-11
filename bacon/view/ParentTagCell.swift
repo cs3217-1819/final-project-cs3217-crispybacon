@@ -12,8 +12,10 @@ class ParentTagCell: UITableViewCell {
 
     var dataArr: [String] = []
 
-    @IBOutlet private weak var subTable: UITableView!
+    // swiftlint:disable private_outlet
     @IBOutlet weak var parentTagLabel: UILabel!
+    // swiftlint:enable private_outlet
+    @IBOutlet private weak var subTable: UITableView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,8 +24,11 @@ class ParentTagCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        if selected {
+            parentTagLabel.textColor = UIColor.green
+        } else {
+            parentTagLabel.textColor = UIColor.black
+        }
     }
 
     func setUpTable() {
