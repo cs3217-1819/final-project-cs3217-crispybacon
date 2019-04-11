@@ -13,7 +13,7 @@ import XCTest
 
 class TagManagerTests: XCTestCase {
 
-    var tagManager = TagManager()
+    var tagManager = TagManager.create(withPersistence: false)
 
     let parent1 = "parent1"
     let parent2 = "parent2"
@@ -21,7 +21,7 @@ class TagManagerTests: XCTestCase {
     let child2 = "child2"
 
     override func setUp() {
-        tagManager = TagManager() // Reset to fresh instance
+        tagManager = TagManager.create(withPersistence: false) // Reset to fresh instance
     }
 
     func test_addChildTag_parentTagExists() {
