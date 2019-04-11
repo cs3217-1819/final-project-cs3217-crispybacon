@@ -29,6 +29,7 @@
 		8F89424B225E00D4007146AC /* TagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F89424A225E00D4007146AC /* TagManager.swift */; };
 		8F89424D225E01D6007146AC /* TagManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F89424C225E01D6007146AC /* TagManagerInterface.swift */; };
 		8F894250225E0278007146AC /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F89424F225E0278007146AC /* Tag.swift */; };
+		8F894252225E5017007146AC /* TagManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F894251225E5017007146AC /* TagManagerTests.swift */; };
 		8FD0EC8B22533E3E00FCCBFB /* CodableUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD0EC8A22533E3E00FCCBFB /* CodableUIImage.swift */; };
 		8FD0EC8D225342A500FCCBFB /* CodableUIImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD0EC8C225342A500FCCBFB /* CodableUIImageTests.swift */; };
 		8FD5F7CB2240E7620023A7FC /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7CA2240E7620023A7FC /* Transaction.swift */; };
@@ -117,6 +118,7 @@
 		8F89424A225E00D4007146AC /* TagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManager.swift; sourceTree = "<group>"; };
 		8F89424C225E01D6007146AC /* TagManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManagerInterface.swift; sourceTree = "<group>"; };
 		8F89424F225E0278007146AC /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		8F894251225E5017007146AC /* TagManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManagerTests.swift; sourceTree = "<group>"; };
 		8FBEDD8B3903E2EC8591BBD1 /* Pods-baconUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8FD0EC8A22533E3E00FCCBFB /* CodableUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUIImage.swift; sourceTree = "<group>"; };
 		8FD0EC8C225342A500FCCBFB /* CodableUIImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUIImageTests.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				8F845CE822446F1E007A992D /* TransactionFrequencyTests.swift */,
 				8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */,
 				9F71AEFA225B4116005F043A /* BudgetTests.swift */,
+				8F894251225E5017007146AC /* TagManagerTests.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -684,6 +687,7 @@
 				8F6A7A582240B584002E695A /* baconTests.swift in Sources */,
 				9F79E46E2246463F00BCDDE8 /* StorageManagerTests.swift in Sources */,
 				9F71AEFB225B4117005F043A /* BudgetTests.swift in Sources */,
+				8F894252225E5017007146AC /* TagManagerTests.swift in Sources */,
 				8F8487DD224BC4C7001F881C /* ObserverTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
