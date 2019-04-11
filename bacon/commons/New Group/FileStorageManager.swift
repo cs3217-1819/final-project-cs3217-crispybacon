@@ -12,16 +12,16 @@ import Foundation
 class FileStorageManager {
 
     /// Generates and returns the path of a file in a directory as a URL.
-    /// - Returns: A `URL` object, or `nil` if the path cannot be generated.
+    /// - Throws: `InvalidArgumentError` if the path cannot be generated.
     private func generatePath(directory: FileManager.SearchPathDirectory,
                               domainMask: FileManager.SearchPathDomainMask,
-                              fileName: String) -> URL? {
+                              fileName: String) throws -> URL {
         // Get the URL of the directory
         let urls = FileManager.default.urls(for: directory, in: domainMask)
 
         // Get the URL for a file in the directory
         guard let documentDirectory = urls.first else {
-            return nil
+            throw InvalidArgumentError(message: "Invalid document directory")
         }
         let fileUrl = documentDirectory.appendingPathComponent(fileName)
 
@@ -29,59 +29,36 @@ class FileStorageManager {
     }
 
     /// Writes data to the file system encoded as JSON.
-    /// - Returns: `true` if the operation is successful, and `false` otherwise.
+    /// - Throws: Any errors encountered will be rethrown.
     func writeAsJson<T: Encodable>(data: T,
-                                   to directory: FileManager.SearchPathDirectory,
-                                   in domainMask: FileManager.SearchPathDomainMask,
-                                   as fileName: String) -> Bool {
-        guard let fileUrl = generatePath(directory: directory,
-                                         domainMask: domainMask,
-                                         fileName: fileName) else {
-                                            return false
-        }
+                                   as fileName: String,
+                                   to directory: FileManager.SearchPathDirectory = .userDirectory,
+                                   in domainMask: FileManager.SearchPathDomainMask = .userDomainMask) throws {
+        let fileUrl = try generatePath(directory: directory,
+                                       domainMask: domainMask,
+                                       fileName: fileName)
 
-        // Encode to JSON
         let jsonEncoder = JSONEncoder()
-        guard let encodedData = try? jsonEncoder.encode(data) else {
-            return false
-        }
+        let encodedData = try jsonEncoder.encode(data)
 
-        // Write
-        do {
-            try encodedData.write(to: fileUrl)
-        } catch {
-            return false
-        }
-
-        return true
+        try encodedData.write(to: fileUrl)
     }
 
     /// Reads JSON data from the file system.
-    /// - Returns: The decoded data if the operation is successful, and `nil` otherwise.
+    /// - Throws: Any errors encountered will be rethrown.
     func readFromJson<T: Decodable>(_ type: T.Type,
-                                    from directory: FileManager.SearchPathDirectory,
-                                    in domainMask: FileManager.SearchPathDomainMask,
-                                    file fileName: String) -> T? {
-        guard let fileUrl = generatePath(directory: directory,
-                                         domainMask: domainMask,
-                                         fileName: fileName) else {
-                                            return nil
-        }
+                                    file fileName: String,
+                                    from directory: FileManager.SearchPathDirectory = .userDirectory,
+                                    in domainMask: FileManager.SearchPathDomainMask = .userDomainMask) throws -> T {
+        let fileUrl = try generatePath(directory: directory,
+                                       domainMask: domainMask,
+                                       fileName: fileName)
 
-        let encodedData: Data
-
-        // Read
-        do {
-            encodedData = try Data(contentsOf: fileUrl)
-        } catch {
-            return nil
-        }
+        let encodedData = try Data(contentsOf: fileUrl)
 
         // Decode from JSON
         let jsonDecoder = JSONDecoder()
-        guard let decodedData = try? jsonDecoder.decode(type, from: encodedData) else {
-            return nil
-        }
+        let decodedData = try jsonDecoder.decode(type, from: encodedData)
 
         return decodedData
     }
