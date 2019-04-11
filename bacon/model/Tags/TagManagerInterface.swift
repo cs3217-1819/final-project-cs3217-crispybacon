@@ -35,6 +35,9 @@ protocol TagManagerInterface {
     /// - Throws: `InvalidTagError` if the Tag does not exist.
     func removeParentTag(_ parent: String) throws
 
+    /// Contains all Tags in a dictionary mapping parent Tags to sets of their children Tags.
+    var tags: [Tag: Set<Tag>] { get }
+
     /// Returns a set of the children Tags of a parent Tag.
     /// - Throws: `InvalidTagError` if the parent Tag does not exist.
     func getChildrenTagsOf(_ parent: String) throws -> Set<Tag>

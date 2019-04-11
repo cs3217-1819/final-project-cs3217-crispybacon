@@ -69,6 +69,10 @@ class TagManager: TagManagerInterface {
         removeTags([parentTag])
     }
 
+    var tags: [Tag: Set<Tag>] {
+        return parentChildMap
+    }
+
     func getChildrenTagsOf(_ parent: String) throws -> Set<Tag> {
         let parentTag = Tag(parent)
 
