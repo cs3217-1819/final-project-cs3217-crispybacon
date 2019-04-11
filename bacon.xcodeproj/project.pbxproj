@@ -274,20 +274,36 @@
 			path = Tags;
 			sourceTree = "<group>";
 		};
-		8FD5F7CE2240EA530023A7FC /* commons */ = {
+		8F913A77225F2F8D00D20FA2 /* errors */ = {
 			isa = PBXGroup;
 			children = (
 				8FD5F7CF2240EA700023A7FC /* InitializationError.swift */,
 				9F7C6DE8224B9C75003E7702 /* InvalidArgumentError.swift */,
 				9FB4E16D224419880005403F /* StorageError.swift */,
-				8F8487D8224B7909001F881C /* Observer.swift */,
-				8F8487DA224B7D7D001F881C /* Observable.swift */,
+			);
+			path = errors;
+			sourceTree = "<group>";
+		};
+		8F913A78225F2F9C00D20FA2 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BEC5743F2254A301001793EC /* Decimal+toFormattedString.swift */,
+				BE665F962253A455002EBA74 /* String+initFromCLPlacemark.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		8FD5F7CE2240EA530023A7FC /* commons */ = {
+			isa = PBXGroup;
+			children = (
+				8F913A77225F2F8D00D20FA2 /* errors */,
+				8F913A78225F2F9C00D20FA2 /* extensions */,
 				BEE6B6682243F79C0077DFD7 /* Constants.swift */,
 				8F8487E0224DA874001F881C /* CodableCLLocation.swift */,
 				8FD0EC8A22533E3E00FCCBFB /* CodableUIImage.swift */,
-				BE665F962253A455002EBA74 /* String+initFromCLPlacemark.swift */,
-				BEC5743F2254A301001793EC /* Decimal+toFormattedString.swift */,
 				8F0B2072225A464D001AF3BA /* HashableClass.swift */,
+				8F8487DA224B7D7D001F881C /* Observable.swift */,
+				8F8487D8224B7909001F881C /* Observer.swift */,
 			);
 			path = commons;
 			sourceTree = "<group>";
