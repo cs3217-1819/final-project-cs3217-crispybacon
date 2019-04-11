@@ -154,8 +154,11 @@ extension TagManager {
                 parentChildMap[parentTag]?.remove(tag)
             } else { // `tag` is a parent Tag
                 // Remove all children Tags
-                let arrChildren = parentChildMap[tag]?.map { return $0 } ?? []
-                removeTags(arrChildren)
+                guard let childrenTags = parentChildMap[tag] else {
+                    fatalError("This should never happen")
+                }
+                let arrChildrenTags = Array(childrenTags)
+                removeTags(arrChildrenTags)
 
                 // Remove current (parent) Tag
                 parentChildMap.removeValue(forKey: tag)
