@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: TagManager: TagManagerInterface
-class TagManager: Codable, TagManagerInterface {
+class TagManager: Codable, Observable, TagManagerInterface {
 
     // Support persistence
     private static let saveFileName = "TagManager"
@@ -22,6 +22,18 @@ class TagManager: Codable, TagManagerInterface {
 
     // Map of parent Tags to child Tags. Use for parent-child association check.
     private var parentChildMap: [Tag: Set<Tag>] = [:]
+
+    // Observable
+    var observers: [Observer] = []
+
+    // See: https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types
+    // We exclude the "observers" property from being encoded/decoded,
+    // since that information should not be persistent across sessions.
+    private enum CodingKeys: String, CodingKey {
+        case isPersistent
+        case allTags
+        case parentChildMap
+    }
 
     /// Creates and returns a TagManager object.
     /// - Note: A persistent TagManager is implemented as a singleton, and thus will never be outdated.

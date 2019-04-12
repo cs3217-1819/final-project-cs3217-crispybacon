@@ -40,7 +40,7 @@ protocol TagManagerInterface {
     var tags: [Tag: [Tag]] { get }
 
     /// Contains a sorted array of all existing parent Tags.
-    var parentTags: [Tag] { get}
+    var parentTags: [Tag] { get }
 
     /// Returns a sorted array of the children Tags of a parent Tag.
     /// - Throws: `InvalidTagError` if the parent Tag does not exist.
