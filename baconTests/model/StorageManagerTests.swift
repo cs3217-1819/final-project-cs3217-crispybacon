@@ -114,6 +114,42 @@ class StorageManagerTests: XCTestCase {
         XCTAssertTrue(transactions[0].equals(loadedTransactions[0]))
     }
 
+    func test_updateTransaction() {
+        let database = try! StorageManager()
+        // Clear database
+        XCTAssertNoThrow(try database.clearTransactionDatabase())
+        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
+        // Test updating empty database
+        XCTAssertThrowsError(try database.updateTransaction(TestUtils.validTransactionDate01))
+        // Save some transactions
+        var transactions = [TestUtils.validTransactionIncome03,
+                            TestUtils.validTransactionIncome02,
+                            TestUtils.validTransactionIncome01]
+        XCTAssertNoThrow(try database.saveTransaction(transactions[0]))
+        XCTAssertNoThrow(try database.saveTransaction(transactions[2]))
+        XCTAssertNoThrow(try database.saveTransaction(transactions[1]))
+        // Check transactions are saved in the database
+        var loadedTransactions = try! database.loadTransactions(limit: 5)
+        XCTAssertEqual(transactions.count, loadedTransactions.count)
+        for (index, transaction) in transactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransactions[index]))
+        }
+
+        // Update one of the loaded transaction
+        let updatedTransaction = loadedTransactions[0]
+        // Original amount is 1
+        try! updatedTransaction.edit(amount: 500.11)
+        // Update in database
+        XCTAssertNoThrow(try database.updateTransaction(updatedTransaction))
+        // Check transaction is indeed updated in the database
+        let updatedLoadedTransactions = try! database.loadTransactions(limit: 5)
+        XCTAssertEqual(updatedLoadedTransactions.count, 3)
+        transactions[0] = updatedTransaction
+        for (index, transaction) in updatedLoadedTransactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransactions[index]))
+        }
+    }
+
     func test_loadTransactions_limit() {
         let database = try! StorageManager()
         // Clear database

@@ -122,7 +122,10 @@ class Transaction: HashableClass, Codable, Observable {
                          image: image,
                          location: location)
         } catch let error as InvalidTransactionError {
-            log.warning("Transaction initialization failed (InvalidTransactionError). Re-throwing as InitializationError.")
+            log.warning("""
+                Transaction initialization failed (InvalidTransactionError).
+                Re-throwing as InitializationError.
+            """)
             throw InitializationError(message: error.message) // Propagate error as InitializationError
         }
 
@@ -236,7 +239,7 @@ extension Transaction {
          */
 
         // Validation condition: amount should be > 0
-        if (amount != nil && amount! <= 0) {
+        if amount != nil && amount! <= 0 {
             log.warning("Amount=\(String(describing: amount)) is invalid. Throwing InvalidTransactionError.")
             throw InvalidTransactionError(message: "amount=\(amount!) must be > 0")
         }
