@@ -24,6 +24,22 @@ class TagManagerTests: XCTestCase {
         tagManager = TagManager.create(withPersistence: false) // Reset to fresh instance
     }
 
+    func test_nonPersistent_nonSingleton() {
+        let tagManager1 = TagManager.create(withPersistence: false)
+        let tagManager2 = TagManager.create(withPersistence: false)
+        XCTAssertFalse(tagManager1 === tagManager2)
+
+        try! tagManager1.addParentTag(parent1)
+        XCTAssertTrue(tagManager1.isParentTag(parent1))
+        XCTAssertFalse(tagManager2.isParentTag(parent1))
+    }
+
+    func test_persistent_singleton() {
+        let tagManager1 = TagManager.create(withPersistence: true)
+        let tagManager2 = TagManager.create(withPersistence: true)
+        XCTAssertTrue(tagManager1 === tagManager2)
+    }
+
     func test_addChildTag_parentTagExists() {
         try! tagManager.addParentTag(parent1)
         XCTAssertFalse(tagManager.isChildTag(child1, of: parent1))
@@ -224,7 +240,6 @@ class TagManagerTests: XCTestCase {
         try! tagManager.addParentTag(parent1)
         XCTAssertFalse(tagManager.isParentTag(parent2))
     }
-
 
 }
 
