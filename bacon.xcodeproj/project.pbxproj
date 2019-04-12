@@ -63,6 +63,7 @@
 		BEC57452225F8DA5001793EC /* TagSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC57451225F8DA5001793EC /* TagSelectionViewController.swift */; };
 		BEC57454225F8F0D001793EC /* ParentTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC57453225F8F0D001793EC /* ParentTagCell.swift */; };
 		BEC57456225F9442001793EC /* ChildTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC57455225F9442001793EC /* ChildTagCell.swift */; };
+		BEC5745822605570001793EC /* CoreLogic+BreakDownByTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC5745722605570001793EC /* CoreLogic+BreakDownByTag.swift */; };
 		BEE6B6622240C9F10077DFD7 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */; };
 		BEE6B6642240D0770077DFD7 /* AnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */; };
 		BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */; };
@@ -158,6 +159,7 @@
 		BEC57451225F8DA5001793EC /* TagSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectionViewController.swift; sourceTree = "<group>"; };
 		BEC57453225F8F0D001793EC /* ParentTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentTagCell.swift; sourceTree = "<group>"; };
 		BEC57455225F9442001793EC /* ChildTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildTagCell.swift; sourceTree = "<group>"; };
+		BEC5745722605570001793EC /* CoreLogic+BreakDownByTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLogic+BreakDownByTag.swift"; sourceTree = "<group>"; };
 		BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewController.swift; sourceTree = "<group>"; };
 		BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewController.swift; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 				9F67EF32225C96F9004F6D0B /* BudgetManager.swift */,
 				BEC574432254B714001793EC /* UIViewController+Alert.swift */,
 				BEC57451225F8DA5001793EC /* TagSelectionViewController.swift */,
+				BEC5745722605570001793EC /* CoreLogic+BreakDownByTag.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -704,6 +707,7 @@
 				9F965F8422533E5500AF6092 /* CoreLogic.swift in Sources */,
 				8F894250225E0278007146AC /* Tag.swift in Sources */,
 				BEF38D0D224BA2C400BC8927 /* TransactionCell.swift in Sources */,
+				BEC5745822605570001793EC /* CoreLogic+BreakDownByTag.swift in Sources */,
 				8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */,
 				8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */,
 				8F8487DB224B7D7D001F881C /* Observable.swift in Sources */,

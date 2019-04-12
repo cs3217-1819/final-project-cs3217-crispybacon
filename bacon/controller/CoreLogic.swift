@@ -11,8 +11,8 @@ import Foundation
 class CoreLogic: CoreLogicInterface {
 
     // MARK: - Properties
-    private let transactionManager: TransactionManager
-    private let budgetManager: BudgetManager
+    let transactionManager: TransactionManager
+    let budgetManager: BudgetManager
 
     init() throws {
         transactionManager = try TransactionManager()
