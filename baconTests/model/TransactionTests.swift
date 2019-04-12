@@ -18,12 +18,12 @@ class TransactionTests: XCTestCase {
         let transaction = try! Transaction(date: TestUtils.january1st2019time0800,
                                            type: .expenditure,
                                            frequency: testFrequency,
-                                           category: .bills,
+                                           tags: [Tag("bills")],
                                            amount: 1)
         XCTAssertEqual(transaction.date, TestUtils.january1st2019time0800)
         XCTAssertEqual(transaction.type, .expenditure)
         XCTAssertEqual(transaction.frequency, testFrequency)
-        XCTAssertEqual(transaction.category, .bills)
+        XCTAssertEqual(transaction.tags, [Tag("bills")])
         XCTAssertEqual(transaction.amount, 1)
         XCTAssertEqual(transaction.description, "")
     }
@@ -32,7 +32,7 @@ class TransactionTests: XCTestCase {
         XCTAssertThrowsError(try Transaction(date: TestUtils.january1st2019time0800,
                                              type: .expenditure,
                                              frequency: testFrequency,
-                                             category: .bills,
+                                             tags: [Tag("bills")],
                                              amount: -1)) { err in
                                                 XCTAssertTrue(type(of: err) == InitializationError.self)
         }
@@ -42,7 +42,7 @@ class TransactionTests: XCTestCase {
         XCTAssertThrowsError(try Transaction(date: TestUtils.january1st2019time0800,
                                              type: .expenditure,
                                              frequency: testFrequency,
-                                             category: .bills,
+                                             tags: [Tag("bills")],
                                              amount: 0)) { err in
                                                 XCTAssertTrue(type(of: err) == InitializationError.self)
         }
@@ -55,7 +55,7 @@ class TransactionTests: XCTestCase {
             XCTAssertNoThrow(try transaction.edit(date: TestUtils.january1st2019time0800,
                                                   type: .expenditure,
                                                   frequency: testFrequency))
-            XCTAssertNoThrow(try transaction.edit(category: .transport,
+            XCTAssertNoThrow(try transaction.edit(tags: [Tag("transport")],
                                                   amount: 100))
             XCTAssertNoThrow(try transaction.edit(description: "foo"))
         }
@@ -74,17 +74,17 @@ class TransactionTests: XCTestCase {
         let transaction = try! Transaction(date: TestUtils.january1st2019time1000,
                                            type: .expenditure,
                                            frequency: testFrequency,
-                                           category: .bills,
+                                           tags: [Tag("bills")],
                                            amount: 1)
         let transaction2 = try! Transaction(date: TestUtils.january1st2019time1000,
                                             type: .expenditure,
                                             frequency: testFrequency,
-                                            category: .bills,
+                                            tags: [Tag("bills")],
                                             amount: 1)
         let transaction3 = try! Transaction(date: TestUtils.january1st2019time1000,
                                             type: .income,
                                             frequency: testFrequency,
-                                            category: .food,
+                                            tags: [Tag("food")],
                                             amount: 3)
         XCTAssertTrue(transaction.equals(transaction2))
         XCTAssertNotEqual(transaction, transaction3)
@@ -94,7 +94,7 @@ class TransactionTests: XCTestCase {
         let transaction = try! Transaction(date: TestUtils.january1st2019time1000,
                                            type: .expenditure,
                                            frequency: testFrequency,
-                                           category: .bills,
+                                           tags: [Tag("bills")],
                                            amount: 1)
 
         let observer = DummyObserver()
@@ -111,12 +111,12 @@ class TransactionTests: XCTestCase {
         let transaction1 = try! Transaction(date: TestUtils.january2nd2019time1500,
                                             type: .expenditure,
                                             frequency: testFrequency,
-                                            category: .bills,
+                                            tags: [Tag("bills")],
                                             amount: 1)
         let transaction2 = try! Transaction(date: TestUtils.january2nd2019time1500,
                                             type: .expenditure,
                                             frequency: testFrequency,
-                                            category: .bills,
+                                            tags: [Tag("bills")],
                                             amount: 1)
 
         XCTAssertTrue(transaction1.equals(transaction2))

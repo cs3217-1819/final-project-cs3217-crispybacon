@@ -90,7 +90,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         category: .education,
+                         tags: [Tag("education")],
                          amount: 10.0,
                          image: CodableUIImage(redHeartJpg),
                          location: CodableCLLocation(sampleCLLocation1A))
@@ -98,7 +98,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         category: .entertainment,
+                         tags: [Tag("entertainment")],
                          amount: 5.0,
                          image: CodableUIImage(redHeartPng),
                          location: CodableCLLocation(sampleCLLocation2))
@@ -108,7 +108,7 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .weekly,
                                                               repeats: 2),
-                         category: .entertainment,
+                         tags: [Tag("entertainment")],
                          amount: 5.0)
     static let validTransactionExpenditure04 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(3_000)),
@@ -116,7 +116,7 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .weekly,
                                                               repeats: 1),
-                         category: .investment,
+                         tags: [Tag("investment")],
                          amount: 100.0)
 
     // TRANSACTION - TYPE - INCOME
@@ -124,7 +124,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         category: .food,
+                         tags: [Tag("food")],
                          amount: 25.50)
     static let validTransactionIncome02 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
@@ -132,14 +132,14 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .monthly,
                                                               repeats: 3),
-                         category: .food,
+                         tags: [Tag("food")],
                          amount: 12.80,
                          image: CodableUIImage(redHeartPng))
     static let validTransactionIncome03 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         category: .bills,
+                         tags: [Tag("bills")],
                          amount: 1,
                          location: CodableCLLocation(sampleCLLocation1B))
 
@@ -148,7 +148,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         category: .food,
+                         tags: [Tag("food")],
                          amount: 69.60)
     static let validTransactionFood02 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
@@ -156,14 +156,14 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .monthly,
                                                               repeats: 1),
-                         category: .food,
+                         tags: [Tag("food")],
                          amount: 5.00,
                          location: CodableCLLocation(sampleCLLocation1A))
     static let validTransactionFood03 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         category: .food,
+                         tags: [Tag("food")],
                          amount: 1.50,
                          image: CodableUIImage(redHeartJpg))
 
@@ -172,14 +172,14 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         category: .transport,
+                         tags: [Tag("transport")],
                          amount: 8.99,
                          location: CodableCLLocation(sampleCLLocation2))
     static let validTransactionTransport02 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         category: .transport,
+                         tags: [Tag("transport")],
                          amount: 5.0)
     static let validTransactionTransport03 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
@@ -187,7 +187,7 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .weekly,
                                                               repeats: 5),
-                         category: .transport,
+                         tags: [Tag("transport")],
                          amount: 25.0)
 
     // TRANSACTION - TIME
@@ -210,13 +210,13 @@ class TestUtils {
         try! Transaction(date: january1st2019time0800,
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         category: .transport,
+                         tags: [Tag("transport")],
                          amount: 12.60)
     static let validTransactionDate01point2 =
         try! Transaction(date: january1st2019time1000,
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         category: .food,
+                         tags: [Tag("food")],
                          amount: 1.20,
                          location: CodableCLLocation(sampleCLLocation1B))
     static let validTransactionDate02 =
@@ -225,14 +225,14 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .monthly,
                                                               repeats: 3),
-                         category: .bills,
+                         tags: [Tag("bills")],
                          amount: 150.00,
                          image: CodableUIImage(redHeartPng))
     static let validTransactionDate02point2 =
         try! Transaction(date: january2nd2019time1500,
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         category: .food,
+                         tags: [Tag("food")],
                          amount: 13.70,
                          location: CodableCLLocation(sampleCLLocation1A))
     static let validTransactionDate03 =
@@ -241,7 +241,7 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .weekly,
                                                               repeats: 5),
-                         category: .transport,
+                         tags: [Tag("transport")],
                          amount: 40.0)
 
     // VALID BUDGET INSTANCES
