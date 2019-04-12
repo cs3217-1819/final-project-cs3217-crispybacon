@@ -11,18 +11,20 @@ import Foundation
 // MARK: Tag
 struct Tag: Codable, Comparable, Hashable {
 
-    let value: String
     let parent: String?
     unowned let manager: TagManager
 
-    /// Initializes a parent Tag.
-    fileprivate init(_ value: String, manager: TagManager) {
-        self.init(value, manager: manager, parent: nil)
+    // Internal value of the Tag
+    private let internalValue: Int64
+
+    // User-set display value of the Tag
+    var value: String {
+        return manager.getDisplayValue(of: internalValue)
     }
 
-    /// Initializes a child Tag.
-    fileprivate init(_ value: String, manager: TagManager, parent: String?) {
-        self.value = value
+    /// Initializes a Tag.
+    fileprivate init(_ internalValue: Int64, manager: TagManager, parent: String?) {
+        self.internalValue = internalValue
         self.parent = parent
         self.manager = manager
     }
@@ -90,7 +92,6 @@ struct Tag: Codable, Comparable, Hashable {
 
 }
 
-
 // MARK: TagManager: TagManagerInterface
 class TagManager: Codable, Observable, TagManagerInterface {
 
@@ -106,6 +107,10 @@ class TagManager: Codable, Observable, TagManagerInterface {
     // Map of parent Tags to child Tags. Use for parent-child association check.
     private var parentChildMap: [Tag: Set<Tag>] = [:]
 
+    // Map internal values to display values.
+    private var tagId: Int64 = 1
+    private var valueMap: [Int64: String] = [:]
+
     // Observable
     var observers: [Observer] = []
 
@@ -116,6 +121,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
         case isPersistent
         case allTags
         case parentChildMap
+        case valueMap
     }
 
     /// Creates and returns a TagManager object.
@@ -170,8 +176,8 @@ class TagManager: Codable, Observable, TagManagerInterface {
     }
 
     func addChildTag(_ child: String, to parent: String) throws {
-        let childTag = Tag(child, manager: self, parent: parent)
-        let parentTag = Tag(parent, manager: self)
+        let childTag = createTag(child, parent: parent)
+        let parentTag = createTag(parent)
 
         // childTag should not already exist
         guard !allTags.contains(childTag) else {
@@ -187,7 +193,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
     }
 
     func addParentTag(_ parent: String) throws {
-        let parentTag = Tag(parent, manager: self)
+        let parentTag = createTag(parent)
 
         // parentTag should not already exist
         guard !allTags.contains(parentTag) else {
@@ -199,8 +205,8 @@ class TagManager: Codable, Observable, TagManagerInterface {
     }
 
     func removeChildTag(_ child: String, from parent: String) throws {
-        let childTag = Tag(child, manager: self, parent: parent)
-        let parentTag = Tag(parent, manager: self)
+        let childTag = createTag(child, parent: parent)
+        let parentTag = createTag(parent)
 
         // childTag should exist
         guard allTags.contains(childTag) else {
@@ -216,7 +222,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
     }
 
     func removeParentTag(_ parent: String) throws {
-        let parentTag = Tag(parent, manager: self)
+        let parentTag = createTag(parent)
 
         // parentTag should exist
         guard allTags.contains(parentTag) else {
@@ -247,7 +253,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
     }
 
     func getChildrenTagsOf(_ parent: String) throws -> [Tag] {
-        let parentTag = Tag(parent, manager: self)
+        let parentTag = createTag(parent)
 
         // parentTag should exist
         guard allTags.contains(parentTag) else {
@@ -265,8 +271,8 @@ class TagManager: Codable, Observable, TagManagerInterface {
     }
 
     func isChildTag(_ child: String, of parent: String) -> Bool {
-        let childTag = Tag(child, manager: self, parent: parent)
-        let parentTag = Tag(parent, manager: self)
+        let childTag = createTag(child, parent: parent)
+        let parentTag = createTag(parent)
 
         // parentTag should exist
         guard allTags.contains(parentTag) else {
@@ -277,8 +283,21 @@ class TagManager: Codable, Observable, TagManagerInterface {
     }
 
     func isParentTag(_ parent: String) -> Bool {
-        let parentTag = Tag(parent, manager: self)
+        let parentTag = createTag(parent)
         return allTags.contains(parentTag)
+    }
+
+}
+
+// MARK: TagManager: TagValueSourceInterface
+extension TagManager: TagValueSourceInterface {
+
+    func getDisplayValue(of internalValue: Int64) -> String {
+        guard let val = valueMap[internalValue] else {
+            fatalError("This should never happen")
+        }
+
+        return val
     }
 
 }
@@ -302,13 +321,24 @@ extension TagManager {
 // MARK: TagManager: private utility methods
 extension TagManager {
 
+    /// Creates and returns a Tag.
+    /// - Important: Never instantiate a Tag directly.
+    ///     Use this method to ensure that `valueMap` is updated.
+    private func createTag(_ value: String, parent: String? = nil) -> Tag {
+        let id = tagId
+        tagId += 1
+
+        valueMap[id] = value
+        return Tag(id, manager: self, parent: parent)
+    }
+
     /// Adds multiple Tags into both the `allTags` set and `parentChildMap` dictionary.
     /// This method automatically detects and handles parent/child Tags accordingly.
     private func addTags(_ tags: [Tag]) {
         for tag in tags {
             // Update parentChildMap
             if let parent = tag.parent { // `tag` is a child Tag
-                let parentTag = Tag(parent, manager: self)
+                let parentTag = createTag(parent)
 
                 parentChildMap[parentTag]?.insert(tag)
             } else { // `tag` is a parent Tag
@@ -335,7 +365,7 @@ extension TagManager {
         for tag in tags {
             // Update parentChildMap
             if let parent = tag.parent { // `tag` is a child Tag
-                let parentTag = Tag(parent, manager: self)
+                let parentTag = createTag(parent)
                 parentChildMap[parentTag]?.remove(tag)
             } else { // `tag` is a parent Tag
                 // Remove all children Tags

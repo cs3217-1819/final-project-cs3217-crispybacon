@@ -11,6 +11,6 @@ import Foundation
 protocol TagValueSourceInterface: Codable {
 
     /// Returns the (external) display value of a Tag's internal value.
-    func getDisplayValue(of internalValue: String) -> String
+    func getDisplayValue(of internalValue: Int64) -> String
 
 }
