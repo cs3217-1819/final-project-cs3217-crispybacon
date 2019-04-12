@@ -10,7 +10,7 @@ import UIKit
 
 class ParentTagCell: UITableViewCell {
 
-    var dataArr: [String] = []
+    var childTags: [Tag] = []
 
     // swiftlint:disable private_outlet
     @IBOutlet weak var parentTagLabel: UILabel!
@@ -40,7 +40,7 @@ class ParentTagCell: UITableViewCell {
 
 extension ParentTagCell: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataArr.count
+        return childTags.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,7 +48,7 @@ extension ParentTagCell: UITableViewDataSource, UITableViewDelegate {
         guard let childTagCell = rawCell as? ChildTagCell else {
             return rawCell
         }
-        childTagCell.childTagLabel.text = dataArr[indexPath.row]
+        childTagCell.childTagLabel.text = childTags[indexPath.row].value
         return childTagCell
     }
 }

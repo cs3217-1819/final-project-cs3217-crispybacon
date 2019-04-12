@@ -12,14 +12,22 @@ class TagSelectionViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
 
+    var core: CoreLogic?
+    var tags = [Tag: [Tag]]()
+    var parentTags = [Tag]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Populate tags with the previously stored ones
+        tags = core?.getAllTags() ?? [Tag: [Tag]]()
+        parentTags = core?.getAllParentTags() ?? [Tag]()
     }
 }
 
 extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return parentTags.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -27,8 +35,8 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
         guard let parentCell = rawCell as? ParentTagCell else {
             return rawCell
         }
-        parentCell.parentTagLabel.text = String(indexPath.row)
-        parentCell.dataArr = ["subMenu->1", "subMenu->2", "subMenu->3", "subMenu->4", "subMenu->5"]
+        parentCell.parentTagLabel.text = parentTags[indexPath.row].value
+        parentCell.childTags = tags[parentTags[indexPath.row]] ?? [Tag]()
         return parentCell
     }
 

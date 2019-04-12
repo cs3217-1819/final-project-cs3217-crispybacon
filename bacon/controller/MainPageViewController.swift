@@ -77,5 +77,11 @@ extension MainPageViewController {
             }
             transactionsController.core = core
         }
+        if segue.identifier == "mainToTags" {
+            guard let tagSelectionController = segue.destination as? TagSelectionViewController else {
+                return
+            }
+            tagSelectionController.core = core
+        }
     }
 }

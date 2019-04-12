@@ -13,10 +13,12 @@ class CoreLogic: CoreLogicInterface {
     // MARK: - Properties
     let transactionManager: TransactionManager
     let budgetManager: BudgetManager
+    let tagManager: TagManager
 
     init() throws {
         transactionManager = try TransactionManager()
         budgetManager = try BudgetManager()
+        tagManager = TagManager.create(withPersistence: true)
     }
 
     // MARK: Transaction related
@@ -85,5 +87,14 @@ class CoreLogic: CoreLogicInterface {
 
     func loadBudget() throws -> Budget {
         return try budgetManager.loadBudget()
+    }
+
+    // MARK: Tag related
+    func getAllTags() -> [Tag: [Tag]] {
+        return tagManager.tags
+    }
+    
+    func getAllParentTags() -> [Tag] {
+        return tagManager.parentTags
     }
 }
