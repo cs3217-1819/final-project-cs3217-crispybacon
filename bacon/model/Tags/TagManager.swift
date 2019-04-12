@@ -131,11 +131,27 @@ class TagManager: Codable, TagManagerInterface {
         removeTags([parentTag])
     }
 
-    var tags: [Tag: Set<Tag>] {
-        return parentChildMap
+    var tags: [Tag: [Tag]] {
+        var ret: [Tag: [Tag]] = [:]
+        for parentTag in parentChildMap.keys {
+            guard let setChildrenTags = parentChildMap[parentTag] else {
+                fatalError("This should never happen")
+            }
+            var arrChildrenTags = Array(setChildrenTags)
+            arrChildrenTags.sort()
+            ret[parentTag] = arrChildrenTags
+        }
+
+        return ret
     }
 
-    func getChildrenTagsOf(_ parent: String) throws -> Set<Tag> {
+    var parentTags: [Tag] {
+        var arrParentTags = Array(parentChildMap.keys)
+        arrParentTags.sort()
+        return arrParentTags
+    }
+
+    func getChildrenTagsOf(_ parent: String) throws -> [Tag] {
         let parentTag = Tag(parent)
 
         // parentTag should exist
@@ -143,16 +159,14 @@ class TagManager: Codable, TagManagerInterface {
             throw InvalidTagError(message: "\(parentTag) does not exist")
         }
 
-        guard let childrenTags = parentChildMap[parentTag] else {
+        guard let setChildrenTags = parentChildMap[parentTag] else {
             // If parentTag exists, it should minimally be mapped to an empty set
             fatalError("This should never happen")
         }
 
-        return childrenTags
-    }
-
-    func getParentTags() -> Set<Tag> {
-        return Set(parentChildMap.keys)
+        var arrChildrenTags = Array(setChildrenTags)
+        arrChildrenTags.sort()
+        return arrChildrenTags
     }
 
     func isChildTag(_ child: String, of parent: String) -> Bool {
