@@ -30,6 +30,7 @@
 		8F89424D225E01D6007146AC /* TagManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F89424C225E01D6007146AC /* TagManagerInterface.swift */; };
 		8F894252225E5017007146AC /* TagManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F894251225E5017007146AC /* TagManagerTests.swift */; };
 		8F913A7B225F398D00D20FA2 /* FileStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F913A7A225F398D00D20FA2 /* FileStorageManager.swift */; };
+		8F913A822260DC5900D20FA2 /* TagValueSourceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F913A812260DC5900D20FA2 /* TagValueSourceInterface.swift */; };
 		8FD0EC8B22533E3E00FCCBFB /* CodableUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD0EC8A22533E3E00FCCBFB /* CodableUIImage.swift */; };
 		8FD0EC8D225342A500FCCBFB /* CodableUIImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD0EC8C225342A500FCCBFB /* CodableUIImageTests.swift */; };
 		8FD5F7CB2240E7620023A7FC /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FD5F7CA2240E7620023A7FC /* Transaction.swift */; };
@@ -119,6 +120,7 @@
 		8F89424C225E01D6007146AC /* TagManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManagerInterface.swift; sourceTree = "<group>"; };
 		8F894251225E5017007146AC /* TagManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManagerTests.swift; sourceTree = "<group>"; };
 		8F913A7A225F398D00D20FA2 /* FileStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageManager.swift; sourceTree = "<group>"; };
+		8F913A812260DC5900D20FA2 /* TagValueSourceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagValueSourceInterface.swift; sourceTree = "<group>"; };
 		8FBEDD8B3903E2EC8591BBD1 /* Pods-baconUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8FD0EC8A22533E3E00FCCBFB /* CodableUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUIImage.swift; sourceTree = "<group>"; };
 		8FD0EC8C225342A500FCCBFB /* CodableUIImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUIImageTests.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 			children = (
 				8F89424A225E00D4007146AC /* TagManager.swift */,
 				8F89424C225E01D6007146AC /* TagManagerInterface.swift */,
+				8F913A812260DC5900D20FA2 /* TagValueSourceInterface.swift */,
 			);
 			path = Tags;
 			sourceTree = "<group>";
@@ -657,6 +660,7 @@
 			files = (
 				8F89424B225E00D4007146AC /* TagManager.swift in Sources */,
 				9F71AEF5225B3707005F043A /* StorageCouchBaseDB+Budget.swift in Sources */,
+				8F913A822260DC5900D20FA2 /* TagValueSourceInterface.swift in Sources */,
 				8FD5F7CB2240E7620023A7FC /* Transaction.swift in Sources */,
 				9F71AEF9225B3D84005F043A /* Budget.swift in Sources */,
 				8F0B2073225A464D001AF3BA /* HashableClass.swift in Sources */,
