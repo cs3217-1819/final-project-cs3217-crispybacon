@@ -150,6 +150,16 @@ extension StorageCouchBaseDB {
         }
     }
 
+    func loadAllTransactions() throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
+            .from(DataSource.database(transactionDatabase))
+            .orderBy(Ordering.property(Constants.rawDateKey).descending())
+        log.info("""
+            StorageCouchBaseDB.loadAllTransactions()
+            """)
+        return try getTransactionsFromQuery(query)
+    }
+
     func loadTransactions(limit: Int) throws -> [Transaction] {
         let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(transactionDatabase))
@@ -214,6 +224,7 @@ extension StorageCouchBaseDB {
         return try getTransactionsFromQuery(query)
     }
 
+    /**
     func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
         let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(transactionDatabase))
@@ -225,5 +236,14 @@ extension StorageCouchBaseDB {
             ofCategory=\(category) limit=\(limit).
             """)
         return try getTransactionsFromQuery(query)
+    }
+    **/
+
+    func loadTransactions(ofTags tags: Set<Tag>, limit: Int) throws -> [Transaction] {
+        let allTransactions = try loadAllTransactions()
+        for transactions in allTransactions {
+            // TODO
+        }
+        return []
     }
 }
