@@ -82,6 +82,7 @@ class StorageManagerTests: XCTestCase {
         XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget02))
         let updatedBudget = try! database.loadBudget()
         XCTAssertEqual(updatedBudget, TestUtils.validBudget02)
+        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 1)
     }
 
     func test_deleteTransaction() {
