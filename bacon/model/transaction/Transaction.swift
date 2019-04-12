@@ -36,9 +36,9 @@ class Transaction: HashableClass, Codable, Observable {
             notifyObserversOfSelf()
         }
     }
-    private(set) var category: TransactionCategory {
+    private(set) var tags: Set<Tag> {
         didSet {
-            log.info("Set category=\(category)")
+            log.info("Set tags=\(tags)")
             notifyObserversOfSelf()
         }
     }
@@ -76,7 +76,7 @@ class Transaction: HashableClass, Codable, Observable {
         case date
         case type
         case frequency
-        case category
+        case tags
         case amount
         case description
         case image
@@ -88,14 +88,14 @@ class Transaction: HashableClass, Codable, Observable {
     ///     - time: The transaction time, as represented by a TransactionTime object.
     ///     - type: The transaction type.
     ///     - frequency: The transaction frequency.
-    ///     - category: The transaction category.
+    ///     - tags: The transaction tags.
     ///     - amount: The transaction amount. Must be > 0.
     ///     - description: An optional description of the transaction. Defaults to an empty string.
     /// - Throws: `InitializationError` if `amount <= 0`.
     init(date: Date,
          type: TransactionType,
          frequency: TransactionFrequency,
-         category: TransactionCategory,
+         tags: Set<Tag>,
          amount: Decimal,
          description: String = "",
          image: CodableUIImage? = nil,
@@ -105,7 +105,7 @@ class Transaction: HashableClass, Codable, Observable {
         self.date = date
         self.type = type
         self.frequency = frequency
-        self.category = category
+        self.tags = tags
         self.amount = amount
         self.description = description
         self.image = image
@@ -116,7 +116,7 @@ class Transaction: HashableClass, Codable, Observable {
             try validate(date: date,
                          type: type,
                          frequency: frequency,
-                         category: category,
+                         tags: tags,
                          amount: amount,
                          description: description,
                          image: image,
@@ -137,7 +137,7 @@ class Transaction: HashableClass, Codable, Observable {
     func edit(date: Date? = nil,
               type: TransactionType? = nil,
               frequency: TransactionFrequency? = nil,
-              category: TransactionCategory? = nil,
+              tags: Set<Tag>? = nil,
               amount: Decimal? = nil,
               description: String? = nil,
               image: CodableUIImage? = nil,
@@ -147,7 +147,7 @@ class Transaction: HashableClass, Codable, Observable {
             try validate(date: date,
                          type: type,
                          frequency: frequency,
-                         category: category,
+                         tags: tags,
                          amount: amount,
                          description: description,
                          image: image,
@@ -168,8 +168,8 @@ class Transaction: HashableClass, Codable, Observable {
         if let frequency = frequency {
             self.frequency = frequency
         }
-        if let category = category {
-            self.category = category
+        if let tags = tags {
+            self.tags = tags
         }
         if let amount = amount {
             self.amount = amount
@@ -222,7 +222,7 @@ extension Transaction {
     private func validate(date: Date? = nil,
                           type: TransactionType? = nil,
                           frequency: TransactionFrequency? = nil,
-                          category: TransactionCategory? = nil,
+                          tags: Set<Tag>? = nil,
                           amount: Decimal? = nil,
                           description: String? = nil,
                           image: CodableUIImage? = nil,
@@ -255,7 +255,7 @@ extension Transaction {
         return date == transaction.date
             && type == transaction.type
             && frequency == transaction.frequency
-            && category == transaction.category
+            && tags == transaction.tags
             && amount == transaction.amount
             && description == transaction.description
             && location == transaction.location
