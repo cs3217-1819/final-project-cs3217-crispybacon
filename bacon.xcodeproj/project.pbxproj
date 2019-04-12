@@ -304,6 +304,18 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		8F913A7C2260538700D20FA2 /* transaction */ = {
+			isa = PBXGroup;
+			children = (
+				8FD5F7CA2240E7620023A7FC /* Transaction.swift */,
+				8FD5F7D22240EE8C0023A7FC /* TransactionCategory.swift */,
+				8FD5F7CC2240E8F20023A7FC /* TransactionFrequency.swift */,
+				8F3121D8224A39D100A9A554 /* TransactionTime.swift */,
+				8FD5F7D42240F50B0023A7FC /* TransactionType.swift */,
+			);
+			path = transaction;
+			sourceTree = "<group>";
+		};
 		8FD5F7CE2240EA530023A7FC /* commons */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,15 +353,11 @@
 		9F7FD1122240CBFF001E1A8E /* model */ = {
 			isa = PBXGroup;
 			children = (
+				8F913A7C2260538700D20FA2 /* transaction */,
 				8F89424E225E0263007146AC /* Tags */,
 				9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */,
 				9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */,
 				9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */,
-				8FD5F7CA2240E7620023A7FC /* Transaction.swift */,
-				8FD5F7D42240F50B0023A7FC /* TransactionType.swift */,
-				8FD5F7D22240EE8C0023A7FC /* TransactionCategory.swift */,
-				8FD5F7CC2240E8F20023A7FC /* TransactionFrequency.swift */,
-				8F3121D8224A39D100A9A554 /* TransactionTime.swift */,
 				9F71AEF8225B3D84005F043A /* Budget.swift */,
 			);
 			path = model;
