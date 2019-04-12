@@ -189,14 +189,15 @@ class TagManagerTests: XCTestCase {
 
     func test_getChildrenTagsOf_noChildrenTags() {
         try! tagManager.addParentTag(parent1)
-        XCTAssertEqual(try! tagManager.getChildrenTagsOf(parent1).count, 0)
+        XCTAssertEqual(try! tagManager.getChildrenTagsOf(parent1), [])
     }
 
     func test_getChildrenTagsOf_multipleChildrenTags() {
         try! tagManager.addParentTag(parent1)
-        try! tagManager.addChildTag(child1, to: parent1)
         try! tagManager.addChildTag(child2, to: parent1)
-        XCTAssertEqual(try! tagManager.getChildrenTagsOf(parent1).count, 2)
+        try! tagManager.addChildTag(child1, to: parent1)
+        XCTAssertEqual(try! tagManager.getChildrenTagsOf(parent1), [Tag(child1, parent: parent1),
+                                                                    Tag(child2, parent: parent1)])
     }
 
     func test_getChildrenTagsOf_parentTagDoesNotExist() {
@@ -208,18 +209,18 @@ class TagManagerTests: XCTestCase {
         }
     }
 
-    func test_getParentTags_noParentTags() {
-        XCTAssertEqual(tagManager.getParentTags().count, 0)
+    func test_parentTags_noParentTags() {
+        XCTAssertEqual(tagManager.parentTags, [])
     }
 
-    func test_getParentTags_oneParentTags() {
+    func test_parentTags_oneParentTags() {
         try! tagManager.addParentTag(parent1)
-        XCTAssertEqual(tagManager.getParentTags().count, 1)
+        XCTAssertEqual(tagManager.parentTags, [Tag(parent1)])
     }
-    func test_getParentTags_twoParentTags() {
-        try! tagManager.addParentTag(parent1)
+    func test_parentTags_twoParentTags() {
         try! tagManager.addParentTag(parent2)
-        XCTAssertEqual(tagManager.getParentTags().count, 2)
+        try! tagManager.addParentTag(parent1)
+        XCTAssertEqual(tagManager.parentTags, [Tag(parent1), Tag(parent2)])
     }
 
     func test_isChildTag_parentTagExists() {
