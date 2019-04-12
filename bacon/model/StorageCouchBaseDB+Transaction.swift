@@ -239,11 +239,25 @@ extension StorageCouchBaseDB {
     }
     **/
 
-    func loadTransactions(ofTags tags: Set<Tag>, limit: Int) throws -> [Transaction] {
-        let allTransactions = try loadAllTransactions()
-        for transactions in allTransactions {
-            // TODO
+    func loadTransactions(ofTags tags: Set<Tag>) throws -> [Transaction] {
+        do {
+            let allTransactions = try loadAllTransactions()
+            var wantedTransactions: [Transaction] = []
+            for transactions in allTransactions {
+                for wantedTags in tags where transactions.tags.contains(wantedTags){
+                    wantedTransactions.append(transactions)
+                    break
+                }
+            }
+            log.info("""
+                StorageCouchBaseDB.loadTransactions() with arguments:
+                ofTags=\(tags).
+                """)
+            return wantedTransactions
+        } catch {
+            throw StorageError(message: """
+                loadTransactions(ofTags) encounter error, underlying calls loadAllTransactions()
+            """)
         }
-        return []
     }
 }
