@@ -88,7 +88,7 @@ class TagManager: Codable, TagManagerInterface {
             throw InvalidTagError(message: "\(parentTag) does not exist")
         }
 
-        addTags([childTag, parentTag])
+        try addTags([childTag, parentTag])
     }
 
     func addParentTag(_ parent: String) throws {
@@ -99,7 +99,7 @@ class TagManager: Codable, TagManagerInterface {
             throw DuplicateTagError(message: "\(parentTag) already exists")
         }
 
-        addTags([parentTag])
+        try addTags([parentTag])
 
     }
 
@@ -117,7 +117,7 @@ class TagManager: Codable, TagManagerInterface {
             throw InvalidTagError(message: "\(parentTag) does not exist")
         }
 
-        removeTags([childTag])
+        try removeTags([childTag])
     }
 
     func removeParentTag(_ parent: String) throws {
@@ -128,7 +128,7 @@ class TagManager: Codable, TagManagerInterface {
             throw InvalidTagError(message: "\(parentTag) does not exist")
         }
 
-        removeTags([parentTag])
+        try removeTags([parentTag])
     }
 
     var tags: [Tag: [Tag]] {
@@ -192,13 +192,14 @@ class TagManager: Codable, TagManagerInterface {
 extension TagManager {
 
     /// Saves the current state of the TagManager object to storage.
-    private func save() {
+    private func save() throws {
         do {
             log.info("Saving TagManager to storage.")
             let fsm = FileStorageManager()
             try fsm.writeAsJson(data: self, as: TagManager.saveFileName)
         } catch {
             log.error("Error encountered: \(error)")
+            throw error
         }
     }
 
@@ -210,7 +211,7 @@ extension TagManager {
     /// Adds multiple Tags into both the `allTags` set and `parentChildMap` dictionary.
     /// This method automatically detects and handles parent/child Tags accordingly.
     /// If a child Tag's parent does not already exist, it will be created automatically.
-    private func addTags(_ tags: [Tag]) {
+    private func addTags(_ tags: [Tag]) throws {
         for tag in tags {
             // Update parentChildMap
             if let parent = tag.parent { // `tag` is a child Tag
@@ -234,7 +235,7 @@ extension TagManager {
         }
 
         if isPersistent {
-            save()
+            try save()
         }
     }
 
@@ -242,7 +243,7 @@ extension TagManager {
     /// This method automatically detects and handles parent/child Tags accordingly.
     /// If a parent Tag has children, all of its children Tags will also be removed.
     /// - Note: Does nothing if a Tag does not exist.
-    private func removeTags(_ tags: [Tag]) {
+    private func removeTags(_ tags: [Tag]) throws {
         for tag in tags {
             // Update parentChildMap
             if let parent = tag.parent { // `tag` is a child Tag
@@ -254,7 +255,7 @@ extension TagManager {
                     fatalError("This should never happen")
                 }
                 let arrChildrenTags = Array(childrenTags)
-                removeTags(arrChildrenTags)
+                try removeTags(arrChildrenTags)
 
                 // Remove current (parent) Tag
                 parentChildMap.removeValue(forKey: tag)
@@ -265,7 +266,7 @@ extension TagManager {
         }
 
         if isPersistent {
-            save()
+            try save()
         }
     }
 
