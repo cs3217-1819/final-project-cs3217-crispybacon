@@ -19,8 +19,9 @@ struct InvalidTagError: Error {
 protocol TagManagerInterface {
 
     /// Adds a new child Tag to a parent Tag.
-    /// If parent Tag does not exist, it will be created automatically.
-    /// - Throws: `DuplicateTagError` if the child Tag already exists.
+    /// - Throws:
+    ///     - `DuplicateTagError` if the child Tag already exists.
+    ///     - `InvalidTagError` if the parent Tag does not exist.
     func addChildTag(_ child: String, to parent: String) throws
 
     /// Adds a new parent Tag.

@@ -52,12 +52,13 @@ class TagManagerTests: XCTestCase {
         XCTAssertFalse(tagManager.isParentTag(parent1))
         XCTAssertFalse(tagManager.isChildTag(child1, of: parent1))
 
-        try! tagManager.addChildTag(child1, to: parent1)
-        XCTAssertTrue(tagManager.isParentTag(parent1))
-        XCTAssertTrue(tagManager.isChildTag(child1, of: parent1))
+        XCTAssertThrowsError(try tagManager.addChildTag(child1, to: parent1)) { err in
+            XCTAssertTrue(err is InvalidTagError)
+        }
     }
 
     func test_addChildTag_duplicateTags() {
+        try! tagManager.addParentTag(parent1)
         try! tagManager.addChildTag(child1, to: parent1)
         XCTAssertThrowsError(try tagManager.addChildTag(child1, to: parent1)) { err in
             XCTAssertTrue(err is DuplicateTagError)

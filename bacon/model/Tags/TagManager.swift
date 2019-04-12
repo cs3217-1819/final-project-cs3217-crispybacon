@@ -83,6 +83,11 @@ class TagManager: Codable, TagManagerInterface {
             throw DuplicateTagError(message: "\(childTag) already exists")
         }
 
+        // parentTag should already exist
+        guard allTags.contains(parentTag) else {
+            throw InvalidTagError(message: "\(parentTag) does not exist")
+        }
+
         addTags([childTag, parentTag])
     }
 
