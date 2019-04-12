@@ -146,10 +146,12 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         cell.closedAmountView.text = finalString
         cell.openAmountView.text = finalString
 
+        /*
         let category = currentMonthTransactions[arrayIndex].category
         let categoryString = category.rawValue
         cell.closedCategoryView?.text = categoryString
         cell.openCategoryView?.text = categoryString
+        */
 
         let codableLocation = currentMonthTransactions[arrayIndex].location
         if let location = codableLocation?.location {

@@ -96,7 +96,8 @@ class AddTransactionViewController: UIViewController {
         let date = captureDate()
         let type = captureType()
         let frequency = captureFrequency()
-        let category = captureCategory()
+        var tags = Set<Tag>()
+        tags.insert(Tag("hello"))
         let amount = captureAmount()
         let description = captureDescription()
         let photo = capturePhoto()
@@ -104,14 +105,14 @@ class AddTransactionViewController: UIViewController {
 
         log.info("""
             AddTransactionViewController.captureInputs() with inputs captured:
-            date=\(date), type=\(type), frequency=\(frequency), category=\(category),
+            date=\(date), type=\(type), frequency=\(frequency), tags=\(tags),
             amount=\(amount), description=\(description), photo=\(String(describing: photo)),
             location=\(String(describing: location)))
             """)
 
         do {
             try coreLogic.recordTransaction(date: date, type: type, frequency: frequency,
-                                            category: category, amount: amount, description: description,
+                                            tags: tags, amount: amount, description: description,
                                             image: photo, location: location)
         } catch {
             self.handleError(error: error, customMessage: Constants.transactionAddFailureMessage)
