@@ -16,8 +16,10 @@ extension CoreLogic {
 
     private func getBreakdownByTag(transactions: [Transaction], for tags: Set<Tag>) -> [Tag: Int] {
         var tagCount: [Tag: Int] = [:]
-        transactions.forEach { transaction in
-            tagCount[transaction.category] = (tagCount[transaction.category] ?? 0) + 1
+        for transaction in transactions {
+            for tag in transaction.tags {
+                tagCount[tag] = (tagCount[tag] ?? 0) + 1
+            }
         }
         return tagCount
     }
