@@ -304,17 +304,11 @@ extension TagManager {
 
     /// Adds multiple Tags into both the `allTags` set and `parentChildMap` dictionary.
     /// This method automatically detects and handles parent/child Tags accordingly.
-    /// If a child Tag's parent does not already exist, it will be created automatically.
     private func addTags(_ tags: [Tag]) {
         for tag in tags {
             // Update parentChildMap
             if let parent = tag.parent { // `tag` is a child Tag
                 let parentTag = Tag(parent, manager: self)
-
-                // Create parent Tag if it doesn't already exist
-                if parentChildMap[parentTag] == nil {
-                    parentChildMap[parentTag] = []
-                }
 
                 parentChildMap[parentTag]?.insert(tag)
             } else { // `tag` is a parent Tag
