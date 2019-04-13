@@ -12,6 +12,7 @@ class MainPageViewController: UIViewController {
 
     var core: CoreLogic?
 
+    @IBOutlet private weak var budgetLabel: UILabel!
     @IBOutlet private weak var coinView: UIImageView!
 
     var isUpdateNeeded = false
@@ -83,5 +84,14 @@ extension MainPageViewController {
             }
             tagSelectionController.core = core
         }
+        if segue.identifier == "mainToSetBudget" {
+            guard let setBudgetController = segue.destination as? SetBuddgetViewController else {
+                return
+            }
+            setBudgetController.core = core
+        }
+    }
+
+    @IBAction func unwindToMain(segue: UIStoryboardSegue) {
     }
 }

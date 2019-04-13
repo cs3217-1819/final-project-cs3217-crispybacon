@@ -31,6 +31,9 @@
                                 <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="70"/>
                                 <color key="textColor" red="1" green="0.80344302876790086" blue="0.35260522083872259" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ZMU-TM-YTV" appends="YES" id="klB-CD-1I7"/>
+                                </connections>
                             </label>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin" translatesAutoresizingMaskIntoConstraints="NO" id="5Iu-o9-Qlj" userLabel="Coin View">
                                 <rect key="frame" x="319" y="200" width="130" height="130"/>
@@ -124,6 +127,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="e6m-PK-ahv"/>
                     <connections>
+                        <outlet property="budgetLabel" destination="srG-5J-sOi" id="R2d-yO-WSM"/>
                         <outlet property="coinView" destination="5Iu-o9-Qlj" id="ubC-gg-Fo0"/>
                         <segue destination="Kkb-EH-aei" kind="show" identifier="mainToAddTransactionEx" id="nRX-mK-th1"/>
                         <segue destination="Kkb-EH-aei" kind="show" identifier="mainToAddTransactionIn" id="8Ch-jd-bcE"/>
@@ -135,6 +139,11 @@
                         <action selector="coinSwipedUp:" destination="BYZ-38-t0r" id="b6a-sP-VE2"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <tapGestureRecognizer id="ZMU-TM-YTV">
+                    <connections>
+                        <segue destination="Edh-c4-FUf" kind="show" identifier="mainToSetBudget" id="Fca-7s-eDC"/>
+                    </connections>
+                </tapGestureRecognizer>
                 <swipeGestureRecognizer direction="down" id="Nca-Be-ui7">
                     <connections>
                         <action selector="coinSwipedDown:" destination="BYZ-38-t0r" id="54G-AI-NpU"/>
@@ -142,6 +151,71 @@
                 </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="792.1875" y="17.578125"/>
+        </scene>
+        <!--Set Buddget View Controller-->
+        <scene sceneID="EVc-JJ-VJV">
+            <objects>
+                <viewController id="Edh-c4-FUf" customClass="SetBuddgetViewController" customModule="bacon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gpL-Gv-gvZ">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="$00.00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GbW-uh-2Kf">
+                                <rect key="frame" x="200" y="482" width="368" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="uGG-Q5-mR6"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set your budget!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKB-t9-iTd">
+                                <rect key="frame" x="100" y="371.5" width="568" height="60.5"/>
+                                <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="50"/>
+                                <color key="textColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GgE-Ev-tQO">
+                                <rect key="frame" x="20" y="592" width="728" height="51"/>
+                                <color key="backgroundColor" red="0.43252096509999999" green="0.82577720210000005" blue="0.12604224820000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="Futura-CondensedExtraBold" family="Futura" pointSize="30"/>
+                                <state key="normal" title="Confirm">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="Kkb-EH-aei" eventType="touchUpInside" id="vsc-B0-6vz"/>
+                                    <action selector="confirmButtonPressed:" destination="Edh-c4-FUf" eventType="touchUpInside" id="mc7-Jk-g7K"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="gKB-t9-iTd" firstAttribute="leading" secondItem="KVQ-7n-eoP" secondAttribute="leading" constant="100" id="1EA-OR-Vbn"/>
+                            <constraint firstItem="GgE-Ev-tQO" firstAttribute="top" secondItem="GbW-uh-2Kf" secondAttribute="bottom" constant="50" id="5sg-Ab-bu8"/>
+                            <constraint firstItem="KVQ-7n-eoP" firstAttribute="trailing" secondItem="gKB-t9-iTd" secondAttribute="trailing" constant="100" id="Bjb-jh-Gjg"/>
+                            <constraint firstItem="GbW-uh-2Kf" firstAttribute="top" secondItem="gKB-t9-iTd" secondAttribute="bottom" constant="50" id="IvV-Mb-JI5"/>
+                            <constraint firstItem="GbW-uh-2Kf" firstAttribute="leading" secondItem="KVQ-7n-eoP" secondAttribute="leading" constant="200" id="VvU-nP-kyL"/>
+                            <constraint firstItem="KVQ-7n-eoP" firstAttribute="trailing" secondItem="GgE-Ev-tQO" secondAttribute="trailing" constant="20" id="Xub-Br-k8V"/>
+                            <constraint firstItem="GbW-uh-2Kf" firstAttribute="centerY" secondItem="gpL-Gv-gvZ" secondAttribute="centerY" id="c0P-o9-LtW"/>
+                            <constraint firstItem="GgE-Ev-tQO" firstAttribute="leading" secondItem="gpL-Gv-gvZ" secondAttribute="leading" constant="20" id="dCS-Fa-8EP"/>
+                            <constraint firstItem="KVQ-7n-eoP" firstAttribute="trailing" secondItem="GbW-uh-2Kf" secondAttribute="trailing" constant="200" id="sy1-n1-zWX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KVQ-7n-eoP"/>
+                    </view>
+                    <connections>
+                        <outlet property="budgetField" destination="GbW-uh-2Kf" id="L0v-Gh-OxE"/>
+                        <segue destination="2os-0k-B1j" kind="unwind" identifier="unwindFromBudgetToMain" unwindAction="unwindToMainWithSegue:" id="33e-VL-dZW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Y3-nP-pw4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="2os-0k-B1j" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="789" y="735"/>
         </scene>
         <!--Analysis View Controller-->
         <scene sceneID="cHT-Oz-Wjr">
@@ -516,7 +590,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mug-iE-xBa">
-                                                                        <rect key="frame" x="8" y="8" width="702" height="27.5"/>
+                                                                        <rect key="frame" x="8" y="8" width="662" height="27.5"/>
                                                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>

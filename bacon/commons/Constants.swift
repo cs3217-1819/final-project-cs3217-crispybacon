@@ -19,6 +19,7 @@ class Constants {
     static let transactionAddFailureMessage = "Unable to add transaction!"
     static let transactionLoadFailureMessage = "Unable to load transactions!"
     static let tagAddFailureMessage = "Unable to add tag!"
+    static let budgetSetFailureMessage = "Unable to set budget!"
 
     // Add Transaction Page
     static let defaultTransactionType = TransactionType.expenditure
@@ -38,6 +39,10 @@ class Constants {
     static let tagNameInputTitle = "Add new tag"
     static let tagNameInputMessage = "Enter tag name"
     static let InvalidTagNameWarning = "Please enter a valid name!"
+
+    // Set Budget Page
+    static let defaultBudgetString = "-1.0"
+    static let defaultBudget: Decimal = -1.0
 
     // Date
     static func getDateFormatter() -> DateFormatter {
