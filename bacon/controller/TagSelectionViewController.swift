@@ -15,18 +15,27 @@ class TagSelectionViewController: UIViewController {
     var core: CoreLogic?
     var tags = [Tag: [Tag]]()
     var parentTags = [Tag]()
+    var selectedTags = Set<Tag>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Populate tags with the previously stored ones
-        tags = core?.getAllTags() ?? [Tag: [Tag]]()
-        parentTags = core?.getAllParentTags() ?? [Tag]()
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+        tags = core.getAllTags()
+        parentTags = core.getAllParentTags()
+    }
+
+    @IBAction func confirmButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "tagSelectionToAdd", sender: nil)
     }
 
     @IBAction func addParentTagButtonPressed(_ sender: UIButton) {
         guard let core = core else {
-            // something
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
             return
         }
         self.promptUserForInput(title: Constants.tagNameInputTitle,
@@ -62,7 +71,24 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
         return parentCell
     }
 
-    func  tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150.0
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        log.info("""
+            TagSelectionViewController.didSelectRowAt():
+            row=\(indexPath.row))
+            """)
+        selectedTags.insert(parentTags[indexPath.row])
+    }
+
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        log.info("""
+            TagSelectionViewController.didDeselectRowAt():
+            row=\(indexPath.row))
+            """)
+        selectedTags.remove(parentTags[indexPath.row])
+    }
+
 }

@@ -16,13 +16,13 @@ class AddTransactionViewController: UIViewController {
     var core: CoreLogic?
     var transactionType = Constants.defaultTransactionType
     var dateTime = Date()
-    private var selectedCategory = Constants.defaultCategory
+    var tags = Set<Tag>()
     private var photo: UIImage?
     private var location: CLLocation?
 
     @IBOutlet private weak var amountField: UITextField!
     @IBOutlet private weak var typeLabel: UILabel!
-    @IBOutlet private weak var categoryLabel: UILabel!
+    @IBOutlet private weak var tagLabel: UILabel!
     @IBOutlet private weak var descriptionField: UITextField!
     @IBOutlet private weak var locationLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
@@ -36,7 +36,6 @@ class AddTransactionViewController: UIViewController {
         } else {
             setIncomeType()
         }
-        categoryLabel.text = Constants.defaultCategoryString
 
         // Request permission for location services
         self.locationManager.requestAlwaysAuthorization()
@@ -54,6 +53,7 @@ class AddTransactionViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         // Need to add display location and photo too when ready
         displayDateTime(dateTime: dateTime)
+        displayTags(tags: tags)
     }
 
     @IBAction func typeFieldPressed(_ sender: UITapGestureRecognizer) {
@@ -62,16 +62,6 @@ class AddTransactionViewController: UIViewController {
         } else {
             setExpenditureType()
         }
-    }
-
-    @IBAction func categoryButtonPressed(_ sender: UIButton) {
-        let userInput = sender.title(for: .normal) ?? Constants.defaultCategoryString
-        log.info("""
-            AddTransactionViewController.categoryButtonPressed() with arguments:
-            sender.title=\(userInput)
-            """)
-        selectedCategory = TransactionCategory(rawValue: userInput) ?? Constants.defaultCategory
-        categoryLabel.text = sender.title(for: .normal) ?? Constants.defaultCategoryString
     }
 
     @IBAction func photoButtonPressed(_ sender: UIButton) {
@@ -96,7 +86,7 @@ class AddTransactionViewController: UIViewController {
         let date = captureDate()
         let type = captureType()
         let frequency = captureFrequency()
-        let tags = Set<Tag>()
+        let tags = captureTags()
         let amount = captureAmount()
         let description = captureDescription()
         let photo = capturePhoto()
@@ -132,8 +122,8 @@ class AddTransactionViewController: UIViewController {
         // swiftlint:enable force_try
     }
 
-    private func captureCategory() -> TransactionCategory {
-        return selectedCategory
+    private func captureTags() -> Set<Tag> {
+        return tags
     }
 
     private func captureAmount() -> Decimal {
@@ -181,18 +171,29 @@ class AddTransactionViewController: UIViewController {
         timeLabel.text = Constants.getDateLessPreciseFormatter().string(from: dateTime)
     }
 
+    private func displayTags(tags: Set<Tag>) {
+        var tagString = ""
+        for tag in tags {
+            tagString += tag.value + "  "
+        }
+        if tagString == "" {
+            tagString = "Add tags!"
+        }
+        tagLabel.text = tagString
+    }
+
     private func setExpenditureType() {
         transactionType = .expenditure
         typeLabel.text = "- \(Constants.currency)"
         typeLabel.textColor = UIColor.red
-        categoryLabel.textColor = UIColor.red
+        tagLabel.textColor = UIColor.red
     }
 
     private func setIncomeType() {
         transactionType = .income
         typeLabel.text = "+ \(Constants.currency)"
         typeLabel.textColor = UIColor.green
-        categoryLabel.textColor = UIColor.green
+        tagLabel.textColor = UIColor.green
     }
 
 }
@@ -224,10 +225,19 @@ extension AddTransactionViewController {
             mainController.core = core
             mainController.isUpdateNeeded = true
         }
+        if segue.identifier == "addToTagSelection" {
+            guard let tagController = segue.destination as? TagSelectionViewController else {
+                return
+            }
+            tagController.core = core
+        }
     }
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
         if let calendarViewController = segue.source as? DateTimeSelectionViewController {
             dateTime = calendarViewController.selectedDate
+        }
+        if let tagSelectionViewController = segue.source as? TagSelectionViewController {
+            tags = tagSelectionViewController.selectedTags
         }
     }
 }

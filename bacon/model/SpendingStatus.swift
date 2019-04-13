@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SpendingStatus { 
+struct SpendingStatus {
     let currentSpending: Decimal
     let totalBudget: Decimal
     var percentage: Decimal {
