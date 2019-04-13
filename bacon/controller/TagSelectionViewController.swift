@@ -23,12 +23,7 @@ class TagSelectionViewController: UIViewController {
         super.viewDidLoad()
 
         // Populate tags with the previously stored ones
-        guard let core = core else {
-            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
-            return
-        }
-        tags = core.getAllTags()
-        parentTags = core.getAllParentTags()
+        loadTags()
 
         // Display according to editing/non-editing mode
         if canEdit {
@@ -36,6 +31,15 @@ class TagSelectionViewController: UIViewController {
         } else {
             confirmButton.alpha = 1.0
         }
+    }
+
+    func loadTags() {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+        tags = core.getAllTags()
+        parentTags = core.getAllParentTags()
     }
 
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
@@ -47,19 +51,23 @@ class TagSelectionViewController: UIViewController {
             self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
             return
         }
-        self.promptUserForInput(title: Constants.tagNameInputTitle,
-                                message: Constants.tagNameInputMessage,
-                                inputValidator: { userInput in
-            return userInput.trimmingCharacters(in: CharacterSet.whitespaces) != ""
-        }, successHandler: { userInput in
+        promptUserForTagName { userInput in
             do {
-                let parentTagAdded = try core.addParentTag(userInput)
-                self.parentTags.insert(parentTagAdded, at: 0)
+                try core.addParentTag(userInput)
+                self.loadTags()
                 self.tableView.reloadData()
             } catch {
                 self.handleError(error: error, customMessage: Constants.tagAddFailureMessage)
             }
-        }, failureHandler: { _ in
+        }
+    }
+
+    func promptUserForTagName(successHandler: @escaping (String) -> Void) {
+        self.promptUserForInput(title: Constants.tagNameInputTitle,
+                                message: Constants.tagNameInputMessage,
+                                inputValidator: { userInput in
+                                    return userInput.trimmingCharacters(in: CharacterSet.whitespaces) != ""
+        }, successHandler: successHandler, failureHandler: { _ in
             self.alertUser(title: Constants.warningTitle, message: Constants.InvalidTagNameWarning)
         })
     }
@@ -75,8 +83,29 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
         guard let parentCell = rawCell as? ParentTagCell else {
             return rawCell
         }
-        parentCell.parentTagLabel.text = parentTags[indexPath.row].value
-        parentCell.childTags = tags[parentTags[indexPath.row]] ?? [Tag]()
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return rawCell
+        }
+
+        let currentParentTag = parentTags[indexPath.row]
+        parentCell.parentTagLabel.text = currentParentTag.value
+        parentCell.childTags = tags[currentParentTag] ?? [Tag]()
+        parentCell.subTable.reloadData()
+
+        parentCell.addChildAction = { cell in
+            self.promptUserForTagName { userInput in
+                do {
+                    try core.addChildTag(userInput, to: currentParentTag.value)
+                    self.loadTags()
+                    cell.childTags = self.tags[currentParentTag] ?? [Tag]()
+                    cell.subTable.reloadData()
+                    self.tableView.reloadData()
+                } catch {
+                    self.handleError(error: error, customMessage: Constants.tagAddFailureMessage)
+                }
+            }
+        }
         return parentCell
     }
 

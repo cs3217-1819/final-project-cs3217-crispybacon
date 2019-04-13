@@ -11,11 +11,12 @@ import UIKit
 class ParentTagCell: UITableViewCell {
 
     var childTags: [Tag] = []
+    var addChildAction: ((ParentTagCell) -> Void)?
 
     // swiftlint:disable private_outlet
     @IBOutlet weak var parentTagLabel: UILabel!
+    @IBOutlet weak var subTable: UITableView!
     // swiftlint:enable private_outlet
-    @IBOutlet private weak var subTable: UITableView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,6 +37,9 @@ class ParentTagCell: UITableViewCell {
         subTable?.dataSource = self
     }
 
+    @IBAction func addChildButtonPressed(_ sender: UIButton) {
+        addChildAction?(self)
+    }
 }
 
 extension ParentTagCell: UITableViewDataSource, UITableViewDelegate {

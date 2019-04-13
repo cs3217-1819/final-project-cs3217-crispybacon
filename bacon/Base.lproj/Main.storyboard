@@ -571,7 +571,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mJr-Q0-aco">
-                                                    <rect key="frame" x="20" y="0.0" width="708" height="40"/>
+                                                    <rect key="frame" x="20" y="0.0" width="608" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="ITe-bR-B90"/>
                                                     </constraints>
@@ -610,12 +610,25 @@
                                                         </tableViewCell>
                                                     </prototypes>
                                                 </tableView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JHM-3D-MpW">
+                                                    <rect key="frame" x="638" y="0.0" width="90" height="51"/>
+                                                    <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
+                                                    <state key="normal" title="+">
+                                                        <color key="titleColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="addChildButtonPressed:" destination="x9J-8x-mhE" eventType="touchUpInside" id="pW9-C8-3WD"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="UsF-AJ-gds" secondAttribute="bottom" id="AeL-3x-ied"/>
+                                                <constraint firstItem="JHM-3D-MpW" firstAttribute="top" secondItem="HgF-95-B9F" secondAttribute="top" id="C6f-uw-OVB"/>
+                                                <constraint firstAttribute="trailing" secondItem="JHM-3D-MpW" secondAttribute="trailing" id="D8a-FL-YeI"/>
                                                 <constraint firstItem="mJr-Q0-aco" firstAttribute="top" secondItem="HgF-95-B9F" secondAttribute="top" id="FFc-tB-mgx"/>
+                                                <constraint firstItem="JHM-3D-MpW" firstAttribute="leading" secondItem="mJr-Q0-aco" secondAttribute="trailing" constant="10" id="Qmb-8k-WhP"/>
                                                 <constraint firstItem="mJr-Q0-aco" firstAttribute="leading" secondItem="HgF-95-B9F" secondAttribute="leading" constant="20" id="Ror-Fi-sJG"/>
-                                                <constraint firstAttribute="trailing" secondItem="mJr-Q0-aco" secondAttribute="trailing" id="Yd4-N1-5lg"/>
+                                                <constraint firstAttribute="trailing" secondItem="mJr-Q0-aco" secondAttribute="trailing" constant="100" id="Yd4-N1-5lg"/>
                                                 <constraint firstItem="UsF-AJ-gds" firstAttribute="leading" secondItem="HgF-95-B9F" secondAttribute="leading" constant="50" id="iKv-ZE-Mh3"/>
                                                 <constraint firstAttribute="trailing" secondItem="UsF-AJ-gds" secondAttribute="trailing" id="kie-wu-fOv"/>
                                                 <constraint firstItem="UsF-AJ-gds" firstAttribute="top" secondItem="mJr-Q0-aco" secondAttribute="bottom" id="s9k-bj-b4C"/>
