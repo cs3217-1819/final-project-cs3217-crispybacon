@@ -113,6 +113,10 @@ extension StorageCouchBaseDB {
     }
 
     private func getTransactionsFromQuery(_ query: Query) throws -> [Transaction] {
+        // Every time database is called to load Transactions, we clear the transaction id mapping
+        // dictionary.
+        // We only allow front end to deal with transactions per call to load method.
+        transactionMapping.removeAll(keepingCapacity: true)
         do {
             var transactions: [Transaction] = Array()
             for result in try query.execute().allResults() {
@@ -124,6 +128,7 @@ extension StorageCouchBaseDB {
                 let transactionData = try JSONSerialization.data(withJSONObject: transactionDictionary, options: [])
                 let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
                 transactions.append(currentTransaction)
+
                 // Retrieve and store the mapping of transaction to its id in database
                 guard let transactionDatabaseId = result.string(forKey: "id") else {
                     throw StorageError(message: "Could not retrieve UID of transaction from database.")
