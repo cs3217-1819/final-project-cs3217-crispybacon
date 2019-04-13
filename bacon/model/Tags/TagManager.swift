@@ -121,6 +121,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
         case isPersistent
         case allTags
         case parentChildMap
+        case tagId
         case valueMap
     }
 
