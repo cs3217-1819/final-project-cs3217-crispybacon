@@ -40,6 +40,7 @@ class Constants {
     // Trsansactions Page
     static let defaultImage = UIImage(named: "dummy")
     static let defaultDescriptionToDisplay = "No description was provided"
+    static let defaultTagsToDisplay = "No tags were provided"
     static let animatoinDuration = [0.26, 0.20, 0.20]
     static let imageViewTag = 6
 

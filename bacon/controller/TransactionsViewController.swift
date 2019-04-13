@@ -146,10 +146,16 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         cell.closedAmountView.text = finalString
         cell.openAmountView.text = finalString
 
-//        let category = currentMonthTransactions[arrayIndex].category
-//        let categoryString = category.rawValue
-//        cell.closedCategoryView?.text = categoryString
-//        cell.openCategoryView?.text = categoryString
+        let tags = currentMonthTransactions[arrayIndex].tags
+        var tagsString = ""
+        for tag in tags {
+            tagsString += tag.value + "  "
+        }
+        if tagsString == "" {
+            tagsString = Constants.defaultTagsToDisplay
+        }
+        cell.openTagView.text = tagsString
+        cell.closedTagView.text = tagsString
 
         let codableLocation = currentMonthTransactions[arrayIndex].location
         if let location = codableLocation?.location {
@@ -176,7 +182,6 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
             imageView?.image = Constants.defaultImage
         }
 
-        //  icon is not set yet
         return cell
     }
 

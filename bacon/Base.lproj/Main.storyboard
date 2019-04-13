@@ -881,8 +881,8 @@
                                                             <color key="textColor" red="0.20000000000000001" green="0.23921568630000001" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CATEGORY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="rAk-qQ-rWO">
-                                                            <rect key="frame" x="620.5" y="110" width="97.5" height="36.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAGS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="rAk-qQ-rWO">
+                                                            <rect key="frame" x="671" y="110" width="47" height="36.5"/>
                                                             <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="30"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.23921568630000001" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1045,7 +1045,7 @@
                                                                         <constraint firstAttribute="height" constant="1" id="Rzc-Xn-a7I"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <label opaque="NO" userInteractionEnabled="NO" tag="12" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CATEGORY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dep-9A-3UL">
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="12" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAGS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dep-9A-3UL">
                                                                     <rect key="frame" x="90" y="65" width="630" height="24.5"/>
                                                                     <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="20"/>
                                                                     <color key="textColor" red="0.20392156859999999" green="0.23921568630000001" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1184,9 +1184,9 @@
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="closedAmountView" destination="5ta-Kw-tJf" id="2nF-MM-fGw"/>
-                                            <outlet property="closedCategoryView" destination="rAk-qQ-rWO" id="5xB-gQ-d4N"/>
                                             <outlet property="closedDateView" destination="lNA-Dm-I1Z" id="1cT-5s-HhB"/>
                                             <outlet property="closedNumberView" destination="IiH-hA-SFT" id="G0j-BV-oTc"/>
+                                            <outlet property="closedTagView" destination="rAk-qQ-rWO" id="5xB-gQ-d4N"/>
                                             <outlet property="containerView" destination="WZm-XW-u14" id="S1n-1h-bcd"/>
                                             <outlet property="containerViewTop" destination="RhN-Cv-XV7" id="xTV-8G-tjy"/>
                                             <outlet property="descriptionView" destination="z8E-tU-YTL" id="KIh-k1-yqk"/>
@@ -1195,8 +1195,8 @@
                                             <outlet property="iconView" destination="FoP-gH-1dH" id="Jhv-ZJ-mc4"/>
                                             <outlet property="locationView" destination="oCD-r0-esD" id="I4r-Zc-6iD"/>
                                             <outlet property="openAmountView" destination="0Hv-ev-pzy" id="4Cd-0f-mhy"/>
-                                            <outlet property="openCategoryView" destination="Dep-9A-3UL" id="1Zb-yK-1Rk"/>
                                             <outlet property="openDateView" destination="GGv-2B-3uh" id="U5f-nD-QN9"/>
+                                            <outlet property="openTagView" destination="Dep-9A-3UL" id="1Zb-yK-1Rk"/>
                                             <outlet property="openTimeView" destination="ajf-da-EaL" id="5tb-SE-fav"/>
                                         </connections>
                                     </tableViewCell>
