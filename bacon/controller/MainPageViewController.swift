@@ -71,16 +71,16 @@ class MainPageViewController: UIViewController {
 
         budgetLabel.text = Constants.currency + spending + " / " + Constants.currency + budget
         if percentage < 1 {
-            budgetLabel.textColor = UIColor.green
+            budgetLabel.textColor = UIColor.green.withAlphaComponent(0.5)
             pigView.image = Constants.happyPig
             if percentage < 0.5 {
                 pigView.image = Constants.veryHappyPig
             }
         } else if percentage == 1 {
-            budgetLabel.textColor = UIColor.yellow.withAlphaComponent(0.7)
+            budgetLabel.textColor = UIColor.yellow.withAlphaComponent(0.5)
             pigView.image = Constants.neutralPig
         } else {
-            budgetLabel.textColor = UIColor.red
+            budgetLabel.textColor = UIColor.red.withAlphaComponent(0.5)
             pigView.image = Constants.sadPig
             if percentage > 1.5 {
                 pigView.image = Constants.verySadPig
