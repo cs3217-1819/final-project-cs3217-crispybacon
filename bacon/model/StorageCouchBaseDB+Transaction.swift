@@ -101,6 +101,7 @@ extension StorageCouchBaseDB {
             try transactionDatabase.deleteDocument(transactionDocument)
             // Delete the mapping
             transactionMapping.removeValue(forKey: transaction)
+            try clearTransactionAssociation(forTransactionWithId: transactionId)
         } catch {
             log.info("""
                 StorageCouchBaseDB.deleteTransaction() with argument:

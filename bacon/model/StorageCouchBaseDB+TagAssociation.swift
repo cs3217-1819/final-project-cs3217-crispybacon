@@ -54,7 +54,7 @@ extension StorageCouchBaseDB {
     }
 
     // To be called when transactions are deleted by the user
-    func clearTransactionAssociation(forId uid: String) throws {
+    func clearTransactionAssociation(forTransactionWithId uid: String) throws {
         // Get all associations stored in the database that belongs to this transaction
         let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(tagAssociationDatabase))
@@ -91,5 +91,9 @@ extension StorageCouchBaseDB {
                 """)
             }
         }
+    }
+
+    func updateTransactionTagAssociation(for transaction: Transaction, withId uid: String) throws {
+        // TODO
     }
 }
