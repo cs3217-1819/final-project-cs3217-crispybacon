@@ -17,6 +17,16 @@ class TestUtils {
     // swiftlint:disable force_try
     // swiftlint:disable force_unwrapping
 
+    // Tags
+    static let tagManager = TagManager.create(testMode: true)
+
+    static let tagBills = Tag("bills")
+    static let tagEducation = Tag("education")
+    static let tagEntertainment = Tag("entertainment")
+    static let tagFood = Tag("food")
+    static let tagInvestment = Tag("investment")
+    static let tagTransport = Tag("transport")
+
     // Sample CLLocation instances naming conventions:
     //      - 'sampleCLLocation'
     //      - Number indicates a unique set of CLLocation properties
@@ -90,7 +100,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("education")],
+                         tags: [tagEducation],
                          amount: 10.0,
                          image: CodableUIImage(redHeartJpg),
                          location: CodableCLLocation(sampleCLLocation1A))
@@ -98,7 +108,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("entertainment")],
+                         tags: [tagEntertainment],
                          amount: 5.0,
                          image: CodableUIImage(redHeartPng),
                          location: CodableCLLocation(sampleCLLocation2))
@@ -108,7 +118,7 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .weekly,
                                                               repeats: 2),
-                         tags: [Tag("entertainment")],
+                         tags: [tagEntertainment],
                          amount: 5.0)
     static let validTransactionExpenditure04 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(3_000)),
@@ -116,7 +126,7 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .weekly,
                                                               repeats: 1),
-                         tags: [Tag("investment")],
+                         tags: [tagInvestment],
                          amount: 100.0)
 
     // TRANSACTION - TYPE - INCOME
@@ -124,7 +134,7 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("food")],
+                         tags: [tagFood],
                          amount: 25.50)
     static let validTransactionIncome02 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
@@ -132,27 +142,27 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .monthly,
                                                               repeats: 3),
-                         tags: [Tag("food")],
+                         tags: [tagFood],
                          amount: 12.80,
                          image: CodableUIImage(redHeartPng))
     static let validTransactionIncome03 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("bills")],
+                         tags: [tagBills],
                          amount: 1,
                          location: CodableCLLocation(sampleCLLocation1B))
 
-    static let foodTagSet: Set<Tag> = [Tag("food")]
-    static let billTagSet: Set<Tag> = [Tag("bill")]
-    static let transportFoodTagSet: Set<Tag> = [Tag("transport"), Tag("food")]
+    static let foodTagSet: Set<Tag> = [tagFood]
+    static let billTagSet: Set<Tag> = [tagBills]
+    static let transportFoodTagSet: Set<Tag> = [tagTransport, tagFood]
 
     // TRANSACTION - TAG - FOOD
     static let validTransactionFood01 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("food")],
+                         tags: [tagFood],
                          amount: 69.60)
     static let validTransactionFood02 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
@@ -160,14 +170,14 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .monthly,
                                                               repeats: 1),
-                         tags: [Tag("food")],
+                         tags: [tagFood],
                          amount: 5.00,
                          location: CodableCLLocation(sampleCLLocation1A))
     static let validTransactionFood03 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("food")],
+                         tags: [tagFood],
                          amount: 1.50,
                          image: CodableUIImage(redHeartJpg))
 
@@ -176,14 +186,14 @@ class TestUtils {
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(3_000)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("transport"), Tag("bill")],
+                         tags: [tagTransport, tagBills],
                          amount: 8.99,
                          location: CodableCLLocation(sampleCLLocation2))
     static let validTransactionTransportBill02 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(4_000)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("bill"), Tag("transport")],
+                         tags: [tagBills, tagTransport],
                          amount: 5.0)
     static let validTransactionTransportBill03 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(5_000)),
@@ -191,7 +201,7 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .weekly,
                                                               repeats: 5),
-                         tags: [Tag("transport"), Tag("bill")],
+                         tags: [tagTransport, tagBills],
                          amount: 25.0)
 
     // TRANSACTION - TIME
@@ -214,13 +224,13 @@ class TestUtils {
         try! Transaction(date: january1st2019time0800,
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("transport")],
+                         tags: [tagTransport],
                          amount: 12.60)
     static let validTransactionDate01point2 =
         try! Transaction(date: january1st2019time1000,
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("food")],
+                         tags: [tagFood],
                          amount: 1.20,
                          location: CodableCLLocation(sampleCLLocation1B))
     static let validTransactionDate02 =
@@ -229,14 +239,14 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .monthly,
                                                               repeats: 3),
-                         tags: [Tag("bills")],
+                         tags: [tagBills],
                          amount: 150.00,
                          image: CodableUIImage(redHeartPng))
     static let validTransactionDate02point2 =
         try! Transaction(date: january2nd2019time1500,
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("food")],
+                         tags: [tagFood],
                          amount: 13.70,
                          location: CodableCLLocation(sampleCLLocation1A))
     static let validTransactionDate03 =
@@ -245,7 +255,7 @@ class TestUtils {
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .weekly,
                                                               repeats: 5),
-                         tags: [Tag("transport")],
+                         tags: [tagTransport],
                          amount: 40.0)
 
     // VALID BUDGET INSTANCES

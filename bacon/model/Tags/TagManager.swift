@@ -14,14 +14,29 @@ struct Tag: Codable, Comparable, Hashable {
     let internalValue: Int64 // Internal value of the Tag
     let parentInternalValue: Int64? // Internal value of parent Tag
 
+    // Override computed properties: this improves testability by dissociating Tag from TagManager
+    private var overriddenValue: String?
+    private var overriddenParentValue: String?
+    private var isParentValueOverridden: Bool = false
+
     /// Returns the user-defined display value of a Tag, or an empty string if unavailable.
     /// The only period of unavailablility is when TagManager has not been fully instantiated.
     /// It should never be unavailable in normal usage.
-    var value: String {
-        if TagManager.inTestMode {
-            return TagManager.cachedPersistentTagManagerTest?.getDisplayValue(of: internalValue) ?? ""
-        } else {
-            return TagManager.cachedPersistentTagManager?.getDisplayValue(of: internalValue) ?? ""
+    private(set) var value: String {
+        get {
+            if let overriddenValue = overriddenValue {
+                return overriddenValue
+            }
+
+            if TagManager.inTestMode {
+                return TagManager.cachedPersistentTagManagerTest?.getDisplayValue(of: internalValue) ?? ""
+            } else {
+                return TagManager.cachedPersistentTagManager?.getDisplayValue(of: internalValue) ?? ""
+            }
+        }
+
+        set(newValue) {
+            overriddenValue = newValue
         }
     }
 
@@ -29,28 +44,53 @@ struct Tag: Codable, Comparable, Hashable {
     /// Returns `nil` if a Tag does not have a parent, or an empty string if unavailable.
     /// The only period of unavailablility is when TagManager has not been fully instantiated.
     /// It should never be unavailable in normal usage.
-    var parentValue: String? {
-        // Guard against having no parent Tag
-        guard let parentInternalValue = parentInternalValue else {
-            return nil
+    private(set) var parentValue: String? {
+        get {
+            if isParentValueOverridden {
+                return overriddenParentValue
+            }
+
+            // Guard against having no parent Tag
+            guard let parentInternalValue = parentInternalValue else {
+                return nil
+            }
+
+            if TagManager.inTestMode {
+                return TagManager.cachedPersistentTagManagerTest?.getDisplayValue(of: parentInternalValue) ?? ""
+            } else {
+                return TagManager.cachedPersistentTagManager?.getDisplayValue(of: parentInternalValue) ?? ""
+            }
         }
 
-        if TagManager.inTestMode {
-            return TagManager.cachedPersistentTagManagerTest?.getDisplayValue(of: parentInternalValue) ?? ""
-        } else {
-            return TagManager.cachedPersistentTagManager?.getDisplayValue(of: parentInternalValue) ?? ""
+        set(newValue) {
+            overriddenParentValue = newValue
         }
     }
 
     private enum CodingKeys: String, CodingKey {
         case internalValue
         case parentInternalValue
+        case overriddenValue
+        case overriddenParentValue
+        case isParentValueOverridden
     }
 
     /// Initializes a Tag.
     fileprivate init(_ internalValue: Int64, parentInternalValue: Int64?) {
         self.internalValue = internalValue
         self.parentInternalValue = parentInternalValue
+    }
+
+    /// Initializes a standalone Tag.
+    /// A standalone Tag has no meaningful `internalValue` nor `parentInternalValue`.
+    /// Its `value` and optional `parentValue` properties are specified during instantiation.
+    init(_ value: String, parentValue: String? = nil) {
+        overriddenValue = value
+        overriddenParentValue = parentValue
+        isParentValueOverridden = true
+
+        self.internalValue = 0
+        self.parentInternalValue = 0
     }
 
     /// Convenience computed property to represent whether a Tag is a child Tag.
@@ -110,8 +150,8 @@ struct Tag: Codable, Comparable, Hashable {
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(value)
-        hasher.combine(parentValue)
+        hasher.combine(internalValue)
+        hasher.combine(parentInternalValue)
     }
 
 }

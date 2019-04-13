@@ -140,7 +140,7 @@ class StorageCouchBaseDB {
     func createMutableDocument(forTransaction transactionId: String, withTag tag: Tag) -> MutableDocument {
         let mutableDocument = MutableDocument()
             .setString(transactionId, forKey: Constants.transactionKey)
-            .setString("Placeholder", forKey: Constants.tagValueKey)
+            .setInt64(tag.internalValue, forKey: Constants.tagValueKey)
         return mutableDocument
     }
 }
