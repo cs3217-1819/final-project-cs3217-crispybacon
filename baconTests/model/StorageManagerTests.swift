@@ -135,7 +135,7 @@ class StorageManagerTests: XCTestCase {
         for (index, transaction) in transactions.enumerated() {
             XCTAssertTrue(transaction.equals(loadedTransactions[index]))
         }
-        
+
         // Update one of the loaded transaction
         let updatedTransaction = loadedTransactions[0]
         // Original amount is 1

@@ -89,6 +89,7 @@ extension StorageCouchBaseDB {
         // Update the document
         do {
             try transactionDatabase.saveDocument(transactionDocument)
+            try updateTransactionTagAssociation(for: transaction, withId: transactionId)
         } catch {
             log.warning("""
                 StorageCouchBaseDB.updateTransaction() with argument:
