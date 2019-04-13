@@ -241,13 +241,37 @@ class TagManagerTests: XCTestCase {
         XCTAssertFalse(tagManager.isParentTag(parent2))
     }
 
-    func test_tagDisplayValues() {
+    func test_tagDisplayValues_parentTags() {
         try! tagManager.addParentTag(parent1)
         try! tagManager.addParentTag(parent2)
+
         let parentTags = tagManager.parentTags
         XCTAssertEqual(parentTags.count, 2)
         XCTAssertEqual(parentTags[0].value, parent1)
         XCTAssertEqual(parentTags[1].value, parent2)
+    }
+
+    func test_tagDisplayValues_childTags() {
+        try! tagManager.addParentTag(parent1)
+        try! tagManager.addParentTag(parent2)
+        try! tagManager.addChildTag(child1, to: parent1)
+        try! tagManager.addChildTag(child2, to: parent1)
+        try! tagManager.addChildTag(child1, to: parent2)
+        try! tagManager.addChildTag(child2, to: parent2)
+
+        let childrenTags1 = try! tagManager.getChildrenTags(of: parent1)
+        XCTAssertEqual(childrenTags1.count, 2)
+        XCTAssertEqual(childrenTags1[0].value, child1)
+        XCTAssertEqual(childrenTags1[0].parent, parent1)
+        XCTAssertEqual(childrenTags1[1].value, child2)
+        XCTAssertEqual(childrenTags1[1].parent, parent1)
+
+        let childrenTags2 = try! tagManager.getChildrenTags(of: parent2)
+        XCTAssertEqual(childrenTags2.count, 2)
+        XCTAssertEqual(childrenTags2[0].value, child1)
+        XCTAssertEqual(childrenTags2[0].parent, parent2)
+        XCTAssertEqual(childrenTags2[1].value, child2)
+        XCTAssertEqual(childrenTags2[1].parent, parent2)
     }
 
 }
