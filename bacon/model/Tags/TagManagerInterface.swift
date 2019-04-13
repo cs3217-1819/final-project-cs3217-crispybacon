@@ -18,6 +18,10 @@ struct InvalidTagError: Error {
 
 protocol TagManagerInterface {
 
+    /// Returns a Tag of the provided values.
+    /// - Throws: `InvalidTagError` if the Tag does not exist.
+    func getTag(for value: String, of parentValue: String?) throws -> Tag
+
     /// Adds a new child Tag to a parent Tag and returns it.
     /// - Throws:
     ///     - `DuplicateTagError` if the child Tag already exists.

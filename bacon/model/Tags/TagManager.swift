@@ -219,6 +219,37 @@ class TagManager: Codable, Observable, TagManagerInterface {
         inTestMode = testMode
     }
 
+    func getTag(for value: String, of parentValue: String? = nil) throws -> Tag {
+        let isParent = parentValue == nil
+        if isParent {
+            guard parentChildMap[value] != nil else {
+                throw InvalidTagError(message: "Parent tag \(value) does not exist")
+            }
+            guard let id = parentValueIdMap[value] else {
+                fatalError("This should never happen")
+            }
+            return Tag(id, parentInternalValue: nil)
+        } else { // Is child Tag
+            guard let parentValue = parentValue else {
+                fatalError("This should never happen")
+            }
+            guard let childrenTagValues = parentChildMap[parentValue] else {
+                throw InvalidTagError(message: "Parent tag \(parentValue) does not exist")
+            }
+            guard childrenTagValues.contains(value) else {
+                throw InvalidTagError(message: "Child tag \(value) does not exist")
+            }
+
+            guard let parentId = parentValueIdMap[parentValue] else {
+                fatalError("This should never happen")
+            }
+            guard let id = parentChildValueIdMap[parentId]?[value] else {
+                fatalError("This should never happen")
+            }
+            return Tag(id, parentInternalValue: parentId)
+        }
+    }
+
     func addChildTag(_ child: String, to parent: String) throws -> Tag {
         // Parent Tag should exist
         guard let children = parentChildMap[parent] else {
@@ -484,6 +515,13 @@ extension TagManager {
     /// If a parent Tag is removed, all of its children Tags will be removed too.
     /// - Requires: The Tag being removed must exist.
     private func removeTag(_ displayValue: String, of parentDisplayValue: String? = nil) {
+        let removedTag: Tag
+        do {
+            removedTag = try getTag(for: displayValue, of: parentDisplayValue)
+        } catch {
+            fatalError("This should never happen") // Tag has not been remoed
+        }
+
         let isParentTag = parentDisplayValue == nil
         if isParentTag {
             guard let id = parentValueIdMap[displayValue] else {
@@ -519,6 +557,7 @@ extension TagManager {
         }
 
         save()
+        notifyObservers(removedTag)
     }
 
 }
