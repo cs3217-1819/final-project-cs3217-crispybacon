@@ -14,7 +14,7 @@ struct Tag: Codable, Comparable, Hashable {
     let parent: String?
 
     // Internal value of the Tag
-    private let internalValue: Int64
+    fileprivate let internalValue: Int64
 
     /// Returns the user-defined display value of a tag, or an empty string if unavailable.
     /// The only period of unavailablility is when TagManager has not been fully instantiated.
@@ -110,18 +110,15 @@ class TagManager: Codable, Observable, TagManagerInterface {
     private static let errorLoadData = "Loading of TagManager data failed"
     fileprivate static var cachedPersistentTagManager: TagManager?
     fileprivate static var cachedPersistentTagManagerTest: TagManager?
-    private var inTestMode: Bool // Instance flag
     fileprivate static var inTestMode: Bool = false // Static flag
+    private var inTestMode: Bool // Instance flag
 
-    // Set of all Tags (both parent and child Tags). Use for membership check.
-    private var allTags: Set<Tag> = []
-
-    // Map of parent Tags to child Tags. Use for parent-child association check.
-    private var parentChildMap: [Tag: Set<Tag>] = [:]
-
-    // Map internal values to display values.
+    // Data stores
     private var tagId: Int64 = 1
-    private var valueMap: [Int64: String] = [:]
+    private var parentChildMap: [String: Set<String>] = [:] // Map parent to child Tags by display values
+    private var allIdValueMap: [Int64: String] = [:] // Map all IDs to display values
+    private var parentValueIdMap: [String: Int64] = [:] // Map only parent display values to IDs
+    private var parentChildValueIdMap: [Int64: [String: Int64]] = [:] // Map children Tag display values to IDs
 
     // Observable
     var observers: [Observer] = []
@@ -131,10 +128,11 @@ class TagManager: Codable, Observable, TagManagerInterface {
     // since that information should not be persistent across sessions.
     private enum CodingKeys: String, CodingKey {
         case inTestMode
-        case allTags
-        case parentChildMap
         case tagId
-        case valueMap
+        case parentChildMap
+        case allIdValueMap
+        case parentValueIdMap
+        case parentChildValueIdMap
     }
 
     /// Creates and returns a TagManager object.
@@ -207,122 +205,118 @@ class TagManager: Codable, Observable, TagManagerInterface {
     }
 
     func addChildTag(_ child: String, to parent: String) throws {
-        let childTag = createTag(child, parent: parent)
-        let parentTag = createTag(parent)
-
-        // childTag should not already exist
-        guard !allTags.contains(childTag) else {
-            throw DuplicateTagError(message: "\(childTag) already exists")
+        // Parent Tag should exist
+        guard let children = parentChildMap[parent] else {
+            throw InvalidTagError(message: "Parent tag \(parent) does not exist")
         }
 
-        // parentTag should already exist
-        guard allTags.contains(parentTag) else {
-            throw InvalidTagError(message: "\(parentTag) does not exist")
+        // Child Tag should not exist
+        guard !children.contains(child) else {
+            throw DuplicateTagError(message: "Child tag \(child) already exists")
         }
 
-        addTags([childTag, parentTag])
+        _ = createTag(child, of: parent)
     }
 
     func addParentTag(_ parent: String) throws {
-        let parentTag = createTag(parent)
-
-        // parentTag should not already exist
-        guard !allTags.contains(parentTag) else {
-            throw DuplicateTagError(message: "\(parentTag) already exists")
+        // Parent Tag should not exist
+        guard parentChildMap[parent] == nil else {
+            throw DuplicateTagError(message: "Parent tag \(parent) already exists")
         }
 
-        addTags([parentTag])
-
+        _ = createTag(parent)
     }
 
     func removeChildTag(_ child: String, from parent: String) throws {
-        let childTag = createTag(child, parent: parent)
-        let parentTag = createTag(parent)
-
-        // childTag should exist
-        guard allTags.contains(childTag) else {
-            throw InvalidTagError(message: "\(childTag) does not exist")
+        // Parent Tag should exist
+        guard let children = parentChildMap[parent] else {
+            throw InvalidTagError(message: "Parent tag \(parent) does not exist")
         }
 
-        // parentTag should exist
-        guard allTags.contains(parentTag) else {
-            throw InvalidTagError(message: "\(parentTag) does not exist")
+        // Child Tag should exist
+        guard children.contains(child) else {
+            throw InvalidTagError(message: "Child tag \(child) does not exist")
         }
 
-        removeTags([childTag])
+        removeTag(child, of: parent)
     }
 
     func removeParentTag(_ parent: String) throws {
-        let parentTag = createTag(parent)
-
-        // parentTag should exist
-        guard allTags.contains(parentTag) else {
-            throw InvalidTagError(message: "\(parentTag) does not exist")
+        // Parent Tag should exist
+        guard parentChildMap[parent] != nil else {
+            throw InvalidTagError(message: "Parent tag \(parent) does not exist")
         }
 
-        removeTags([parentTag])
+        removeTag(parent)
     }
 
     var tags: [Tag: [Tag]] {
         var ret: [Tag: [Tag]] = [:]
-        for parentTag in parentChildMap.keys {
-            guard let setChildrenTags = parentChildMap[parentTag] else {
+
+        // Add parent Tags
+        for parentDisplayValue in parentValueIdMap.keys {
+            guard let parentId = parentValueIdMap[parentDisplayValue] else {
                 fatalError("This should never happen")
             }
-            var arrChildrenTags = Array(setChildrenTags)
-            arrChildrenTags.sort()
-            ret[parentTag] = arrChildrenTags
+            ret[Tag(parentId, parent: nil)] = []
+        }
+
+        // Add children Tags
+        for parentTag in ret.keys {
+            guard let childrenIds = parentChildValueIdMap[parentTag.internalValue]?.values else {
+                fatalError("This should never happen")
+            }
+
+            for childId in childrenIds {
+                ret[parentTag]?.append(Tag(childId, parent: parentTag.value))
+            }
+
+            // Sort
+            ret[parentTag]?.sort()
         }
 
         return ret
     }
 
     var parentTags: [Tag] {
-        var arrParentTags = Array(parentChildMap.keys)
+        var arrParentTags = Array(parentValueIdMap.values).map { Tag($0, parent: nil) }
         arrParentTags.sort()
         return arrParentTags
     }
 
     func getChildrenTags(of parent: String) throws -> [Tag] {
-        let parentTag = createTag(parent)
-
-        // parentTag should exist
-        guard allTags.contains(parentTag) else {
-            throw InvalidTagError(message: "\(parentTag) does not exist")
+        // Parent Tag should exist
+        guard let parentId = parentValueIdMap[parent] else {
+            throw InvalidTagError(message: "Parent tag\(parent) does not exist")
         }
 
-        guard let setChildrenTags = parentChildMap[parentTag] else {
-            // If parentTag exists, it should minimally be mapped to an empty set
+        guard let childrenIds = parentChildValueIdMap[parentId]?.values else {
             fatalError("This should never happen")
         }
 
-        var arrChildrenTags = Array(setChildrenTags)
+        var arrChildrenTags = Array(childrenIds).map { Tag($0, parent: parent) }
         arrChildrenTags.sort()
         return arrChildrenTags
     }
 
     func isChildTag(_ child: String, of parent: String) -> Bool {
-        let childTag = createTag(child, parent: parent)
-        let parentTag = createTag(parent)
-
-        // parentTag should exist
-        guard allTags.contains(parentTag) else {
+        // Parent Tag should exist, otherwise return false
+        guard let childrenDisplayValues = parentChildMap[parent] else {
             return false
         }
 
-        return allTags.contains(childTag)
+        return childrenDisplayValues.contains(child)
     }
 
     func isParentTag(_ parent: String) -> Bool {
-        let parentTag = createTag(parent)
-        return allTags.contains(parentTag)
+        return parentChildMap[parent] != nil
     }
 
     func clearTags() {
-        allTags.removeAll()
         parentChildMap.removeAll()
-        valueMap.removeAll()
-        tagId = 1
+        allIdValueMap.removeAll()
+        parentValueIdMap.removeAll()
+        parentChildValueIdMap.removeAll()
 
         save()
     }
@@ -333,7 +327,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
 extension TagManager: TagValueSourceInterface {
 
     func getDisplayValue(of internalValue: Int64) -> String {
-        guard let val = valueMap[internalValue] else {
+        guard let val = allIdValueMap[internalValue] else {
             fatalError("This should never happen")
         }
 
@@ -362,64 +356,74 @@ extension TagManager {
 // MARK: TagManager: private utility methods
 extension TagManager {
 
-    /// Creates and returns a Tag.
-    /// - Important: Never instantiate a Tag directly.
-    ///     Use this method to ensure that `valueMap` is updated.
-    private func createTag(_ value: String, parent: String? = nil) -> Tag {
+    /// Creates and returns a Tag. This method automtatically updates data stores and saves to disk.
+    /// - Requires: The Tag being created must not already exist.
+    private func createTag(_ displayValue: String, of parentDisplayValue: String? = nil) -> Tag {
         let id = tagId
         tagId += 1
 
-        valueMap[id] = value
-        return Tag(id, parent: parent)
-    }
+        allIdValueMap[id] = displayValue
 
-    /// Adds multiple Tags into both the `allTags` set and `parentChildMap` dictionary.
-    /// This method automatically detects and handles parent/child Tags accordingly.
-    private func addTags(_ tags: [Tag]) {
-        for tag in tags {
-            // Update parentChildMap
-            if let parent = tag.parent { // `tag` is a child Tag
-                let parentTag = createTag(parent)
+        let isParentTag = parentDisplayValue == nil
 
-                parentChildMap[parentTag]?.insert(tag)
-            } else { // `tag` is a parent Tag
-                // Create parent Tag if it doesn't already exist
-                if parentChildMap[tag] == nil {
-                    parentChildMap[tag] = []
-                }
+        if isParentTag {
+            parentChildMap[displayValue] = []
+            parentValueIdMap[displayValue] = id
+            parentChildValueIdMap[id] = [:]
+
+            save()
+            return Tag(id, parent: nil)
+        } else { // If child Tag
+            guard let parentValue = parentDisplayValue else {
+                fatalError("This should never happen")
             }
+            parentChildMap[parentValue]?.insert(displayValue)
+            guard let parentId = parentValueIdMap[parentValue] else {
+                fatalError("This should never happen")
+            }
+            parentChildValueIdMap[parentId]?[displayValue] = id
 
-            // Add to allTags
-            allTags.insert(tag)
+            save()
+            return Tag(id, parent: parentDisplayValue)
         }
-
-        save()
     }
 
-    /// Removes multiple Tags from both the `allTags` set and `parentChildMap` dictionary.
-    /// This method automatically detects and handles parent/child Tags accordingly.
-    /// If a parent Tag has children, all of its children Tags will also be removed.
-    /// - Note: Does nothing if a Tag does not exist.
-    private func removeTags(_ tags: [Tag]) {
-        for tag in tags {
-            // Update parentChildMap
-            if let parent = tag.parent { // `tag` is a child Tag
-                let parentTag = createTag(parent)
-                parentChildMap[parentTag]?.remove(tag)
-            } else { // `tag` is a parent Tag
-                // Remove all children Tags
-                guard let childrenTags = parentChildMap[tag] else {
-                    fatalError("This should never happen")
-                }
-                let arrChildrenTags = Array(childrenTags)
-                removeTags(arrChildrenTags)
-
-                // Remove current (parent) Tag
-                parentChildMap.removeValue(forKey: tag)
+    /// Removes a Tag. This method automatically updates data stores and saves to disk.
+    /// If a parent Tag is removed, all of its children Tags will be removed too.
+    /// - Requires: The Tag being removed must exist.
+    private func removeTag(_ displayValue: String, of parentDisplayValue: String? = nil) {
+        let isParentTag = parentDisplayValue == nil
+        if isParentTag {
+            guard let id = parentValueIdMap[displayValue] else {
+                fatalError("This should never happen")
             }
 
-            // Remove from allTags
-            allTags.remove(tag)
+            // Remove all children Tags
+            guard let childrenTagValues = parentChildMap[displayValue] else {
+                fatalError("This should never happen")
+            }
+            for childTagValue in childrenTagValues {
+                removeTag(childTagValue, of: displayValue)
+            }
+
+            parentValueIdMap[displayValue] = nil
+            allIdValueMap[id] = nil
+            parentChildMap[displayValue] = nil
+            parentChildValueIdMap[id] = nil
+        } else { // If child Tag
+            guard let parentDisplayValue = parentDisplayValue else {
+                fatalError("This should never happen")
+            }
+            guard let parentId = parentValueIdMap[parentDisplayValue] else {
+                fatalError("This should never happen")
+            }
+            guard let id = parentChildValueIdMap[parentId]?[displayValue] else {
+                fatalError("This should never happen")
+            }
+
+            allIdValueMap[id] = nil
+            parentChildMap[parentDisplayValue]?.remove(displayValue)
+            parentChildValueIdMap[parentId]?[displayValue] = nil
         }
 
         save()
