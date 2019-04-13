@@ -14,7 +14,8 @@ class MainPageViewController: UIViewController {
 
     @IBOutlet private weak var budgetLabel: UILabel!
     @IBOutlet private weak var coinView: UIImageView!
-
+    @IBOutlet weak var pigView: UIImageView!
+    
     var isUpdateNeeded = false
 
     override func viewDidLoad() {
@@ -71,10 +72,19 @@ class MainPageViewController: UIViewController {
         budgetLabel.text = Constants.currency + spending + " / " + Constants.currency + budget
         if percentage < 1 {
             budgetLabel.textColor = UIColor.green
+            pigView.image = Constants.happyPig
+            if percentage < 0.5 {
+                pigView.image = Constants.veryHappyPig
+            }
         } else if percentage == 1 {
             budgetLabel.textColor = UIColor.yellow.withAlphaComponent(0.7)
+            pigView.image = Constants.neutralPig
         } else {
             budgetLabel.textColor = UIColor.red
+            pigView.image = Constants.sadPig
+            if percentage > 1.5 {
+                pigView.image = Constants.verySadPig
+            }
         }
     }
 }

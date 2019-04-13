@@ -129,6 +129,7 @@
                     <connections>
                         <outlet property="budgetLabel" destination="srG-5J-sOi" id="R2d-yO-WSM"/>
                         <outlet property="coinView" destination="5Iu-o9-Qlj" id="ubC-gg-Fo0"/>
+                        <outlet property="pigView" destination="w77-sl-pTn" id="4e9-qT-xeu"/>
                         <segue destination="Kkb-EH-aei" kind="show" identifier="mainToAddTransactionEx" id="nRX-mK-th1"/>
                         <segue destination="Kkb-EH-aei" kind="show" identifier="mainToAddTransactionIn" id="8Ch-jd-bcE"/>
                     </connections>

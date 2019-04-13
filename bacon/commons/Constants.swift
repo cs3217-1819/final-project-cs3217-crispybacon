@@ -22,6 +22,13 @@ class Constants {
     static let budgetSetFailureMessage = "Unable to set budget!"
     static let budgetStatusFailureMessage = "Unable to update budget status!"
 
+    // Main Page
+    static let neutralPig = UIImage(named: "demo")
+    static let happyPig = UIImage(named: "happy1")
+    static let veryHappyPig = UIImage(named: "happy2")
+    static let sadPig = UIImage(named: "unhappy1")
+    static let verySadPig = UIImage(named: "unhappy2")
+
     // Add Transaction Page
     static let defaultTransactionType = TransactionType.expenditure
     static let defaultCategory = TransactionCategory.food
