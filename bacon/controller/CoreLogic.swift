@@ -99,7 +99,9 @@ class CoreLogic: CoreLogicInterface {
     }
 
     func addParentTag(_ name: String) throws -> Tag {
-        let parentTag = try tagManager.addParentTag(name)
-        return parentTag
+        // let parentTag = try tagManager.addParentTag(name)
+        // return parentTag
+        try tagManager.addParentTag(name)
+        return Tag(name)
     }
 }
