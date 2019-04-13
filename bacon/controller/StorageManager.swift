@@ -60,6 +60,15 @@ class StorageManager {
         return try concreteStorage.loadBudget()
     }
 
+    /// Loads all the Transactions in the database
+    /// - Returns:
+    ///     all the transactions saved in the database in reverse chronological order.
+    ///     If there are no transactions saved, an empty array is returned.
+    /// - Throws: `StorageError`
+    func loadAllTransactions() throws -> [Transaction] {
+        return try concreteStorage.loadAllTransactions()
+    }
+
     /// Loads a collection of Transaction.
     /// - Parameters:
     ///     - limit: The number of transaction to load.

@@ -244,7 +244,7 @@ extension StorageCouchBaseDB {
             let allTransactions = try loadAllTransactions()
             var wantedTransactions: [Transaction] = []
             for transactions in allTransactions {
-                for wantedTags in tags where transactions.tags.contains(wantedTags){
+                for wantedTags in tags where transactions.tags.contains(wantedTags) {
                     wantedTransactions.append(transactions)
                     break
                 }

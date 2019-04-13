@@ -76,9 +76,9 @@ class TestUtils {
                                        validTransactionFood01,
                                        validTransactionFood02,
                                        validTransactionFood03,
-                                       validTransactionTransport01,
-                                       validTransactionTransport02,
-                                       validTransactionTransport03,
+                                       validTransactionTransportBill01,
+                                       validTransactionTransportBill02,
+                                       validTransactionTransportBill03,
                                        validTransactionDate01,
                                        validTransactionDate01point2,
                                        validTransactionDate02,
@@ -143,7 +143,11 @@ class TestUtils {
                          amount: 1,
                          location: CodableCLLocation(sampleCLLocation1B))
 
-    // TRANSACTION - CATEGORY - FOOD
+    static let foodTagSet: Set<Tag> = [Tag("food")]
+    static let billTagSet: Set<Tag> = [Tag("bill")]
+    static let transportFoodTagSet: Set<Tag> = [Tag("transport"), Tag("food")]
+
+    // TRANSACTION - TAG - FOOD
     static let validTransactionFood01 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
                          type: .expenditure,
@@ -167,27 +171,27 @@ class TestUtils {
                          amount: 1.50,
                          image: CodableUIImage(redHeartJpg))
 
-    // TRANSACTION - CATEGORY - TRANSPORT
-    static let validTransactionTransport01 =
-        try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
+    // TRANSACTION - TAG - TRANSPORT
+    static let validTransactionTransportBill01 =
+        try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(3_000)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("transport")],
+                         tags: [Tag("transport"), Tag("bill")],
                          amount: 8.99,
                          location: CodableCLLocation(sampleCLLocation2))
-    static let validTransactionTransport02 =
-        try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(1_000)),
+    static let validTransactionTransportBill02 =
+        try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(4_000)),
                          type: .income,
                          frequency: try! TransactionFrequency(nature: .oneTime),
-                         tags: [Tag("transport")],
+                         tags: [Tag("bill"), Tag("transport")],
                          amount: 5.0)
-    static let validTransactionTransport03 =
-        try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
+    static let validTransactionTransportBill03 =
+        try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(5_000)),
                          type: .expenditure,
                          frequency: try! TransactionFrequency(nature: .recurring,
                                                               interval: .weekly,
                                                               repeats: 5),
-                         tags: [Tag("transport")],
+                         tags: [Tag("transport"), Tag("bill")],
                          amount: 25.0)
 
     // TRANSACTION - TIME
