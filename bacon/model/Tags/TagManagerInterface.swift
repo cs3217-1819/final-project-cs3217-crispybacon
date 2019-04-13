@@ -44,7 +44,7 @@ protocol TagManagerInterface {
 
     /// Returns a sorted array of the children Tags of a parent Tag.
     /// - Throws: `InvalidTagError` if the parent Tag does not exist.
-    func getChildrenTagsOf(_ parent: String) throws -> [Tag]
+    func getChildrenTags(of parent: String) throws -> [Tag]
 
     /// Checks whether a child Tag exists.
     /// A child Tag exists when its parent Tag exists and they are associated.

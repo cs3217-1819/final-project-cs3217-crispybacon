@@ -283,7 +283,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
         return arrParentTags
     }
 
-    func getChildrenTagsOf(_ parent: String) throws -> [Tag] {
+    func getChildrenTags(of parent: String) throws -> [Tag] {
         let parentTag = createTag(parent)
 
         // parentTag should exist
