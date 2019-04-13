@@ -52,6 +52,12 @@ class StorageManager {
         try concreteStorage.saveBudget(budget)
     }
 
+    /// deleteTagFromTransactions will remove the specified tag
+    /// from all transactions associated with it.
+    func deleteTagFromTransactions(_ tag: Tag) throws {
+        try concreteStorage.deleteTagFromTransactions(tag)
+    }
+
     /// deleteTransaction() should only be called on Transactions that are loaded
     /// out from database.
     /// Calling delete on a new Transaction object instantiated on run-time

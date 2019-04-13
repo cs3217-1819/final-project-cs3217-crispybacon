@@ -21,9 +21,11 @@ extension StorageCouchBaseDB {
     func clearTransactionDatabase() throws {
         do {
             try transactionDatabase.delete()
+            try tagAssociationDatabase.delete()
             transactionMapping.removeAll()
             // Reinitialize database
             transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
+            tagAssociationDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .tagAssociation)
             log.info("Entered method StorageCouchBaseDB.clearTransactionDatabase()")
         } catch {
             if error is StorageError {
@@ -136,7 +138,7 @@ extension StorageCouchBaseDB {
             try transactionDatabase.deleteDocument(transactionDocument)
             // Delete the mapping
             transactionMapping.removeValue(forKey: transaction)
-            try clearTransactionAssociation(forTransactionWithId: transactionId)
+            try clearAssociationsOfTransaction(uid: transactionId)
         } catch {
             log.info("""
                 StorageCouchBaseDB.deleteTransaction() with argument:
@@ -147,6 +149,54 @@ extension StorageCouchBaseDB {
             throw StorageError(message: """
                 Encounter error deleting \(transaction) from database.
                 """)
+        }
+    }
+
+    // To be called when a tag has been deleted from TagManager
+    func deleteTagFromTransactions(_ tag: Tag) throws {
+        let transactionIds = try getAndDeleteTransactionIdsWithTag(tag)
+        log.info("""
+            StorageCouchBaseDB.deleteTagFromTransactions() with argument:
+            tag:\(tag).
+            """)
+        // Update transactions in database to remove this tag
+        for transactionId in transactionIds {
+            // Fetch the specific document from database
+            guard let transactionDocument = transactionDatabase.document(withID: transactionId) else {
+                log.warning("""
+                    StorageCouchBaseDB.deleteTagFromTransactions():
+                    Encounter error removing tag from transaction in database.
+                    Unable to retrieve transaction document in database using id.
+                    Throwing StorageError.
+                """)
+                throw StorageError(message: """
+                    Unable to retrieve transaction document in database using id.
+                """)
+            }
+            // Reconstruct document as Transaction object
+            let transactionDictionary = transactionDocument.toDictionary()
+            let transactionData = try JSONSerialization.data(withJSONObject: transactionDictionary, options: [])
+            let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
+            // Remove the tag from transaction
+            // TODO below update the tag removal call
+
+            // >> currentTransaction.tags.remove(tag)
+
+            // Update transaction to database
+            let updatedTransactionDocument = try createMutableDocument(from: currentTransaction, uid: transactionId)
+            do {
+                try transactionDatabase.saveDocument(updatedTransactionDocument)
+            } catch {
+                log.warning("""
+                    StorageCouchBaseDB.deleteTagFromTransactions() with argument:
+                    tag:\(tag).
+                    Encounter error updating transaction after removing tag to database.
+                    Throwing StorageError.
+                    """)
+                throw StorageError(message: """
+                    Encounter error updating transaction after removing tag to database.
+                    """)
+            }
         }
     }
 

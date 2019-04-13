@@ -36,7 +36,20 @@ extension StorageCouchBaseDB {
         }
     }
 
-    private func getAssociationIdFromQuery(_ query: Query) throws -> [String] {
+    /// Retrieves all transaction ids with the specified tag
+    /// As well as remove all associations with the specified tag
+    func getAndDeleteTransactionIdsWithTag(_ tag: Tag) throws -> [String] {
+        let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
+            .from(DataSource.database(tagAssociationDatabase))
+            .where(Expression.property(Constants.tagValueKey).equalTo(Expression.int64(tag.internalValue)))
+        // Retrieve all transaction ids with this tag
+        let transactionIds = try getTransactionIdsFromQuery(query)
+        // Remove all associations of this tag
+        try clearAssociations(try getAssociationIdsFromQuery(query))
+        return transactionIds
+    }
+
+    private func getAssociationIdsFromQuery(_ query: Query) throws -> [String] {
         do {
             var associations: [String] = Array()
             for result in try query.execute().allResults() {
@@ -49,7 +62,7 @@ extension StorageCouchBaseDB {
             return associations
         } catch {
             log.warning("""
-                StorageCouchBaseDB.getAssociationIDFromQuery():
+                StorageCouchBaseDB.getAssociationIdsFromQuery():
                 Encounter error loading associations from database.
                 Throwing StorageError.
             """)
@@ -57,33 +70,61 @@ extension StorageCouchBaseDB {
         }
     }
 
-    private func getAllAssociationIdOfTransaction(withId uid: String) throws -> [String] {
+    private func getTransactionIdsFromQuery(_ query: Query) throws -> [String] {
+        do {
+            var transactions: [String] = Array()
+            for result in try query.execute().allResults() {
+                guard var associationDictionary =
+                    result.toDictionary()[DatabaseCollections.tagAssociation.rawValue] as? [String: Any] else {
+                        throw StorageError(message: "Could not read Document loaded from database as Dictionary.")
+                }
+                guard let transactionId = associationDictionary[Constants.transactionKey] as? String else {
+                    throw StorageError(message: "Could not retrieve transaction Id from document.")
+                }
+                transactions.append(transactionId)
+            }
+            return transactions
+        } catch {
+            log.warning("""
+                StorageCouchBaseDB.getTransactionIdsFromQuery():
+                Encounter error loading associations from database.
+                Throwing StorageError.
+            """)
+            throw StorageError(message: "Transaction-Tag association couldn't be loaded from database.")
+        }
+    }
+
+    private func getAllAssociationIdsOfTransaction(withId uid: String) throws -> [String] {
         // Get all associations stored in the database that belongs to this transaction
         let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(tagAssociationDatabase))
             .where(Expression.property(Constants.transactionKey).equalTo(Expression.string(uid)))
-        let documentIds = try getAssociationIdFromQuery(query)
+        let documentIds = try getAssociationIdsFromQuery(query)
         log.info("""
-            StorageCouchBaseDB.getAllAssociationIdOfTransaction() with argument:
+            StorageCouchBaseDB.getAllAssociationIdsOfTransaction() with argument:
             uid:\(uid).
             """)
         return documentIds
     }
 
     // To be called when transactions are deleted by the user
-    func clearTransactionAssociation(forTransactionWithId uid: String) throws {
+    func clearAssociationsOfTransaction(uid: String) throws {
         // Get all associations' uid stored in the database that belongs to this transaction
-        let documentIds = try getAllAssociationIdOfTransaction(withId: uid)
+        let documentIds = try getAllAssociationIdsOfTransaction(withId: uid)
         log.info("""
-            StorageCouchBaseDB.clearTransactionAssociation() with argument:
+            StorageCouchBaseDB.clearAssociationsOfTransaction() with argument:
             uid:\(uid).
         """)
+        try clearAssociations(documentIds)
+    }
+
+    func clearAssociations(_ documentIds: [String]) throws {
         for documentId in documentIds {
             // Fetch the specific document from database
             guard let associationDocument = tagAssociationDatabase.document(withID: documentId) else {
                 log.warning("""
-                    StorageCouchBaseDB.clearTransactionAssociation():
-                    Encounter error clearing transaction from tag-transaction association database.
+                    StorageCouchBaseDB.clearAssociations():
+                    Encounter error clearing tag-transaction association from database.
                     Unable to retrieve association document in database using id.
                     Throwing StorageError.
                 """)
@@ -96,12 +137,12 @@ extension StorageCouchBaseDB {
                 try tagAssociationDatabase.deleteDocument(associationDocument)
             } catch {
                 log.warning("""
-                    StorageCouchBaseDB.clearTransactionAssociation():
+                    StorageCouchBaseDB.clearAssociations():
                     Encounter error deleting tag-transaction association from database.
                     Throwing StorageError.
                 """)
                 throw StorageError(message: """
-                    Encounter error deleting transaction from tag-transaction association database.
+                    Encounter error deleting tag-transaction association from database.
                 """)
             }
         }
@@ -111,7 +152,7 @@ extension StorageCouchBaseDB {
     // Use case : 1. Tags of the specific transaction has been removed.
     //            2. New tags have been added to the transaction.
     func updateTransactionTagAssociation(for transaction: Transaction, withId uid: String) throws {
-        let associationDocumentIds = try getAllAssociationIdOfTransaction(withId: uid)
+        let associationDocumentIds = try getAllAssociationIdsOfTransaction(withId: uid)
         var newTags = transaction.tags
         log.info("""
             StorageCouchBaseDB.updateTransactionTagAssociation() with argument:
