@@ -78,8 +78,15 @@ class TransactionManager: Observer {
         return observeTransactions(transactions)
     }
 
+    /**
     func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
         let transactions = try storageManager.loadTransactions(ofCategory: category, limit: limit)
+        return observeTransactions(transactions)
+    }
+    **/
+
+    func loadTransactions(ofTags tags: Set<Tag>) throws -> [Transaction] {
+        let transactions = try storageManager.loadTransactions(ofTags: tags)
         return observeTransactions(transactions)
     }
 }

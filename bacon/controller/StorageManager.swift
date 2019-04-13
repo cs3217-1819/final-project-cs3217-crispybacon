@@ -60,6 +60,15 @@ class StorageManager {
         return try concreteStorage.loadBudget()
     }
 
+    /// Loads all the Transactions in the database
+    /// - Returns:
+    ///     all the transactions saved in the database in reverse chronological order.
+    ///     If there are no transactions saved, an empty array is returned.
+    /// - Throws: `StorageError`
+    func loadAllTransactions() throws -> [Transaction] {
+        return try concreteStorage.loadAllTransactions()
+    }
+
     /// Loads a collection of Transaction.
     /// - Parameters:
     ///     - limit: The number of transaction to load.
@@ -148,6 +157,7 @@ class StorageManager {
         return try concreteStorage.loadTransactions(ofType: type, limit: limit)
     }
 
+    /**
     /// Loads a collection of Transaction with the requirements specified.
     /// - Parameters:
     ///     - category: The transaction category.
@@ -165,5 +175,17 @@ class StorageManager {
                 """)
         }
         return try concreteStorage.loadTransactions(ofCategory: category, limit: limit)
+    }
+    **/
+
+    /// Loads a collection of Transaction with the tags specified.
+    /// - Parameters:
+    ///     - tags: The set of tags specified.
+    /// - Returns:
+    ///     all transactions that have at least one of the tag specified in reverse chronological order.
+    ///     If no transactions saved fulfill the requirement, an empty array is returned.
+    /// - Throws: `StorageError`
+    func loadTransactions(ofTags tags: Set<Tag>) throws -> [Transaction] {
+        return try concreteStorage.loadTransactions(ofTags: tags)
     }
 }

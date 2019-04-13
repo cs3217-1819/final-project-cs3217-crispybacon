@@ -89,7 +89,12 @@ class Constants {
     // Dictionary Key for Transaction fields for use in Database
     static let typeKey = "type"
     static let categoryKey = "category"
+    static let tagKey = "tags"
     static let rawDateKey = "rawDate"
+
+    // Database Key for Tag-Transaction Association mapping database
+    static let transactionKey = "transactionUID"
+    static let tagValueKey = "tagInternalValue"
 
     // UID of budget in database
     // There should only be one budget saved in the database

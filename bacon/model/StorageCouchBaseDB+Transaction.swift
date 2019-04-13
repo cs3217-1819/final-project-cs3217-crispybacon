@@ -52,6 +52,8 @@ extension StorageCouchBaseDB {
                 StorageCouchBaseDB.saveTransaction() with arguments:
                 transaction=\(transaction).
                 """)
+            let transactionId = transactionDocument.id
+            try associateTransactionWithTags(for: transaction, withId: transactionId)
         } catch {
             if error is StorageError {
                 throw error
@@ -113,6 +115,10 @@ extension StorageCouchBaseDB {
     }
 
     private func getTransactionsFromQuery(_ query: Query) throws -> [Transaction] {
+        // Every time database is called to load Transactions, we clear the transaction id mapping
+        // dictionary.
+        // We only allow front end to deal with transactions per call to load method.
+        transactionMapping.removeAll(keepingCapacity: true)
         do {
             var transactions: [Transaction] = Array()
             for result in try query.execute().allResults() {
@@ -124,11 +130,12 @@ extension StorageCouchBaseDB {
                 let transactionData = try JSONSerialization.data(withJSONObject: transactionDictionary, options: [])
                 let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
                 transactions.append(currentTransaction)
+
                 // Retrieve and store the mapping of transaction to its id in database
-                let transactionDatabaseId = result.string(forKey: "id")
-                if transactionMapping[currentTransaction] == nil {
-                    transactionMapping[currentTransaction] = transactionDatabaseId
+                guard let transactionDatabaseId = result.string(forKey: "id") else {
+                    throw StorageError(message: "Could not retrieve UID of transaction from database.")
                 }
+                transactionMapping.updateValue(transactionDatabaseId, forKey: currentTransaction)
             }
             return transactions
         } catch {
@@ -148,6 +155,16 @@ extension StorageCouchBaseDB {
                 throw StorageError(message: "Transactions data couldn't be loaded from database.")
             }
         }
+    }
+
+    func loadAllTransactions() throws -> [Transaction] {
+        let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
+            .from(DataSource.database(transactionDatabase))
+            .orderBy(Ordering.property(Constants.rawDateKey).descending())
+        log.info("""
+            StorageCouchBaseDB.loadAllTransactions()
+            """)
+        return try getTransactionsFromQuery(query)
     }
 
     func loadTransactions(limit: Int) throws -> [Transaction] {
@@ -214,6 +231,7 @@ extension StorageCouchBaseDB {
         return try getTransactionsFromQuery(query)
     }
 
+    /**
     func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
         let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(transactionDatabase))
@@ -225,5 +243,28 @@ extension StorageCouchBaseDB {
             ofCategory=\(category) limit=\(limit).
             """)
         return try getTransactionsFromQuery(query)
+    }
+    **/
+
+    func loadTransactions(ofTags tags: Set<Tag>) throws -> [Transaction] {
+        do {
+            let allTransactions = try loadAllTransactions()
+            var wantedTransactions: [Transaction] = []
+            for transactions in allTransactions {
+                for wantedTags in tags where transactions.tags.contains(wantedTags) {
+                    wantedTransactions.append(transactions)
+                    break
+                }
+            }
+            log.info("""
+                StorageCouchBaseDB.loadTransactions() with arguments:
+                ofTags=\(tags).
+                """)
+            return wantedTransactions
+        } catch {
+            throw StorageError(message: """
+                loadTransactions(ofTags) encounter error, underlying calls loadAllTransactions()
+            """)
+        }
     }
 }
