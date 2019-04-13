@@ -14,6 +14,7 @@ import CouchbaseLiteSwift
 
 enum DatabaseCollections: String {
     case transactions
+    case tagAssociation
     case budget
 }
 
@@ -22,6 +23,7 @@ class StorageCouchBaseDB {
 
     // MARK: - Properties
     var transactionDatabase: Database
+    var tagAssociationDatabase: Database
     var budgetDatabase: Database
     // Dictionary to provide a mapping from instantiated `Transaction` objects
     // to their unique id in the databse.
@@ -31,6 +33,7 @@ class StorageCouchBaseDB {
         // Initialize database
         do {
             transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
+            tagAssociationDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .tagAssociation)
             budgetDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .budget)
             transactionMapping = [:]
             log.info("""
@@ -131,6 +134,14 @@ class StorageCouchBaseDB {
             """)
             throw StorageError(message: "Budget couldn't be encoded into MutableDocument.")
         }
+    }
+
+    // Method to encode a Transaction-Tag association to its MutableDocument counterpart
+    func createMutableDocument(forTransaction transactionId: String, withTag tag: Tag) -> MutableDocument {
+        let mutableDocument = MutableDocument()
+            .setString(transactionId, forKey: Constants.transactionKey)
+            .setString("Placeholder", forKey: Constants.tagValueKey)
+        return mutableDocument
     }
 }
 

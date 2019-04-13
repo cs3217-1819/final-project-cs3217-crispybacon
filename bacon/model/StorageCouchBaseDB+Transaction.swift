@@ -52,6 +52,8 @@ extension StorageCouchBaseDB {
                 StorageCouchBaseDB.saveTransaction() with arguments:
                 transaction=\(transaction).
                 """)
+            let transactionId = transactionDocument.id
+            try associateTransactionWithTags(for: transaction, withId: transactionId)
         } catch {
             if error is StorageError {
                 throw error

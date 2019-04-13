@@ -72,6 +72,10 @@ class Constants {
     static let tagKey = "tags"
     static let rawDateKey = "rawDate"
 
+    // Database Key for Tag-Transaction Association mapping database
+    static let transactionKey = "transactionUID"
+    static let tagValueKey = "tagInternalValue"
+
     // UID of budget in database
     // There should only be one budget saved in the database
     // Hence saveBudget always uses this UID.
