@@ -13,7 +13,7 @@ class CoreLogic: CoreLogicInterface {
     // MARK: - Properties
     let transactionManager: TransactionManager
     let budgetManager: BudgetManager
-    let tagManager: TagManager
+    let tagManager: TagManagerInterface
 
     init() throws {
         transactionManager = try TransactionManager()
@@ -93,8 +93,13 @@ class CoreLogic: CoreLogicInterface {
     func getAllTags() -> [Tag: [Tag]] {
         return tagManager.tags
     }
-    
+
     func getAllParentTags() -> [Tag] {
         return tagManager.parentTags
+    }
+
+    func addParentTag(_ name: String) throws -> Tag {
+        let parentTag = try tagManager.addParentTag(name)
+        return parentTag
     }
 }

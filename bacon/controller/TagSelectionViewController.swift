@@ -23,6 +23,28 @@ class TagSelectionViewController: UIViewController {
         tags = core?.getAllTags() ?? [Tag: [Tag]]()
         parentTags = core?.getAllParentTags() ?? [Tag]()
     }
+
+    @IBAction func addParentTagButtonPressed(_ sender: UIButton) {
+        guard let core = core else {
+            // something
+            return
+        }
+        self.promptUserForInput(title: Constants.tagNameInputTitle,
+                                message: Constants.tagNameInputMessage,
+                                inputValidator: { userInput in
+            return userInput.trimmingCharacters(in: CharacterSet.whitespaces) != ""
+        }, successHandler: { userInput in
+            do {
+                let parentTagAdded = try core.addParentTag(userInput)
+                self.parentTags.insert(parentTagAdded, at: 0)
+                self.tableView.reloadData()
+            } catch {
+                self.handleError(error: error, customMessage: Constants.tagAddFailureMessage)
+            }
+        }, failureHandler: { _ in
+            self.alertUser(title: Constants.warningTitle, message: Constants.InvalidTagNameWarning)
+        })
+    }
 }
 
 extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource {

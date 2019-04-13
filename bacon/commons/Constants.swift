@@ -18,6 +18,7 @@ class Constants {
     static let coreFailureMessage = "Unable to run Bacon!"
     static let transactionAddFailureMessage = "Unable to add transaction!"
     static let transactionLoadFailureMessage = "Unable to load transactions!"
+    static let tagAddFailureMessage = "Unable to add tag!"
 
     // Add Transaction Page
     static let defaultTransactionType = TransactionType.expenditure
@@ -32,6 +33,11 @@ class Constants {
     static let defaultDescriptionToDisplay = "No description was provided"
     static let animatoinDuration = [0.26, 0.20, 0.20]
     static let imageViewTag = 6
+
+    // Tag Selection Page
+    static let tagNameInputTitle = "Add new tag"
+    static let tagNameInputMessage = "Enter tag name"
+    static let InvalidTagNameWarning = "Please enter a valid name!"
 
     // Date
     static func getDateFormatter() -> DateFormatter {
@@ -59,6 +65,7 @@ class Constants {
         formatter.locale = Calendar.current.locale
         return formatter
     }
+
     // Only 20 years are allowed because it affects loading speed
     // but can always change this part
     // swiftlint:disable force_unwrapping
