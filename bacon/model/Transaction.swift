@@ -125,7 +125,7 @@ class Transaction: HashableClass, Codable, Observable {
             log.warning("""
                 Transaction initialization failed (InvalidTransactionError).
                 Re-throwing as InitializationError.
-            """)
+                """)
             throw InitializationError(message: error.message) // Propagate error as InitializationError
         }
 
@@ -239,10 +239,12 @@ extension Transaction {
          */
 
         // Validation condition: amount should be > 0
+        // swiftlint:disable force_unwrapping
         if amount != nil && amount! <= 0 {
             log.warning("Amount=\(String(describing: amount)) is invalid. Throwing InvalidTransactionError.")
             throw InvalidTransactionError(message: "amount=\(amount!) must be > 0")
         }
+        // swiftlint:enable force_unwrapping
 
         log.info("Transaction properties validation succeeded.")
     }
