@@ -287,6 +287,15 @@ class TagManager: Codable, Observable, TagManagerInterface {
         return allTags.contains(parentTag)
     }
 
+    func clearTags() {
+        allTags.removeAll()
+        parentChildMap.removeAll()
+        valueMap.removeAll()
+        tagId = 1
+
+        save()
+    }
+
 }
 
 // MARK: TagManager: TagValueSourceInterface

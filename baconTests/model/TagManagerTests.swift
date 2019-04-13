@@ -21,7 +21,7 @@ class TagManagerTests: XCTestCase {
     let child2 = "child2"
 
     override func setUp() {
-        tagManager = TagManager.create(withPersistence: false) // Reset to fresh instance
+        tagManager.clearTags()
     }
 
     func test_nonPersistent_nonSingleton() {

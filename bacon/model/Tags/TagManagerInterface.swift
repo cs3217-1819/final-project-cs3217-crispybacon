@@ -53,4 +53,7 @@ protocol TagManagerInterface {
     /// Checks whether a parent Tag with the provided value exists.
     func isParentTag(_ parent: String) -> Bool
 
+    /// Clears all Tags.
+    func clearTags()
+
 }
