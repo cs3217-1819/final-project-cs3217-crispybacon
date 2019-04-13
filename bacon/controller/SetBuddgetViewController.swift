@@ -21,6 +21,11 @@ class SetBuddgetViewController: UIViewController {
     }
 
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+
         let amountString = budgetField.text
         let amountDecimal = Decimal(string: amountString ?? Constants.defaultBudgetString)
         let budgetAmount = amountDecimal ?? Constants.defaultBudget
@@ -30,7 +35,7 @@ class SetBuddgetViewController: UIViewController {
         dateComponents.month = 1
         let futureTime = Calendar.current.date(byAdding: dateComponents, to: currentTime)
 
-        guard let future = futureTime, let core = core else {
+        guard let future = futureTime else {
             self.alertUser(title: Constants.warningTitle, message: Constants.budgetSetFailureMessage)
             return
         }

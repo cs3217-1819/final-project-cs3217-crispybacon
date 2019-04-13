@@ -12,7 +12,7 @@ import UIKit
 
 class Constants {
     // Global
-    static let currencySymbol = Locale.current.currencySymbol ?? "$"
+    static let currency = Locale.current.currencySymbol ?? "$"
     static let defaultPostalAddress = CNPostalAddress()
     static let warningTitle = "🐷WARNING🐷"
     static let coreFailureMessage = "Unable to run Bacon!"
@@ -20,6 +20,7 @@ class Constants {
     static let transactionLoadFailureMessage = "Unable to load transactions!"
     static let tagAddFailureMessage = "Unable to add tag!"
     static let budgetSetFailureMessage = "Unable to set budget!"
+    static let budgetStatusFailureMessage = "Unable to update budget status!"
 
     // Add Transaction Page
     static let defaultTransactionType = TransactionType.expenditure

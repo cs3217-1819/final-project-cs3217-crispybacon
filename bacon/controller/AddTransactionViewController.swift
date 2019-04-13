@@ -184,14 +184,14 @@ class AddTransactionViewController: UIViewController {
 
     private func setExpenditureType() {
         transactionType = .expenditure
-        typeLabel.text = "- \(Constants.currencySymbol)"
+        typeLabel.text = "- \(Constants.currency)"
         typeLabel.textColor = UIColor.red
         categoryLabel.textColor = UIColor.red
     }
 
     private func setIncomeType() {
         transactionType = .income
-        typeLabel.text = "+ \(Constants.currencySymbol)"
+        typeLabel.text = "+ \(Constants.currency)"
         typeLabel.textColor = UIColor.green
         categoryLabel.textColor = UIColor.green
     }

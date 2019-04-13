@@ -28,6 +28,7 @@ class MainPageViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         animateFloatingCoin()
+        updateBudgetStatus()
     }
 
     @IBAction func plusButtonPressed(_ sender: UIButton) {
@@ -40,6 +41,41 @@ class MainPageViewController: UIViewController {
 
     @IBAction func coinSwipedDown(_ sender: UISwipeGestureRecognizer) {
         performSegue(withIdentifier: "mainToAddTransactionIn", sender: nil)
+    }
+
+    private func updateBudgetStatus() {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+
+        do {
+            let spendingStatus = try core.getSpendingStatus()
+            displayBudgetStatus(status: spendingStatus)
+        } catch {
+            self.handleError(error: error, customMessage: Constants.budgetStatusFailureMessage)
+        }
+    }
+
+    private func displayBudgetStatus(status: SpendingStatus) {
+        let currentSpending = status.currentSpending.toFormattedString
+        let totalBudget = status.totalBudget.toFormattedString
+        let percentage = status.percentage
+
+        guard let spending = currentSpending, let budget = totalBudget else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.budgetStatusFailureMessage)
+            budgetLabel.alpha = 0
+            return
+        }
+
+        budgetLabel.text = Constants.currency + spending + " / " + Constants.currency + budget
+        if percentage < 1 {
+            budgetLabel.textColor = UIColor.green
+        } else if percentage == 1 {
+            budgetLabel.textColor = UIColor.yellow.withAlphaComponent(0.7)
+        } else {
+            budgetLabel.textColor = UIColor.red
+        }
     }
 }
 

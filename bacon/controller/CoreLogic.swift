@@ -89,6 +89,16 @@ class CoreLogic: CoreLogicInterface {
         return try budgetManager.loadBudget()
     }
 
+    func getSpendingStatus() throws -> SpendingStatus {
+        let budget = try budgetManager.loadBudget()
+        let currentMonthTransactions = try transactionManager.loadTransactions(from: budget.fromDate, to: budget.toDate)
+        var totalExpenditure: Decimal = 0.0
+        for transaction in currentMonthTransactions where transaction.type == .expenditure {
+            totalExpenditure += transaction.amount
+        }
+        return SpendingStatus(currentSpending: totalExpenditure, totalBudget: budget.amount)
+    }
+
     // MARK: Tag related
     func getAllTags() -> [Tag: [Tag]] {
         return tagManager.tags

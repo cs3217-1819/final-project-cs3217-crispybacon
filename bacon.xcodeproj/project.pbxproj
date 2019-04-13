@@ -71,6 +71,7 @@
 		BEF38D0B224BA1C500BC8927 /* FoldingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF38D0A224BA1C500BC8927 /* FoldingCell.swift */; };
 		BEF38D0D224BA2C400BC8927 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF38D0C224BA2C400BC8927 /* TransactionCell.swift */; };
 		BEF82C152261C157007BC819 /* SetBuddgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C142261C157007BC819 /* SetBuddgetViewController.swift */; };
+		BEF82C172261D5CE007BC819 /* SpendingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C162261D5CE007BC819 /* SpendingStatus.swift */; };
 		C288EBE898DE7040D8233568 /* Pods_baconUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */; };
 		D15E5FA942198228451024EA /* Pods_bacon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4701C832F23C08627A348028 /* Pods_bacon.framework */; };
 /* End PBXBuildFile section */
@@ -168,6 +169,7 @@
 		BEF38D0A224BA1C500BC8927 /* FoldingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldingCell.swift; sourceTree = "<group>"; };
 		BEF38D0C224BA2C400BC8927 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		BEF82C142261C157007BC819 /* SetBuddgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBuddgetViewController.swift; sourceTree = "<group>"; };
+		BEF82C162261D5CE007BC819 /* SpendingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingStatus.swift; sourceTree = "<group>"; };
 		CA24B1D1138A1F0774F42251 /* Pods-baconTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD379625D2CF2952EA2B2E6A /* Pods-baconUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F38C0C0022ADF9C5F622445F /* Pods-bacon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bacon.release.xcconfig"; path = "Pods/Target Support Files/Pods-bacon/Pods-bacon.release.xcconfig"; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */,
 				9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */,
 				9F71AEF8225B3D84005F043A /* Budget.swift */,
+				BEF82C162261D5CE007BC819 /* SpendingStatus.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				8F894250225E0278007146AC /* Tag.swift in Sources */,
 				BEF38D0D224BA2C400BC8927 /* TransactionCell.swift in Sources */,
 				BEC5745822605570001793EC /* CoreLogic+BreakDownByTag.swift in Sources */,
+				BEF82C172261D5CE007BC819 /* SpendingStatus.swift in Sources */,
 				8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */,
 				8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */,
 				8F8487DB224B7D7D001F881C /* Observable.swift in Sources */,

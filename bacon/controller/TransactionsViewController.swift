@@ -142,7 +142,7 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         let typeString = type == .expenditure ? "-" : "+"
         let amount = currentMonthTransactions[arrayIndex].amount
         let amountString = amount.toFormattedString
-        let finalString = typeString + Constants.currencySymbol + (amountString ?? Constants.defaultAmountString)
+        let finalString = typeString + Constants.currency + (amountString ?? Constants.defaultAmountString)
         cell.closedAmountView.text = finalString
         cell.openAmountView.text = finalString
 
