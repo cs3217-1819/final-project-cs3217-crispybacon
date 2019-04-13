@@ -219,7 +219,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
         inTestMode = testMode
     }
 
-    func addChildTag(_ child: String, to parent: String) throws {
+    func addChildTag(_ child: String, to parent: String) throws -> Tag {
         // Parent Tag should exist
         guard let children = parentChildMap[parent] else {
             throw InvalidTagError(message: "Parent tag \(parent) does not exist")
@@ -230,16 +230,16 @@ class TagManager: Codable, Observable, TagManagerInterface {
             throw DuplicateTagError(message: "Child tag \(child) already exists")
         }
 
-        _ = createTag(child, of: parent)
+        return createTag(child, of: parent)
     }
 
-    func addParentTag(_ parent: String) throws {
+    func addParentTag(_ parent: String) throws -> Tag {
         // Parent Tag should not exist
         guard parentChildMap[parent] == nil else {
             throw DuplicateTagError(message: "Parent tag \(parent) already exists")
         }
 
-        _ = createTag(parent)
+        return createTag(parent)
     }
 
     func removeChildTag(_ child: String, from parent: String) throws {
