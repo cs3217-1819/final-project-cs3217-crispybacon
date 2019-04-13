@@ -25,7 +25,7 @@ class ParentTagCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            parentTagLabel.textColor = UIColor.green
+            parentTagLabel.textColor = UIColor.green.withAlphaComponent(0.5)
         } else {
             parentTagLabel.textColor = UIColor.black
         }

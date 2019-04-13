@@ -11,11 +11,13 @@ import UIKit
 class TagSelectionViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var confirmButton: UIButton!
 
     var core: CoreLogic?
     var tags = [Tag: [Tag]]()
     var parentTags = [Tag]()
     var selectedTags = Set<Tag>()
+    var canEdit = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,13 @@ class TagSelectionViewController: UIViewController {
         }
         tags = core.getAllTags()
         parentTags = core.getAllParentTags()
+
+        // Display according to editing/non-editing mode
+        if canEdit {
+            confirmButton.alpha = 0.0
+        } else {
+            confirmButton.alpha = 1.0
+        }
     }
 
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
@@ -80,7 +89,11 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
             TagSelectionViewController.didSelectRowAt():
             row=\(indexPath.row))
             """)
-        selectedTags.insert(parentTags[indexPath.row])
+        if canEdit {
+            // edit tag name
+        } else {
+            selectTag(tag: parentTags[indexPath.row])
+        }
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -88,7 +101,18 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
             TagSelectionViewController.didDeselectRowAt():
             row=\(indexPath.row))
             """)
-        selectedTags.remove(parentTags[indexPath.row])
+        if canEdit {
+            // edit tag name
+        } else {
+            unselectTag(tag: parentTags[indexPath.row])
+        }
     }
 
+    private func selectTag(tag: Tag) {
+        selectedTags.insert(tag)
+    }
+
+    private func unselectTag(tag: Tag) {
+        selectedTags.remove(tag)
+    }
 }

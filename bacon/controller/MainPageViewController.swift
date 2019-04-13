@@ -16,8 +16,6 @@ class MainPageViewController: UIViewController {
     @IBOutlet private weak var coinView: UIImageView!
     @IBOutlet private weak var pigView: UIImageView!
 
-    var isUpdateNeeded = false
-
     override func viewDidLoad() {
         super.viewDidLoad()
         do {
@@ -130,6 +128,7 @@ extension MainPageViewController {
                 return
             }
             tagSelectionController.core = core
+            tagSelectionController.canEdit = true
         }
         if segue.identifier == "mainToSetBudget" {
             guard let setBudgetController = segue.destination as? SetBuddgetViewController else {

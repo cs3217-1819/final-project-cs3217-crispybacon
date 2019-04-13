@@ -223,13 +223,13 @@ extension AddTransactionViewController {
                 return
             }
             mainController.core = core
-            mainController.isUpdateNeeded = true
         }
         if segue.identifier == "addToTagSelection" {
             guard let tagController = segue.destination as? TagSelectionViewController else {
                 return
             }
             tagController.core = core
+            tagController.canEdit = false
         }
     }
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
