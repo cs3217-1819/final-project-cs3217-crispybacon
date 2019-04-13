@@ -14,8 +14,8 @@ class MainPageViewController: UIViewController {
 
     @IBOutlet private weak var budgetLabel: UILabel!
     @IBOutlet private weak var coinView: UIImageView!
-    @IBOutlet weak var pigView: UIImageView!
-    
+    @IBOutlet private weak var pigView: UIImageView!
+
     var isUpdateNeeded = false
 
     override func viewDidLoad() {
