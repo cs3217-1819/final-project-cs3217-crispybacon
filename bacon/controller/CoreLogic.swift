@@ -13,12 +13,12 @@ class CoreLogic: CoreLogicInterface {
     // MARK: - Properties
     let transactionManager: TransactionManager
     let budgetManager: BudgetManager
-    let tagManager: TagManagerInterface
+    var tagManager: TagManagerInterface
 
-    init() throws {
+    init(tagManager: TagManager = TagManager.create(testMode: false)) throws {
         transactionManager = try TransactionManager()
         budgetManager = try BudgetManager()
-        tagManager = TagManager.create(testMode: false)
+        self.tagManager = tagManager
     }
 
     // MARK: Transaction related

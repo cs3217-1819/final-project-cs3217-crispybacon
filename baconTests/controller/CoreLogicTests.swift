@@ -13,11 +13,11 @@ class CoreLogicTests: XCTestCase {
     // swiftlint:disable force_try
 
     func test_init_success() {
-        XCTAssertNoThrow(try CoreLogic())
+        XCTAssertNoThrow(try CoreLogic(tagManager: TagManager.create(testMode: true)))
     }
 
     func test_getTotalTransactionsRecorded() {
-        let coreLogic = try! CoreLogic()
+        let coreLogic = try! CoreLogic(tagManager: TagManager.create(testMode: true))
         XCTAssertNoThrow(try coreLogic.clearAllTransactions())
         // getTotalTransactionsRecorded() should return 0 after clearing all transactions
         XCTAssertEqual(coreLogic.getTotalTransactionsRecorded(), 0)
@@ -34,7 +34,7 @@ class CoreLogicTests: XCTestCase {
     }
 
     func test_clearAllTransactions() {
-        let coreLogic = try! CoreLogic()
+        let coreLogic = try! CoreLogic(tagManager: TagManager.create(testMode: true))
         // If there are no transactions recorded, save a transaction
         if coreLogic.getTotalTransactionsRecorded() == 0 {
             XCTAssertNoThrow(try coreLogic.recordTransaction(date: TestUtils.january2nd2019time1320,
@@ -50,7 +50,7 @@ class CoreLogicTests: XCTestCase {
     }
 
     func test_recordTransaction() {
-        let coreLogic = try! CoreLogic()
+        let coreLogic = try! CoreLogic(tagManager: TagManager.create(testMode: true))
         XCTAssertNoThrow(try coreLogic.clearAllTransactions())
         XCTAssertEqual(coreLogic.getTotalTransactionsRecorded(), 0)
         let transaction = try! Transaction(date: TestUtils.january5th2019time1230,
