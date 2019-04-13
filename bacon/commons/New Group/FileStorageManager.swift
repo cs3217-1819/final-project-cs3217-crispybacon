@@ -48,7 +48,7 @@ class FileStorageManager {
     /// - Throws: Any errors encountered will be rethrown.
     func readFromJson<T: Decodable>(_ type: T.Type,
                                     file fileName: String,
-                                    from directory: FileManager.SearchPathDirectory = .documentDirectory,
+                                    from directory: FileManager.SearchPathDirectory = .documentDirectory	,
                                     in domainMask: FileManager.SearchPathDomainMask = .userDomainMask) throws -> T {
         let fileUrl = try generatePath(directory: directory,
                                        domainMask: domainMask,

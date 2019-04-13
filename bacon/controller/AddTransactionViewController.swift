@@ -97,7 +97,7 @@ class AddTransactionViewController: UIViewController {
         let type = captureType()
         let frequency = captureFrequency()
         var tags = Set<Tag>()
-        tags.insert(Tag("hello"))
+        //tags.insert(Tag(from: "hello"))
         let amount = captureAmount()
         let description = captureDescription()
         let photo = capturePhoto()

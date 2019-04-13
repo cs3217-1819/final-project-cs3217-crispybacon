@@ -18,7 +18,7 @@ class CoreLogic: CoreLogicInterface {
     init() throws {
         transactionManager = try TransactionManager()
         budgetManager = try BudgetManager()
-        tagManager = TagManager.create(withPersistence: true)
+        tagManager = TagManager.create(testMode: false)
     }
 
     // MARK: Transaction related
@@ -109,9 +109,7 @@ class CoreLogic: CoreLogicInterface {
     }
 
     func addParentTag(_ name: String) throws -> Tag {
-        // let parentTag = try tagManager.addParentTag(name)
-        // return parentTag
-        try tagManager.addParentTag(name)
-        return Tag(name)
+        let parentTag = try tagManager.addParentTag(name)
+        return parentTag
     }
 }
