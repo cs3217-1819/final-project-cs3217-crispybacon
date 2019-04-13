@@ -125,10 +125,10 @@ extension StorageCouchBaseDB {
                 let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
                 transactions.append(currentTransaction)
                 // Retrieve and store the mapping of transaction to its id in database
-                let transactionDatabaseId = result.string(forKey: "id")
-                if transactionMapping[currentTransaction] == nil {
-                    transactionMapping[currentTransaction] = transactionDatabaseId
+                guard let transactionDatabaseId = result.string(forKey: "id") else {
+                    throw StorageError(message: "Could not retrieve UID of transaction from database.")
                 }
+                transactionMapping.updateValue(transactionDatabaseId, forKey: currentTransaction)
             }
             return transactions
         } catch {
