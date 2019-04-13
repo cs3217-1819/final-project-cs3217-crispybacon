@@ -374,7 +374,6 @@ extension TagManager {
 // MARK: TagManager: private utility methods
 extension TagManager {
 
-
     /// Creates and returns a Tag. This method automtatically updates data stores and saves to disk.
     /// - Requires: The Tag being created must not already exist.
     private func createTag(_ displayValue: String, of parentDisplayValue: String? = nil) -> Tag {
