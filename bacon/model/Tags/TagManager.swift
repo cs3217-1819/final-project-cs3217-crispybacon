@@ -11,8 +11,8 @@ import Foundation
 // MARK: Tag
 struct Tag: Codable, Comparable, Hashable {
 
-    fileprivate let internalValue: Int64 // Internal value of the Tag
-    fileprivate let parentInternalValue: Int64? // Internal value of parent Tag
+    let internalValue: Int64 // Internal value of the Tag
+    let parentInternalValue: Int64? // Internal value of parent Tag
 
     /// Returns the user-defined display value of a Tag, or an empty string if unavailable.
     /// The only period of unavailablility is when TagManager has not been fully instantiated.
