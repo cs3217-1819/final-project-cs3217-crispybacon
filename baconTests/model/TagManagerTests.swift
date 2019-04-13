@@ -13,7 +13,7 @@ import XCTest
 
 class TagManagerTests: XCTestCase {
 
-    var tagManager = TagManager.create(withPersistence: false)
+    var tagManager = TagManager.create(testMode: true)
 
     let parent1 = "parent1"
     let parent2 = "parent2"
@@ -24,19 +24,19 @@ class TagManagerTests: XCTestCase {
         tagManager.clearTags()
     }
 
-    func test_nonPersistent_nonSingleton() {
-        let tagManager1 = TagManager.create(withPersistence: false)
-        let tagManager2 = TagManager.create(withPersistence: false)
-        XCTAssertFalse(tagManager1 === tagManager2)
-
-        try! tagManager1.addParentTag(parent1)
-        XCTAssertTrue(tagManager1.isParentTag(parent1))
-        XCTAssertFalse(tagManager2.isParentTag(parent1))
-    }
+//    func test_nonPersistent_nonSingleton() {
+//        let tagManager1 = TagManager.create(withPersistence: false)
+//        let tagManager2 = TagManager.create(withPersistence: false)
+//        XCTAssertFalse(tagManager1 === tagManager2)
+//
+//        try! tagManager1.addParentTag(parent1)
+//        XCTAssertTrue(tagManager1.isParentTag(parent1))
+//        XCTAssertFalse(tagManager2.isParentTag(parent1))
+//    }
 
     func test_persistent_singleton() {
-        let tagManager1 = TagManager.create(withPersistence: true)
-        let tagManager2 = TagManager.create(withPersistence: true)
+        let tagManager1 = TagManager.create(testMode: true)
+        let tagManager2 = TagManager.create(testMode: true)
         XCTAssertTrue(tagManager1 === tagManager2)
     }
 
@@ -249,6 +249,15 @@ class TagManagerTests: XCTestCase {
     func test_isParentTag_parentTagDoesNotExist() {
         try! tagManager.addParentTag(parent1)
         XCTAssertFalse(tagManager.isParentTag(parent2))
+    }
+
+    func test_tagDisplayValues() {
+        try! tagManager.addParentTag(parent1)
+        try! tagManager.addParentTag(parent2)
+        let parentTags = tagManager.parentTags
+        XCTAssertEqual(parentTags.count, 2)
+        XCTAssertEqual(parentTags[0].value, parent1)
+        XCTAssertEqual(parentTags[1].value, parent2)
     }
 
 }

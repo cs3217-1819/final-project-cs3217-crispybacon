@@ -12,21 +12,30 @@ import Foundation
 struct Tag: Codable, Comparable, Hashable {
 
     let parent: String?
-    unowned let manager: TagManager
 
     // Internal value of the Tag
     private let internalValue: Int64
 
-    // User-set display value of the Tag
+    /// Returns the user-defined display value of a tag, or an empty string if unavailable.
+    /// The only period of unavailablility is when TagManager has not been fully instantiated.
+    /// It should never be unavailable in normal usage.
     var value: String {
-        return manager.getDisplayValue(of: internalValue)
+        if TagManager.inTestMode {
+            return TagManager.cachedPersistentTagManagerTest?.getDisplayValue(of: internalValue) ?? ""
+        } else {
+            return TagManager.cachedPersistentTagManager?.getDisplayValue(of: internalValue) ?? ""
+        }
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case parent
+        case internalValue
     }
 
     /// Initializes a Tag.
-    fileprivate init(_ internalValue: Int64, manager: TagManager, parent: String?) {
+    fileprivate init(_ internalValue: Int64, parent: String?) {
         self.internalValue = internalValue
         self.parent = parent
-        self.manager = manager
     }
 
     /// Convenience computed property to represent whether a Tag is a child Tag.
@@ -97,9 +106,12 @@ class TagManager: Codable, Observable, TagManagerInterface {
 
     // Support persistence
     private static let saveFileName = "TagManager"
+    private static let saveFileNameTest = "TagManagerTest"
     private static let errorLoadData = "Loading of TagManager data failed"
-    private static var cachedPersistentTagManager: TagManager?
-    private var isPersistent: Bool
+    fileprivate static var cachedPersistentTagManager: TagManager?
+    fileprivate static var cachedPersistentTagManagerTest: TagManager?
+    private var inTestMode: Bool // Instance flag
+    fileprivate static var inTestMode: Bool = false // Static flag
 
     // Set of all Tags (both parent and child Tags). Use for membership check.
     private var allTags: Set<Tag> = []
@@ -118,7 +130,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
     // We exclude the "observers" property from being encoded/decoded,
     // since that information should not be persistent across sessions.
     private enum CodingKeys: String, CodingKey {
-        case isPersistent
+        case inTestMode
         case allTags
         case parentChildMap
         case tagId
@@ -130,36 +142,54 @@ class TagManager: Codable, Observable, TagManagerInterface {
     /// - Parameter withPersistence: If `true`, changes to TagManager data (e.g. add/remove Tags) will
     ///     automatically be saved to storage. The TagManager object returned will also be pre-loaded
     ///     with pre-existing data. If `false`, the TagManager object returned will only manage Tags in memory.
-    static func create(withPersistence: Bool) -> TagManager {
-        log.info("Creating TagManager withPersistence=\(withPersistence).")
+    static func create(testMode: Bool) -> TagManager {
+        log.info("Creating TagManager with testMode=\(testMode).")
+        TagManager.inTestMode = testMode
 
-        // Without persistence
-        if !withPersistence {
-            log.info("Returning non-persistent instance of TagManager.")
-            return TagManager(withPersistence: false)
-        }
-
-        // With persistence: if a persistent TagManager has previously been instantiated,
+        // If a persistent TagManager has previously been instantiated,
         // we return it. Otherwise, we create a new instance and cache it.
-        if let tagManager = TagManager.cachedPersistentTagManager {
-            log.info("Returning cached instance of persistent TagManager.")
+        // We do this regardless of `testMode`.
+
+        if testMode {
+            if let tagManager = TagManager.cachedPersistentTagManagerTest {
+                log.info("Returning cached instance of test TagManager.")
+                return tagManager
+            }
+
+            log.info("No cached instance of test TagManager found. Instantiating TagManager.")
+            let fsm = FileStorageManager()
+            let tagManager: TagManager
+
+            do {
+                log.info("Reading test TagManager data.")
+                tagManager = try fsm.readFromJson(TagManager.self, file: TagManager.saveFileNameTest)
+                log.info("Loaded TagManager from data.")
+            } catch {
+                log.warning("\(TagManager.errorLoadData). Creating a new instance.")
+                tagManager = TagManager(testMode: testMode)
+            }
+
+            log.info("Caching test TagManager for future returns.")
+            TagManager.cachedPersistentTagManagerTest = tagManager
             return tagManager
         }
 
-        log.info("No cached instance of persistent TagManager found. Instantiating TagManager.")
+        if let tagManager = TagManager.cachedPersistentTagManager {
+            log.info("Returning cached instance of TagManager.")
+            return tagManager
+        }
+
+        log.info("No cached instance of TagManager found. Instantiating TagManager.")
         let fsm = FileStorageManager()
         let tagManager: TagManager
 
         do {
-            log.info("Reading TagManager data from storage.")
+            log.info("Reading TagManager data.")
             tagManager = try fsm.readFromJson(TagManager.self, file: TagManager.saveFileName)
-            log.info("TagManager reconstructed from storage data")
+            log.info("Loaded TagManager from data.")
         } catch {
-            // This could happen if a persistent TagManager is instantiated for the first time ever
-            log.warning("\(TagManager.errorLoadData). Instantiating a new instance.")
-            tagManager = TagManager(withPersistence: true)
-            TagManager.cachedPersistentTagManager = tagManager
-            return tagManager
+            log.warning("\(TagManager.errorLoadData). Creating a new instance.")
+            tagManager = TagManager(testMode: testMode)
         }
 
         log.info("Caching TagManager for future returns.")
@@ -172,8 +202,8 @@ class TagManager: Codable, Observable, TagManagerInterface {
     // we can create as many instances as possible.
     // However, in normal operation (persistent mode), we want to allow only 1 instance,
     // to avoid multiple working stores of tag data.
-    private init(withPersistence: Bool) {
-        isPersistent = withPersistence
+    private init(testMode: Bool) {
+        inTestMode = testMode
     }
 
     func addChildTag(_ child: String, to parent: String) throws {
@@ -320,7 +350,8 @@ extension TagManager {
         do {
             log.info("Saving TagManager to storage.")
             let fsm = FileStorageManager()
-            try fsm.writeAsJson(data: self, as: TagManager.saveFileName)
+            let fileName = inTestMode ? TagManager.saveFileNameTest : TagManager.saveFileName
+            try fsm.writeAsJson(data: self, as: fileName)
         } catch {
             log.error("Error encountered: \(error)")
         }
@@ -339,7 +370,7 @@ extension TagManager {
         tagId += 1
 
         valueMap[id] = value
-        return Tag(id, manager: self, parent: parent)
+        return Tag(id, parent: parent)
     }
 
     /// Adds multiple Tags into both the `allTags` set and `parentChildMap` dictionary.
@@ -362,9 +393,7 @@ extension TagManager {
             allTags.insert(tag)
         }
 
-        if isPersistent {
-            save()
-        }
+        save()
     }
 
     /// Removes multiple Tags from both the `allTags` set and `parentChildMap` dictionary.
@@ -393,9 +422,7 @@ extension TagManager {
             allTags.remove(tag)
         }
 
-        if isPersistent {
-            save()
-        }
+        save()
     }
 
 }
