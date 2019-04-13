@@ -26,8 +26,8 @@
                                     <constraint firstAttribute="width" constant="500" id="jgQ-Km-ZCX"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$12.50 / $100.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srG-5J-sOi" userLabel="Money View">
-                                <rect key="frame" x="183.5" y="802" width="401" height="84.5"/>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$00.00 / $100.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srG-5J-sOi" userLabel="Money View">
+                                <rect key="frame" x="181.5" y="802" width="405" height="84.5"/>
                                 <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="70"/>
                                 <color key="textColor" red="1" green="0.80344302876790086" blue="0.35260522083872259" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>

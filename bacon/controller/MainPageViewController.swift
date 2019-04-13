@@ -54,7 +54,8 @@ class MainPageViewController: UIViewController {
             let spendingStatus = try core.getSpendingStatus()
             displayBudgetStatus(status: spendingStatus)
         } catch {
-            self.handleError(error: error, customMessage: Constants.budgetStatusFailureMessage)
+            // Budget has not been set
+            performSegue(withIdentifier: "mainToSetBudget", sender: nil)
         }
     }
 
