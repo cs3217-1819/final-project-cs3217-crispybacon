@@ -68,6 +68,40 @@ extension StorageCouchBaseDB {
         }
     }
 
+    func updateTransaction(_ transaction: Transaction) throws {
+        // Fetch the specific document from database
+        guard let transactionId = transactionMapping[transaction] else {
+            log.warning("""
+                    StorageCouchBaseDB.updateTransaction():
+                    Encounter error updating transaction in database.
+                    Unable to find mapping of transaction object to its unique id in the database.
+                    Throwing StorageError.
+                """)
+            throw StorageError(message: """
+                    Unable to find mapping of transaction object to its unique id in the database.
+                """)
+        }
+        let transactionDocument = try createMutableDocument(from: transaction, uid: transactionId)
+        log.info("""
+            StorageCouchBaseDB.updateTransaction() with argument:
+            transaction:\(transaction).
+            """)
+        // Update the document
+        do {
+            try transactionDatabase.saveDocument(transactionDocument)
+        } catch {
+            log.warning("""
+                StorageCouchBaseDB.updateTransaction() with argument:
+                transaction:\(transaction).
+                Encounter error updating transaction in database.
+                Throwing StorageError.
+                """)
+            throw StorageError(message: """
+                Encounter error updating \(transaction) in database.
+                """)
+        }
+    }
+
     func deleteTransaction(_ transaction: Transaction) throws {
         // Fetch the specific document from database
         guard let transactionId = transactionMapping[transaction] else {

@@ -52,8 +52,18 @@ class StorageManager {
         try concreteStorage.saveBudget(budget)
     }
 
+    /// deleteTransaction() should only be called on Transactions that are loaded
+    /// out from database.
+    /// Calling delete on a new Transaction object instantiated on run-time
+    /// will cause the method to throw a StorageError.
     func deleteTransaction(_ transaction: Transaction) throws {
         try concreteStorage.deleteTransaction(transaction)
+    }
+
+    /// Similar to deleteTransaction(), updateTransaction() should only be called on
+    /// Transactions that are loaded out from database.
+    func updateTransaction(_ transaction: Transaction) throws {
+        try concreteStorage.updateTransaction(transaction)
     }
 
     func loadBudget() throws -> Budget {
