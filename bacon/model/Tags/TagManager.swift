@@ -11,12 +11,10 @@ import Foundation
 // MARK: Tag
 struct Tag: Codable, Comparable, Hashable {
 
-    let parent: String?
+    fileprivate let internalValue: Int64 // Internal value of the Tag
+    fileprivate let parentInternalValue: Int64? // Internal value of parent Tag
 
-    // Internal value of the Tag
-    fileprivate let internalValue: Int64
-
-    /// Returns the user-defined display value of a tag, or an empty string if unavailable.
+    /// Returns the user-defined display value of a Tag, or an empty string if unavailable.
     /// The only period of unavailablility is when TagManager has not been fully instantiated.
     /// It should never be unavailable in normal usage.
     var value: String {
@@ -27,20 +25,37 @@ struct Tag: Codable, Comparable, Hashable {
         }
     }
 
+    /// Returns the user-defined display value of a Tag's parent.
+    /// Returns `nil` if a Tag does not have a parent, or an empty string if unavailable.
+    /// The only period of unavailablility is when TagManager has not been fully instantiated.
+    /// It should never be unavailable in normal usage.
+    var parentValue: String? {
+        // Guard against having no parent Tag
+        guard let parentInternalValue = parentInternalValue else {
+            return nil
+        }
+
+        if TagManager.inTestMode {
+            return TagManager.cachedPersistentTagManagerTest?.getDisplayValue(of: parentInternalValue) ?? ""
+        } else {
+            return TagManager.cachedPersistentTagManager?.getDisplayValue(of: parentInternalValue) ?? ""
+        }
+    }
+
     private enum CodingKeys: String, CodingKey {
-        case parent
         case internalValue
+        case parentInternalValue
     }
 
     /// Initializes a Tag.
-    fileprivate init(_ internalValue: Int64, parent: String?) {
+    fileprivate init(_ internalValue: Int64, parentInternalValue: Int64?) {
         self.internalValue = internalValue
-        self.parent = parent
+        self.parentInternalValue = parentInternalValue
     }
 
     /// Convenience computed property to represent whether a Tag is a child Tag.
     var isChild: Bool {
-        return parent != nil
+        return parentValue != nil
     }
 
     /// Convenience computed property to represent whether a Tag is a parent Tag.
@@ -50,7 +65,7 @@ struct Tag: Codable, Comparable, Hashable {
 
     // Exclude `manager` property from Equatable logic
     static func == (lhs: Tag, rhs: Tag) -> Bool {
-        return lhs.value == rhs.value && lhs.parent == rhs.parent
+        return lhs.value == rhs.value && lhs.parentValue == rhs.parentValue
     }
 
     // Generally, we should only compare by the `value` property, since it's
@@ -69,10 +84,10 @@ struct Tag: Codable, Comparable, Hashable {
             }
 
             // 2 sub-scenarios: (1) same parent, (2) different parents
-            guard let lhsParent = lhs.parent else {
+            guard let lhsParent = lhs.parentValue else {
                 fatalError("This should never happen")
             }
-            guard let rhsParent = rhs.parent else {
+            guard let rhsParent = rhs.parentValue else {
                 fatalError("This should never happen")
             }
             assert(lhsParent != rhsParent)
@@ -96,7 +111,7 @@ struct Tag: Codable, Comparable, Hashable {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(value)
-        hasher.combine(parent)
+        hasher.combine(parentValue)
     }
 
 }
@@ -258,7 +273,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
             guard let parentId = parentValueIdMap[parentDisplayValue] else {
                 fatalError("This should never happen")
             }
-            ret[Tag(parentId, parent: nil)] = []
+            ret[Tag(parentId, parentInternalValue: nil)] = []
         }
 
         // Add children Tags
@@ -268,7 +283,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
             }
 
             for childId in childrenIds {
-                ret[parentTag]?.append(Tag(childId, parent: parentTag.value))
+                ret[parentTag]?.append(Tag(childId, parentInternalValue: parentTag.internalValue))
             }
 
             // Sort
@@ -279,7 +294,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
     }
 
     var parentTags: [Tag] {
-        var arrParentTags = Array(parentValueIdMap.values).map { Tag($0, parent: nil) }
+        var arrParentTags = Array(parentValueIdMap.values).map { Tag($0, parentInternalValue: nil) }
         arrParentTags.sort()
         return arrParentTags
     }
@@ -294,7 +309,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
             fatalError("This should never happen")
         }
 
-        var arrChildrenTags = Array(childrenIds).map { Tag($0, parent: parent) }
+        var arrChildrenTags = Array(childrenIds).map { Tag($0, parentInternalValue: parentId) }
         arrChildrenTags.sort()
         return arrChildrenTags
     }
@@ -372,7 +387,7 @@ extension TagManager {
             parentChildValueIdMap[id] = [:]
 
             save()
-            return Tag(id, parent: nil)
+            return Tag(id, parentInternalValue: nil)
         } else { // If child Tag
             guard let parentValue = parentDisplayValue else {
                 fatalError("This should never happen")
@@ -384,7 +399,7 @@ extension TagManager {
             parentChildValueIdMap[parentId]?[displayValue] = id
 
             save()
-            return Tag(id, parent: parentDisplayValue)
+            return Tag(id, parentInternalValue: parentId)
         }
     }
 
