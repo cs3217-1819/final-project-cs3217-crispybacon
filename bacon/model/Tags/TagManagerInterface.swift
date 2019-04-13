@@ -53,6 +53,12 @@ protocol TagManagerInterface {
     /// Checks whether a parent Tag with the provided value exists.
     func isParentTag(_ parent: String) -> Bool
 
+    /// Renames a Tag and returns it.
+    /// - Throws:
+    ///     - `DuplicateTagError` if the renamed Tag already exists.
+    ///     - `InvalidTagError` if the Tag does not exist.
+    func renameTag(_ oldValue: String, to newValue: String, of parent: String?) throws -> Tag
+
     /// Clears all Tags.
     func clearTags()
 

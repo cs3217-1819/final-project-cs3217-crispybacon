@@ -336,6 +336,83 @@ class TagManager: Codable, Observable, TagManagerInterface {
         save()
     }
 
+    func renameTag(_ oldValue: String, to newValue: String, of parent: String? = nil) throws -> Tag {
+        let isParent = parent == nil
+        let ret: Tag // Return value
+
+        // Strategy:
+        // 1) Guard against Tag not existing
+        // 2) Guard against newValue already existing
+        // 3) Update data stores
+
+        if isParent {
+            guard parentChildMap[oldValue] != nil else {
+                throw InvalidTagError(message: "Parent tag \(oldValue) does not exist")
+            }
+            guard parentChildMap[newValue] == nil else {
+                throw DuplicateTagError(message: "Parent tag \(newValue) already exists")
+            }
+
+            // parentChildMap: Update to reflect renaming
+            guard let childrenTagValues = parentChildMap[oldValue] else {
+                fatalError("This should never happen") // We guarded against this
+            }
+            parentChildMap[newValue] = childrenTagValues
+            parentChildMap[oldValue] = nil
+
+            // allIdValueMap: Update ID to display value mapping
+            guard let id = parentValueIdMap[oldValue] else {
+                fatalError("This should never happen")
+            }
+            allIdValueMap[id] = newValue
+
+            // parentValueIdMap: Update display value to ID mapping
+            parentValueIdMap[oldValue] = nil
+            parentValueIdMap[newValue] = id
+
+            // No need to update parentChildValueIdMap :)
+
+            ret = Tag(id, parentInternalValue: nil)
+        } else { // Is child Tag
+            guard let parentDisplayValue = parent else {
+                fatalError("This should never happen")
+            }
+            guard let childrenTagValues = parentChildMap[parentDisplayValue] else {
+                throw InvalidTagError(message: "Parent tag \(parentDisplayValue) does not exist")
+            }
+            guard childrenTagValues.contains(oldValue) else {
+                throw InvalidTagError(message: "Child tag \(oldValue) does not exist")
+            }
+            guard !childrenTagValues.contains(newValue) else {
+                throw DuplicateTagError(message: "Child tag \(newValue) already exists")
+            }
+
+            // parentChildMap: Update to reflect renaming
+            parentChildMap[parentDisplayValue]?.remove(oldValue)
+            parentChildMap[parentDisplayValue]?.insert(newValue)
+
+            // allIdValueMap: Update ID to display value mapping
+            guard let parentId = parentValueIdMap[parentDisplayValue] else {
+                fatalError("This should never happen")
+            }
+            guard let id = parentChildValueIdMap[parentId]?[oldValue] else {
+                fatalError("This should never happen")
+            }
+            allIdValueMap[id] = newValue
+
+            // No need to update parentValueIdMap :)
+
+            // parentChildValueIdMap: Update display value to ID mapping
+            parentChildValueIdMap[parentId]?[oldValue] = nil
+            parentChildValueIdMap[parentId]?[newValue] = id
+
+            ret = Tag(id, parentInternalValue: parentId)
+        }
+
+        save()
+        return ret
+    }
+
 }
 
 // MARK: TagManager: TagValueSourceInterface
