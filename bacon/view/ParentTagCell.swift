@@ -10,8 +10,11 @@ import UIKit
 
 class ParentTagCell: UITableViewCell {
 
+    var canEdit = false
     var childTags: [Tag] = []
     var addChildAction: ((ParentTagCell) -> Void)?
+    var selectChildAction: ((Tag) -> Void)?
+    var unselectChildAction: ((Tag) -> Void)?
 
     // swiftlint:disable private_outlet
     @IBOutlet weak var parentTagLabel: UILabel!
@@ -54,5 +57,37 @@ extension ParentTagCell: UITableViewDataSource, UITableViewDelegate {
         }
         childTagCell.childTagLabel.text = childTags[indexPath.row].value
         return childTagCell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        log.info("""
+            ParentTagCell.subTable.didSelectRowAt():
+            row=\(indexPath.row))
+            """)
+        if canEdit {
+            // edit tag name
+        } else {
+            selectTag(tag: childTags[indexPath.row])
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        log.info("""
+            ParentTagCell.subTable.didDeselectRowAt():
+            row=\(indexPath.row))
+            """)
+        if canEdit {
+            // edit tag name
+        } else {
+            unselectTag(tag: childTags[indexPath.row])
+        }
+    }
+
+    private func selectTag(tag: Tag) {
+        selectChildAction?(tag)
+    }
+
+    private func unselectTag(tag: Tag) {
+        unselectChildAction?(tag)
     }
 }

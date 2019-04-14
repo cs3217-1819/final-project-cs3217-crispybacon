@@ -43,23 +43,6 @@ class TagSelectionViewController: UIViewController {
     }
 
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
-        // Collect all parent tags
-        if let selectedParentRows = tableView.indexPathsForSelectedRows {
-            for selectedRow in selectedParentRows {
-                selectedTags.insert(parentTags[selectedRow.row])
-            }
-        }
-        // Collect all child tags
-        for row in 0..<tableView.numberOfRows(inSection: 0) {
-            if let currentParentCell = tableView.cellForRow(at: IndexPath(row: row, section: 0))
-                as? ParentTagCell {
-                if let selectedChildRows = currentParentCell.subTable.indexPathsForSelectedRows {
-                    for selectedRow in selectedChildRows {
-                        selectedTags.insert(currentParentCell.childTags[selectedRow.row])
-                    }
-                }
-            }
-        }
         performSegue(withIdentifier: "tagSelectionToAdd", sender: nil)
     }
 
@@ -105,10 +88,15 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
             return rawCell
         }
 
+        // Send necessary data to parent tag cell
         let currentParentTag = parentTags[indexPath.row]
         parentCell.parentTagLabel.text = currentParentTag.value
         parentCell.childTags = tags[currentParentTag] ?? [Tag]()
+
+        // Reload the sub table of parent tag cell to prevent from reusing issue
         parentCell.subTable.reloadData()
+
+        // Define sub table behaviours
         parentCell.addChildAction = { cell in
             self.promptUserForTagName { userInput in
                 do {
@@ -121,6 +109,12 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
                     self.handleError(error: error, customMessage: Constants.tagAddFailureMessage)
                 }
             }
+        }
+        parentCell.selectChildAction = { tag in
+            self.selectTag(tag: tag)
+        }
+        parentCell.unselectChildAction = { tag in
+            self.unselectTag(tag: tag)
         }
         return parentCell
     }
@@ -136,6 +130,8 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
             """)
         if canEdit {
             // edit tag name
+        } else {
+            selectTag(tag: parentTags[indexPath.row])
         }
     }
 
@@ -146,6 +142,16 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
             """)
         if canEdit {
             // edit tag name
+        } else {
+            unselectTag(tag: parentTags[indexPath.row])
         }
+    }
+
+    private func selectTag(tag: Tag) {
+        selectedTags.insert(tag)
+    }
+
+    private func unselectTag(tag: Tag) {
+        selectedTags.remove(tag)
     }
 }
