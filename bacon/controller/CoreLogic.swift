@@ -21,13 +21,8 @@ class CoreLogic: CoreLogicInterface {
         budgetManager = try BudgetManager()
         predictionManager = try PredictionManager()
         self.tagManager = tagManager
-
-        registerTransactionManagerToObserveTagManager()
     }
 
-    private func registerTransactionManagerToObserveTagManager() {
-        tagManager.registerObserver(transactionManager)
-    }
     // MARK: Transaction related
     func getTotalTransactionsRecorded() -> Double {
         return transactionManager.getNumberOfTransactionsInDatabase()
