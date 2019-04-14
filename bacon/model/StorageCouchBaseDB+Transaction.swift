@@ -178,10 +178,9 @@ extension StorageCouchBaseDB {
             let transactionData = try JSONSerialization.data(withJSONObject: transactionDictionary, options: [])
             let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
             // Remove the tag from transaction
-            // TODO below update the tag removal call
-
-            // >> currentTransaction.tags.remove(tag)
-
+            var newTags = currentTransaction.tags
+            newTags.remove(tag)
+            try currentTransaction.edit(tags: newTags)
             // Update transaction to database
             let updatedTransactionDocument = try createMutableDocument(from: currentTransaction, uid: transactionId)
             do {
@@ -194,7 +193,7 @@ extension StorageCouchBaseDB {
                     Throwing StorageError.
                     """)
                 throw StorageError(message: """
-                    Encounter error updating transaction after removing tag to database.
+                    Encounter error saving updated transaction after removing tag to database.
                     """)
             }
         }
