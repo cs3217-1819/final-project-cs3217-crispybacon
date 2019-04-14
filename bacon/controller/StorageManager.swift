@@ -201,7 +201,7 @@ class StorageManager {
     ///     all transactions that have at least one of the tag specified in reverse chronological order.
     ///     If no transactions saved fulfill the requirement, an empty array is returned.
     /// - Throws: `StorageError`
-    func loadTransactions(ofTags tags: Set<Tag>) throws -> [Transaction] {
-        return try concreteStorage.loadTransactions(ofTags: tags)
+    func loadTransactions(ofTag tag: Tag) throws -> [Transaction] {
+        return try concreteStorage.loadTransactions(ofTag: tag)
     }
 }

@@ -160,23 +160,8 @@ extension StorageCouchBaseDB {
             tag:\(tag).
             """)
         // Update transactions in database to remove this tag
-        for transactionId in transactionIds {
-            // Fetch the specific document from database
-            guard let transactionDocument = transactionDatabase.document(withID: transactionId) else {
-                log.warning("""
-                    StorageCouchBaseDB.deleteTagFromTransactions():
-                    Encounter error removing tag from transaction in database.
-                    Unable to retrieve transaction document in database using id.
-                    Throwing StorageError.
-                """)
-                throw StorageError(message: """
-                    Unable to retrieve transaction document in database using id.
-                """)
-            }
-            // Reconstruct document as Transaction object
-            let transactionDictionary = transactionDocument.toDictionary()
-            let transactionData = try JSONSerialization.data(withJSONObject: transactionDictionary, options: [])
-            let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
+        let transactions = try loadTransactionsFromIds(transactionIds)
+        for (currentTransaction, transactionId) in transactions {
             // Remove the tag from transaction
             var newTags = currentTransaction.tags
             newTags.remove(tag)
@@ -240,6 +225,42 @@ extension StorageCouchBaseDB {
                 throw StorageError(message: "Transactions data couldn't be loaded from database.")
             }
         }
+    }
+
+    private func loadTransactionsFromIds(_ transactionIds: [String]) throws
+        -> [(transaction: Transaction, uid: String)] {
+        var transactionAndIdCollection: [(transaction: Transaction, uid: String)] = []
+        log.info("loadTransactionsFromIds():")
+        for transactionId in transactionIds {
+            do {
+                // Fetch the specific document from database
+                guard let transactionDocument = transactionDatabase.document(withID: transactionId) else {
+                    log.warning("""
+                        StorageCouchBaseDB.loadTransactionsFromIds():
+                        Encounter error removing tag from transaction in database.
+                        Unable to retrieve transaction document in database using id.
+                        Throwing StorageError.
+                    """)
+                    throw StorageError(message: """
+                        Unable to retrieve transaction document in database using id.
+                    """)
+                }
+                // Reconstruct document as Transaction object
+                let transactionDictionary = transactionDocument.toDictionary()
+                let transactionData = try JSONSerialization.data(withJSONObject: transactionDictionary, options: [])
+                let currentTransaction = try JSONDecoder().decode(Transaction.self, from: transactionData)
+                transactionAndIdCollection.append((transaction: currentTransaction, uid: transactionId))
+            } catch {
+                log.warning("""
+                    StorageCouchBaseDB.loadTransactionsFromIds():
+                    Encounter error reconstructing transaction objects.
+                """)
+                throw StorageError(message: """
+                    Encounter error reconstructing transaction objects by loading from database using id.
+                """)
+            }
+        }
+        return transactionAndIdCollection
     }
 
     func loadAllTransactions() throws -> [Transaction] {
@@ -331,25 +352,17 @@ extension StorageCouchBaseDB {
     }
     **/
 
-    func loadTransactions(ofTags tags: Set<Tag>) throws -> [Transaction] {
-        do {
-            let allTransactions = try loadAllTransactions()
-            var wantedTransactions: [Transaction] = []
-            for transactions in allTransactions {
-                for wantedTags in tags where transactions.tags.contains(wantedTags) {
-                    wantedTransactions.append(transactions)
-                    break
-                }
-            }
-            log.info("""
-                StorageCouchBaseDB.loadTransactions() with arguments:
-                ofTags=\(tags).
-                """)
-            return wantedTransactions
-        } catch {
-            throw StorageError(message: """
-                loadTransactions(ofTags) encounter error, underlying calls loadAllTransactions()
-            """)
+    func loadTransactions(ofTag tag: Tag) throws -> [Transaction] {
+        let transactionIds = try getTransactionIdsWithTag(tag)
+        let transactionIdTuples = try loadTransactionsFromIds(transactionIds)
+        var transactions: [Transaction] = []
+        for (transaction, _) in transactionIdTuples {
+            transactions.append(transaction)
         }
+        log.info("""
+            StorageCouchBaseDB.loadTransactions() with arguments:
+            ofTag=\(tag).
+        """)
+        return transactions
     }
 }

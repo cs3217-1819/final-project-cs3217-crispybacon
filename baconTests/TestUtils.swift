@@ -153,10 +153,6 @@ class TestUtils {
                          amount: 1,
                          location: CodableCLLocation(sampleCLLocation1B))
 
-    static let foodTagSet: Set<Tag> = [tagFood]
-    static let billTagSet: Set<Tag> = [tagBills]
-    static let transportFoodTagSet: Set<Tag> = [tagTransport, tagFood]
-
     // TRANSACTION - TAG - FOOD
     static let validTransactionFood01 =
         try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),

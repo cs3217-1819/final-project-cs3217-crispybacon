@@ -36,12 +36,25 @@ extension StorageCouchBaseDB {
         }
     }
 
-    /// Retrieves all transaction ids with the specified tag
-    /// As well as remove all associations with the specified tag
-    func getAndDeleteTransactionIdsWithTag(_ tag: Tag) throws -> [String] {
+    private func getQueryOfSpecifiedTag(_ tag: Tag) -> Query {
         let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(tagAssociationDatabase))
             .where(Expression.property(Constants.tagValueKey).equalTo(Expression.int64(tag.internalValue)))
+        return query
+    }
+
+    /// Retrieves all transaction ids with the specified tag
+    func getTransactionIdsWithTag(_ tag: Tag) throws -> [String] {
+        let query = getQueryOfSpecifiedTag(tag)
+        // Retrieve all transaction ids with this tag
+        let transactionIds = try getTransactionIdsFromQuery(query)
+        return transactionIds
+    }
+
+    /// Retrieves all transaction ids with the specified tag
+    /// As well as remove all associations with the specified tag
+    func getAndDeleteTransactionIdsWithTag(_ tag: Tag) throws -> [String] {
+        let query = getQueryOfSpecifiedTag(tag)
         // Retrieve all transaction ids with this tag
         let transactionIds = try getTransactionIdsFromQuery(query)
         // Remove all associations of this tag

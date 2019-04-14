@@ -119,8 +119,8 @@ class TransactionManager: Observer {
     }
     **/
 
-    func loadTransactions(ofTags tags: Set<Tag>) throws -> [Transaction] {
-        let transactions = try storageManager.loadTransactions(ofTags: tags)
+    func loadTransactions(ofTag tag: Tag) throws -> [Transaction] {
+        let transactions = try storageManager.loadTransactions(ofTag: tag)
         return observeTransactions(transactions)
     }
 }

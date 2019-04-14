@@ -82,15 +82,14 @@ struct Tag: Codable, Comparable, Hashable {
     }
 
     /// Initializes a standalone Tag.
-    /// A standalone Tag has no meaningful `internalValue` nor `parentInternalValue`.
     /// Its `value` and optional `parentValue` properties are specified during instantiation.
     init(_ value: String, parentValue: String? = nil) {
         overriddenValue = value
         overriddenParentValue = parentValue
         isParentValueOverridden = true
 
-        self.internalValue = 0
-        self.parentInternalValue = 0
+        self.internalValue = Int64(value.hashValue)
+        self.parentInternalValue = parentValue != nil ? Int64(parentValue.hashValue) : nil
     }
 
     /// Convenience computed property to represent whether a Tag is a child Tag.
