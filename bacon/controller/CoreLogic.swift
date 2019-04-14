@@ -31,17 +31,17 @@ class CoreLogic: CoreLogicInterface {
     func recordTransaction(date: Date,
                            type: TransactionType,
                            frequency: TransactionFrequency,
-                           category: TransactionCategory,
+                           tags: Set<Tag>,
                            amount: Decimal,
                            description: String,
                            image: CodableUIImage? = nil,
                            location: CodableCLLocation? = nil) throws {
         let currentTransaction = try Transaction(date: date, type: type, frequency: frequency,
-                                                 category: category, amount: amount, description: description,
+                                                 tags: tags, amount: amount, description: description,
                                                  image: image, location: location)
         log.info("""
             CoreLogic.recordTransaction() with arguments:
-            date=\(date) type=\(type) frequency=\(frequency) category=\(category) amount=\(amount)
+            date=\(date) type=\(type) frequency=\(frequency) tags=\(tags) amount=\(amount)
             description=\(description) location=\(location as Optional).
             """)
         try transactionManager.saveTransaction(currentTransaction)

@@ -151,6 +151,29 @@ class StorageManagerTests: XCTestCase {
         }
     }
 
+    func test_loadAllTransactions() {
+        let database = try! StorageManager()
+        // Clear database
+        try! database.clearTransactionDatabase()
+        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
+        // Test loading empty database
+        XCTAssertTrue(try database.loadAllTransactions().isEmpty)
+
+        // Save multiple transactions
+        let transactions = [TestUtils.validTransactionDate03,
+                            TestUtils.validTransactionDate02,
+                            TestUtils.validTransactionDate01]
+        for transaction in transactions {
+            XCTAssertNoThrow(try database.saveTransaction(transaction))
+        }
+        let loadedTransactions = try! database.loadAllTransactions()
+        XCTAssertEqual(transactions.count, loadedTransactions.count)
+        // Check that the transactions loaded out are equal and in reverse chronological order
+        for (index, transaction) in transactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransactions[index]))
+        }
+    }
+
     func test_loadTransactions_limit() {
         let database = try! StorageManager()
         // Clear database
@@ -320,6 +343,7 @@ class StorageManagerTests: XCTestCase {
         XCTAssertThrowsError(try database.loadTransactions(ofType: .expenditure, limit: -1))
     }
 
+    /**
     func test_loadTransactions_OfCategory() {
         let database = try! StorageManager()
         // Clear database
@@ -366,6 +390,52 @@ class StorageManagerTests: XCTestCase {
         let database = try! StorageManager()
         XCTAssertThrowsError(try database.loadTransactions(ofCategory: .travel, limit: -1))
     }
+    **/
 
+    func test_loadTransactions_OfTags() {
+        let database = try! StorageManager()
+        // Clear database
+        try! database.clearTransactionDatabase()
+        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
+        // Test loading empty database
+        XCTAssertTrue(try database.loadTransactions(ofTag: TestUtils.tagFood).isEmpty)
+
+        // Save 6 transactions of tags "food" "transport" "bill"
+        let foodTransactions = [TestUtils.validTransactionFood03,
+                                TestUtils.validTransactionFood02,
+                                TestUtils.validTransactionFood01]
+        let transportBillTransactions = [TestUtils.validTransactionTransportBill03,
+                                         TestUtils.validTransactionTransportBill02,
+                                         TestUtils.validTransactionTransportBill01]
+        for transaction in foodTransactions {
+            XCTAssertNoThrow(try database.saveTransaction(transaction))
+        }
+        for transaction in transportBillTransactions {
+            XCTAssertNoThrow(try database.saveTransaction(transaction))
+        }
+
+        // Test loading
+        let loadedFoodTransactions = try! database.loadTransactions(ofTag: TestUtils.tagFood)
+        XCTAssertEqual(loadedFoodTransactions.count, foodTransactions.count)
+        // Check that the transactions with the tag "food" loaded out are equal and in reverse chronological order
+        for (index, transaction) in foodTransactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedFoodTransactions[index]))
+        }
+
+        let loadedBillTransactions = try! database.loadTransactions(ofTag: TestUtils.tagBills)
+        XCTAssertEqual(loadedBillTransactions.count, transportBillTransactions.count)
+        // Check that the transactions with the tag "bill" loaded out are equal and in reverse chronological order
+        for (index, transaction) in transportBillTransactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedBillTransactions[index]))
+        }
+
+        let loadedTransportTransactions = try! database.loadTransactions(ofTag: TestUtils.tagTransport)
+        XCTAssertEqual(loadedTransportTransactions.count, transportBillTransactions.count)
+        // Check that the transactions with the tag "transport" or "food"
+        // loaded out are equal and in reverse chronological order
+        for (index, transaction) in transportBillTransactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransportTransactions[index]))
+        }
+    }
     // swiftlint:enable force_try
 }

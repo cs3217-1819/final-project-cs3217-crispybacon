@@ -52,6 +52,12 @@ class StorageManager {
         try concreteStorage.saveBudget(budget)
     }
 
+    /// deleteTagFromTransactions will remove the specified tag
+    /// from all transactions associated with it.
+    func deleteTagFromTransactions(_ tag: Tag) throws {
+        try concreteStorage.deleteTagFromTransactions(tag)
+    }
+
     /// deleteTransaction() should only be called on Transactions that are loaded
     /// out from database.
     /// Calling delete on a new Transaction object instantiated on run-time
@@ -68,6 +74,15 @@ class StorageManager {
 
     func loadBudget() throws -> Budget {
         return try concreteStorage.loadBudget()
+    }
+
+    /// Loads all the Transactions in the database
+    /// - Returns:
+    ///     all the transactions saved in the database in reverse chronological order.
+    ///     If there are no transactions saved, an empty array is returned.
+    /// - Throws: `StorageError`
+    func loadAllTransactions() throws -> [Transaction] {
+        return try concreteStorage.loadAllTransactions()
     }
 
     /// Loads a collection of Transaction.
@@ -158,6 +173,7 @@ class StorageManager {
         return try concreteStorage.loadTransactions(ofType: type, limit: limit)
     }
 
+    /**
     /// Loads a collection of Transaction with the requirements specified.
     /// - Parameters:
     ///     - category: The transaction category.
@@ -175,5 +191,17 @@ class StorageManager {
                 """)
         }
         return try concreteStorage.loadTransactions(ofCategory: category, limit: limit)
+    }
+    **/
+
+    /// Loads a collection of Transaction with the tags specified.
+    /// - Parameters:
+    ///     - tags: The set of tags specified.
+    /// - Returns:
+    ///     all transactions that have at least one of the tag specified in reverse chronological order.
+    ///     If no transactions saved fulfill the requirement, an empty array is returned.
+    /// - Throws: `StorageError`
+    func loadTransactions(ofTag tag: Tag) throws -> [Transaction] {
+        return try concreteStorage.loadTransactions(ofTag: tag)
     }
 }

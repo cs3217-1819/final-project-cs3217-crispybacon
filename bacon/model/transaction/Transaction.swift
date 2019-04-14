@@ -17,53 +17,55 @@ class Transaction: HashableClass, Codable, Observable {
     private(set) var isDeleted = false
     private(set) var deleteSuccessCallback: () -> Void = {}
     private(set) var deleteFailureCallback: (String) -> Void = { _ in }
+    private(set) var editSuccessCallback: () -> Void = {}
+    private(set) var editFailureCallback: (String) -> Void = { _ in }
 
     private(set) var date: Date {
         didSet {
             log.info("Set date=\(date)")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var type: TransactionType {
         didSet {
             log.info("Set type=\(type)")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var frequency: TransactionFrequency {
         didSet {
             log.info("Set frequency=\(frequency)")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
-    private(set) var category: TransactionCategory {
+    private(set) var tags: Set<Tag> {
         didSet {
-            log.info("Set category=\(category)")
-            notifyObserversOfSelf()
+            log.info("Set tags=\(tags)")
+            //notifyObserversOfSelf()
         }
     }
     private(set) var amount: Decimal {
         didSet {
             log.info("Set amount=\(amount)")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var description: String {
         didSet {
             log.info("Set description=\(description)")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var image: CodableUIImage? {
         didSet {
             log.info("Updated image")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var location: CodableCLLocation? {
         didSet {
             log.info("Set location=\(String(describing: location))")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
 
@@ -76,7 +78,7 @@ class Transaction: HashableClass, Codable, Observable {
         case date
         case type
         case frequency
-        case category
+        case tags
         case amount
         case description
         case image
@@ -88,14 +90,14 @@ class Transaction: HashableClass, Codable, Observable {
     ///     - time: The transaction time, as represented by a TransactionTime object.
     ///     - type: The transaction type.
     ///     - frequency: The transaction frequency.
-    ///     - category: The transaction category.
+    ///     - tags: The transaction tags.
     ///     - amount: The transaction amount. Must be > 0.
     ///     - description: An optional description of the transaction. Defaults to an empty string.
     /// - Throws: `InitializationError` if `amount <= 0`.
     init(date: Date,
          type: TransactionType,
          frequency: TransactionFrequency,
-         category: TransactionCategory,
+         tags: Set<Tag>,
          amount: Decimal,
          description: String = "",
          image: CodableUIImage? = nil,
@@ -105,7 +107,7 @@ class Transaction: HashableClass, Codable, Observable {
         self.date = date
         self.type = type
         self.frequency = frequency
-        self.category = category
+        self.tags = tags
         self.amount = amount
         self.description = description
         self.image = image
@@ -116,7 +118,7 @@ class Transaction: HashableClass, Codable, Observable {
             try validate(date: date,
                          type: type,
                          frequency: frequency,
-                         category: category,
+                         tags: tags,
                          amount: amount,
                          description: description,
                          image: image,
@@ -140,17 +142,21 @@ class Transaction: HashableClass, Codable, Observable {
     func edit(date: Date? = nil,
               type: TransactionType? = nil,
               frequency: TransactionFrequency? = nil,
-              category: TransactionCategory? = nil,
+              tags: Set<Tag>? = nil,
               amount: Decimal? = nil,
               description: String? = nil,
               image: CodableUIImage? = nil,
-              location: CodableCLLocation? = nil) throws {
+              location: CodableCLLocation? = nil,
+              successCallback: @escaping () -> Void = {},
+              failureCallback: @escaping (String) -> Void = { _ in }) throws {
         do {
             log.info("Editing Transaction instance.")
+            editSuccessCallback = successCallback
+            editFailureCallback = failureCallback
             try validate(date: date,
                          type: type,
                          frequency: frequency,
-                         category: category,
+                         tags: tags,
                          amount: amount,
                          description: description,
                          image: image,
@@ -171,8 +177,8 @@ class Transaction: HashableClass, Codable, Observable {
         if let frequency = frequency {
             self.frequency = frequency
         }
-        if let category = category {
-            self.category = category
+        if let tags = tags {
+            self.tags = tags
         }
         if let amount = amount {
             self.amount = amount
@@ -186,7 +192,7 @@ class Transaction: HashableClass, Codable, Observable {
         if let location = location {
             self.location = location
         }
-
+        notifyObserversOfSelf()
         log.info("Transaction editing succeeded.")
     }
 
@@ -197,7 +203,7 @@ class Transaction: HashableClass, Codable, Observable {
         notifyObservers(self)
     }
 
-    /// Deletes this transaction. Accepts 2 optional parameters.
+    /// Deletes this transaction. Accepts 2 parameters with default values.
     /// - Parameters:
     ///     - successCallback: Will be called when the transaction is successfully deleted.
     ///     - failureCallback: Will be called with an error message if an error occurs
@@ -225,7 +231,7 @@ extension Transaction {
     private func validate(date: Date? = nil,
                           type: TransactionType? = nil,
                           frequency: TransactionFrequency? = nil,
-                          category: TransactionCategory? = nil,
+                          tags: Set<Tag>? = nil,
                           amount: Decimal? = nil,
                           description: String? = nil,
                           image: CodableUIImage? = nil,
@@ -260,7 +266,7 @@ extension Transaction {
         return date == transaction.date
             && type == transaction.type
             && frequency == transaction.frequency
-            && category == transaction.category
+            && tags == transaction.tags
             && amount == transaction.amount
             && description == transaction.description
             && location == transaction.location

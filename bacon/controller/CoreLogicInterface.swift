@@ -15,7 +15,7 @@ protocol CoreLogicInterface {
     func recordTransaction(date: Date,
                            type: TransactionType,
                            frequency: TransactionFrequency,
-                           category: TransactionCategory,
+                           tags: Set<Tag>,
                            amount: Decimal,
                            description: String,
                            image: CodableUIImage?,
