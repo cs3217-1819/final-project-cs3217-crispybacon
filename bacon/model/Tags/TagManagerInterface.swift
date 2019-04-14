@@ -16,7 +16,7 @@ struct InvalidTagError: Error {
     let message: String
 }
 
-protocol TagManagerInterface {
+protocol TagManagerInterface: Observable {
 
     /// Adds a new child Tag to a parent Tag and returns it.
     /// - Throws:
