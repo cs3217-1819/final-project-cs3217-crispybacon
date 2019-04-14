@@ -76,7 +76,7 @@ class MainPageViewController: UIViewController {
                 pigView.image = Constants.veryHappyPig
             }
         } else if percentage == 1 {
-            budgetLabel.textColor = UIColor.yellow.withAlphaComponent(0.5)
+            budgetLabel.textColor = UIColor.brown.withAlphaComponent(0.5)
             pigView.image = Constants.neutralPig
         } else {
             budgetLabel.textColor = UIColor.red.withAlphaComponent(0.5)

@@ -812,10 +812,11 @@
                         <outlet property="tagLabel" destination="9OH-EA-Fun" id="atw-mp-iPV"/>
                         <outlet property="timeLabel" destination="8ow-WL-Cpp" id="WYk-co-6Ef"/>
                         <outlet property="typeLabel" destination="LrK-Yu-LCW" id="ziF-wV-dfN"/>
-                        <segue destination="taX-Qr-VBM" kind="show" identifier="addToMainSuccess" id="tM7-n6-JRD"/>
+                        <segue destination="Y5b-w6-RtN" kind="unwind" identifier="addToMainSuccess" unwindAction="unwindToMainWithSegue:" id="HIj-1V-7x9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XLw-qj-Set" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Y5b-w6-RtN" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer id="6DH-nI-EhV">
                     <connections>
                         <action selector="typeFieldPressed:" destination="Kkb-EH-aei" id="KPd-ma-RpD"/>
@@ -1319,7 +1320,7 @@
         <image name="plus" width="294" height="294"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8Ch-jd-bcE"/>
-        <segue reference="JxZ-T0-qdg"/>
+        <segue reference="nRX-mK-th1"/>
+        <segue reference="dM7-bg-LN1"/>
     </inferredMetricsTieBreakers>
 </document>

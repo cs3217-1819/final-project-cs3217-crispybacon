@@ -218,12 +218,6 @@ extension AddTransactionViewController: CLLocationManagerDelegate {
 
 extension AddTransactionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.addToMainSuccess {
-            guard let mainController = segue.destination as? MainPageViewController else {
-                return
-            }
-            mainController.core = core
-        }
         if segue.identifier == Constants.addToTagSelection {
             guard let tagController = segue.destination as? TagSelectionViewController else {
                 return

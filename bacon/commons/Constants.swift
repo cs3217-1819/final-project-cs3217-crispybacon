@@ -24,9 +24,9 @@ class Constants {
 
     // Main Page
     static let neutralPig = UIImage(named: "demo")
-    static let happyPig = UIImage(named: "happy1")
+    static let happyPig = UIImage(named: "happy")
     static let veryHappyPig = UIImage(named: "happy2")
-    static let sadPig = UIImage(named: "unhappy1")
+    static let sadPig = UIImage(named: "unhappy")
     static let verySadPig = UIImage(named: "unhappy2")
     static let mainToAddTransactionEx = "mainToAddTransactionEx"
     static let mainToAddTransactionIn = "mainToAddTransactionIn"
