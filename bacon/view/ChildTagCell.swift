@@ -22,7 +22,7 @@ class ChildTagCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
-            childTagLabel.textColor = UIColor.green
+            childTagLabel.textColor = UIColor.green.withAlphaComponent(0.5)
         } else {
             childTagLabel.textColor = UIColor.black
         }
