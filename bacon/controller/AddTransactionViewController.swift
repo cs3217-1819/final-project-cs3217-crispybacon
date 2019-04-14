@@ -174,7 +174,7 @@ class AddTransactionViewController: UIViewController {
     private func displayTags(tags: Set<Tag>) {
         var tagString = ""
         for tag in tags {
-            tagString += tag.value + "  "
+            tagString += tag.toString() + "  "
         }
         if tagString == "" {
             tagString = "Add tags!"

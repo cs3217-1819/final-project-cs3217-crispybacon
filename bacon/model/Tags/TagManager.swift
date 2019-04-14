@@ -154,6 +154,14 @@ struct Tag: Codable, Comparable, Hashable {
         hasher.combine(parentInternalValue)
     }
 
+    func toString() -> String {
+        var tagName = self.value
+        if let parentName = self.parentValue {
+            tagName = parentName + "/" + tagName
+        }
+        return tagName
+    }
+
 }
 
 // MARK: TagManager: TagManagerInterface

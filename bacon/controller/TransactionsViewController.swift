@@ -149,7 +149,7 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         let tags = currentMonthTransactions[arrayIndex].tags
         var tagsString = ""
         for tag in tags {
-            tagsString += tag.value + "  "
+            tagsString += tag.toString() + "  "
         }
         if tagsString == "" {
             tagsString = Constants.defaultTagsToDisplay
