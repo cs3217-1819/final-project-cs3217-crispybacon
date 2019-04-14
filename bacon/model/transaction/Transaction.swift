@@ -17,53 +17,55 @@ class Transaction: HashableClass, Codable, Observable {
     private(set) var isDeleted = false
     private(set) var deleteSuccessCallback: () -> Void = {}
     private(set) var deleteFailureCallback: (String) -> Void = { _ in }
+    private(set) var editSuccessCallback: () -> Void = {}
+    private(set) var editFailureCallback: (String) -> Void = { _ in }
 
     private(set) var date: Date {
         didSet {
             log.info("Set date=\(date)")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var type: TransactionType {
         didSet {
             log.info("Set type=\(type)")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var frequency: TransactionFrequency {
         didSet {
             log.info("Set frequency=\(frequency)")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var tags: Set<Tag> {
         didSet {
             log.info("Set tags=\(tags)")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var amount: Decimal {
         didSet {
             log.info("Set amount=\(amount)")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var description: String {
         didSet {
             log.info("Set description=\(description)")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var image: CodableUIImage? {
         didSet {
             log.info("Updated image")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
     private(set) var location: CodableCLLocation? {
         didSet {
             log.info("Set location=\(String(describing: location))")
-            notifyObserversOfSelf()
+            //notifyObserversOfSelf()
         }
     }
 
@@ -144,9 +146,13 @@ class Transaction: HashableClass, Codable, Observable {
               amount: Decimal? = nil,
               description: String? = nil,
               image: CodableUIImage? = nil,
-              location: CodableCLLocation? = nil) throws {
+              location: CodableCLLocation? = nil,
+              successCallback: @escaping () -> Void = {},
+              failureCallback: @escaping (String) -> Void = { _ in }) throws {
         do {
             log.info("Editing Transaction instance.")
+            editSuccessCallback = successCallback
+            editFailureCallback = failureCallback
             try validate(date: date,
                          type: type,
                          frequency: frequency,
@@ -186,7 +192,7 @@ class Transaction: HashableClass, Codable, Observable {
         if let location = location {
             self.location = location
         }
-
+        notifyObserversOfSelf()
         log.info("Transaction editing succeeded.")
     }
 
@@ -197,7 +203,7 @@ class Transaction: HashableClass, Codable, Observable {
         notifyObservers(self)
     }
 
-    /// Deletes this transaction. Accepts 2 optional parameters.
+    /// Deletes this transaction. Accepts 2 parameters with default values.
     /// - Parameters:
     ///     - successCallback: Will be called when the transaction is successfully deleted.
     ///     - failureCallback: Will be called with an error message if an error occurs
