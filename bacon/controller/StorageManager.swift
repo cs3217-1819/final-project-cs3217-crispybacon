@@ -52,8 +52,24 @@ class StorageManager {
         try concreteStorage.saveBudget(budget)
     }
 
+    /// deleteTagFromTransactions will remove the specified tag
+    /// from all transactions associated with it.
+    func deleteTagFromTransactions(_ tag: Tag) throws {
+        try concreteStorage.deleteTagFromTransactions(tag)
+    }
+
+    /// deleteTransaction() should only be called on Transactions that are loaded
+    /// out from database.
+    /// Calling delete on a new Transaction object instantiated on run-time
+    /// will cause the method to throw a StorageError.
     func deleteTransaction(_ transaction: Transaction) throws {
         try concreteStorage.deleteTransaction(transaction)
+    }
+
+    /// Similar to deleteTransaction(), updateTransaction() should only be called on
+    /// Transactions that are loaded out from database.
+    func updateTransaction(_ transaction: Transaction) throws {
+        try concreteStorage.updateTransaction(transaction)
     }
 
     func loadBudget() throws -> Budget {
@@ -185,7 +201,7 @@ class StorageManager {
     ///     all transactions that have at least one of the tag specified in reverse chronological order.
     ///     If no transactions saved fulfill the requirement, an empty array is returned.
     /// - Throws: `StorageError`
-    func loadTransactions(ofTags tags: Set<Tag>) throws -> [Transaction] {
-        return try concreteStorage.loadTransactions(ofTags: tags)
+    func loadTransactions(ofTag tag: Tag) throws -> [Transaction] {
+        return try concreteStorage.loadTransactions(ofTag: tag)
     }
 }

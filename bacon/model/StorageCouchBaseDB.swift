@@ -104,10 +104,11 @@ class StorageCouchBaseDB {
     }
 
     // Method to encode a Transaction class to its MutableDocument counterpart
-    func createMutableDocument(from transaction: Transaction) throws -> MutableDocument {
+    func createMutableDocument(from transaction: Transaction, uid: String? = nil) throws -> MutableDocument {
         do {
             let transactionData = try transaction.asDictionary()
-            let transactionDocument = MutableDocument(data: transactionData)
+            // if uid is not provided, a random uid will be assigned to the document
+            let transactionDocument = MutableDocument(id: uid, data: transactionData)
             transactionDocument.setDate(transaction.date, forKey: Constants.rawDateKey)
             return transactionDocument
         } catch {

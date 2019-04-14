@@ -18,6 +18,10 @@ struct InvalidTagError: Error {
 
 protocol TagManagerInterface {
 
+    /// Returns a Tag of the provided values.
+    /// - Throws: `InvalidTagError` if the Tag does not exist.
+    func getTag(for value: String, of parentValue: String?) throws -> Tag
+
     /// Adds a new child Tag to a parent Tag and returns it.
     /// - Throws:
     ///     - `DuplicateTagError` if the child Tag already exists.
@@ -52,6 +56,12 @@ protocol TagManagerInterface {
 
     /// Checks whether a parent Tag with the provided value exists.
     func isParentTag(_ parent: String) -> Bool
+
+    /// Renames a Tag and returns it.
+    /// - Throws:
+    ///     - `DuplicateTagError` if the renamed Tag already exists.
+    ///     - `InvalidTagError` if the Tag does not exist.
+    func renameTag(_ oldValue: String, to newValue: String, of parent: String?) throws -> Tag
 
     /// Clears all Tags.
     func clearTags()

@@ -299,6 +299,60 @@ class TagManagerTests: XCTestCase {
         XCTAssertEqual(childrenTags2[1].parentValue, parent2)
     }
 
+    func test_renameTag_parentTags() {
+        let tag1 = try! tagManager.addParentTag(parent1)
+        let tag2 = try! tagManager.addParentTag(parent2)
+        XCTAssertTrue(tagManager.isParentTag(parent1))
+        XCTAssertTrue(tagManager.isParentTag(parent2))
+        XCTAssertEqual(tag1.value, parent1)
+        XCTAssertEqual(tag2.value, parent2)
+
+        try! _ = tagManager.renameTag(parent1, to: "parent3")
+        try! _ = tagManager.renameTag(parent2, to: "parent4")
+
+        XCTAssertFalse(tagManager.isParentTag(parent1))
+        XCTAssertFalse(tagManager.isParentTag(parent2))
+        XCTAssertTrue(tagManager.isParentTag("parent3"))
+        XCTAssertTrue(tagManager.isParentTag("parent4"))
+        XCTAssertEqual(tag1.value, "parent3")
+        XCTAssertEqual(tag2.value, "parent4")
+    }
+
+    func test_renameTag_childrenTags() {
+        let parentTag1 = try! tagManager.addParentTag(parent1)
+        let parentTag2 = try! tagManager.addParentTag(parent2)
+        let childTag11 = try! tagManager.addChildTag(child1, to: parent1)
+        let childTag12 = try! tagManager.addChildTag(child2, to: parent1)
+        let childTag21 = try! tagManager.addChildTag(child1, to: parent2)
+        let childTag22 = try! tagManager.addChildTag(child2, to: parent2)
+        XCTAssertTrue(tagManager.isChildTag(child1, of: parent1))
+        XCTAssertTrue(tagManager.isChildTag(child2, of: parent1))
+        XCTAssertTrue(tagManager.isChildTag(child1, of: parent2))
+        XCTAssertTrue(tagManager.isChildTag(child2, of: parent2))
+        XCTAssertEqual(childTag11.value, child1)
+        XCTAssertEqual(childTag12.value, child2)
+        XCTAssertEqual(childTag21.value, child1)
+        XCTAssertEqual(childTag22.value, child2)
+
+        try! _ = tagManager.renameTag(child1, to: "child3", of: parent1)
+        try! _ = tagManager.renameTag(child2, to: "child4", of: parent1)
+        try! _ = tagManager.renameTag(child1, to: "child3", of: parent2)
+        try! _ = tagManager.renameTag(child2, to: "child4", of: parent2)
+
+        XCTAssertFalse(tagManager.isChildTag(child1, of: parent1))
+        XCTAssertFalse(tagManager.isChildTag(child2, of: parent1))
+        XCTAssertFalse(tagManager.isChildTag(child1, of: parent2))
+        XCTAssertFalse(tagManager.isChildTag(child2, of: parent2))
+        XCTAssertTrue(tagManager.isChildTag("child3", of: parent1))
+        XCTAssertTrue(tagManager.isChildTag("child4", of: parent1))
+        XCTAssertTrue(tagManager.isChildTag("child3", of: parent2))
+        XCTAssertTrue(tagManager.isChildTag("child4", of: parent2))
+        XCTAssertEqual(childTag11.value, "child3")
+        XCTAssertEqual(childTag12.value, "child4")
+        XCTAssertEqual(childTag21.value, "child3")
+        XCTAssertEqual(childTag22.value, "child4")
+    }
+
 }
 
 // swiftlint:enbable force_try
