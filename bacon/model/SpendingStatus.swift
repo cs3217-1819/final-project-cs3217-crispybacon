@@ -12,6 +12,13 @@ struct SpendingStatus {
     let currentSpending: Decimal
     let totalBudget: Decimal
     var percentage: Decimal {
+        if totalBudget == 0 {
+            if currentSpending == 0 {
+                return 1
+            } else {
+                return 100
+            }
+        }
         return currentSpending / totalBudget
     }
 }
