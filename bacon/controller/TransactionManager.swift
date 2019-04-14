@@ -34,9 +34,15 @@ class TransactionManager: Observer {
             } catch {
                 transaction.deleteFailureCallback(error.localizedDescription)
             }
+        } else {
+            // Handle transaction edit
+            do {
+                try storageManager.updateTransaction(transaction)
+                transaction.editSuccessCallback()
+            } catch {
+                transaction.editFailureCallback(error.localizedDescription)
+            }
         }
-        // TODO: Update Transaction code, how to handle errors thrown?
-        //try storageManager.updateTransaction(transaction)
     }
 
     private func observeTransactions(_ transactions: [Transaction]) -> [Transaction] {
