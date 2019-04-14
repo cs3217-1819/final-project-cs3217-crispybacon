@@ -74,7 +74,7 @@ class AddTransactionViewController: UIViewController {
 
     @IBAction func addButtonPressed(_ sender: UIButton) {
         captureInputs()
-        performSegue(withIdentifier: "addToMainSuccess", sender: nil)
+        performSegue(withIdentifier: Constants.addToMainSuccess, sender: nil)
     }
 
     private func captureInputs() {
@@ -177,7 +177,7 @@ class AddTransactionViewController: UIViewController {
             tagString += tag.toString() + "  "
         }
         if tagString == "" {
-            tagString = "Add tags!"
+            tagString = Constants.addTagMessage
         }
         tagLabel.text = tagString
     }
@@ -218,13 +218,13 @@ extension AddTransactionViewController: CLLocationManagerDelegate {
 
 extension AddTransactionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addToMainSuccess" {
+        if segue.identifier == Constants.addToMainSuccess {
             guard let mainController = segue.destination as? MainPageViewController else {
                 return
             }
             mainController.core = core
         }
-        if segue.identifier == "addToTagSelection" {
+        if segue.identifier == Constants.addToTagSelection {
             guard let tagController = segue.destination as? TagSelectionViewController else {
                 return
             }

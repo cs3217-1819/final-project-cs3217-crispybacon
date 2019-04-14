@@ -43,7 +43,7 @@ class SetBuddgetViewController: UIViewController {
         do {
             let budget = try Budget(from: currentTime, to: future, amount: budgetAmount)
             try core.saveBudget(budget)
-            performSegue(withIdentifier: "unwindFromBudgetToMain", sender: nil)
+            performSegue(withIdentifier: Constants.unwindFromBudgetToMain, sender: nil)
         } catch {
             self.handleError(error: error, customMessage: Constants.budgetSetFailureMessage)
         }

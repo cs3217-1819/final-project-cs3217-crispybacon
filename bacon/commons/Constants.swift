@@ -28,6 +28,11 @@ class Constants {
     static let veryHappyPig = UIImage(named: "happy2")
     static let sadPig = UIImage(named: "unhappy1")
     static let verySadPig = UIImage(named: "unhappy2")
+    static let mainToAddTransactionEx = "mainToAddTransactionEx"
+    static let mainToAddTransactionIn = "mainToAddTransactionIn"
+    static let mainToSetBudget = "mainToSetBudget"
+    static let mainToTransactions = "mainToTransactions"
+    static let mainToTags = "mainToTags"
 
     // Add Transaction Page
     static let defaultTransactionType = TransactionType.expenditure
@@ -36,6 +41,9 @@ class Constants {
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
     static let defaultDescription = ""
+    static let addTagMessage = "Add tags!"
+    static let addToMainSuccess = "addToMainSuccess"
+    static let addToTagSelection = "addToTagSelection"
 
     // Trsansactions Page
     static let defaultImage = UIImage(named: "dummy")
@@ -48,10 +56,15 @@ class Constants {
     static let tagNameInputTitle = "Add new tag"
     static let tagNameInputMessage = "Enter tag name"
     static let InvalidTagNameWarning = "Please enter a valid name!"
+    static let tagSelectionToAdd = "tagSelectionToAdd"
 
     // Set Budget Page
     static let defaultBudgetString = "-1.0"
     static let defaultBudget: Decimal = -1.0
+    static let unwindFromBudgetToMain = "unwindFromBudgetToMain"
+
+    // Calendar Page
+    static let unwindToAdd = "unwindToAdd"
 
     // Date
     static func getDateFormatter() -> DateFormatter {

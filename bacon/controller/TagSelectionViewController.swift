@@ -43,7 +43,7 @@ class TagSelectionViewController: UIViewController {
     }
 
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "tagSelectionToAdd", sender: nil)
+        performSegue(withIdentifier: Constants.tagSelectionToAdd, sender: nil)
     }
 
     @IBAction func addParentTagButtonPressed(_ sender: UIButton) {

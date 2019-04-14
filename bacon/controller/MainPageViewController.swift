@@ -31,15 +31,15 @@ class MainPageViewController: UIViewController {
     }
 
     @IBAction func plusButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "mainToAddTransactionEx", sender: nil)
+        performSegue(withIdentifier: Constants.mainToAddTransactionEx, sender: nil)
     }
 
     @IBAction func coinSwipedUp(_ sender: UISwipeGestureRecognizer) {
-        performSegue(withIdentifier: "mainToAddTransactionEx", sender: nil)
+        performSegue(withIdentifier: Constants.mainToAddTransactionEx, sender: nil)
     }
 
     @IBAction func coinSwipedDown(_ sender: UISwipeGestureRecognizer) {
-        performSegue(withIdentifier: "mainToAddTransactionIn", sender: nil)
+        performSegue(withIdentifier: Constants.mainToAddTransactionIn, sender: nil)
     }
 
     private func updateBudgetStatus() {
@@ -53,7 +53,7 @@ class MainPageViewController: UIViewController {
             displayBudgetStatus(status: spendingStatus)
         } catch {
             // Budget has not been set
-            performSegue(withIdentifier: "mainToSetBudget", sender: nil)
+            performSegue(withIdentifier: Constants.mainToSetBudget, sender: nil)
         }
     }
 
@@ -103,34 +103,34 @@ extension MainPageViewController {
 
 extension MainPageViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "mainToAddTransactionEx" {
+        if segue.identifier == Constants.mainToAddTransactionEx {
             guard let addController = segue.destination as? AddTransactionViewController else {
                 return
             }
             addController.transactionType = .expenditure
             addController.core = core
         }
-        if segue.identifier == "mainToAddTransactionIn" {
+        if segue.identifier == Constants.mainToAddTransactionIn {
             guard let addController = segue.destination as? AddTransactionViewController else {
                 return
             }
             addController.transactionType = .income
             addController.core = core
         }
-        if segue.identifier == "mainToTransactions" {
+        if segue.identifier == Constants.mainToTransactions {
             guard let transactionsController = segue.destination as? TransactionsViewController else {
                 return
             }
             transactionsController.core = core
         }
-        if segue.identifier == "mainToTags" {
+        if segue.identifier == Constants.mainToTags {
             guard let tagSelectionController = segue.destination as? TagSelectionViewController else {
                 return
             }
             tagSelectionController.core = core
             tagSelectionController.canEdit = true
         }
-        if segue.identifier == "mainToSetBudget" {
+        if segue.identifier == Constants.mainToSetBudget {
             guard let setBudgetController = segue.destination as? SetBuddgetViewController else {
                 return
             }
