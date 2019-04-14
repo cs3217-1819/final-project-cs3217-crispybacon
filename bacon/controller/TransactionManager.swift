@@ -19,30 +19,55 @@ class TransactionManager: Observer {
             """)
     }
 
+    // Observer is responsible for knowing what object types it observes
+    // TransactionManager observes Transactions and TagManager
     func notify(_ value: Any) {
-        guard let transaction = value as? Transaction else {
-            // Observer is responsible for knowing what object types it observes
-            // TransactionManager only observes Transactions
-            fatalError("Unable to type cast observed value to Transaction.")
-        }
-        // Handle transaction deletion
-        if transaction.isDeleted {
-            do {
-                // Try deleting it through StorageManager
-                try storageManager.deleteTransaction(transaction)
-                transaction.deleteSuccessCallback()
-            } catch {
-                transaction.deleteFailureCallback(error.localizedDescription)
+        // Notified by Transaction
+        if let transaction = value as? Transaction {
+            // Handle transaction deletion
+            if transaction.isDeleted {
+                do {
+                    // Try deleting it through StorageManager
+                    try storageManager.deleteTransaction(transaction)
+                    transaction.deleteSuccessCallback()
+                } catch {
+                    transaction.deleteFailureCallback(error.localizedDescription)
+                }
+            } else {
+                // Handle transaction edit
+                do {
+                    try storageManager.updateTransaction(transaction)
+                    transaction.editSuccessCallback()
+                } catch {
+                    transaction.editFailureCallback(error.localizedDescription)
+                }
             }
-        } else {
-            // Handle transaction edit
-            do {
-                try storageManager.updateTransaction(transaction)
-                transaction.editSuccessCallback()
-            } catch {
-                transaction.editFailureCallback(error.localizedDescription)
-            }
+            log.info("""
+                TransactionManager notified by Transaction: \(transaction)
+            """)
+            return
         }
+        // Notified by TagManager
+        if let tag = value as? Tag {
+            // TODO
+            // Update notify to have callback
+            // Handle the error below
+            do {
+                try storageManager.deleteTagFromTransactions(tag)
+            } catch {
+                //zuo bo for now
+            }
+            log.info("""
+                TransactionManager notified by TagManager to delete tag: \(tag)
+            """)
+            return
+        }
+        // If program enters here
+        // meaning, an error has occured, TransactionManager is notified by
+        // objects it doesn't observe.
+        log.warning("""
+            TransactionManager notified by unidentified object: \(value)
+        """)
     }
 
     private func observeTransactions(_ transactions: [Transaction]) -> [Transaction] {
