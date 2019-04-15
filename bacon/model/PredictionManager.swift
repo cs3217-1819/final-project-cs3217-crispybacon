@@ -28,7 +28,7 @@ class PredictionManager {
         return newPrediction
     }
 
-    func getPredictionFromGenerator(_ time: Date, _ location: CodableCLLocation,
+    private func getPredictionFromGenerator(_ time: Date, _ location: CodableCLLocation,
                                     _ transactions: [Transaction]) -> Prediction {
         let prediction = predictionGeneraor.predict(time, location, transactions)
         // need to save into database here

@@ -64,7 +64,11 @@ class AddTransactionViewController: UIViewController {
             self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
             return
         }
-        let codableLocation = CodableCLLocation(self.location!) // !
+        guard let location = location else {
+            // Location functionality is disabled
+            return
+        }
+        let codableLocation = CodableCLLocation(location)
         let prediction = core.getPrediction(dateTime, codableLocation, [Transaction]()) // !
         // populate the fields
     }
