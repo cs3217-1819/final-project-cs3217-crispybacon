@@ -16,7 +16,7 @@ struct InvalidTagError: Error {
     let message: String
 }
 
-protocol TagManagerInterface: Observable {
+protocol TagManagerInterface {
 
     /// Returns a Tag of the provided values.
     /// - Throws: `InvalidTagError` if the Tag does not exist.
