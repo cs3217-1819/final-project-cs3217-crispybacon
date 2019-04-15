@@ -93,7 +93,10 @@ class TestUtils {
                                        validTransactionDate01point2,
                                        validTransactionDate02,
                                        validTransactionDate02point2,
-                                       validTransactionDate03]
+                                       validTransactionDate03,
+                                       validTransactionDate06point2,
+                                       validTransactionDate07point2,
+                                       validTransactionDate08point2]
 
     // TRANSACTION - TYPE - EXPENDITURE
     static let validTransactionExpenditure01 =
@@ -208,13 +211,23 @@ class TestUtils {
                             january1st2019time1000,
                             january2nd2019time1320,
                             january2nd2019time1500,
-                            january5th2019time1230]
+                            january5th2019time1230,
+                            january5th2019time1208,
+                            march26th2019time1108,
+                            march26th2019time2345,
+                            may20th2019time0125]
 
     static let january1st2019time0800 = Constants.getDateFormatter().date(from: "2019-01-01 08:00:00")!
     static let january1st2019time1000 = Constants.getDateFormatter().date(from: "2019-01-01 10:00:00")!
     static let january2nd2019time1320 = Constants.getDateFormatter().date(from: "2019-01-02 13:20:00")!
     static let january2nd2019time1500 = Constants.getDateFormatter().date(from: "2019-01-02 15:00:00")!
     static let january5th2019time1230 = Constants.getDateFormatter().date(from: "2019-01-05 12:30:00")!
+    static let january5th2019time1208 = Constants.getDateFormatter().date(from: "2019-01-05 12:08:00")!
+    static let march26th2019time1108 = Constants.getDateFormatter().date(from: "2019-03-26 11:08:00")!
+    static let march26th2019time2025 = Constants.getDateFormatter().date(from: "2019-03-26 20:25:00")!
+    static let march26th2019time2345 = Constants.getDateFormatter().date(from: "2019-03-26 23:45:00")!
+    static let may20th2019time0125 = Constants.getDateFormatter().date(from: "2019-05-20 01:01:00")!
+
 
     static let validTransactionDate01 =
         try! Transaction(date: january1st2019time0800,
@@ -253,6 +266,27 @@ class TestUtils {
                                                               repeats: 5),
                          tags: [tagTransport],
                          amount: 40.0)
+    static let validTransactionDate06point2 =
+        try! Transaction(date: january5th2019time1208,
+                         type: .expenditure,
+                         frequency: try! TransactionFrequency(nature: .oneTime),
+                         tags: [tagFood, tagTransport, tagEntertainment, tagBills, tagInvestment],
+                         amount: 5.80,
+                         location: CodableCLLocation(sampleCLLocation1A))
+    static let validTransactionDate07point2 =
+        try! Transaction(date: march26th2019time1108,
+                         type: .expenditure,
+                         frequency: try! TransactionFrequency(nature: .oneTime),
+                         tags: [tagFood, tagTransport, tagBills],
+                         amount: 5.80,
+                         location: CodableCLLocation(sampleCLLocation1A))
+    static let validTransactionDate08point2 =
+        try! Transaction(date: march26th2019time2345,
+                         type: .expenditure,
+                         frequency: try! TransactionFrequency(nature: .oneTime),
+                         tags: [tagFood, tagTransport],
+                         amount: 12.34,
+                         location: CodableCLLocation(sampleCLLocation1A))
 
     // VALID BUDGET INSTANCES
     static let validBudget01 =

@@ -78,6 +78,7 @@
 		BEF82C1D22633177007BC819 /* PredictionGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C1C22633177007BC819 /* PredictionGenerator.swift */; };
 		BEF82C1F226331A8007BC819 /* BaconPredictionGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C1E226331A8007BC819 /* BaconPredictionGenerator.swift */; };
 		BEF82C212264D77F007BC819 /* PredictionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C202264D77F007BC819 /* PredictionTests.swift */; };
+		BEF82C252264DBA7007BC819 /* PredictionGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C242264DBA7007BC819 /* PredictionGeneratorTests.swift */; };
 		C288EBE898DE7040D8233568 /* Pods_baconUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */; };
 		D15E5FA942198228451024EA /* Pods_bacon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4701C832F23C08627A348028 /* Pods_bacon.framework */; };
 /* End PBXBuildFile section */
@@ -182,6 +183,7 @@
 		BEF82C1C22633177007BC819 /* PredictionGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionGenerator.swift; sourceTree = "<group>"; };
 		BEF82C1E226331A8007BC819 /* BaconPredictionGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaconPredictionGenerator.swift; sourceTree = "<group>"; };
 		BEF82C202264D77F007BC819 /* PredictionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionTests.swift; sourceTree = "<group>"; };
+		BEF82C242264DBA7007BC819 /* PredictionGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionGeneratorTests.swift; sourceTree = "<group>"; };
 		CA24B1D1138A1F0774F42251 /* Pods-baconTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD379625D2CF2952EA2B2E6A /* Pods-baconUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F38C0C0022ADF9C5F622445F /* Pods-bacon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bacon.release.xcconfig"; path = "Pods/Target Support Files/Pods-bacon/Pods-bacon.release.xcconfig"; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 				9F71AEFA225B4116005F043A /* BudgetTests.swift */,
 				8F894251225E5017007146AC /* TagManagerTests.swift */,
 				BEF82C202264D77F007BC819 /* PredictionTests.swift */,
+				BEF82C242264DBA7007BC819 /* PredictionGeneratorTests.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -769,6 +772,7 @@
 				8F845CE722446EE1007A992D /* TransactionTests.swift in Sources */,
 				8F8487E3224DA98A001F881C /* CodableCLLocationTests.swift in Sources */,
 				BEF82C212264D77F007BC819 /* PredictionTests.swift in Sources */,
+				BEF82C252264DBA7007BC819 /* PredictionGeneratorTests.swift in Sources */,
 				8F6A7A582240B584002E695A /* baconTests.swift in Sources */,
 				9F79E46E2246463F00BCDDE8 /* StorageManagerTests.swift in Sources */,
 				9F71AEFB225B4117005F043A /* BudgetTests.swift in Sources */,
