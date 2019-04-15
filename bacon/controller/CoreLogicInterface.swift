@@ -25,4 +25,14 @@ protocol CoreLogicInterface {
     // MARK: Budget Related
     func saveBudget(_ budget: Budget) throws
     func loadBudget() throws -> Budget
+
+    // MARK: Tag related
+    func getAllTags() -> [Tag: [Tag]]
+    func getAllParentTags() -> [Tag]
+    func addParentTag(_ name: String) throws -> Tag
+    func addChildTag(_ child: String, to parent: String) throws -> Tag
+
+    // MARK: Prediction related
+    func getPrediction(_ time: Date, _ location: CodableCLLocation,
+                       _ transactions: [Transaction]) -> Prediction
 }

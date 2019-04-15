@@ -48,12 +48,25 @@ class AddTransactionViewController: UIViewController {
             locationManager.startUpdatingLocation()
             getCurrentLocation()
         }
+
+        // Get prediction and auto-fill in the relevant fields
+        getPrediction()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         // Need to add display location and photo too when ready
         displayDateTime(dateTime: dateTime)
         displayTags(tags: tags)
+    }
+
+    private func getPrediction() {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+        let codableLocation = CodableCLLocation(self.location!) // !
+        let prediction = core.getPrediction(dateTime, codableLocation, [Transaction]()) // !
+        // populate the fields
     }
 
     @IBAction func typeFieldPressed(_ sender: UITapGestureRecognizer) {

@@ -13,11 +13,13 @@ class CoreLogic: CoreLogicInterface {
     // MARK: - Properties
     let transactionManager: TransactionManager
     let budgetManager: BudgetManager
+    let predictionManager: PredictionManager
     var tagManager: TagManagerInterface
 
     init(tagManager: TagManager = TagManager.create(testMode: false)) throws {
         transactionManager = try TransactionManager()
         budgetManager = try BudgetManager()
+        predictionManager = try PredictionManager()
         self.tagManager = tagManager
     }
 
@@ -114,5 +116,11 @@ class CoreLogic: CoreLogicInterface {
 
     func addChildTag(_ child: String, to parent: String) throws -> Tag {
         return try tagManager.addChildTag(child, to: parent)
+    }
+
+    // MARK: Prediction related
+    func getPrediction(_ time: Date, _ location: CodableCLLocation,
+                       _ transactions: [Transaction]) -> Prediction {
+        return predictionManager.getPrediction(time, location, transactions)
     }
 }
