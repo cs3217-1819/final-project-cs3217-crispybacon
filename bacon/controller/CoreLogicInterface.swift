@@ -25,4 +25,13 @@ protocol CoreLogicInterface {
     // MARK: Budget Related
     func saveBudget(_ budget: Budget) throws
     func loadBudget() throws -> Budget
+    func getSpendingStatus() throws -> SpendingStatus
+
+    // Mark: Tag Related
+    func getAllTags() -> [Tag: [Tag]]
+    func getAllParentTags() -> [Tag]
+    func addParentTag(_ name: String) throws -> Tag
+    func addChildTag(_ child: String, to parent: String) throws -> Tag
+    func removeChildTag(_ child: String, from parent: String) throws
+    func removeParentTag(_ parent: String) throws
 }
