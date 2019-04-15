@@ -12,7 +12,7 @@ struct Prediction: Codable, Hashable {
     let time: Date
     let location: CodableCLLocation
     let pastTransactions: [Transaction]
-    let amountPredicred: Decimal
+    let amountPredicted: Decimal
     let tagsPredicted: Set<Tag>
 
     init(time: Date, location: CodableCLLocation, transactions: [Transaction],
@@ -23,7 +23,7 @@ struct Prediction: Codable, Hashable {
         self.time = time
         self.location = location
         self.pastTransactions = transactions
-        self.amountPredicred = amount
+        self.amountPredicted = amount
         self.tagsPredicted = tags
     }
 }

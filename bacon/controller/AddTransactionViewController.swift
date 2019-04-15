@@ -75,7 +75,7 @@ class AddTransactionViewController: UIViewController {
             return
         }
         // Populate the fields with the prediction result
-        amountField.text = prediction.amountPredicred.toFormattedString
+        amountField.text = prediction.amountPredicted.toFormattedString
         tags = prediction.tagsPredicted
     }
 

@@ -20,7 +20,7 @@ class PredictionTests: XCTestCase {
         XCTAssertEqual(prediction.time, TestUtils.january1st2019time0800)
         XCTAssertEqual(prediction.location.location, TestUtils.sampleCLLocation2)
         XCTAssertEqual(prediction.pastTransactions, TestUtils.validTransactions)
-        XCTAssertEqual(prediction.amountPredicred, 15.5)
+        XCTAssertEqual(prediction.amountPredicted, 15.5)
         XCTAssertEqual(prediction.tagsPredicted, Set<Tag>())
     }
 
