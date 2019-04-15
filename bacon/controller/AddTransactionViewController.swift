@@ -14,6 +14,7 @@ class AddTransactionViewController: UIViewController {
     let locationManager = CLLocationManager()
     let geoCoder = CLGeocoder()
     var core: CoreLogic?
+    var currentMonthTransactions = [Transaction]()
     var transactionType = Constants.defaultTransactionType
     var dateTime = Date()
     var tags = Set<Tag>()
@@ -69,7 +70,7 @@ class AddTransactionViewController: UIViewController {
             return
         }
         let codableLocation = CodableCLLocation(location)
-        let prediction = core.getPrediction(dateTime, codableLocation, [Transaction]()) // !
+        let prediction = core.getPrediction(dateTime, codableLocation, currentMonthTransactions) // !
         // populate the fields
     }
 

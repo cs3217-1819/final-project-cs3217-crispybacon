@@ -11,6 +11,8 @@ import UIKit
 class MainPageViewController: UIViewController {
 
     var core: CoreLogic?
+    var currentMonthTransactions = [Transaction]()
+    var monthCounter = (0, 0)
 
     @IBOutlet private weak var budgetLabel: UILabel!
     @IBOutlet private weak var coinView: UIImageView!
@@ -26,8 +28,26 @@ class MainPageViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        animateFloatingCoin()
+        loadCurrentMonthTransactions()
         updateBudgetStatus()
+        animateFloatingCoin()
+    }
+
+    private func loadCurrentMonthTransactions() {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+        let calendar = Calendar.current
+        let currentDate = Date()
+        let currentMonth = calendar.component(.month, from: currentDate)
+        let currentYear = calendar.component(.year, from: currentDate)
+        monthCounter = (currentMonth, currentYear)
+        do {
+            try currentMonthTransactions = core.loadTransactions(month: monthCounter.0, year: monthCounter.1)
+        } catch {
+            self.handleError(error: error, customMessage: Constants.transactionLoadFailureMessage)
+        }
     }
 
     @IBAction func plusButtonPressed(_ sender: UIButton) {
@@ -49,7 +69,7 @@ class MainPageViewController: UIViewController {
         }
 
         do {
-            let spendingStatus = try core.getSpendingStatus()
+            let spendingStatus = try core.getSpendingStatus(currentMonthTransactions)
             displayBudgetStatus(status: spendingStatus)
         } catch {
             // Budget has not been set
@@ -109,6 +129,7 @@ extension MainPageViewController {
             }
             addController.transactionType = .expenditure
             addController.core = core
+            addController.currentMonthTransactions = currentMonthTransactions
         }
         if segue.identifier == Constants.mainToAddTransactionIn {
             guard let addController = segue.destination as? AddTransactionViewController else {
@@ -116,12 +137,15 @@ extension MainPageViewController {
             }
             addController.transactionType = .income
             addController.core = core
+            addController.currentMonthTransactions = currentMonthTransactions
         }
         if segue.identifier == Constants.mainToTransactions {
             guard let transactionsController = segue.destination as? TransactionsViewController else {
                 return
             }
             transactionsController.core = core
+            transactionsController.currentMonthTransactions = currentMonthTransactions
+            transactionsController.monthCounter = monthCounter
         }
         if segue.identifier == Constants.mainToTags {
             guard let tagSelectionController = segue.destination as? TagSelectionViewController else {

@@ -25,6 +25,7 @@ protocol CoreLogicInterface {
     // MARK: Budget Related
     func saveBudget(_ budget: Budget) throws
     func loadBudget() throws -> Budget
+    func getSpendingStatus(_ currentMonthTransactions: [Transaction]) throws -> SpendingStatus
 
     // MARK: Tag related
     func getAllTags() -> [Tag: [Tag]]
