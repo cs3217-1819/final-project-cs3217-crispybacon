@@ -18,7 +18,7 @@ class BaconPredictionGenerator {
                 similarTransactions.insert(transaction)
             }
         }
-        return Prediction(time: time, location: location, transactions: transactions, amount: 0.0, tags: Set<Tag>())
+        return generatePredictionFromSimilarTransactions(time, location, similarTransactions, transactions)
     }
 
     private func isSimilarInTime(_ time: Date, _ transaction: Transaction) -> Bool {
@@ -64,5 +64,25 @@ class BaconPredictionGenerator {
             return true
         }
         return false
+    }
+
+    private func generatePredictionFromSimilarTransactions(_ time: Date,
+                                                           _ location: CodableCLLocation,
+                                                           _ similarTransactions: Set<Transaction>,
+                                                           _ pastTransactions: [Transaction]) -> Prediction {
+        var amountPredicted = Constants.defaultPredictedAmount
+        var tagsPredicted = Set<Tag>()
+        var amountCount = [Decimal: Int]()
+        for transaction in similarTransactions {
+            for tag in transaction.tags {
+                tagsPredicted.insert(tag)
+            }
+            amountCount[transaction.amount] = (amountCount[transaction.amount] ?? 0) + 1
+        }
+        if let mostFrequentAmount = amountCount.max(by: { first, second in first.value < second.value })?.key {
+            amountPredicted = mostFrequentAmount
+        }
+        return Prediction(time: time, location: location,
+                          transactions: pastTransactions, amount: amountPredicted, tags: tagsPredicted)
     }
 }

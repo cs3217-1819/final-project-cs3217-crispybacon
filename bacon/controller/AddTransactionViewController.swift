@@ -70,8 +70,11 @@ class AddTransactionViewController: UIViewController {
             return
         }
         let codableLocation = CodableCLLocation(location)
-        let prediction = core.getPrediction(dateTime, codableLocation, currentMonthTransactions) // !
-        // populate the fields
+        let prediction = core.getPrediction(dateTime, codableLocation, currentMonthTransactions)
+
+        // populate the fields with the prediction result
+        amountField.text = prediction.amountPredicred.toFormattedString
+        tags = prediction.tagsPredicted
     }
 
     @IBAction func typeFieldPressed(_ sender: UITapGestureRecognizer) {
