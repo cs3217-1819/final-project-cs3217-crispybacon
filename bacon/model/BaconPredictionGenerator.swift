@@ -14,9 +14,10 @@ class BaconPredictionGenerator {
     func predict(_ time: Date, _ location: CodableCLLocation, _ transactions: [Transaction]) -> Prediction {
         var similarTransactions = Set<Transaction>()
         for transaction in transactions {
-            isSimilarInTime(time, transaction)
+            if isSimilarInTime(time, transaction) && isSimilarInLocation(location, transaction) {
+                similarTransactions.insert(transaction)
+            }
         }
-
         return Prediction(time: time, location: location, transactions: transactions, amount: 0.0, tags: Set<Tag>())
     }
 
@@ -49,6 +50,17 @@ class BaconPredictionGenerator {
         let finalDiffInMin = min(totalDiffInMin, reverseTotalDiffInMin)
 
         if finalDiffInMin <= Constants.timeSimilarityThreshold {
+            return true
+        }
+        return false
+    }
+
+    private func isSimilarInLocation(_ location: CodableCLLocation, _ transaction: Transaction) -> Bool {
+        guard let location1 = transaction.location?.location else {
+            return false
+        }
+        let location2 = location.location
+        if location1.distance(from: location2) <= Constants.locationSimilarityThreshold {
             return true
         }
         return false
