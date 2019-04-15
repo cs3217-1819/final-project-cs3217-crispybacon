@@ -228,7 +228,6 @@ class TestUtils {
     static let march26th2019time2345 = Constants.getDateFormatter().date(from: "2019-03-26 23:45:00")!
     static let may20th2019time0125 = Constants.getDateFormatter().date(from: "2019-05-20 01:01:00")!
 
-
     static let validTransactionDate01 =
         try! Transaction(date: january1st2019time0800,
                          type: .expenditure,
