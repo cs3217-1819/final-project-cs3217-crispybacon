@@ -69,10 +69,12 @@ class AddTransactionViewController: UIViewController {
             // Location functionality is disabled
             return
         }
-        let codableLocation = CodableCLLocation(location)
-        let prediction = core.getPrediction(dateTime, codableLocation, currentMonthTransactions)
-
-        // populate the fields with the prediction result
+        guard let prediction = core.getPrediction(dateTime,
+                                                  CodableCLLocation(location),
+                                                  currentMonthTransactions) else {
+            return
+        }
+        // Populate the fields with the prediction result
         amountField.text = prediction.amountPredicred.toFormattedString
         tags = prediction.tagsPredicted
     }

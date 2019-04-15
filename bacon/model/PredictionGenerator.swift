@@ -16,7 +16,7 @@ class PredictionGenerator {
         concretePredictor = BaconPredictionGenerator()
     }
 
-    func predict(_ time: Date, _ location: CodableCLLocation, _ transactions: [Transaction]) -> Prediction {
+    func predict(_ time: Date, _ location: CodableCLLocation, _ transactions: [Transaction]) -> Prediction? {
         return concretePredictor.predict(time, location, transactions)
     }
 }

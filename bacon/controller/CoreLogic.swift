@@ -119,7 +119,7 @@ class CoreLogic: CoreLogicInterface {
 
     // MARK: Prediction related
     func getPrediction(_ time: Date, _ location: CodableCLLocation,
-                       _ transactions: [Transaction]) -> Prediction {
+                       _ transactions: [Transaction]) -> Prediction? {
         return predictionManager.getPrediction(time, location, transactions)
     }
 }

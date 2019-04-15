@@ -11,7 +11,7 @@ import CoreLocation
 
 class BaconPredictionGenerator {
 
-    func predict(_ time: Date, _ location: CodableCLLocation, _ transactions: [Transaction]) -> Prediction {
+    func predict(_ time: Date, _ location: CodableCLLocation, _ transactions: [Transaction]) -> Prediction? {
         var similarTransactions = Set<Transaction>()
         for transaction in transactions {
             if isSimilarInTime(time, transaction) && isSimilarInLocation(location, transaction) {
@@ -72,7 +72,7 @@ class BaconPredictionGenerator {
     private func generatePredictionFromSimilarTransactions(_ time: Date,
                                                            _ location: CodableCLLocation,
                                                            _ similarTransactions: Set<Transaction>,
-                                                           _ pastTransactions: [Transaction]) -> Prediction {
+                                                           _ pastTransactions: [Transaction]) -> Prediction? {
         var amountPredicted = Constants.defaultPredictedAmount
         var tagsPredicted = Set<Tag>()
         var amountCount = [Decimal: Int]()
@@ -97,7 +97,11 @@ class BaconPredictionGenerator {
                 tagCount[mostFrequentTag] = 0
             }
         }
-        return Prediction(time: time, location: location,
-                          transactions: pastTransactions, amount: amountPredicted, tags: tagsPredicted)
+        do {
+            return try Prediction(time: time, location: location,
+                                  transactions: pastTransactions, amount: amountPredicted, tags: tagsPredicted)
+        } catch {
+            return nil
+        }
     }
 }

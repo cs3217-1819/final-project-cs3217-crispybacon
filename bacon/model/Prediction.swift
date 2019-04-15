@@ -16,7 +16,10 @@ struct Prediction: Codable, Hashable {
     let tagsPredicted: Set<Tag>
 
     init(time: Date, location: CodableCLLocation, transactions: [Transaction],
-         amount: Decimal, tags: Set<Tag>) {
+         amount: Decimal, tags: Set<Tag>) throws {
+        guard amount >= 0 else {
+            throw InitializationError(message: "Budget must be of a non-negative value.")
+        }
         self.time = time
         self.location = location
         self.pastTransactions = transactions
