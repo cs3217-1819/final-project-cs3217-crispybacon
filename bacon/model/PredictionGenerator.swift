@@ -13,6 +13,9 @@ class PredictionGenerator {
     private let concretePredictor: BaconPredictionGenerator
 
     init() {
+        log.info("""
+            PredictionGenerator initialized using PredictionGenerator.init()
+            """)
         concretePredictor = BaconPredictionGenerator()
     }
 

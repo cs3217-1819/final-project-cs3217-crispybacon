@@ -18,7 +18,7 @@ struct Prediction: Codable, Hashable {
     init(time: Date, location: CodableCLLocation, transactions: [Transaction],
          amount: Decimal, tags: Set<Tag>) throws {
         guard amount >= 0 else {
-            throw InitializationError(message: "Budget must be of a non-negative value.")
+            throw InitializationError(message: "Amount must be of a non-negative value.")
         }
         self.time = time
         self.location = location

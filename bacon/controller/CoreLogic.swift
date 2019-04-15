@@ -120,6 +120,10 @@ class CoreLogic: CoreLogicInterface {
     // MARK: Prediction related
     func getPrediction(_ time: Date, _ location: CodableCLLocation,
                        _ transactions: [Transaction]) -> Prediction? {
+        log.info("""
+            CoreLogic.getPrediction() with arguments:
+            time=\(time) location=\(location) transactions=\(transactions).
+            """)
         return predictionManager.getPrediction(time, location, transactions)
     }
 }

@@ -12,6 +12,9 @@ import CoreLocation
 class BaconPredictionGenerator {
 
     func predict(_ time: Date, _ location: CodableCLLocation, _ transactions: [Transaction]) -> Prediction? {
+        log.info("""
+            BaconPredictionGenerator started predicting using BaconPredictionGenerator.predict()
+            """)
         var similarTransactions = Set<Transaction>()
         for transaction in transactions {
             if isSimilarInTime(time, transaction) && isSimilarInLocation(location, transaction) {
@@ -98,9 +101,17 @@ class BaconPredictionGenerator {
             }
         }
         do {
-            return try Prediction(time: time, location: location,
-                                  transactions: pastTransactions, amount: amountPredicted, tags: tagsPredicted)
+            let prediction = try Prediction(time: time, location: location, transactions: pastTransactions,
+                                            amount: amountPredicted, tags: tagsPredicted)
+            log.info("""
+                BaconPredictionGenerator finished predicting prediction
+                """)
+            return prediction
         } catch {
+            // Failure in prediction should be resolved internally, as it is not known at all by the user
+            log.warning("""
+                BaconPredictionGenerator failed predicting, returning nil
+                """)
             return nil
         }
     }
