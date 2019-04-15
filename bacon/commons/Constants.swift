@@ -12,12 +12,27 @@ import UIKit
 
 class Constants {
     // Global
-    static let currencySymbol = Locale.current.currencySymbol ?? "$"
+    static let currency = Locale.current.currencySymbol ?? "$"
     static let defaultPostalAddress = CNPostalAddress()
     static let warningTitle = "🐷WARNING🐷"
     static let coreFailureMessage = "Unable to run Bacon!"
     static let transactionAddFailureMessage = "Unable to add transaction!"
     static let transactionLoadFailureMessage = "Unable to load transactions!"
+    static let tagAddFailureMessage = "Unable to add tag!"
+    static let budgetSetFailureMessage = "Unable to set budget!"
+    static let budgetStatusFailureMessage = "Unable to update budget status!"
+
+    // Main Page
+    static let neutralPig = UIImage(named: "demo")
+    static let happyPig = UIImage(named: "happy")
+    static let veryHappyPig = UIImage(named: "happy2")
+    static let sadPig = UIImage(named: "unhappy")
+    static let verySadPig = UIImage(named: "unhappy2")
+    static let mainToAddTransactionEx = "mainToAddTransactionEx"
+    static let mainToAddTransactionIn = "mainToAddTransactionIn"
+    static let mainToSetBudget = "mainToSetBudget"
+    static let mainToTransactions = "mainToTransactions"
+    static let mainToTags = "mainToTags"
 
     // Add Transaction Page
     static let defaultTransactionType = TransactionType.expenditure
@@ -26,12 +41,30 @@ class Constants {
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
     static let defaultDescription = ""
+    static let addTagMessage = "Add tags!"
+    static let addToMainSuccess = "addToMainSuccess"
+    static let addToTagSelection = "addToTagSelection"
 
     // Trsansactions Page
     static let defaultImage = UIImage(named: "dummy")
     static let defaultDescriptionToDisplay = "No description was provided"
+    static let defaultTagsToDisplay = "No tags were provided"
     static let animatoinDuration = [0.26, 0.20, 0.20]
     static let imageViewTag = 6
+
+    // Tag Selection Page
+    static let tagNameInputTitle = "Add new tag"
+    static let tagNameInputMessage = "Enter tag name"
+    static let InvalidTagNameWarning = "Please enter a valid name!"
+    static let tagSelectionToAdd = "tagSelectionToAdd"
+
+    // Set Budget Page
+    static let defaultBudgetString = "-1.0"
+    static let defaultBudget: Decimal = -1.0
+    static let unwindFromBudgetToMain = "unwindFromBudgetToMain"
+
+    // Calendar Page
+    static let unwindToAdd = "unwindToAdd"
 
     // Date
     static func getDateFormatter() -> DateFormatter {
@@ -59,6 +92,7 @@ class Constants {
         formatter.locale = Calendar.current.locale
         return formatter
     }
+
     // Only 20 years are allowed because it affects loading speed
     // but can always change this part
     // swiftlint:disable force_unwrapping

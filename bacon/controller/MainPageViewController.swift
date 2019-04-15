@@ -12,9 +12,9 @@ class MainPageViewController: UIViewController {
 
     var core: CoreLogic?
 
+    @IBOutlet private weak var budgetLabel: UILabel!
     @IBOutlet private weak var coinView: UIImageView!
-
-    var isUpdateNeeded = false
+    @IBOutlet private weak var pigView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,18 +27,64 @@ class MainPageViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         animateFloatingCoin()
+        updateBudgetStatus()
     }
 
     @IBAction func plusButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: "mainToAddTransactionEx", sender: nil)
+        performSegue(withIdentifier: Constants.mainToAddTransactionEx, sender: nil)
     }
 
     @IBAction func coinSwipedUp(_ sender: UISwipeGestureRecognizer) {
-        performSegue(withIdentifier: "mainToAddTransactionEx", sender: nil)
+        performSegue(withIdentifier: Constants.mainToAddTransactionEx, sender: nil)
     }
 
     @IBAction func coinSwipedDown(_ sender: UISwipeGestureRecognizer) {
-        performSegue(withIdentifier: "mainToAddTransactionIn", sender: nil)
+        performSegue(withIdentifier: Constants.mainToAddTransactionIn, sender: nil)
+    }
+
+    private func updateBudgetStatus() {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+
+        do {
+            let spendingStatus = try core.getSpendingStatus()
+            displayBudgetStatus(status: spendingStatus)
+        } catch {
+            // Budget has not been set
+            performSegue(withIdentifier: Constants.mainToSetBudget, sender: nil)
+        }
+    }
+
+    private func displayBudgetStatus(status: SpendingStatus) {
+        let currentSpending = status.currentSpending.toFormattedString
+        let totalBudget = status.totalBudget.toFormattedString
+        let percentage = status.percentage
+
+        guard let spending = currentSpending, let budget = totalBudget else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.budgetStatusFailureMessage)
+            budgetLabel.alpha = 0
+            return
+        }
+
+        budgetLabel.text = Constants.currency + spending + " / " + Constants.currency + budget
+        if percentage < 1 {
+            budgetLabel.textColor = UIColor.green.withAlphaComponent(0.5)
+            pigView.image = Constants.happyPig
+            if percentage < 0.5 {
+                pigView.image = Constants.veryHappyPig
+            }
+        } else if percentage == 1 {
+            budgetLabel.textColor = UIColor.brown.withAlphaComponent(0.5)
+            pigView.image = Constants.neutralPig
+        } else {
+            budgetLabel.textColor = UIColor.red.withAlphaComponent(0.5)
+            pigView.image = Constants.sadPig
+            if percentage > 1.5 {
+                pigView.image = Constants.verySadPig
+            }
+        }
     }
 }
 
@@ -57,25 +103,41 @@ extension MainPageViewController {
 
 extension MainPageViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "mainToAddTransactionEx" {
+        if segue.identifier == Constants.mainToAddTransactionEx {
             guard let addController = segue.destination as? AddTransactionViewController else {
                 return
             }
             addController.transactionType = .expenditure
             addController.core = core
         }
-        if segue.identifier == "mainToAddTransactionIn" {
+        if segue.identifier == Constants.mainToAddTransactionIn {
             guard let addController = segue.destination as? AddTransactionViewController else {
                 return
             }
             addController.transactionType = .income
             addController.core = core
         }
-        if segue.identifier == "mainToTransactions" {
+        if segue.identifier == Constants.mainToTransactions {
             guard let transactionsController = segue.destination as? TransactionsViewController else {
                 return
             }
             transactionsController.core = core
         }
+        if segue.identifier == Constants.mainToTags {
+            guard let tagSelectionController = segue.destination as? TagSelectionViewController else {
+                return
+            }
+            tagSelectionController.core = core
+            tagSelectionController.canEdit = true
+        }
+        if segue.identifier == Constants.mainToSetBudget {
+            guard let setBudgetController = segue.destination as? SetBuddgetViewController else {
+                return
+            }
+            setBudgetController.core = core
+        }
+    }
+
+    @IBAction func unwindToMain(segue: UIStoryboardSegue) {
     }
 }

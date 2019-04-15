@@ -48,7 +48,7 @@ class TransactionsViewController: UIViewController {
         do {
             try currentMonthTransactions = core.loadTransactions(month: monthCounter.0, year: monthCounter.1)
             tableView.reloadData()
-            monthYearLabel.text = String(monthCounter.0) + " " + String(monthCounter.1)
+            monthYearLabel.text = String(monthCounter.0) + "/" + String(monthCounter.1)
         } catch {
             self.handleError(error: error, customMessage: Constants.transactionLoadFailureMessage)
         }
@@ -142,14 +142,20 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         let typeString = type == .expenditure ? "-" : "+"
         let amount = currentMonthTransactions[arrayIndex].amount
         let amountString = amount.toFormattedString
-        let finalString = typeString + Constants.currencySymbol + (amountString ?? Constants.defaultAmountString)
+        let finalString = typeString + Constants.currency + (amountString ?? Constants.defaultAmountString)
         cell.closedAmountView.text = finalString
         cell.openAmountView.text = finalString
 
-//        let category = currentMonthTransactions[arrayIndex].category
-//        let categoryString = category.rawValue
-//        cell.closedCategoryView?.text = categoryString
-//        cell.openCategoryView?.text = categoryString
+        let tags = currentMonthTransactions[arrayIndex].tags
+        var tagsString = ""
+        for tag in tags {
+            tagsString += tag.toString() + "  "
+        }
+        if tagsString == "" {
+            tagsString = Constants.defaultTagsToDisplay
+        }
+        cell.openTagView.text = tagsString
+        cell.closedTagView.text = tagsString
 
         let codableLocation = currentMonthTransactions[arrayIndex].location
         if let location = codableLocation?.location {
@@ -176,7 +182,6 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
             imageView?.image = Constants.defaultImage
         }
 
-        //  icon is not set yet
         return cell
     }
 

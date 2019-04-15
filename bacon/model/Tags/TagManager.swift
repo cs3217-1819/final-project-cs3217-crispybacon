@@ -153,6 +153,14 @@ struct Tag: Codable, Comparable, Hashable {
         hasher.combine(parentInternalValue)
     }
 
+    func toString() -> String {
+        var tagName = self.value
+        if let parentName = self.parentValue {
+            tagName = parentName + "/" + tagName
+        }
+        return tagName
+    }
+
 }
 
 // MARK: TagManager: TagManagerInterface
@@ -301,6 +309,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
         }
 
         return createTag(child, of: parent)
+
     }
 
     func addParentTag(_ parent: String) throws -> Tag {
@@ -310,6 +319,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
         }
 
         return createTag(parent)
+
     }
 
     func removeChildTag(_ child: String, from parent: String) throws {
@@ -324,6 +334,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
         }
 
         removeTag(child, of: parent)
+
     }
 
     func removeParentTag(_ parent: String) throws {

@@ -11,12 +11,14 @@ import Foundation
 class CoreLogic: CoreLogicInterface {
 
     // MARK: - Properties
-    private let transactionManager: TransactionManager
-    private let budgetManager: BudgetManager
+    let transactionManager: TransactionManager
+    let budgetManager: BudgetManager
+    var tagManager: TagManagerInterface
 
-    init() throws {
+    init(tagManager: TagManager = TagManager.create(testMode: false)) throws {
         transactionManager = try TransactionManager()
         budgetManager = try BudgetManager()
+        self.tagManager = tagManager
     }
 
     // MARK: Transaction related
@@ -85,5 +87,32 @@ class CoreLogic: CoreLogicInterface {
 
     func loadBudget() throws -> Budget {
         return try budgetManager.loadBudget()
+    }
+
+    func getSpendingStatus() throws -> SpendingStatus {
+        let budget = try budgetManager.loadBudget()
+        let currentMonthTransactions = try transactionManager.loadTransactions(from: budget.fromDate, to: budget.toDate)
+        var totalExpenditure: Decimal = 0.0
+        for transaction in currentMonthTransactions where transaction.type == .expenditure {
+            totalExpenditure += transaction.amount
+        }
+        return SpendingStatus(currentSpending: totalExpenditure, totalBudget: budget.amount)
+    }
+
+    // MARK: Tag related
+    func getAllTags() -> [Tag: [Tag]] {
+        return tagManager.tags
+    }
+
+    func getAllParentTags() -> [Tag] {
+        return tagManager.parentTags
+    }
+
+    func addParentTag(_ name: String) throws -> Tag {
+        return try tagManager.addParentTag(name)
+    }
+
+    func addChildTag(_ child: String, to parent: String) throws -> Tag {
+        return try tagManager.addChildTag(child, to: parent)
     }
 }
