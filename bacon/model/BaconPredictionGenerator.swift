@@ -31,16 +31,19 @@ class BaconPredictionGenerator {
         guard let hour = components.hour, let minute = components.minute, let second = components.second else {
             return false
         }
+
         // Map the hour and minute components of time1 to time2, so the two times have the same date
         let time3 = calendar.date(bySettingHour: hour, minute: minute, second: second, of: time2)
         guard let mappedTime1 = time3 else {
             return false
         }
+
         // Now take the difference between time2 and mappedTime1
         let difference = calendar.dateComponents([.hour, .minute], from: mappedTime1, to: time2)
         guard let hourDiff = difference.hour, let minuteDiff = difference.minute else {
             return false
         }
+
         // Calculate the number of minutes between the two times
         // Taking into consideration of wrapping around at mid-night
         let absHourDiff = abs(hourDiff)
@@ -73,14 +76,26 @@ class BaconPredictionGenerator {
         var amountPredicted = Constants.defaultPredictedAmount
         var tagsPredicted = Set<Tag>()
         var amountCount = [Decimal: Int]()
+        var tagCount = [Tag: Int]()
+
+        // Count the number of occurrences of each amount and each tag in all similar transactions
         for transaction in similarTransactions {
             for tag in transaction.tags {
-                tagsPredicted.insert(tag)
+                tagCount[tag] = (tagCount[tag] ?? 0) + 1
             }
             amountCount[transaction.amount] = (amountCount[transaction.amount] ?? 0) + 1
         }
+
+        // The predicted amount will be the most frequently recorded amount
+        // While the predicted tag set contains the top few frequent tags
         if let mostFrequentAmount = amountCount.max(by: { first, second in first.value < second.value })?.key {
             amountPredicted = mostFrequentAmount
+        }
+        for _ in 0..<Constants.numberOfPredictedTags {
+            if let mostFrequentTag = tagCount.max(by: { first, second in first.value < second.value })?.key {
+                tagsPredicted.insert(mostFrequentTag)
+                tagCount[mostFrequentTag] = 0
+            }
         }
         return Prediction(time: time, location: location,
                           transactions: pastTransactions, amount: amountPredicted, tags: tagsPredicted)

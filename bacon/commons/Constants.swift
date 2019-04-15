@@ -119,4 +119,5 @@ class Constants {
     static let timeSimilarityThreshold = 120
     static let locationSimilarityThreshold: Double = 500
     static let defaultPredictedAmount: Decimal = 0.0
+    static let numberOfPredictedTags = 3
 }
