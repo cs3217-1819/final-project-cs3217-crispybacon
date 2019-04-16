@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B931CE7463280668924F212 /* Pods_baconTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 894FB0A0BC60BFB913FD0FD0 /* Pods_baconTests.framework */; };
+		45639D7B2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */; };
 		8F0B2073225A464D001AF3BA /* HashableClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B2072225A464D001AF3BA /* HashableClass.swift */; };
 		8F3121D9224A39D100A9A554 /* TransactionTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3121D8224A39D100A9A554 /* TransactionTime.swift */; };
 		8F3121DB224A3B9800A9A554 /* TransactionTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */; };
@@ -102,6 +103,7 @@
 
 /* Begin PBXFileReference section */
 		40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_baconUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Prediction.swift"; sourceTree = "<group>"; };
 		4701C832F23C08627A348028 /* Pods_bacon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bacon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6542309D6C94355D2328ACB3 /* Pods-bacon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bacon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bacon/Pods-bacon.debug.xcconfig"; sourceTree = "<group>"; };
 		894FB0A0BC60BFB913FD0FD0 /* Pods_baconTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_baconTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -388,6 +390,7 @@
 				9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */,
 				9F7154012261D7F400FF047F /* StorageCouchBaseDB+TagAssociation.swift */,
 				9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */,
+				45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */,
 				9F71AEF8225B3D84005F043A /* Budget.swift */,
 				BEF82C162261D5CE007BC819 /* SpendingStatus.swift */,
 				BEF82C1822632F46007BC819 /* Prediction.swift */,
@@ -752,6 +755,7 @@
 				BEF82C1F226331A8007BC819 /* BaconPredictionGenerator.swift in Sources */,
 				8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */,
 				8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */,
+				45639D7B2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift in Sources */,
 				8F8487DB224B7D7D001F881C /* Observable.swift in Sources */,
 				9F67EF35225C9A73004F6D0B /* CoreLogicInterface.swift in Sources */,
 				BEC57456225F9442001793EC /* ChildTagCell.swift in Sources */,
