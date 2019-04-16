@@ -10,7 +10,7 @@ import Foundation
 import CouchbaseLiteSwift
 
 extension StorageCouchBaseDB {
-    
+
     func getNumberOfPredictionsInDatabase() -> Double {
         return Double(predictionDatabase.count)
     }
@@ -61,7 +61,7 @@ extension StorageCouchBaseDB {
             }
         }
     }
-    
+
     func loadPredictions() throws -> [Prediction] {
         let query = QueryBuilder.select(SelectResult.all())
             .from(DataSource.database(predictionDatabase))
