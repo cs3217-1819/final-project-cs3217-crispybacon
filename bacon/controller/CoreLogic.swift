@@ -129,6 +129,7 @@ class CoreLogic: CoreLogicInterface {
         for tags in removedTags {
             try transactionManager.deleteTagFromTransactions(tags)
         }
+    }
 
     // MARK: Prediction related
     func getPrediction(_ time: Date, _ location: CodableCLLocation,

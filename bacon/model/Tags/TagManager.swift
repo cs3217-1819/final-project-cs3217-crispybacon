@@ -578,11 +578,11 @@ extension TagManager {
             }
 
             // Remove all children Tags
+            removedTags.append(contentsOf: try getChildrenTags(of: displayValue))
             guard let childrenTagValues = parentChildMap[displayValue] else {
                 fatalError("This should never happen")
             }
             for childTagValue in childrenTagValues {
-                removedTags.append(contentsOf: try getChildrenTags(of: displayValue))
                 try removeTag(childTagValue, of: displayValue)
             }
 
