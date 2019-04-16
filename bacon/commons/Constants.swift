@@ -114,4 +114,10 @@ class Constants {
     // There should only be one budget saved in the database
     // Hence saveBudget always uses this UID.
     static let budgetUID = "1"
+
+    // Prediction related
+    static let timeSimilarityThreshold = 120
+    static let locationSimilarityThreshold: Double = 500
+    static let defaultPredictedAmount: Decimal = 0.0
+    static let numberOfPredictedTags = 3
 }

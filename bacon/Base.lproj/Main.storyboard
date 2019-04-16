@@ -19,15 +19,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="demo" translatesAutoresizingMaskIntoConstraints="NO" id="w77-sl-pTn" userLabel="Pig View">
-                                <rect key="frame" x="134" y="262" width="500" height="500"/>
+                                <rect key="frame" x="159" y="287" width="450" height="450"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="500" id="EKU-N0-PoV"/>
-                                    <constraint firstAttribute="width" constant="500" id="jgQ-Km-ZCX"/>
+                                    <constraint firstAttribute="height" constant="450" id="EKU-N0-PoV"/>
+                                    <constraint firstAttribute="width" constant="450" id="jgQ-Km-ZCX"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$00.00 / $00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srG-5J-sOi" userLabel="Money View">
-                                <rect key="frame" x="194.5" y="802" width="379.5" height="84.5"/>
+                                <rect key="frame" x="194.5" y="777" width="379.5" height="84.5"/>
                                 <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="70"/>
                                 <color key="textColor" red="1" green="0.80344302876790086" blue="0.35260522083872259" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -36,11 +36,11 @@
                                 </connections>
                             </label>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin" translatesAutoresizingMaskIntoConstraints="NO" id="5Iu-o9-Qlj" userLabel="Coin View">
-                                <rect key="frame" x="319" y="150" width="130" height="130"/>
+                                <rect key="frame" x="324" y="150" width="120" height="120"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="Omc-PZ-qr6"/>
-                                    <constraint firstAttribute="width" constant="130" id="nqh-AE-ooj"/>
+                                    <constraint firstAttribute="height" constant="120" id="Omc-PZ-qr6"/>
+                                    <constraint firstAttribute="width" constant="120" id="nqh-AE-ooj"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="rmw-IC-d0K" appends="YES" id="PRN-I5-2aN"/>
@@ -1321,6 +1321,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nRX-mK-th1"/>
-        <segue reference="dM7-bg-LN1"/>
+        <segue reference="JxZ-T0-qdg"/>
     </inferredMetricsTieBreakers>
 </document>

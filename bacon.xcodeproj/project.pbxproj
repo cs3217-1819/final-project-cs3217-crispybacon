@@ -73,6 +73,12 @@
 		BEF38D0D224BA2C400BC8927 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF38D0C224BA2C400BC8927 /* TransactionCell.swift */; };
 		BEF82C152261C157007BC819 /* SetBuddgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C142261C157007BC819 /* SetBuddgetViewController.swift */; };
 		BEF82C172261D5CE007BC819 /* SpendingStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C162261D5CE007BC819 /* SpendingStatus.swift */; };
+		BEF82C1922632F47007BC819 /* Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C1822632F46007BC819 /* Prediction.swift */; };
+		BEF82C1B22633117007BC819 /* PredictionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C1A22633117007BC819 /* PredictionManager.swift */; };
+		BEF82C1D22633177007BC819 /* PredictionGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C1C22633177007BC819 /* PredictionGenerator.swift */; };
+		BEF82C1F226331A8007BC819 /* BaconPredictionGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C1E226331A8007BC819 /* BaconPredictionGenerator.swift */; };
+		BEF82C212264D77F007BC819 /* PredictionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C202264D77F007BC819 /* PredictionTests.swift */; };
+		BEF82C252264DBA7007BC819 /* PredictionGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C242264DBA7007BC819 /* PredictionGeneratorTests.swift */; };
 		C288EBE898DE7040D8233568 /* Pods_baconUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */; };
 		D15E5FA942198228451024EA /* Pods_bacon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4701C832F23C08627A348028 /* Pods_bacon.framework */; };
 /* End PBXBuildFile section */
@@ -172,6 +178,12 @@
 		BEF38D0C224BA2C400BC8927 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		BEF82C142261C157007BC819 /* SetBuddgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetBuddgetViewController.swift; sourceTree = "<group>"; };
 		BEF82C162261D5CE007BC819 /* SpendingStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendingStatus.swift; sourceTree = "<group>"; };
+		BEF82C1822632F46007BC819 /* Prediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prediction.swift; sourceTree = "<group>"; };
+		BEF82C1A22633117007BC819 /* PredictionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionManager.swift; sourceTree = "<group>"; };
+		BEF82C1C22633177007BC819 /* PredictionGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionGenerator.swift; sourceTree = "<group>"; };
+		BEF82C1E226331A8007BC819 /* BaconPredictionGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaconPredictionGenerator.swift; sourceTree = "<group>"; };
+		BEF82C202264D77F007BC819 /* PredictionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionTests.swift; sourceTree = "<group>"; };
+		BEF82C242264DBA7007BC819 /* PredictionGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionGeneratorTests.swift; sourceTree = "<group>"; };
 		CA24B1D1138A1F0774F42251 /* Pods-baconTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD379625D2CF2952EA2B2E6A /* Pods-baconUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F38C0C0022ADF9C5F622445F /* Pods-bacon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bacon.release.xcconfig"; path = "Pods/Target Support Files/Pods-bacon/Pods-bacon.release.xcconfig"; sourceTree = "<group>"; };
@@ -378,6 +390,10 @@
 				9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */,
 				9F71AEF8225B3D84005F043A /* Budget.swift */,
 				BEF82C162261D5CE007BC819 /* SpendingStatus.swift */,
+				BEF82C1822632F46007BC819 /* Prediction.swift */,
+				BEF82C1A22633117007BC819 /* PredictionManager.swift */,
+				BEF82C1C22633177007BC819 /* PredictionGenerator.swift */,
+				BEF82C1E226331A8007BC819 /* BaconPredictionGenerator.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -391,6 +407,8 @@
 				8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */,
 				9F71AEFA225B4116005F043A /* BudgetTests.swift */,
 				8F894251225E5017007146AC /* TagManagerTests.swift */,
+				BEF82C202264D77F007BC819 /* PredictionTests.swift */,
+				BEF82C242264DBA7007BC819 /* PredictionGeneratorTests.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -701,10 +719,13 @@
 				8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */,
 				9F7C6DE9224B9C75003E7702 /* InvalidArgumentError.swift in Sources */,
 				BEC5744C225CA0AD001793EC /* CalendarCell.swift in Sources */,
+				BEF82C1B22633117007BC819 /* PredictionManager.swift in Sources */,
 				BEC57446225A3DC9001793EC /* PreviewImageView.swift in Sources */,
 				BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */,
 				9FB4E16E224419880005403F /* StorageError.swift in Sources */,
+				BEF82C1D22633177007BC819 /* PredictionGenerator.swift in Sources */,
 				8F8487D9224B7909001F881C /* Observer.swift in Sources */,
+				BEF82C1922632F47007BC819 /* Prediction.swift in Sources */,
 				8FD0EC8B22533E3E00FCCBFB /* CodableUIImage.swift in Sources */,
 				9F7FD1142240CD51001E1A8E /* StorageManager.swift in Sources */,
 				8FD5F7D32240EE8C0023A7FC /* TransactionCategory.swift in Sources */,
@@ -728,6 +749,7 @@
 				BEF38D0D224BA2C400BC8927 /* TransactionCell.swift in Sources */,
 				BEC5745822605570001793EC /* CoreLogic+BreakDownByTag.swift in Sources */,
 				BEF82C172261D5CE007BC819 /* SpendingStatus.swift in Sources */,
+				BEF82C1F226331A8007BC819 /* BaconPredictionGenerator.swift in Sources */,
 				8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */,
 				8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */,
 				8F8487DB224B7D7D001F881C /* Observable.swift in Sources */,
@@ -749,6 +771,8 @@
 				8F3121DB224A3B9800A9A554 /* TransactionTimeTests.swift in Sources */,
 				8F845CE722446EE1007A992D /* TransactionTests.swift in Sources */,
 				8F8487E3224DA98A001F881C /* CodableCLLocationTests.swift in Sources */,
+				BEF82C212264D77F007BC819 /* PredictionTests.swift in Sources */,
+				BEF82C252264DBA7007BC819 /* PredictionGeneratorTests.swift in Sources */,
 				8F6A7A582240B584002E695A /* baconTests.swift in Sources */,
 				9F79E46E2246463F00BCDDE8 /* StorageManagerTests.swift in Sources */,
 				9F71AEFB225B4117005F043A /* BudgetTests.swift in Sources */,

@@ -19,7 +19,7 @@ class TransactionsViewController: UIViewController {
     var core: CoreLogic?
     var cellHeights: [CGFloat] = []
     var currentMonthTransactions = [Transaction]()
-    var monthCounter = (0, 0) // is there a better way
+    var monthCounter = (0, 0)
     var rowsCount: Int {
         return currentMonthTransactions.count
     }
@@ -30,13 +30,8 @@ class TransactionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Get current month and year and transactions
-        let calendar = Calendar.current
-        let currentDate = Date()
-        let currentMonth = calendar.component(.month, from: currentDate)
-        let currentYear = calendar.component(.year, from: currentDate)
-        monthCounter = (currentMonth, currentYear)
-        loadMonthTransactions()
+        // Set up top bar and table view
+        monthYearLabel.text = String(monthCounter.0) + "/" + String(monthCounter.1)
         setUpTableView()
     }
 
@@ -53,6 +48,7 @@ class TransactionsViewController: UIViewController {
             self.handleError(error: error, customMessage: Constants.transactionLoadFailureMessage)
         }
     }
+
     @IBAction func prevButtonPressed(_ sender: UIButton) {
         var month = monthCounter.0 - 1
         var year = monthCounter.1
