@@ -21,6 +21,7 @@ class Constants {
     static let transactionEditFailureMessage = "Unable to edit transaction!"
     static let tagAddFailureMessage = "Unable to add tag!"
     static let tagEditFailureMessage = "Uable to edit tag!"
+    static let tagDeleteFailureMessage = "Unable to delete tag!"
     static let budgetSetFailureMessage = "Unable to set budget!"
     static let budgetStatusFailureMessage = "Unable to update budget status!"
 

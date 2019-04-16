@@ -123,6 +123,32 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
         return 150.0
     }
 
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+        if editingStyle == .delete {
+            do {
+                try core.removeParentTag(parentTags[indexPath.row].value)
+                self.loadTags()
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.perform(#selector(self.reloadTable), with: nil, afterDelay: 0.4)
+            } catch {
+                self.handleError(error: error, customMessage: Constants.tagDeleteFailureMessage)
+            }
+        }
+    }
+
+    // swiftlint:disable attributes
+    @objc func reloadTable() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+    }
+    // swiftlint:enable attributes
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         log.info("""
             TagSelectionViewController.didSelectRowAt():
