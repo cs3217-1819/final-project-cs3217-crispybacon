@@ -16,6 +16,7 @@ class StorageManagerTests: XCTestCase {
         XCTAssertNoThrow(try StorageManager())
     }
 
+    // -----Transaction Related Tests-----
     func test_getNumberOfTransactionsInDatabase() {
         let database = try! StorageManager()
         XCTAssertNoThrow(try database.clearTransactionDatabase())
@@ -25,16 +26,6 @@ class StorageManagerTests: XCTestCase {
         XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionExpenditure01))
         XCTAssertNoThrow(try database.saveTransaction(TestUtils.validTransactionExpenditure02))
         XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 2)
-    }
-
-    func test_getNumberOfBudgetsInDatabase() {
-        let database = try! StorageManager()
-        XCTAssertNoThrow(try database.clearBudgetDatabase())
-        // Empty database should return 0 for getNumberOfBudgetsInDatabase()
-        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 0)
-        // Add budget into database
-        XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget01))
-        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 1)
     }
 
     func test_clearTransactionDatabase() {
@@ -48,17 +39,6 @@ class StorageManagerTests: XCTestCase {
         XCTAssertTrue(database.getNumberOfTransactionsInDatabase() == 0)
     }
 
-    func test_clearBudgetDatabase() {
-        let database = try! StorageManager()
-        // If database is empty, save a budget
-        if database.getNumberOfBudgetsInDatabase() == 0 {
-            XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget02))
-        }
-        XCTAssertTrue(database.getNumberOfBudgetsInDatabase() > 0)
-        XCTAssertNoThrow(try database.clearBudgetDatabase())
-        XCTAssertTrue(database.getNumberOfBudgetsInDatabase() == 0)
-    }
-
     func test_saveTransaction() {
         let database = try! StorageManager()
         XCTAssertNoThrow(try database.clearTransactionDatabase())
@@ -67,22 +47,6 @@ class StorageManagerTests: XCTestCase {
         // Load the transaction out of database and check if its the one that was saved
         let loadedTransaction = try! database.loadTransactions(ofType: .expenditure, limit: 1)
         XCTAssertTrue(TestUtils.validTransactionExpenditure01.equals(loadedTransaction[0]))
-    }
-
-    func test_saveBudget() {
-        let database = try! StorageManager()
-        XCTAssertNoThrow(try database.clearBudgetDatabase())
-        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 0)
-        XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget01))
-        // Load the budget out of database and check if its the one that was saved
-        let budget = try! database.loadBudget()
-        XCTAssertEqual(budget, TestUtils.validBudget01)
-
-        // Test that calling saveBudget again will overwrite existing data and not add on to it
-        XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget02))
-        let updatedBudget = try! database.loadBudget()
-        XCTAssertEqual(updatedBudget, TestUtils.validBudget02)
-        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 1)
     }
 
     func test_deleteTransaction() {
@@ -105,7 +69,7 @@ class StorageManagerTests: XCTestCase {
         for (index, transaction) in transactions.enumerated() {
             XCTAssertTrue(transaction.equals(loadedTransactions[index]))
         }
-
+    
         // Remove 2 transactions
         XCTAssertNoThrow(try database.deleteTransaction(loadedTransactions[2]))
         XCTAssertNoThrow(try database.deleteTransaction(loadedTransactions[1]))
@@ -344,53 +308,53 @@ class StorageManagerTests: XCTestCase {
     }
 
     /**
-    func test_loadTransactions_OfCategory() {
-        let database = try! StorageManager()
-        // Clear database
-        try! database.clearTransactionDatabase()
-        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
-        // Test loading empty database
-        XCTAssertTrue(try database.loadTransactions(ofCategory: .bills, limit: 10).isEmpty)
-        XCTAssertTrue(try database.loadTransactions(ofCategory: .bills, limit: 0).isEmpty)
-
-        // Save 3 transactions of category .food
-        let foodTransactions = [TestUtils.validTransactionFood03,
-                                TestUtils.validTransactionFood02,
-                                TestUtils.validTransactionFood01]
-        XCTAssertNoThrow(try database.saveTransaction(foodTransactions[2]))
-        XCTAssertNoThrow(try database.saveTransaction(foodTransactions[1]))
-        XCTAssertNoThrow(try database.saveTransaction(foodTransactions[0]))
-        let loadedFoodTransactions = try! database.loadTransactions(ofCategory: .food, limit: 5)
-        XCTAssertEqual(loadedFoodTransactions.count, 3)
-        // Check that the transactions loaded out are equal and in reverse chronological order
-        for (index, transaction) in foodTransactions.enumerated() {
-            XCTAssertTrue(transaction.equals(loadedFoodTransactions[index]))
-        }
-
-        // Save 3 transactinos of category .transport
-        let transportTransactions = [TestUtils.validTransactionTransport03,
-                                     TestUtils.validTransactionTransport02,
-                                     TestUtils.validTransactionTransport01]
-        XCTAssertNoThrow(try database.saveTransaction(transportTransactions[1]))
-        XCTAssertNoThrow(try database.saveTransaction(transportTransactions[2]))
-        XCTAssertNoThrow(try database.saveTransaction(transportTransactions[0]))
-        let loadedTransportTransactions = try! database.loadTransactions(ofCategory: .transport, limit: 3)
-        XCTAssertEqual(loadedTransportTransactions.count, 3)
-        // Check that the transactions loaded out are equal and in reverse chronological order
-        for (index, transaction) in transportTransactions.enumerated() {
-            XCTAssertTrue(transaction.equals(loadedTransportTransactions[index]))
-        }
-
-        // Test limit
-        let loadedTransactions = try! database.loadTransactions(ofCategory: .food, limit: 1)
-        XCTAssertEqual(loadedTransactions.count, 1)
-    }
-
-    func test_invalid_loadTransactions_OfCategory() {
-        let database = try! StorageManager()
-        XCTAssertThrowsError(try database.loadTransactions(ofCategory: .travel, limit: -1))
-    }
-    **/
+     func test_loadTransactions_OfCategory() {
+     let database = try! StorageManager()
+     // Clear database
+     try! database.clearTransactionDatabase()
+     XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
+     // Test loading empty database
+     XCTAssertTrue(try database.loadTransactions(ofCategory: .bills, limit: 10).isEmpty)
+     XCTAssertTrue(try database.loadTransactions(ofCategory: .bills, limit: 0).isEmpty)
+     
+     // Save 3 transactions of category .food
+     let foodTransactions = [TestUtils.validTransactionFood03,
+     TestUtils.validTransactionFood02,
+     TestUtils.validTransactionFood01]
+     XCTAssertNoThrow(try database.saveTransaction(foodTransactions[2]))
+     XCTAssertNoThrow(try database.saveTransaction(foodTransactions[1]))
+     XCTAssertNoThrow(try database.saveTransaction(foodTransactions[0]))
+     let loadedFoodTransactions = try! database.loadTransactions(ofCategory: .food, limit: 5)
+     XCTAssertEqual(loadedFoodTransactions.count, 3)
+     // Check that the transactions loaded out are equal and in reverse chronological order
+     for (index, transaction) in foodTransactions.enumerated() {
+     XCTAssertTrue(transaction.equals(loadedFoodTransactions[index]))
+     }
+     
+     // Save 3 transactinos of category .transport
+     let transportTransactions = [TestUtils.validTransactionTransport03,
+     TestUtils.validTransactionTransport02,
+     TestUtils.validTransactionTransport01]
+     XCTAssertNoThrow(try database.saveTransaction(transportTransactions[1]))
+     XCTAssertNoThrow(try database.saveTransaction(transportTransactions[2]))
+     XCTAssertNoThrow(try database.saveTransaction(transportTransactions[0]))
+     let loadedTransportTransactions = try! database.loadTransactions(ofCategory: .transport, limit: 3)
+     XCTAssertEqual(loadedTransportTransactions.count, 3)
+     // Check that the transactions loaded out are equal and in reverse chronological order
+     for (index, transaction) in transportTransactions.enumerated() {
+     XCTAssertTrue(transaction.equals(loadedTransportTransactions[index]))
+     }
+     
+     // Test limit
+     let loadedTransactions = try! database.loadTransactions(ofCategory: .food, limit: 1)
+     XCTAssertEqual(loadedTransactions.count, 1)
+     }
+     
+     func test_invalid_loadTransactions_OfCategory() {
+     let database = try! StorageManager()
+     XCTAssertThrowsError(try database.loadTransactions(ofCategory: .travel, limit: -1))
+     }
+     **/
 
     func test_loadTransactions_OfTags() {
         let database = try! StorageManager()
@@ -437,5 +401,46 @@ class StorageManagerTests: XCTestCase {
             XCTAssertTrue(transaction.equals(loadedTransportTransactions[index]))
         }
     }
+
+    // -----Budget Related Tests-----
+    func test_getNumberOfBudgetsInDatabase() {
+        let database = try! StorageManager()
+        XCTAssertNoThrow(try database.clearBudgetDatabase())
+        // Empty database should return 0 for getNumberOfBudgetsInDatabase()
+        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 0)
+        // Add budget into database
+        XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget01))
+        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 1)
+    }
+
+    func test_clearBudgetDatabase() {
+        let database = try! StorageManager()
+        // If database is empty, save a budget
+        if database.getNumberOfBudgetsInDatabase() == 0 {
+            XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget02))
+        }
+        XCTAssertTrue(database.getNumberOfBudgetsInDatabase() > 0)
+        XCTAssertNoThrow(try database.clearBudgetDatabase())
+        XCTAssertTrue(database.getNumberOfBudgetsInDatabase() == 0)
+    }
+
+    func test_saveBudget() {
+        let database = try! StorageManager()
+        XCTAssertNoThrow(try database.clearBudgetDatabase())
+        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 0)
+        XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget01))
+        // Load the budget out of database and check if its the one that was saved
+        let budget = try! database.loadBudget()
+        XCTAssertEqual(budget, TestUtils.validBudget01)
+
+        // Test that calling saveBudget again will overwrite existing data and not add on to it
+        XCTAssertNoThrow(try database.saveBudget(TestUtils.validBudget02))
+        let updatedBudget = try! database.loadBudget()
+        XCTAssertEqual(updatedBudget, TestUtils.validBudget02)
+        XCTAssertEqual(database.getNumberOfBudgetsInDatabase(), 1)
+    }
+
+    // -----Prediction Related Tests-----
+
     // swiftlint:enable force_try
 }
