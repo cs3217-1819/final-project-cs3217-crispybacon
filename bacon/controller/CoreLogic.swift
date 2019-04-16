@@ -13,11 +13,13 @@ class CoreLogic: CoreLogicInterface {
     // MARK: - Properties
     let transactionManager: TransactionManager
     let budgetManager: BudgetManager
+    let predictionManager: PredictionManager
     var tagManager: TagManagerInterface
 
     init(tagManager: TagManager = TagManager.create(testMode: false)) throws {
         transactionManager = try TransactionManager()
         budgetManager = try BudgetManager()
+        predictionManager = try PredictionManager()
         self.tagManager = tagManager
     }
 
@@ -89,9 +91,8 @@ class CoreLogic: CoreLogicInterface {
         return try budgetManager.loadBudget()
     }
 
-    func getSpendingStatus() throws -> SpendingStatus {
+    func getSpendingStatus(_ currentMonthTransactions: [Transaction]) throws -> SpendingStatus {
         let budget = try budgetManager.loadBudget()
-        let currentMonthTransactions = try transactionManager.loadTransactions(from: budget.fromDate, to: budget.toDate)
         var totalExpenditure: Decimal = 0.0
         for transaction in currentMonthTransactions where transaction.type == .expenditure {
             totalExpenditure += transaction.amount
@@ -128,5 +129,14 @@ class CoreLogic: CoreLogicInterface {
         for tags in removedTags {
             try transactionManager.deleteTagFromTransactions(tags)
         }
+
+    // MARK: Prediction related
+    func getPrediction(_ time: Date, _ location: CodableCLLocation,
+                       _ transactions: [Transaction]) -> Prediction? {
+        log.info("""
+            CoreLogic.getPrediction() with arguments:
+            time=\(time) location=\(location) transactions=\(transactions).
+            """)
+        return predictionManager.getPrediction(time, location, transactions)
     }
 }

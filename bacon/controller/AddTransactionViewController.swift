@@ -14,6 +14,7 @@ class AddTransactionViewController: UIViewController {
     let locationManager = CLLocationManager()
     let geoCoder = CLGeocoder()
     var core: CoreLogic?
+    var currentMonthTransactions = [Transaction]()
     var transactionType = Constants.defaultTransactionType
     var dateTime = Date()
     var tags = Set<Tag>()
@@ -48,12 +49,34 @@ class AddTransactionViewController: UIViewController {
             locationManager.startUpdatingLocation()
             getCurrentLocation()
         }
+
+        // Get prediction and auto-fill in the relevant fields
+        getPrediction()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         // Need to add display location and photo too when ready
         displayDateTime(dateTime: dateTime)
         displayTags(tags: tags)
+    }
+
+    private func getPrediction() {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+        guard let location = location else {
+            // Location functionality is disabled
+            return
+        }
+        guard let prediction = core.getPrediction(dateTime,
+                                                  CodableCLLocation(location),
+                                                  currentMonthTransactions) else {
+            return
+        }
+        // Populate the fields with the prediction result
+        amountField.text = prediction.amountPredicted.toFormattedString
+        tags = prediction.tagsPredicted
     }
 
     @IBAction func typeFieldPressed(_ sender: UITapGestureRecognizer) {
