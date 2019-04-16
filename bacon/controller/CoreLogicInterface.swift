@@ -32,6 +32,7 @@ protocol CoreLogicInterface {
     func getAllParentTags() -> [Tag]
     func addParentTag(_ name: String) throws -> Tag
     func addChildTag(_ child: String, to parent: String) throws -> Tag
+    func renameTag(for tag: Tag, to newValue: String) throws -> Tag
 
     // MARK: Prediction related
     func getPrediction(_ time: Date, _ location: CodableCLLocation,

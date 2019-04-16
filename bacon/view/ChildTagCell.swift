@@ -14,6 +14,8 @@ class ChildTagCell: UITableViewCell {
     @IBOutlet weak var childTagLabel: UILabel!
     // swiftlint:enable private_outlet
 
+    var canEdit = false
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,6 +23,9 @@ class ChildTagCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        if canEdit {
+            return
+        }
         if selected {
             childTagLabel.textColor = UIColor.green.withAlphaComponent(0.5)
         } else {

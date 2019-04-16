@@ -20,6 +20,7 @@ class Constants {
     static let transactionLoadFailureMessage = "Unable to load transactions!"
     static let transactionEditFailureMessage = "Unable to edit transaction!"
     static let tagAddFailureMessage = "Unable to add tag!"
+    static let tagEditFailureMessage = "Uable to edit tag!"
     static let budgetSetFailureMessage = "Unable to set budget!"
     static let budgetStatusFailureMessage = "Unable to update budget status!"
 
@@ -57,6 +58,7 @@ class Constants {
 
     // Tag Selection Page
     static let tagNameInputTitle = "Add new tag"
+    static let tagRenameInputTitle = "Edit tag"
     static let tagNameInputMessage = "Enter tag name"
     static let InvalidTagNameWarning = "Please enter a valid name!"
     static let tagSelectionToAdd = "tagSelectionToAdd"

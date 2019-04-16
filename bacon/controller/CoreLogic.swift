@@ -117,6 +117,10 @@ class CoreLogic: CoreLogicInterface {
         return try tagManager.addChildTag(child, to: parent)
     }
 
+    func renameTag(for tag: Tag, to newValue: String) throws -> Tag {
+        return try tagManager.renameTag(tag.value, to: newValue, of: tag.parentValue)
+    }
+
     // MARK: Prediction related
     func getPrediction(_ time: Date, _ location: CodableCLLocation,
                        _ transactions: [Transaction]) -> Prediction? {

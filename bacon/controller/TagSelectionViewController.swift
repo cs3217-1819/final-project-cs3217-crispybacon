@@ -51,7 +51,7 @@ class TagSelectionViewController: UIViewController {
             self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
             return
         }
-        promptUserForTagName { userInput in
+        promptUserForTagName(title: Constants.tagNameInputTitle) { userInput in
             do {
                 try core.addParentTag(userInput)
                 self.loadTags()
@@ -62,9 +62,8 @@ class TagSelectionViewController: UIViewController {
         }
     }
 
-    func promptUserForTagName(successHandler: @escaping (String) -> Void) {
-        self.promptUserForInput(title: Constants.tagNameInputTitle,
-                                message: Constants.tagNameInputMessage,
+    func promptUserForTagName(title: String, successHandler: @escaping (String) -> Void) {
+        self.promptUserForInput(title: title, message: Constants.tagNameInputMessage,
                                 inputValidator: { userInput in
                                     return userInput.trimmingCharacters(in: CharacterSet.whitespaces) != ""
         }, successHandler: successHandler, failureHandler: { _ in
@@ -92,13 +91,14 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
         let currentParentTag = parentTags[indexPath.row]
         parentCell.parentTagLabel.text = currentParentTag.value
         parentCell.childTags = tags[currentParentTag] ?? [Tag]()
+        parentCell.canEdit = canEdit
 
         // Reload the sub table of parent tag cell to prevent from reusing issue
         parentCell.subTable.reloadData()
 
         // Define sub table behaviours
         parentCell.addChildAction = { cell in
-            self.promptUserForTagName { userInput in
+            self.promptUserForTagName(title: Constants.tagNameInputTitle) { userInput in
                 do {
                     try core.addChildTag(userInput, to: currentParentTag.value)
                     self.loadTags()
@@ -128,11 +128,7 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
             TagSelectionViewController.didSelectRowAt():
             row=\(indexPath.row))
             """)
-        if canEdit {
-            // edit tag name
-        } else {
-            selectTag(tag: parentTags[indexPath.row])
-        }
+        selectTag(tag: parentTags[indexPath.row])
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -140,18 +136,37 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
             TagSelectionViewController.didDeselectRowAt():
             row=\(indexPath.row))
             """)
-        if canEdit {
-            // edit tag name
-        } else {
-            unselectTag(tag: parentTags[indexPath.row])
-        }
+        unselectTag(tag: parentTags[indexPath.row])
     }
 
     private func selectTag(tag: Tag) {
-        selectedTags.insert(tag)
+        if canEdit {
+            renameTag(tag: tag)
+        } else {
+            selectedTags.insert(tag)
+        }
     }
 
     private func unselectTag(tag: Tag) {
-        selectedTags.remove(tag)
+        if canEdit {
+            renameTag(tag: tag)
+        } else {
+            selectedTags.remove(tag)
+        }
+    }
+
+    private func renameTag(tag: Tag) {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+        promptUserForTagName(title: Constants.tagRenameInputTitle) { userInput in
+            do {
+                try core.renameTag(for: tag, to: userInput)
+                self.tableView.reloadData()
+            } catch {
+                self.handleError(error: error, customMessage: Constants.tagEditFailureMessage)
+            }
+        }
     }
 }
