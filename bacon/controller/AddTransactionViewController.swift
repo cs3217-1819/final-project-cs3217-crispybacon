@@ -37,7 +37,7 @@ class AddTransactionViewController: UIViewController {
     @IBOutlet private weak var descriptionField: UITextField!
     @IBOutlet private weak var locationLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
-    @IBOutlet weak var imagePreview: PreviewImageView!
+    @IBOutlet private weak var imagePreview: PreviewImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()

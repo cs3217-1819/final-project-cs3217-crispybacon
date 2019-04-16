@@ -121,6 +121,20 @@ class CoreLogic: CoreLogicInterface {
         return try tagManager.renameTag(tag.value, to: newValue, of: tag.parentValue)
     }
 
+    func removeChildTag(_ child: String, from parent: String) throws {
+        let removedTags = try tagManager.removeChildTag(child, from: parent)
+        for tags in removedTags {
+            try transactionManager.deleteTagFromTransactions(tags)
+        }
+    }
+
+    func removeParentTag(_ parent: String) throws {
+        let removedTags = try tagManager.removeParentTag(parent)
+        for tags in removedTags {
+            try transactionManager.deleteTagFromTransactions(tags)
+        }
+    }
+
     // MARK: Prediction related
     func getPrediction(_ time: Date, _ location: CodableCLLocation,
                        _ transactions: [Transaction]) -> Prediction? {

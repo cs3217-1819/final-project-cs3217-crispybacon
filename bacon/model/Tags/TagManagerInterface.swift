@@ -34,11 +34,11 @@ protocol TagManagerInterface {
 
     /// Removes a child Tag from a parent Tag.
     /// - Throws: `InvalidTagError` if either Tag does not exist.
-    func removeChildTag(_ child: String, from parent: String) throws
+    func removeChildTag(_ child: String, from parent: String) throws -> [Tag]
 
     /// Removes a parent Tag. All of its children Tags will be removed too.
     /// - Throws: `InvalidTagError` if the Tag does not exist.
-    func removeParentTag(_ parent: String) throws
+    func removeParentTag(_ parent: String) throws -> [Tag]
 
     /// Contains all Tags in a dictionary mapping parent Tags to sorted arrays of their children Tags.
     var tags: [Tag: [Tag]] { get }
