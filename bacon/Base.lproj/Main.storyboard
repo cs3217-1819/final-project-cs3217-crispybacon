@@ -87,9 +87,12 @@
                                         <rect key="frame" x="576" y="0.0" width="192" height="50"/>
                                         <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                        <state key="normal" title="Wardrobe">
+                                        <state key="normal" title="Bacon">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="Tp5-rL-sjF" kind="show" id="bx3-C3-NBl"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -255,12 +258,32 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h5F-GK-qPp">
+                                <rect key="frame" x="0.0" y="70" width="768" height="954"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2h-7P-QbP">
+                                        <rect key="frame" x="244" y="441" width="280.5" height="72.5"/>
+                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="60"/>
+                                        <color key="textColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="z2h-7P-QbP" firstAttribute="centerX" secondItem="h5F-GK-qPp" secondAttribute="centerX" id="JYa-sL-J3F"/>
+                                    <constraint firstItem="z2h-7P-QbP" firstAttribute="centerY" secondItem="h5F-GK-qPp" secondAttribute="centerY" id="weo-G0-slx"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Pc9-1k-Ea9" firstAttribute="centerY" secondItem="fSn-6x-Bpt" secondAttribute="centerY" id="4Yn-hO-DOq"/>
                             <constraint firstItem="E7h-lM-EKQ" firstAttribute="centerY" secondItem="fSn-6x-Bpt" secondAttribute="centerY" id="898-dc-CIi"/>
+                            <constraint firstItem="h5F-GK-qPp" firstAttribute="top" secondItem="EH7-HB-Og0" secondAttribute="top" id="Bsv-JA-0iD"/>
                             <constraint firstItem="5Zj-Bi-Znt" firstAttribute="bottom" secondItem="EH7-HB-Og0" secondAttribute="bottom" id="DKw-wI-lgP"/>
+                            <constraint firstItem="EH7-HB-Og0" firstAttribute="bottom" secondItem="h5F-GK-qPp" secondAttribute="bottom" id="Gq8-H7-qgD"/>
+                            <constraint firstItem="h5F-GK-qPp" firstAttribute="leading" secondItem="EH7-HB-Og0" secondAttribute="leading" id="NVm-lk-2Gf"/>
+                            <constraint firstItem="EH7-HB-Og0" firstAttribute="trailing" secondItem="h5F-GK-qPp" secondAttribute="trailing" id="RlH-Mh-i4y"/>
                             <constraint firstItem="EH7-HB-Og0" firstAttribute="trailing" secondItem="5Zj-Bi-Znt" secondAttribute="trailing" id="V6t-N9-sRT"/>
                             <constraint firstItem="5Zj-Bi-Znt" firstAttribute="leading" secondItem="EH7-HB-Og0" secondAttribute="leading" id="oIv-LB-h8P"/>
                             <constraint firstItem="Pc9-1k-Ea9" firstAttribute="centerX" secondItem="fSn-6x-Bpt" secondAttribute="centerX" id="t2C-Pq-nsG"/>
@@ -1321,11 +1344,12 @@
     <resources>
         <image name="coin" width="887" height="885"/>
         <image name="demo" width="659" height="727"/>
-        <image name="dummy" width="1920" height="1080"/>
+        <image name="dummy" width="460.79998779296875" height="307.20001220703125"/>
         <image name="plus" width="294" height="294"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nRX-mK-th1"/>
         <segue reference="JxZ-T0-qdg"/>
+        <segue reference="bx3-C3-NBl"/>
     </inferredMetricsTieBreakers>
 </document>
