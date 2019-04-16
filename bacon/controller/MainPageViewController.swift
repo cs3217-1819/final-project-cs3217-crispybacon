@@ -12,7 +12,7 @@ class MainPageViewController: UIViewController {
 
     var core: CoreLogic?
     var currentMonthTransactions = [Transaction]()
-    var monthCounter = (0, 0)
+    var currentMonthYear = (0, 0)
 
     @IBOutlet private weak var budgetLabel: UILabel!
     @IBOutlet private weak var coinView: UIImageView!
@@ -42,9 +42,9 @@ class MainPageViewController: UIViewController {
         let currentDate = Date()
         let currentMonth = calendar.component(.month, from: currentDate)
         let currentYear = calendar.component(.year, from: currentDate)
-        monthCounter = (currentMonth, currentYear)
+        currentMonthYear = (currentMonth, currentYear)
         do {
-            try currentMonthTransactions = core.loadTransactions(month: monthCounter.0, year: monthCounter.1)
+            try currentMonthTransactions = core.loadTransactions(month: currentMonthYear.0, year: currentMonthYear.1)
         } catch {
             self.handleError(error: error, customMessage: Constants.transactionLoadFailureMessage)
         }
@@ -147,7 +147,7 @@ extension MainPageViewController {
             }
             transactionsController.core = core
             transactionsController.currentMonthTransactions = currentMonthTransactions
-            transactionsController.monthCounter = monthCounter
+            transactionsController.monthCounter = currentMonthYear
         }
         if segue.identifier == Constants.mainToTags {
             guard let tagSelectionController = segue.destination as? TagSelectionViewController else {
