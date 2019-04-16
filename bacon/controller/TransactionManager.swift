@@ -20,7 +20,7 @@ class TransactionManager: Observer {
     }
 
     // Observer is responsible for knowing what object types it observes
-    // TransactionManager observes Transactions and TagManager
+    // TransactionManager currently only observes Transactions
     func notify(_ value: Any) {
         // Notified by Transaction
         if let transaction = value as? Transaction {
@@ -47,21 +47,6 @@ class TransactionManager: Observer {
             """)
             return
         }
-        // Notified by TagManager
-        if let tag = value as? Tag {
-            // TODO
-            // Update notify to have callback
-            // Handle the error below
-            do {
-                try storageManager.deleteTagFromTransactions(tag)
-            } catch {
-                //zuo bo for now
-            }
-            log.info("""
-                TransactionManager notified by TagManager to delete tag: \(tag)
-            """)
-            return
-        }
         // If program enters here
         // meaning, an error has occured, TransactionManager is notified by
         // objects it doesn't observe.
@@ -85,6 +70,10 @@ class TransactionManager: Observer {
 
     func saveTransaction(_ transaction: Transaction) throws {
         try storageManager.saveTransaction(transaction)
+    }
+
+    func deleteTagFromTransactions(_ tag: Tag) throws {
+        try storageManager.deleteTagFromTransactions(tag)
     }
 
     func loadTransactions(limit: Int) throws -> [Transaction] {

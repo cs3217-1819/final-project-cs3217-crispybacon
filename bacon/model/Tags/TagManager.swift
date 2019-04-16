@@ -322,7 +322,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
 
     }
 
-    func removeChildTag(_ child: String, from parent: String) throws {
+    func removeChildTag(_ child: String, from parent: String) throws -> [Tag] {
         // Parent Tag should exist
         guard let children = parentChildMap[parent] else {
             throw InvalidTagError(message: "Parent tag \(parent) does not exist")
@@ -333,17 +333,16 @@ class TagManager: Codable, Observable, TagManagerInterface {
             throw InvalidTagError(message: "Child tag \(child) does not exist")
         }
 
-        removeTag(child, of: parent)
-
+        return try removeTag(child, of: parent)
     }
 
-    func removeParentTag(_ parent: String) throws {
+    func removeParentTag(_ parent: String) throws -> [Tag] {
         // Parent Tag should exist
         guard parentChildMap[parent] != nil else {
             throw InvalidTagError(message: "Parent tag \(parent) does not exist")
         }
 
-        removeTag(parent)
+        return try removeTag(parent)
     }
 
     var tags: [Tag: [Tag]] {
@@ -564,13 +563,13 @@ extension TagManager {
     /// Removes a Tag. This method automatically updates data stores and saves to disk.
     /// If a parent Tag is removed, all of its children Tags will be removed too.
     /// - Requires: The Tag being removed must exist.
-    private func removeTag(_ displayValue: String, of parentDisplayValue: String? = nil) {
+    @discardableResult
+    private func removeTag(_ displayValue: String,
+                           of parentDisplayValue: String? = nil) throws -> [Tag] {
         let removedTag: Tag
-        do {
-            removedTag = try getTag(for: displayValue, of: parentDisplayValue)
-        } catch {
-            fatalError("This should never happen") // Tag has not been remoed
-        }
+        var removedTags: [Tag] = []
+        removedTag = try getTag(for: displayValue, of: parentDisplayValue)
+        removedTags.append(removedTag)
 
         let isParentTag = parentDisplayValue == nil
         if isParentTag {
@@ -579,11 +578,12 @@ extension TagManager {
             }
 
             // Remove all children Tags
+            removedTags.append(contentsOf: try getChildrenTags(of: displayValue))
             guard let childrenTagValues = parentChildMap[displayValue] else {
                 fatalError("This should never happen")
             }
             for childTagValue in childrenTagValues {
-                removeTag(childTagValue, of: displayValue)
+                try removeTag(childTagValue, of: displayValue)
             }
 
             parentValueIdMap[displayValue] = nil
@@ -607,7 +607,7 @@ extension TagManager {
         }
 
         save()
-        notifyObservers(removedTag)
+        return removedTags
     }
 
 }
