@@ -37,6 +37,7 @@ class AddTransactionViewController: UIViewController {
     @IBOutlet private weak var descriptionField: UITextField!
     @IBOutlet private weak var locationLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
+    @IBOutlet weak var imagePreview: PreviewImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -243,6 +244,11 @@ class AddTransactionViewController: UIViewController {
         displayDateTime()
         displayLocation()
         displayType()
+        displayPic()
+    }
+
+    private func displayPic() {
+        imagePreview.image = photo
     }
 
     private func displayLocation() {
@@ -308,6 +314,7 @@ extension AddTransactionViewController: UINavigationControllerDelegate, UIImageP
             return
         }
         photo = image
+        displayPic()
     }
 }
 
