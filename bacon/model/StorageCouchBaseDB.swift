@@ -146,6 +146,7 @@ class StorageCouchBaseDB {
         do {
             let predictionData = try prediction.asDictionary()
             let predictionDocument = MutableDocument(data: predictionData)
+            predictionDocument.setDate(prediction.time, forKey: Constants.rawDateKey)
             return predictionDocument
         } catch {
             log.info("""
