@@ -130,7 +130,11 @@ class AddTransactionViewController: UIViewController {
 
     @IBAction func addButtonPressed(_ sender: UIButton) {
         captureInputs()
-        performSegue(withIdentifier: Constants.addToMainSuccess, sender: nil)
+        if isInEditMode {
+
+        } else {
+            performSegue(withIdentifier: Constants.addToMainSuccess, sender: nil)
+        }
     }
 
     private func captureInputs() {

@@ -130,6 +130,7 @@ extension MainPageViewController {
             addController.transactionType = .expenditure
             addController.core = core
             addController.currentMonthTransactions = currentMonthTransactions
+            addController.isInEditMode = false
         }
         if segue.identifier == Constants.mainToAddTransactionIn {
             guard let addController = segue.destination as? AddTransactionViewController else {
@@ -138,6 +139,7 @@ extension MainPageViewController {
             addController.transactionType = .income
             addController.core = core
             addController.currentMonthTransactions = currentMonthTransactions
+            addController.isInEditMode = false
         }
         if segue.identifier == Constants.mainToTransactions {
             guard let transactionsController = segue.destination as? TransactionsViewController else {
