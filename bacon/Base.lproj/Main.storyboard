@@ -700,7 +700,7 @@
                                 <rect key="frame" x="50" y="953" width="668" height="51"/>
                                 <color key="backgroundColor" red="0.4325209650579907" green="0.82577720207253891" blue="0.12604224820819454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-CondensedExtraBold" family="Futura" pointSize="30"/>
-                                <state key="normal" title="Add">
+                                <state key="normal" title="Confirm">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -1321,6 +1321,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nRX-mK-th1"/>
-        <segue reference="JxZ-T0-qdg"/>
+        <segue reference="dM7-bg-LN1"/>
     </inferredMetricsTieBreakers>
 </document>

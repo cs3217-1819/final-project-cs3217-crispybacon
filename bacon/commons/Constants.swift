@@ -18,6 +18,7 @@ class Constants {
     static let coreFailureMessage = "Unable to run Bacon!"
     static let transactionAddFailureMessage = "Unable to add transaction!"
     static let transactionLoadFailureMessage = "Unable to load transactions!"
+    static let transactionEditFailureMessage = "Unable to edit transaction!"
     static let tagAddFailureMessage = "Unable to add tag!"
     static let budgetSetFailureMessage = "Unable to set budget!"
     static let budgetStatusFailureMessage = "Unable to update budget status!"
