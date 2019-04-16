@@ -141,6 +141,22 @@ class StorageCouchBaseDB {
         }
     }
 
+    // Method to encode a Prediction struct to its MutableDocument counterpart
+    func createMutableDocument(from prediction: Prediction) throws -> MutableDocument {
+        do {
+            let predictionData = try prediction.asDictionary()
+            let predictionDocument = MutableDocument(data: predictionData)
+            return predictionDocument
+        } catch {
+            log.info("""
+                StorageCouchBaseDB.createMutableDocument(): prediction
+                Encounter error encoding prediction into MutableDocument.
+                Throwing StorageError.
+            """)
+            throw StorageError(message: "Prediction couldn't be encoded into MutableDocument.")
+        }
+    }
+
     // Method to encode a Transaction-Tag association to its MutableDocument counterpart
     func createMutableDocument(forTransaction transactionId: String, withTag tag: Tag) -> MutableDocument {
         let mutableDocument = MutableDocument()
