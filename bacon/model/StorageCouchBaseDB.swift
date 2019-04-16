@@ -16,6 +16,7 @@ enum DatabaseCollections: String {
     case transactions
     case tagAssociation
     case budget
+    case predictions
 }
 
 class StorageCouchBaseDB {
@@ -25,6 +26,8 @@ class StorageCouchBaseDB {
     var transactionDatabase: Database
     var tagAssociationDatabase: Database
     var budgetDatabase: Database
+    var predictionDatabase: Database
+
     // Dictionary to provide a mapping from instantiated `Transaction` objects
     // to their unique id in the databse.
     var transactionMapping: [Transaction: String]
@@ -35,6 +38,7 @@ class StorageCouchBaseDB {
             transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
             tagAssociationDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .tagAssociation)
             budgetDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .budget)
+            predictionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .predictions)
             transactionMapping = [:]
             log.info("""
                 StorageCouchBaseDB.init() :
