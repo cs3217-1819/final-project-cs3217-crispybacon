@@ -14,6 +14,7 @@ extension Decimal {
         formatter.generatesDecimalNumbers = true
         formatter.minimumFractionDigits = 2
         formatter.maximumFractionDigits = 2
+        formatter.minimumIntegerDigits = 1
         return formatter.string(from: self as NSDecimalNumber)
     }
 }

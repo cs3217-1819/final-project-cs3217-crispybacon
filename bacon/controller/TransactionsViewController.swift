@@ -19,6 +19,7 @@ class TransactionsViewController: UIViewController {
     var core: CoreLogic?
     var cellHeights: [CGFloat] = []
     var currentMonthTransactions = [Transaction]()
+    var transactionToEdit: Transaction?
     var monthCounter = (0, 0)
     var rowsCount: Int {
         return currentMonthTransactions.count
@@ -30,9 +31,16 @@ class TransactionsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Set up top bar and table view
+        // Set up top bar and table view without reloading transactions
         monthYearLabel.text = String(monthCounter.0) + "/" + String(monthCounter.1)
         setUpTableView()
+    }
+
+    private func reload() {
+        loadMonthTransactions()
+        setUpTableView()
+        tableView.reloadData()
+        monthYearLabel.text = String(monthCounter.0) + "/" + String(monthCounter.1)
     }
 
     private func loadMonthTransactions() {
@@ -42,8 +50,6 @@ class TransactionsViewController: UIViewController {
         }
         do {
             try currentMonthTransactions = core.loadTransactions(month: monthCounter.0, year: monthCounter.1)
-            tableView.reloadData()
-            monthYearLabel.text = String(monthCounter.0) + "/" + String(monthCounter.1)
         } catch {
             self.handleError(error: error, customMessage: Constants.transactionLoadFailureMessage)
         }
@@ -57,7 +63,7 @@ class TransactionsViewController: UIViewController {
             month = 12
         }
         monthCounter = (month, year)
-        loadMonthTransactions()
+        reload()
     }
 
     @IBAction func nextButtonPressed(_ sender: UIButton) {
@@ -68,7 +74,7 @@ class TransactionsViewController: UIViewController {
             month = 1
         }
         monthCounter = (month, year)
-        loadMonthTransactions()
+        reload()
     }
 
     private func setUpTableView() {
@@ -126,6 +132,12 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         let durations: [TimeInterval] = Constants.animatoinDuration
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
+
+        cell.transaction = currentMonthTransactions[arrayIndex]
+        cell.editTransactionAction = { transaction in
+            self.transactionToEdit = transaction
+            self.performSegue(withIdentifier: Constants.transactionsToEdit, sender: nil)
+        }
 
         cell.closedNumberView.text = String(displayedIndex)
 
@@ -234,5 +246,23 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     // swiftlint:enable attributes
+}
 
+extension TransactionsViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.transactionsToEdit {
+            guard let editController = segue.destination as? AddTransactionViewController else {
+                return
+            }
+            editController.transactionToEdit = transactionToEdit
+            editController.core = core
+            editController.isInEditMode = true
+        }
+    }
+
+    @IBAction func unwindToTransactions(segue: UIStoryboardSegue) {
+        if let addViewController = segue.source as? AddTransactionViewController {
+            reload()
+        }
+    }
 }

@@ -18,7 +18,9 @@ class Constants {
     static let coreFailureMessage = "Unable to run Bacon!"
     static let transactionAddFailureMessage = "Unable to add transaction!"
     static let transactionLoadFailureMessage = "Unable to load transactions!"
+    static let transactionEditFailureMessage = "Unable to edit transaction!"
     static let tagAddFailureMessage = "Unable to add tag!"
+    static let tagEditFailureMessage = "Uable to edit tag!"
     static let budgetSetFailureMessage = "Unable to set budget!"
     static let budgetStatusFailureMessage = "Unable to update budget status!"
 
@@ -44,6 +46,7 @@ class Constants {
     static let addTagMessage = "Add tags!"
     static let addToMainSuccess = "addToMainSuccess"
     static let addToTagSelection = "addToTagSelection"
+    static let editToTransactions = "editToTransactions"
 
     // Trsansactions Page
     static let defaultImage = UIImage(named: "dummy")
@@ -51,9 +54,11 @@ class Constants {
     static let defaultTagsToDisplay = "No tags were provided"
     static let animatoinDuration = [0.26, 0.20, 0.20]
     static let imageViewTag = 6
+    static let transactionsToEdit = "transactionsToEdit"
 
     // Tag Selection Page
     static let tagNameInputTitle = "Add new tag"
+    static let tagRenameInputTitle = "Edit tag"
     static let tagNameInputMessage = "Enter tag name"
     static let InvalidTagNameWarning = "Please enter a valid name!"
     static let tagSelectionToAdd = "tagSelectionToAdd"
