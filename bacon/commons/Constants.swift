@@ -45,6 +45,7 @@ class Constants {
     static let addTagMessage = "Add tags!"
     static let addToMainSuccess = "addToMainSuccess"
     static let addToTagSelection = "addToTagSelection"
+    static let editToTransactions = "editToTransactions"
 
     // Trsansactions Page
     static let defaultImage = UIImage(named: "dummy")
@@ -52,6 +53,7 @@ class Constants {
     static let defaultTagsToDisplay = "No tags were provided"
     static let animatoinDuration = [0.26, 0.20, 0.20]
     static let imageViewTag = 6
+    static let transactionsToEdit = "transactionsToEdit"
 
     // Tag Selection Page
     static let tagNameInputTitle = "Add new tag"

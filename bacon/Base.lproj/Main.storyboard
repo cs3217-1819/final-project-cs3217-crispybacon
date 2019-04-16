@@ -813,6 +813,7 @@
                         <outlet property="timeLabel" destination="8ow-WL-Cpp" id="WYk-co-6Ef"/>
                         <outlet property="typeLabel" destination="LrK-Yu-LCW" id="ziF-wV-dfN"/>
                         <segue destination="Y5b-w6-RtN" kind="unwind" identifier="addToMainSuccess" unwindAction="unwindToMainWithSegue:" id="HIj-1V-7x9"/>
+                        <segue destination="Y5b-w6-RtN" kind="unwind" identifier="editToTransactions" unwindAction="unwindToTransactionsWithSegue:" id="5Cm-xb-ifB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XLw-qj-Set" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1146,6 +1147,9 @@
                                                                             <integer key="value" value="10"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <action selector="editButtonPressed:" destination="gKp-LO-4WI" eventType="touchUpInside" id="Yut-8D-0WD"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1287,6 +1291,7 @@
                     <connections>
                         <outlet property="monthYearLabel" destination="iHe-R9-GH8" id="LWL-au-Qj2"/>
                         <outlet property="tableView" destination="Wxi-zi-XoU" id="0cE-oP-dMw"/>
+                        <segue destination="Kkb-EH-aei" kind="show" identifier="transactionsToEdit" id="BKl-pB-VdP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uGh-dA-pXs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1320,7 +1325,7 @@
         <image name="plus" width="294" height="294"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nRX-mK-th1"/>
+        <segue reference="BKl-pB-VdP"/>
         <segue reference="dM7-bg-LN1"/>
     </inferredMetricsTieBreakers>
 </document>
