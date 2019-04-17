@@ -82,14 +82,20 @@ struct Tag: Codable, Comparable, Hashable {
     }
 
     /// Initializes a standalone Tag.
+    /// Standalone Tags are not associated to TagManager.
     /// Its `value` and optional `parentValue` properties are specified during instantiation.
+    /// - Requires: `value` must be an integer.
     init(_ value: String, parentValue: String? = nil) {
         overriddenValue = value
         overriddenParentValue = parentValue
         isParentValueOverridden = true
 
-        self.internalValue = Int64(value.hashValue)
-        self.parentInternalValue = parentValue != nil ? Int64(parentValue.hashValue) : nil
+        guard let internalValue = Int64(value) else {
+            fatalError("This should never happen") // Specified in requires clause
+        }
+        self.internalValue = internalValue
+        
+        self.parentInternalValue = parentValue != nil ? Int64(parentValue!) : nil
     }
 
     /// Convenience computed property to represent whether a Tag is a child Tag.

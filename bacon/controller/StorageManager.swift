@@ -221,8 +221,8 @@ class StorageManager: StorageManagerInterface {
         try concreteStorage.savePrediction(prediction)
     }
 
-    func loadPredictions() throws -> [Prediction] {
-        return try concreteStorage.loadPredictions()
+    func loadAllPredictions() throws -> [Prediction] {
+        return try concreteStorage.loadAllPredictions()
     }
 
     func loadPredictions(limit: Int) throws -> [Prediction] {

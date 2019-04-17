@@ -34,6 +34,6 @@ protocol StorageManagerInterface {
     func getNumberOfPredictionsInDatabase() -> Double
     func clearPredictionDatabase() throws
     func savePrediction(_ prediction: Prediction) throws
-    func loadPredictions() throws -> [Prediction]
+    func loadAllPredictions() throws -> [Prediction]
     func loadPredictions(limit: Int) throws -> [Prediction]
 }

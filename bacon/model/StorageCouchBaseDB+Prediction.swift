@@ -62,12 +62,12 @@ extension StorageCouchBaseDB {
         }
     }
 
-    func loadPredictions() throws -> [Prediction] {
+    func loadAllPredictions() throws -> [Prediction] {
         let query = QueryBuilder.select(SelectResult.all())
             .from(DataSource.database(predictionDatabase))
             .orderBy(Ordering.property(Constants.rawDateKey).descending())
         log.info("""
-            StorageCouchBaseDB.loadPredictions()
+            StorageCouchBaseDB.loadAllPredictions()
             """)
         return try getPredictionsFromQuery(query)
     }
@@ -78,7 +78,7 @@ extension StorageCouchBaseDB {
             .orderBy(Ordering.property(Constants.rawDateKey).descending())
             .limit(Expression.int(limit))
         log.info("""
-            StorageCouchBaseDB.loadPredictions() with arguments:
+            StorageCouchBaseDB.loadAllPredictions() with arguments:
             limit=\(limit).
             """)
         return try getPredictionsFromQuery(query)

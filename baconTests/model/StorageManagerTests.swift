@@ -441,6 +441,61 @@ class StorageManagerTests: XCTestCase {
     }
 
     // -----Prediction Related Tests-----
+    func test_getNumberOfPredictionsInDatabase() {
+        let database = try! StorageManager()
+        XCTAssertNoThrow(try database.clearPredictionDatabase())
+        // Empty database should return 0 for getNumberOfPredictionsInDatabase()
+        XCTAssertEqual(database.getNumberOfPredictionsInDatabase(), 0)
+        // Add predictions into database
+        XCTAssertNoThrow(try database.savePrediction(TestUtils.validPrediction01))
+        XCTAssertNoThrow(try database.savePrediction(TestUtils.validPrediction02))
+        XCTAssertEqual(database.getNumberOfPredictionsInDatabase(), 2)
+    }
 
+    func test_clearPredictionDatabase() {
+        let database = try! StorageManager()
+        // If database is empty, save a prediction
+        if database.getNumberOfPredictionsInDatabase() == 0 {
+            XCTAssertNoThrow(try database.savePrediction(TestUtils.validPrediction01))
+        }
+        XCTAssertTrue(database.getNumberOfPredictionsInDatabase() > 0)
+        XCTAssertNoThrow(try database.clearPredictionDatabase())
+        XCTAssertTrue(database.getNumberOfPredictionsInDatabase() == 0)
+    }
+
+    func test_savePrediction() {
+        let database = try! StorageManager()
+        XCTAssertNoThrow(try database.clearPredictionDatabase())
+        XCTAssertEqual(database.getNumberOfPredictionsInDatabase(), 0)
+
+        // Save a prediction into the database
+        XCTAssertNoThrow(try database.savePrediction(TestUtils.validPrediction01))
+        // Load the prediction out of database and check if its the one that was saved
+        let loadedPrediction = try! database.loadAllPredictions()
+        XCTAssertTrue(loadedPrediction.first!.equals(TestUtils.validPrediction01))
+    }
+
+    func test_loadAllPredictions() {
+        let database = try! StorageManager()
+        // Clear database
+        try! database.clearPredictionDatabase()
+        XCTAssertEqual(database.getNumberOfPredictionsInDatabase(), 0)
+        // Test loading empty database
+        XCTAssertTrue(try database.loadAllPredictions().isEmpty)
+
+        // Save multiple predictions
+        let predictions = [TestUtils.validPrediction03,
+                           TestUtils.validPrediction02,
+                           TestUtils.validPrediction01]
+        for prediction in predictions {
+            XCTAssertNoThrow(try database.savePrediction(prediction))
+        }
+        let loadedPredictions = try! database.loadAllPredictions()
+        XCTAssertEqual(predictions.count, loadedPredictions.count)
+        // Check that the transactions loaded out are equal and in reverse chronological order
+        for (index, prediction) in predictions.enumerated() {
+            XCTAssertTrue(prediction.equals(loadedPredictions[index]))
+        }
+    }
     // swiftlint:enable force_try
 }
