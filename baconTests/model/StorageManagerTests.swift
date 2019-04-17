@@ -79,6 +79,68 @@ class StorageManagerTests: XCTestCase {
         XCTAssertTrue(transactions[0].equals(loadedTransactions[0]))
     }
 
+    func test_deleteTagFromTransactions() {
+        let database = try! StorageManager()
+        // Clear database
+        XCTAssertNoThrow(try database.clearTransactionDatabase())
+        XCTAssertEqual(database.getNumberOfTransactionsInDatabase(), 0)
+        // Test deleting empty database
+        XCTAssertNoThrow(try database.deleteTagFromTransactions(TestUtils.tagFood))
+        // Save some transactions
+        let transportBillTransaction = try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(4_000)),
+                                                     type: .income,
+                                                     frequency: try! TransactionFrequency(nature: .oneTime),
+                                                     tags: [TestUtils.tagBills, TestUtils.tagTransport],
+                                                     amount: 5.0)
+        let foodTransactions02 = try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
+                                                  type: .income,
+                                                  frequency: try! TransactionFrequency(nature: .oneTime),
+                                                  tags: [TestUtils.tagFood],
+                                                  amount: 1.50,
+                                                  image: CodableUIImage(TestUtils.redHeartJpg))
+        let foodTransactions01 = try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
+                                                  type: .expenditure,
+                                                  frequency: try! TransactionFrequency(nature: .oneTime),
+                                                  tags: [TestUtils.tagFood],
+                                                  amount: 69.60)
+        let transactions = [transportBillTransaction,
+                            foodTransactions02,
+                            foodTransactions01]
+        XCTAssertNoThrow(try database.saveTransaction(transactions[1]))
+        XCTAssertNoThrow(try database.saveTransaction(transactions[2]))
+        XCTAssertNoThrow(try database.saveTransaction(transactions[0]))
+        // Check transactions are saved in the database
+        var loadedTransactions = try! database.loadTransactions(limit: 3)
+        XCTAssertEqual(transactions.count, loadedTransactions.count)
+        for (index, transaction) in transactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransactions[index]))
+        }
+
+        // Remove food tag
+        XCTAssertEqual(try database.loadTransactions(ofTag: TestUtils.tagFood).count, 2)
+        XCTAssertNoThrow(try database.deleteTagFromTransactions(TestUtils.tagFood))
+        XCTAssertEqual(try database.loadTransactions(ofTag: TestUtils.tagFood).count, 0)
+        // Remove bills tag
+        XCTAssertEqual(try database.loadTransactions(ofTag: TestUtils.tagBills).count, 1)
+        XCTAssertNoThrow(try database.deleteTagFromTransactions(TestUtils.tagBills))
+        XCTAssertEqual(try database.loadTransactions(ofTag: TestUtils.tagBills).count, 0)
+        // Check transactions are updated
+        var transaction01Tags = transactions[0].tags
+        var transaction02Tags = transactions[1].tags
+        var transaction03Tags = transactions[2].tags
+        transaction01Tags.remove(TestUtils.tagBills)
+        transaction02Tags.remove(TestUtils.tagFood)
+        transaction03Tags.remove(TestUtils.tagFood)
+        try! transactions[0].edit(tags: transaction01Tags)
+        try! transactions[1].edit(tags: transaction02Tags)
+        try! transactions[2].edit(tags: transaction03Tags)
+        loadedTransactions = try! database.loadTransactions(limit: 3)
+        XCTAssertEqual(loadedTransactions.count, 3)
+        for (index, transaction) in transactions.enumerated() {
+            XCTAssertTrue(transaction.equals(loadedTransactions[index]))
+        }
+    }
+
     func test_updateTransaction() {
         let database = try! StorageManager()
         // Clear database
