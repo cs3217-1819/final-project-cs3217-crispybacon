@@ -30,6 +30,7 @@ protocol CoreLogicInterface {
     // MARK: Tag related
     func getAllTags() -> [Tag: [Tag]]
     func getAllParentTags() -> [Tag]
+    func getChildrenTags(of parent: String) throws -> [Tag]
     func addParentTag(_ name: String) throws -> Tag
     func addChildTag(_ child: String, to parent: String) throws -> Tag
     func renameTag(for tag: Tag, to newValue: String) throws -> Tag

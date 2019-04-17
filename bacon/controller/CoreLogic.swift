@@ -109,6 +109,10 @@ class CoreLogic: CoreLogicInterface {
         return tagManager.parentTags
     }
 
+    func getChildrenTags(of parent: String) throws -> [Tag] {
+        return try tagManager.getChildrenTags(of: parent)
+    }
+
     func addParentTag(_ name: String) throws -> Tag {
         return try tagManager.addParentTag(name)
     }

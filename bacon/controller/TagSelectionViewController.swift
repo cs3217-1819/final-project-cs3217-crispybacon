@@ -110,6 +110,15 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
                 }
             }
         }
+        parentCell.deleteChildAction = { indexPath, cell in
+            do {
+                try core.removeChildTag(cell.childTags[indexPath.row].value, from: currentParentTag.value)
+                try cell.childTags = core.getChildrenTags(of: currentParentTag.value)
+                cell.subTable.deleteRows(at: [indexPath], with: .automatic)
+            } catch {
+                self.handleError(error: error, customMessage: Constants.tagDeleteFailureMessage)
+            }
+        }
         parentCell.selectChildAction = { tag in
             self.selectTag(tag: tag)
         }
@@ -134,20 +143,11 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
                 try core.removeParentTag(parentTags[indexPath.row].value)
                 self.loadTags()
                 self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                self.perform(#selector(self.reloadTable), with: nil, afterDelay: 0.4)
             } catch {
                 self.handleError(error: error, customMessage: Constants.tagDeleteFailureMessage)
             }
         }
     }
-
-    // swiftlint:disable attributes
-    @objc func reloadTable() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    // swiftlint:enable attributes
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         log.info("""
