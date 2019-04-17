@@ -492,10 +492,32 @@ class StorageManagerTests: XCTestCase {
         }
         let loadedPredictions = try! database.loadAllPredictions()
         XCTAssertEqual(predictions.count, loadedPredictions.count)
-        // Check that the transactions loaded out are equal and in reverse chronological order
+        // Check that the predictions loaded out are equal and in reverse chronological order
         for (index, prediction) in predictions.enumerated() {
             XCTAssertTrue(prediction.equals(loadedPredictions[index]))
         }
+    }
+
+    func test_loadPredictions() {
+        let database = try! StorageManager()
+        // Clear database
+        try! database.clearPredictionDatabase()
+        XCTAssertEqual(database.getNumberOfPredictionsInDatabase(), 0)
+        // Test loading empty database
+        XCTAssertTrue(try database.loadAllPredictions().isEmpty)
+
+        // Save multiple predictions
+        let predictions = [TestUtils.validPrediction03,
+                           TestUtils.validPrediction02,
+                           TestUtils.validPrediction01]
+        for prediction in predictions {
+            XCTAssertNoThrow(try database.savePrediction(prediction))
+        }
+        XCTAssertEqual(database.getNumberOfPredictionsInDatabase(), 3)
+        let loadedPredictions = try! database.loadPredictions(limit: 1)
+        XCTAssertEqual(loadedPredictions.count, 1)
+        // Check that the prediction loaded out is the latest prediction
+        XCTAssertTrue(predictions[0].equals(loadedPredictions[0]))
     }
     // swiftlint:enable force_try
 }
