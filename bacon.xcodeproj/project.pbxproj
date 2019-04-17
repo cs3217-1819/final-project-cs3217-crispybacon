@@ -292,14 +292,14 @@
 			path = baconUITests;
 			sourceTree = "<group>";
 		};
-		8F89424E225E0263007146AC /* Tags */ = {
+		8F89424E225E0263007146AC /* tags */ = {
 			isa = PBXGroup;
 			children = (
 				8F89424A225E00D4007146AC /* TagManager.swift */,
 				8F89424C225E01D6007146AC /* TagManagerInterface.swift */,
 				8F913A812260DC5900D20FA2 /* TagValueSourceInterface.swift */,
 			);
-			path = Tags;
+			path = tags;
 			sourceTree = "<group>";
 		};
 		8F913A77225F2F8D00D20FA2 /* errors */ = {
@@ -383,7 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				8F913A7C2260538700D20FA2 /* transaction */,
-				8F89424E225E0263007146AC /* Tags */,
+				8F89424E225E0263007146AC /* tags */,
 				9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */,
 				9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */,
 				9F7154012261D7F400FF047F /* StorageCouchBaseDB+TagAssociation.swift */,
