@@ -28,6 +28,9 @@ class ParentTagCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+        if canEdit {
+            return
+        }
         if selected {
             parentTagLabel.textColor = UIColor.green.withAlphaComponent(0.5)
         } else {
@@ -56,6 +59,7 @@ extension ParentTagCell: UITableViewDataSource, UITableViewDelegate {
             return rawCell
         }
         childTagCell.childTagLabel.text = childTags[indexPath.row].value
+        childTagCell.canEdit = canEdit
         return childTagCell
     }
 
@@ -64,11 +68,7 @@ extension ParentTagCell: UITableViewDataSource, UITableViewDelegate {
             ParentTagCell.subTable.didSelectRowAt():
             row=\(indexPath.row))
             """)
-        if canEdit {
-            // edit tag name
-        } else {
-            selectTag(tag: childTags[indexPath.row])
-        }
+        selectTag(tag: childTags[indexPath.row])
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -76,11 +76,7 @@ extension ParentTagCell: UITableViewDataSource, UITableViewDelegate {
             ParentTagCell.subTable.didDeselectRowAt():
             row=\(indexPath.row))
             """)
-        if canEdit {
-            // edit tag name
-        } else {
-            unselectTag(tag: childTags[indexPath.row])
-        }
+        unselectTag(tag: childTags[indexPath.row])
     }
 
     private func selectTag(tag: Tag) {

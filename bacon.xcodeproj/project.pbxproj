@@ -296,14 +296,14 @@
 			path = baconUITests;
 			sourceTree = "<group>";
 		};
-		8F89424E225E0263007146AC /* Tags */ = {
+		8F89424E225E0263007146AC /* tags */ = {
 			isa = PBXGroup;
 			children = (
 				8F89424A225E00D4007146AC /* TagManager.swift */,
 				8F89424C225E01D6007146AC /* TagManagerInterface.swift */,
 				8F913A812260DC5900D20FA2 /* TagValueSourceInterface.swift */,
 			);
-			path = Tags;
+			path = tags;
 			sourceTree = "<group>";
 		};
 		8F913A77225F2F8D00D20FA2 /* errors */ = {
@@ -370,16 +370,16 @@
 				BEC57449225C9F90001793EC /* DateTimeSelectionViewController.swift */,
 				BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */,
 				BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */,
+				BEC57451225F8DA5001793EC /* TagSelectionViewController.swift */,
+				BEF82C142261C157007BC819 /* SetBuddgetViewController.swift */,
+				BEC574432254B714001793EC /* UIViewController+Alert.swift */,
 				9F67EF34225C9A73004F6D0B /* CoreLogicInterface.swift */,
 				9F965F8322533E5500AF6092 /* CoreLogic.swift */,
 				45639D7C2266633100B07AA6 /* StorageManagerInterface.swift */,
+				BEC5745722605570001793EC /* CoreLogic+BreakDownByTag.swift */,
 				9F7FD1132240CD51001E1A8E /* StorageManager.swift */,
 				9F965F8522535B9300AF6092 /* TransactionManager.swift */,
 				9F67EF32225C96F9004F6D0B /* BudgetManager.swift */,
-				BEC574432254B714001793EC /* UIViewController+Alert.swift */,
-				BEC57451225F8DA5001793EC /* TagSelectionViewController.swift */,
-				BEC5745722605570001793EC /* CoreLogic+BreakDownByTag.swift */,
-				BEF82C142261C157007BC819 /* SetBuddgetViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -388,7 +388,7 @@
 			isa = PBXGroup;
 			children = (
 				8F913A7C2260538700D20FA2 /* transaction */,
-				8F89424E225E0263007146AC /* Tags */,
+				8F89424E225E0263007146AC /* tags */,
 				9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */,
 				9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */,
 				9F7154012261D7F400FF047F /* StorageCouchBaseDB+TagAssociation.swift */,

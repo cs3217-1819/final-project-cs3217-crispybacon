@@ -66,7 +66,7 @@ extension UIViewController {
     /// Handles error and presents message to the user.
     /// - Parameters:
     ///     - error: The error to be handled.
-    ///     - customMessage: Message to be presented to the user, if the error is not among the defined one.
+    ///     - customMessage: Message to be presented to the user, if the error is not among the defined ones.
     func handleError(error: Error, customMessage: String) {
         if let initError = error as? InitializationError {
             self.alertUser(title: Constants.warningTitle, message: initError.message)

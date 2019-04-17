@@ -24,6 +24,9 @@ class TransactionCell: FoldingCell {
     @IBOutlet weak var closedNumberView: UILabel!
     // swiftlint:enable private_outlet
 
+    var transaction: Transaction?
+    var editTransactionAction: ((Transaction?) -> Void)?
+
     override func awakeFromNib() {
         foregroundView.layer.cornerRadius = 10
         foregroundView.layer.masksToBounds = true
@@ -35,5 +38,9 @@ class TransactionCell: FoldingCell {
         // durations count equal it itemCount
         let durations = Constants.animatoinDuration
         return durations[itemIndex]
+    }
+
+    @IBAction func editButtonPressed(_ sender: UIButton) {
+        editTransactionAction?(transaction)
     }
 }

@@ -11,10 +11,20 @@ import CoreLocation
 
 class AddTransactionViewController: UIViewController {
 
+    // To be removed after location manager is up
     let locationManager = CLLocationManager()
     let geoCoder = CLGeocoder()
+
     var core: CoreLogic?
+    var isInEditMode = false
+
+    // Relevant if in Add Mode
     var currentMonthTransactions = [Transaction]()
+    var prediction: Prediction?
+
+    // Relevant if in Edit Mode
+    var transactionToEdit: Transaction?
+
     var transactionType = Constants.defaultTransactionType
     var dateTime = Date()
     var tags = Set<Tag>()
@@ -27,22 +37,49 @@ class AddTransactionViewController: UIViewController {
     @IBOutlet private weak var descriptionField: UITextField!
     @IBOutlet private weak var locationLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
+    @IBOutlet private weak var imagePreview: PreviewImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Set up transaction type
-        if transactionType == .expenditure {
-            setExpenditureType()
-        } else {
-            setIncomeType()
-        }
-
         // Request permission for location services
+        // To be removed after location manager is up
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
 
-        // Get current location immediately
+        if isInEditMode {
+            setUpEditMode()
+        } else {
+            setUpAddMode()
+        }
+        refreshAllViews()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        refreshAllViews()
+    }
+
+    private func setUpEditMode() {
+        guard let transactionToEdit = transactionToEdit else {
+            alertUser(title: Constants.warningTitle, message: Constants.transactionEditFailureMessage)
+            performSegue(withIdentifier: Constants.editToTransactions, sender: nil)
+            return
+        }
+        transactionType = transactionToEdit.type
+        amountField.text = transactionToEdit.amount.toFormattedString
+        tags = transactionToEdit.tags
+        dateTime = transactionToEdit.date
+        location = transactionToEdit.location?.location
+        photo = transactionToEdit.image?.image
+        descriptionField.text = transactionToEdit.description
+
+        log.info("""
+                AddTransactionViewController finished set-up in Edit Mode.
+                """)
+    }
+
+    private func setUpAddMode() {
+        // To be removed when lcoation manager is up
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters // hard coded for now
@@ -52,12 +89,10 @@ class AddTransactionViewController: UIViewController {
 
         // Get prediction and auto-fill in the relevant fields
         getPrediction()
-    }
 
-    override func viewDidAppear(_ animated: Bool) {
-        // Need to add display location and photo too when ready
-        displayDateTime(dateTime: dateTime)
-        displayTags(tags: tags)
+        log.info("""
+                AddTransactionViewController finished set-up in Add Mode.
+                """)
     }
 
     private func getPrediction() {
@@ -69,9 +104,8 @@ class AddTransactionViewController: UIViewController {
             // Location functionality is disabled
             return
         }
-        guard let prediction = core.getPrediction(dateTime,
-                                                  CodableCLLocation(location),
-                                                  currentMonthTransactions) else {
+        prediction = core.getPrediction(dateTime, CodableCLLocation(location), currentMonthTransactions)
+        guard let prediction = prediction else {
             return
         }
         // Populate the fields with the prediction result
@@ -96,36 +130,59 @@ class AddTransactionViewController: UIViewController {
     }
 
     @IBAction func addButtonPressed(_ sender: UIButton) {
-        captureInputs()
-        performSegue(withIdentifier: Constants.addToMainSuccess, sender: nil)
-    }
-
-    private func captureInputs() {
-        guard let coreLogic = core else {
-            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
-            return
-        }
-
         let date = captureDate()
         let type = captureType()
         let frequency = captureFrequency()
         let tags = captureTags()
         let amount = captureAmount()
         let description = captureDescription()
-        let photo = capturePhoto()
+        let image = capturePhoto()
         let location = captureLocation()
 
         log.info("""
             AddTransactionViewController.captureInputs() with inputs captured:
             date=\(date), type=\(type), frequency=\(frequency), tags=\(tags),
-            amount=\(amount), description=\(description), photo=\(String(describing: photo)),
+            amount=\(amount), description=\(description), image=\(String(describing: image)),
             location=\(String(describing: location)))
             """)
 
+        if isInEditMode {
+            performEdit(date: date, type: type, frequency: frequency, tags: tags, amount: amount,
+                        description: description, image: image, location: location)
+        } else {
+            performAdd(date: date, type: type, frequency: frequency, tags: tags, amount: amount,
+                       description: description, image: image, location: location)
+        }
+    }
+
+    private func performEdit(date: Date, type: TransactionType, frequency: TransactionFrequency,
+                             tags: Set<Tag>, amount: Decimal, description: String,
+                             image: CodableUIImage?, location: CodableCLLocation?) {
+        do {
+            try transactionToEdit?.edit(date: date, type: type, frequency: frequency,
+                                        tags: tags, amount: amount, description: description,
+                                        image: image, location: location, successCallback: {
+                self.performSegue(withIdentifier: Constants.editToTransactions, sender: nil)
+            }, failureCallback: { errorMessage in
+                self.alertUser(title: Constants.warningTitle, message: errorMessage)
+            })
+        } catch {
+            self.handleError(error: error, customMessage: Constants.transactionEditFailureMessage)
+        }
+    }
+
+    private func performAdd(date: Date, type: TransactionType, frequency: TransactionFrequency,
+                            tags: Set<Tag>, amount: Decimal, description: String,
+                            image: CodableUIImage?, location: CodableCLLocation?) {
+        guard let coreLogic = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
         do {
             try coreLogic.recordTransaction(date: date, type: type, frequency: frequency,
                                             tags: tags, amount: amount, description: description,
-                                            image: photo, location: location)
+                                            image: image, location: location)
+            performSegue(withIdentifier: Constants.addToMainSuccess, sender: nil)
         } catch {
             self.handleError(error: error, customMessage: Constants.transactionAddFailureMessage)
         }
@@ -178,11 +235,27 @@ class AddTransactionViewController: UIViewController {
         guard let currentLocation = locationManager.location else {
             return
         }
-        displayLocation(currentLocation)
         location = currentLocation
+        displayLocation()
     }
 
-    private func displayLocation(_ location: CLLocation) {
+    private func refreshAllViews() {
+        displayTags()
+        displayDateTime()
+        displayLocation()
+        displayType()
+        displayPic()
+    }
+
+    private func displayPic() {
+        imagePreview.image = photo
+    }
+
+    private func displayLocation() {
+        guard let location = location else {
+            // Location functionality is disabled
+            return
+        }
         geoCoder.reverseGeocodeLocation(location) { placemarks, _ in
             if let place = placemarks?.first {
                 self.locationLabel.text = String(place)
@@ -190,11 +263,11 @@ class AddTransactionViewController: UIViewController {
         }
     }
 
-    private func displayDateTime(dateTime: Date) {
+    private func displayDateTime() {
         timeLabel.text = Constants.getDateLessPreciseFormatter().string(from: dateTime)
     }
 
-    private func displayTags(tags: Set<Tag>) {
+    private func displayTags() {
         var tagString = ""
         for tag in tags {
             tagString += tag.toString() + "  "
@@ -203,6 +276,14 @@ class AddTransactionViewController: UIViewController {
             tagString = Constants.addTagMessage
         }
         tagLabel.text = tagString
+    }
+
+    private func displayType() {
+        if transactionType == .expenditure {
+            setExpenditureType()
+        } else {
+            setIncomeType()
+        }
     }
 
     private func setExpenditureType() {
@@ -233,6 +314,7 @@ extension AddTransactionViewController: UINavigationControllerDelegate, UIImageP
             return
         }
         photo = image
+        displayPic()
     }
 }
 

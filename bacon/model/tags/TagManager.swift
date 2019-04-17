@@ -328,6 +328,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
 
     }
 
+    @discardableResult
     func removeChildTag(_ child: String, from parent: String) throws -> [Tag] {
         // Parent Tag should exist
         guard let children = parentChildMap[parent] else {
@@ -342,6 +343,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
         return try removeTag(child, of: parent)
     }
 
+    @discardableResult
     func removeParentTag(_ parent: String) throws -> [Tag] {
         // Parent Tag should exist
         guard parentChildMap[parent] != nil else {
