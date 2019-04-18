@@ -21,7 +21,7 @@ class BaconPredictionGenerator {
                 similarTransactions.insert(transaction)
             }
         }
-        return generatePredictionFromSimilarTransactions(time, location, similarTransactions, transactions)
+        return generatePredictionFromSimilarTransactions(time, location, similarTransactions)
     }
 
     private func isSimilarInTime(_ time: Date, _ transaction: Transaction) -> Bool {
@@ -74,8 +74,7 @@ class BaconPredictionGenerator {
 
     private func generatePredictionFromSimilarTransactions(_ time: Date,
                                                            _ location: CodableCLLocation,
-                                                           _ similarTransactions: Set<Transaction>,
-                                                           _ pastTransactions: [Transaction]) -> Prediction? {
+                                                           _ similarTransactions: Set<Transaction>) -> Prediction? {
         var amountPredicted = Constants.defaultPredictedAmount
         var tagsPredicted = Set<Tag>()
         var amountCount = [Decimal: Int]()
@@ -101,7 +100,7 @@ class BaconPredictionGenerator {
             }
         }
         do {
-            let prediction = try Prediction(time: time, location: location, transactions: pastTransactions,
+            let prediction = try Prediction(time: time, location: location,
                                             amount: amountPredicted, tags: tagsPredicted)
             log.info("""
                 BaconPredictionGenerator finished predicting prediction
