@@ -30,7 +30,7 @@ class StorageCouchBaseDB {
 
     // Dictionary to provide a mapping from instantiated `Transaction` objects
     // to their unique id in the databse.
-    var transactionMapping: [Transaction: String]
+    var transactionIdMapping: [Transaction: String]
 
     private init?() {
         // Initialize database
@@ -39,7 +39,7 @@ class StorageCouchBaseDB {
             tagAssociationDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .tagAssociation)
             budgetDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .budget)
             predictionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .predictions)
-            transactionMapping = [:]
+            transactionIdMapping = [:]
             log.info("""
                 StorageCouchBaseDB.init() :
                 Initializing singleton instance of couchbase database.

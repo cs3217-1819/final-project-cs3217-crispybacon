@@ -22,7 +22,7 @@ extension StorageCouchBaseDB {
         do {
             try transactionDatabase.delete()
             try tagAssociationDatabase.delete()
-            transactionMapping.removeAll()
+            transactionIdMapping.removeAll()
             // Reinitialize database
             transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
             tagAssociationDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .tagAssociation)
@@ -72,7 +72,7 @@ extension StorageCouchBaseDB {
 
     func updateTransaction(_ transaction: Transaction) throws {
         // Fetch the specific document from database
-        guard let transactionId = transactionMapping[transaction] else {
+        guard let transactionId = transactionIdMapping[transaction] else {
             log.warning("""
                     StorageCouchBaseDB.updateTransaction():
                     Encounter error updating transaction in database.
@@ -107,7 +107,7 @@ extension StorageCouchBaseDB {
 
     func deleteTransaction(_ transaction: Transaction) throws {
         // Fetch the specific document from database
-        guard let transactionId = transactionMapping[transaction] else {
+        guard let transactionId = transactionIdMapping[transaction] else {
             log.warning("""
                 StorageCouchBaseDB.deleteTransaction():
                 Encounter error deleting transaction from database.
@@ -137,7 +137,7 @@ extension StorageCouchBaseDB {
         do {
             try transactionDatabase.deleteDocument(transactionDocument)
             // Delete the mapping
-            transactionMapping.removeValue(forKey: transaction)
+            transactionIdMapping.removeValue(forKey: transaction)
             try clearAssociationsOfTransaction(uid: transactionId)
         } catch {
             log.warning("""
@@ -188,7 +188,7 @@ extension StorageCouchBaseDB {
         // Every time database is called to load Transactions, we clear the transaction id mapping
         // dictionary.
         // We only allow front end to deal with transactions per call to load method.
-        transactionMapping.removeAll(keepingCapacity: true)
+        transactionIdMapping.removeAll(keepingCapacity: true)
         do {
             var transactions: [Transaction] = Array()
             for result in try query.execute().allResults() {
@@ -205,7 +205,7 @@ extension StorageCouchBaseDB {
                 guard let transactionDatabaseId = result.string(forKey: "id") else {
                     throw StorageError(message: "Could not retrieve UID of transaction from database.")
                 }
-                transactionMapping.updateValue(transactionDatabaseId, forKey: currentTransaction)
+                transactionIdMapping.updateValue(transactionDatabaseId, forKey: currentTransaction)
             }
             return transactions
         } catch {
