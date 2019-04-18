@@ -9,7 +9,8 @@ target 'bacon' do
   pod 'CouchbaseLite-Swift', '~> 2.1.1'
   pod 'SwiftyBeaver'
   pod 'JTAppleCalendar', '~> 7.0'
-  pod 'Alamofire', '~> 4'  
+  pod 'Alamofire', '~> 4'
+  pod 'SwiftyJSON', '~> 4.0'
 
   target 'baconTests' do
     inherit! :search_paths
