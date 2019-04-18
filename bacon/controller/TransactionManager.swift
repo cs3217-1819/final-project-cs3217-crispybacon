@@ -76,6 +76,10 @@ class TransactionManager: Observer {
         try storageManager.deleteTagFromTransactions(tag)
     }
 
+    func deleteAllRecurringInstance(of transaction: Transaction) throws {
+        try storageManager.deleteAllRecurringInstances(of: transaction)
+    }
+
     func loadTransactions(limit: Int) throws -> [Transaction] {
         let transactions = try storageManager.loadTransactions(limit: limit)
         return observeTransactions(transactions)

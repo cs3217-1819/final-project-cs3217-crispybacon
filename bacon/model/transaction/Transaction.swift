@@ -68,7 +68,7 @@ class Transaction: HashableClass, Codable, Observable {
             //notifyObserversOfSelf()
         }
     }
-    private var recurringId: UUID?
+    private(set) var recurringId: UUID?
 
     var observers: [Observer] = []
 

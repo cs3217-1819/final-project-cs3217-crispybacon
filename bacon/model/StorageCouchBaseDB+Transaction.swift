@@ -152,6 +152,43 @@ extension StorageCouchBaseDB {
         }
     }
 
+    func deleteAllRecurringInstances(of transaction: Transaction) throws {
+        guard transaction.frequency.nature == .recurring else {
+            throw InvalidArgumentError(message: """
+                deleteAllRecurringInstances() requires transaction to be recurring.
+            """)
+        }
+        // Retrieve the id of all the recurring instances
+        guard let recurringId = transaction.recurringId else {
+            fatalError("transaction is guarded to be recurring, recurringId should not be nil.")
+        }
+        let query = QueryBuilder.select(SelectResult.expression(Meta.id))
+            .from(DataSource.database(transactionDatabase))
+            .where(Expression.property(Constants.recurringIdKey).equalTo(Expression.string(recurringId.uuidString)))
+            .orderBy(Ordering.property(Constants.rawDateKey).descending())
+        let transactionIds = try getTransactionIdsFromQuery(query)
+        for transactionId in transactionIds {
+            guard let transactionDocument = transactionDatabase.document(withID: transactionId) else {
+                log.warning("""
+                    StorageCouchBaseDB.deleteAllRecurringInstances():
+                    Encounter error deleting recurring transaction from database.
+                    Unable to retrieve transaction document in database using id.
+                    Throwing StorageError.
+                    """)
+                throw StorageError(message: """
+                    Unable to retrieve transaction document in database using id.
+                    """)
+            }
+            // Delete the current transaction from database
+            try transactionDatabase.deleteDocument(transactionDocument)
+            // Delete the association of tags to this transaction from tag-association database
+            try clearAssociationsOfTransaction(uid: transactionId)
+        }
+        log.info("""
+            StorageCouchBaseDB.loadAllTransactions()
+            """)
+    }
+
     // To be called when a tag has been deleted from TagManager
     func deleteTagFromTransactions(_ tag: Tag) throws {
         let transactionIds = try getAndDeleteTransactionIdsWithTag(tag)
@@ -181,6 +218,26 @@ extension StorageCouchBaseDB {
                     Encounter error saving updated transaction after removing tag to database.
                     """)
             }
+        }
+    }
+
+    private func getTransactionIdsFromQuery(_ query: Query) throws -> [String] {
+        do {
+            var transactionIds: [String] = []
+            for result in try query.execute().allResults() {
+                guard let currentTransactionId = result.string(forKey: "id") else {
+                    throw StorageError(message: "Could not retrieve UID of transaction from database.")
+                }
+                transactionIds.append(currentTransactionId)
+            }
+            return transactionIds
+        } catch {
+            log.warning("""
+                    StorageCouchBaseDB.getTransactionIdsFromQuery():
+                    Encounter error loading data and retrieving its id from database.
+                    Throwing StorageError.
+                """)
+            throw StorageError(message: "Transactions id couldn't be loaded from database.")
         }
     }
 

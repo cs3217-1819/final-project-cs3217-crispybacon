@@ -14,6 +14,7 @@ protocol StorageManagerInterface {
     func clearTransactionDatabase() throws
     func saveTransaction(_ transaction: Transaction) throws
     func deleteTransaction(_ transaction: Transaction) throws
+    func deleteAllRecurringInstances(of transaction: Transaction) throws
     func updateTransaction(_ transaction: Transaction) throws
     func loadAllTransactions() throws -> [Transaction]
     func loadTransactions(limit: Int) throws -> [Transaction]

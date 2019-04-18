@@ -110,6 +110,15 @@ class CoreLogic: CoreLogicInterface {
         return recurringTransactions
     }
 
+    func deleteAllRecurringInstances(of transaction: Transaction) throws {
+        guard transaction.frequency.nature == .recurring else {
+            throw InvalidArgumentError(message: """
+                deletellRecurringInstances() requires transaction to be recurring.
+            """)
+        }
+        try transactionManager.deleteAllRecurringInstance(of: transaction)
+    }
+
     func loadTransactions(month: Int, year: Int) throws -> [Transaction] {
         guard month > 0 && month < 13 else {
             throw InvalidArgumentError(message: "Month should be an integer ranging from 1 to 12.")
