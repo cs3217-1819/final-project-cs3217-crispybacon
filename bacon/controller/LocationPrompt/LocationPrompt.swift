@@ -69,8 +69,11 @@ class LocationPrompt {
     private static func handleResponse(_ response: Any) -> Bool {
         let json = JSON(response)
 
-        print(json["results"].arrayValue.count)
-        return true // Placeholder response
+        // Rudimentary logic: if there is >= 1 place in the specified vicinity
+        // matching the term, return true.
+        let matchingPlacesCount = json["results"].arrayValue.count
+
+        return matchingPlacesCount >= 1
     }
 
 }
