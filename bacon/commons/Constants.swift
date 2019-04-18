@@ -125,4 +125,7 @@ class Constants {
     static let locationSimilarityThreshold: Double = 500
     static let defaultPredictedAmount: Decimal = 0.0
     static let numberOfPredictedTags = 3
+
+    // LocationPrompt
+    static let LocationPromptRadius = 500 // in meters
 }
