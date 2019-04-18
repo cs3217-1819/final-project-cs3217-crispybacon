@@ -68,6 +68,7 @@ class Transaction: HashableClass, Codable, Observable {
             //notifyObserversOfSelf()
         }
     }
+    private var recurringId: UUID?
 
     var observers: [Observer] = []
 
@@ -83,6 +84,7 @@ class Transaction: HashableClass, Codable, Observable {
         case description
         case image
         case location
+        case recurringId
     }
 
     /// Creates a Transaction instance.
@@ -112,7 +114,10 @@ class Transaction: HashableClass, Codable, Observable {
         self.description = description
         self.image = image
         self.location = location
-
+        // If its a recurring transaction, generate a recurring id
+        if frequency.nature == .recurring {
+            self.recurringId = UUID()
+        }
         super.init()
         do {
             try validate(date: date,
@@ -272,6 +277,6 @@ extension Transaction {
             && location == transaction.location
             && image?.image.pngData()?.base64EncodedString()
                 == transaction.image?.image.pngData()?.base64EncodedString()
+            && recurringId == transaction.recurringId
     }
-
 }
