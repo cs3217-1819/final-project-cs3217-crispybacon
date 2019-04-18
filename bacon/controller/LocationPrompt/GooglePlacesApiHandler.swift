@@ -44,12 +44,12 @@ class GooglePlacesApiHandler: ApiHandler {
                     let decision = self.handleResponse(value)
                     decisionHandler(decision)
                 }
-        }
+            }
     }
 
     /// Generates a dictionary representing Alamofire request parameters.
     private func generateRequestParameters(currentLocation: CLLocation,
-                                                  context: String) -> [String: String] {
+                                           context: String) -> [String: String] {
         let latitude = currentLocation.coordinate.latitude
         let longitude = currentLocation.coordinate.longitude
 

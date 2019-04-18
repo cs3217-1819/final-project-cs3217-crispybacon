@@ -16,7 +16,8 @@ class LocationPromptTests: XCTestCase {
     // It's a driver program for manually checking that the function works as intended.
     func test_driver() {
         let expectation = XCTestExpectation(description: "It should work")
-        let testLocation = CLLocation(latitude: 1.3189051817407726, longitude: 103.81685275631474) // Bukit Timah Campus
+        let testLocation = CLLocation(latitude: 1.318_905_181_740_772_6,
+                                      longitude: 103.816_852_756_314_74) // Bukit Timah Campus
         LocationPrompt.shouldPromptUser(currentLocation: testLocation) { response in
             XCTAssertTrue(response)
             expectation.fulfill()
