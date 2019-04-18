@@ -127,7 +127,7 @@ class Constants {
     static let numberOfPredictedTags = 3
 
     // LocationPrompt
-    static let LocationPromptGooglePlacesApiKey = "AIzaSyCrEr5wqB5oPsy4_GofcVGizy9I5r4bEGg" // Avoid exposing API key in source code
+    static let LocationPromptGooglePlacesApiKey = "PLACEHOLDER" // Avoid exposing API key in source code
     static let LocationPromptRadius = 500 // In meters
     static let LocationPromptContext = "food" // Sets the context for deciding whether to prompt a user
 }
