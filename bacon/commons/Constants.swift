@@ -128,5 +128,6 @@ class Constants {
 
     // LocationPrompt
     static let LocationPromptApiKey = "PLACEHOLDER" // Avoid exposing API key in source code
-    static let LocationPromptRadius = 500 // in meters
+    static let LocationPromptRadius = 500 // In meters
+    static let LocationPromptContext = "food" // Sets the context for deciding whether to prompt a user
 }
