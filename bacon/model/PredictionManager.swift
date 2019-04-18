@@ -10,7 +10,7 @@ import Foundation
 
 class PredictionManager {
 
-    private let storageManager: StorageManager
+    private let storageManager: StorageManagerInterface
     private let predictionGeneraor: PredictionGenerator
 
     init() throws {

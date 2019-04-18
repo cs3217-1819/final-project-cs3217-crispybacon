@@ -27,14 +27,14 @@ extension StorageCouchBaseDB {
             log.info("Entered method StorageCouchBaseDB.clearBudgetDatabase()")
         } catch {
             if error is StorageError {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.clearBudgetDatabase():
                     Encounter error while reinitializing budget database.
                     Throwing StorageError.
                 """)
                 throw error
             } else {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.clearBudgetDatabase():
                     Encounter error while clearing budget database.
                     Throwing StorageError.

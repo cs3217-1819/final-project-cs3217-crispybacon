@@ -11,7 +11,7 @@
 
 import Foundation
 
-class StorageManager {
+class StorageManager: StorageManagerInterface {
 
     private let concreteStorage: StorageCouchBaseDB
 
@@ -25,37 +25,17 @@ class StorageManager {
             """)
     }
 
+    // MARK: Transaction Related
     func getNumberOfTransactionsInDatabase() -> Double {
         return concreteStorage.getNumberOfTransactionsInDatabase()
-    }
-
-    func getNumberOfBudgetsInDatabase() -> Double {
-        return concreteStorage.getNumberOfBudgetsInDatabase()
     }
 
     func clearTransactionDatabase() throws {
         return try concreteStorage.clearTransactionDatabase()
     }
 
-    func clearBudgetDatabase() throws {
-        return try concreteStorage.clearBudgetDatabase()
-    }
-
     func saveTransaction(_ transaction: Transaction) throws {
         try concreteStorage.saveTransaction(transaction)
-    }
-
-    /// Saves a budget into the database
-    /// There will always only be at most one budget existing in the database
-    /// In other words, calling saveBudget will overwrite any existing budget data.
-    func saveBudget(_ budget: Budget) throws {
-        try concreteStorage.saveBudget(budget)
-    }
-
-    /// deleteTagFromTransactions will remove the specified tag
-    /// from all transactions associated with it.
-    func deleteTagFromTransactions(_ tag: Tag) throws {
-        try concreteStorage.deleteTagFromTransactions(tag)
     }
 
     /// deleteTransaction() should only be called on Transactions that are loaded
@@ -70,10 +50,6 @@ class StorageManager {
     /// Transactions that are loaded out from database.
     func updateTransaction(_ transaction: Transaction) throws {
         try concreteStorage.updateTransaction(transaction)
-    }
-
-    func loadBudget() throws -> Budget {
-        return try concreteStorage.loadBudget()
     }
 
     /// Loads all the Transactions in the database
@@ -174,25 +150,25 @@ class StorageManager {
     }
 
     /**
-    /// Loads a collection of Transaction with the requirements specified.
-    /// - Parameters:
-    ///     - category: The transaction category.
-    ///     - limit: The number of transaction to load.
-    /// - Returns:
-    ///     the specified number of transactions of the specified category in reverse chronological order.
-    ///     If no transactions saved fulfill the requirement, an empty array is returned.
-    /// - Throws:
-    ///     `InvalidArgumentError` if limit < 0
-    ///     `StorageError`
-    func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
-        guard limit >= 0 else {
-            throw InvalidArgumentError(message: """
-                Limit: \(limit) passed into LoadTransactions(ofCategory..) should be non-negative.
-                """)
-        }
-        return try concreteStorage.loadTransactions(ofCategory: category, limit: limit)
-    }
-    **/
+     /// Loads a collection of Transaction with the requirements specified.
+     /// - Parameters:
+     ///     - category: The transaction category.
+     ///     - limit: The number of transaction to load.
+     /// - Returns:
+     ///     the specified number of transactions of the specified category in reverse chronological order.
+     ///     If no transactions saved fulfill the requirement, an empty array is returned.
+     /// - Throws:
+     ///     `InvalidArgumentError` if limit < 0
+     ///     `StorageError`
+     func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
+     guard limit >= 0 else {
+     throw InvalidArgumentError(message: """
+     Limit: \(limit) passed into LoadTransactions(ofCategory..) should be non-negative.
+     """)
+     }
+     return try concreteStorage.loadTransactions(ofCategory: category, limit: limit)
+     }
+     **/
 
     /// Loads a collection of Transaction with the tags specified.
     /// - Parameters:
@@ -203,5 +179,53 @@ class StorageManager {
     /// - Throws: `StorageError`
     func loadTransactions(ofTag tag: Tag) throws -> [Transaction] {
         return try concreteStorage.loadTransactions(ofTag: tag)
+    }
+
+    // MARK: Budget Related
+    func getNumberOfBudgetsInDatabase() -> Double {
+        return concreteStorage.getNumberOfBudgetsInDatabase()
+    }
+
+    func clearBudgetDatabase() throws {
+        return try concreteStorage.clearBudgetDatabase()
+    }
+
+    /// Saves a budget into the database
+    /// There will always only be at most one budget existing in the database
+    /// In other words, calling saveBudget will overwrite any existing budget data.
+    func saveBudget(_ budget: Budget) throws {
+        try concreteStorage.saveBudget(budget)
+    }
+
+    func loadBudget() throws -> Budget {
+        return try concreteStorage.loadBudget()
+    }
+
+    // MARK: Tag Related
+    /// deleteTagFromTransactions will remove the specified tag
+    /// from all transactions associated with it.
+    func deleteTagFromTransactions(_ tag: Tag) throws {
+        try concreteStorage.deleteTagFromTransactions(tag)
+    }
+
+    // MARK: Prediction Related
+    func getNumberOfPredictionsInDatabase() -> Double {
+        return concreteStorage.getNumberOfPredictionsInDatabase()
+    }
+
+    func clearPredictionDatabase() throws {
+        try concreteStorage.clearPredictionDatabase()
+    }
+
+    func savePrediction(_ prediction: Prediction) throws {
+        try concreteStorage.savePrediction(prediction)
+    }
+
+    func loadAllPredictions() throws -> [Prediction] {
+        return try concreteStorage.loadAllPredictions()
+    }
+
+    func loadPredictions(limit: Int) throws -> [Prediction] {
+        return try concreteStorage.loadPredictions(limit: limit)
     }
 }

@@ -27,3 +27,23 @@ struct Prediction: Codable, Hashable {
         self.tagsPredicted = tags
     }
 }
+
+// MARK: Prediction: equals()
+extension Prediction {
+    /// Compares 2 predictions.
+    /// - Returns: true if they have equal properties.
+    func equals(_ prediction: Prediction) -> Bool {
+        var hasEqualPastTransactions = true
+        for (index, transaction) in pastTransactions.enumerated() {
+            if !transaction.equals(prediction.pastTransactions[index]) {
+                hasEqualPastTransactions = false
+                break
+            }
+        }
+        return time == prediction.time
+            && location == prediction.location
+            && amountPredicted == prediction.amountPredicted
+            && tagsPredicted == prediction.tagsPredicted
+            && hasEqualPastTransactions
+    }
+}

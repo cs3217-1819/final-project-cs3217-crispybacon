@@ -16,6 +16,7 @@ enum DatabaseCollections: String {
     case transactions
     case tagAssociation
     case budget
+    case predictions
 }
 
 class StorageCouchBaseDB {
@@ -25,6 +26,8 @@ class StorageCouchBaseDB {
     var transactionDatabase: Database
     var tagAssociationDatabase: Database
     var budgetDatabase: Database
+    var predictionDatabase: Database
+
     // Dictionary to provide a mapping from instantiated `Transaction` objects
     // to their unique id in the databse.
     var transactionMapping: [Transaction: String]
@@ -35,6 +38,7 @@ class StorageCouchBaseDB {
             transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
             tagAssociationDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .tagAssociation)
             budgetDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .budget)
+            predictionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .predictions)
             transactionMapping = [:]
             log.info("""
                 StorageCouchBaseDB.init() :
@@ -134,6 +138,23 @@ class StorageCouchBaseDB {
                 Throwing StorageError.
             """)
             throw StorageError(message: "Budget couldn't be encoded into MutableDocument.")
+        }
+    }
+
+    // Method to encode a Prediction struct to its MutableDocument counterpart
+    func createMutableDocument(from prediction: Prediction) throws -> MutableDocument {
+        do {
+            let predictionData = try prediction.asDictionary()
+            let predictionDocument = MutableDocument(data: predictionData)
+            predictionDocument.setDate(prediction.time, forKey: Constants.rawDateKey)
+            return predictionDocument
+        } catch {
+            log.info("""
+                StorageCouchBaseDB.createMutableDocument(): prediction
+                Encounter error encoding prediction into MutableDocument.
+                Throwing StorageError.
+            """)
+            throw StorageError(message: "Prediction couldn't be encoded into MutableDocument.")
         }
     }
 
