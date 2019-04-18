@@ -9,6 +9,7 @@
 import CoreLocation
 import Foundation
 import Alamofire
+import SwiftyJSON
 
 class LocationPrompt {
 
@@ -44,9 +45,9 @@ class LocationPrompt {
                     log.warning("Request unsuccessful. Error=\(error)")
                     callback(false) // Don't notify user if request is unsuccessful
 
-                case .success:
+                case .success(let value):
                     log.info("Request successful.")
-                    let decision = handleResponse(response)
+                    let decision = handleResponse(value)
                     callback(decision)
                 }
             }
@@ -65,12 +66,10 @@ class LocationPrompt {
 
     // This method contains the logic to handle the response from a request to Google Places' API.
     // This could be modified or extended in the future to support machine learning for more accurate predictions.
-    private static func handleResponse(_ response: DataResponse<Any>) -> Bool {
-        guard let json = response.result.value else {
-            fatalError("This should never happen") // We guarded against unsuccessful request responses earlier
-        }
+    private static func handleResponse(_ response: Any) -> Bool {
+        let json = JSON(response)
 
-        print(json)
+        print(json["results"].arrayValue.count)
         return true // Placeholder response
     }
 
