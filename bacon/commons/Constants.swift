@@ -127,5 +127,6 @@ class Constants {
     static let numberOfPredictedTags = 3
 
     // LocationPrompt
+    static let LocationPromptApiKey = "PLACEHOLDER" // Avoid exposing API key in source code
     static let LocationPromptRadius = 500 // in meters
 }

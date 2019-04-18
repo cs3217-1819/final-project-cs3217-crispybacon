@@ -20,7 +20,7 @@ class LocationPrompt {
     // 1) Perhaps the simplest way is to add an application restriction: see
     //      https://developers.google.com/maps/documentation/ios-sdk/get-api-key#step_2_add_the_api_key_to_your_app
     // 2) For more sophisticated ways, see: https://www.reddit.com/r/iOSProgramming/comments/5xh7my/how_do_you_securely_store_api_keys/
-    private static let apiKey = "AIzaSyCAxuT3e1ARU43E1Wgoi_YjmvuH6ikYvRo"
+    private static let apiKey = Constants.LocationPromptApiKey
 
     /// Decides if the user should receive a prompt to record a transaction.
     /// - Parameters:
