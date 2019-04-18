@@ -319,8 +319,8 @@ class TagManagerTests: XCTestCase {
     }
 
     func test_renameTag_childrenTags() {
-        let parentTag1 = try! tagManager.addParentTag(parent1)
-        let parentTag2 = try! tagManager.addParentTag(parent2)
+        _ = try! tagManager.addParentTag(parent1)
+        _ = try! tagManager.addParentTag(parent2)
         let childTag11 = try! tagManager.addChildTag(child1, to: parent1)
         let childTag12 = try! tagManager.addChildTag(child2, to: parent1)
         let childTag21 = try! tagManager.addChildTag(child1, to: parent2)
