@@ -113,14 +113,17 @@ class CoreLogic: CoreLogicInterface {
         return try tagManager.getChildrenTags(of: parent)
     }
 
+    @discardableResult
     func addParentTag(_ name: String) throws -> Tag {
         return try tagManager.addParentTag(name)
     }
 
+    @discardableResult
     func addChildTag(_ child: String, to parent: String) throws -> Tag {
         return try tagManager.addChildTag(child, to: parent)
     }
 
+    @discardableResult
     func renameTag(for tag: Tag, to newValue: String) throws -> Tag {
         return try tagManager.renameTag(tag.value, to: newValue, of: tag.parentValue)
     }
