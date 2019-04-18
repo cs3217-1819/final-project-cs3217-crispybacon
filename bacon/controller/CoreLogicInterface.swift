@@ -19,7 +19,8 @@ protocol CoreLogicInterface {
                            amount: Decimal,
                            description: String,
                            image: CodableUIImage?,
-                           location: CodableCLLocation?) throws
+                           location: CodableCLLocation?,
+                           prediction: Prediction?) throws
     func loadTransactions(month: Int, year: Int) throws -> [Transaction]
 
     // MARK: Budget Related

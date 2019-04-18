@@ -39,7 +39,8 @@ class CoreLogic: CoreLogicInterface {
                            amount: Decimal,
                            description: String,
                            image: CodableUIImage? = nil,
-                           location: CodableCLLocation? = nil) throws {
+                           location: CodableCLLocation? = nil,
+                           prediction: Prediction? = nil) throws {
         let currentTransaction = try Transaction(date: date, type: type, frequency: frequency,
                                                  tags: tags, amount: amount, description: description,
                                                  image: image, location: location)
@@ -49,6 +50,25 @@ class CoreLogic: CoreLogicInterface {
             description=\(description) location=\(location as Optional).
             """)
         try transactionManager.saveTransaction(currentTransaction)
+        guard let prediction = prediction else {
+            // No prediction was used, hence no need to check whether prediction is accepted
+            return
+        }
+        if doAcceptPrediction(transaction: currentTransaction, prediction: prediction) {
+            do {
+                try predictionManager.savePrediction(prediction)
+            } catch {
+                // Failure in prediction should be resolved internally, as it is not known at all by the user
+                log.warning("CoreLogic failed saving prediction")
+            }
+        }
+    }
+
+    private func doAcceptPrediction(transaction: Transaction, prediction: Prediction) -> Bool {
+        if transaction.amount == prediction.amountPredicted && transaction.tags == prediction.tagsPredicted {
+            return true
+        }
+        return false
     }
 
     func loadTransactions(month: Int, year: Int) throws -> [Transaction] {

@@ -32,4 +32,8 @@ class PredictionManager {
                                             _ transactions: [Transaction]) -> Prediction? {
        return predictionGeneraor.predict(time, location, transactions)
     }
+
+    func savePrediction(_ prediction: Prediction) throws {
+        try storageManager.savePrediction(prediction)
+    }
 }

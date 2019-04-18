@@ -181,7 +181,7 @@ class AddTransactionViewController: UIViewController {
         do {
             try coreLogic.recordTransaction(date: date, type: type, frequency: frequency,
                                             tags: tags, amount: amount, description: description,
-                                            image: image, location: location)
+                                            image: image, location: location, prediction: prediction)
             performSegue(withIdentifier: Constants.addToMainSuccess, sender: nil)
         } catch {
             self.handleError(error: error, customMessage: Constants.transactionAddFailureMessage)
@@ -331,6 +331,7 @@ extension AddTransactionViewController {
             tagController.canEdit = false
         }
     }
+
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {
         if let calendarViewController = segue.source as? DateTimeSelectionViewController {
             dateTime = calendarViewController.selectedDate
