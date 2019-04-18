@@ -61,6 +61,21 @@ class CoreLogic: CoreLogicInterface {
                 recordRecurringTransaction() requires transaction to be recurring.
             """)
         }
+        let recurringInstances = try generateAllRecurringInstances(of: transaction)
+        for transactions in recurringInstances {
+            // Save the next recurring transaction
+            try transactionManager.saveTransaction(transactions)
+        }
+    }
+
+    /// Generates all subsequent future recurring instances of a transaction
+    /// (i.e. the first instance of a recurring transaction is not included)
+    private func generateAllRecurringInstances(of transaction: Transaction) throws -> [Transaction] {
+        guard transaction.frequency.nature == .recurring else {
+            throw InvalidArgumentError(message: """
+                generateAllRecurringInstances() requires transaction to be recurring.
+            """)
+        }
         guard let numberOfTimesToRepeat = transaction.frequency.repeats else {
             fatalError("Transaction is guarded to be recurring, repeats should not be nil.")
         }
@@ -79,19 +94,20 @@ class CoreLogic: CoreLogicInterface {
         case .yearly:
             dateComponents.year = 1
         }
-
+        var recurringTransactions: [Transaction] = []
         for _ in 1..<numberOfTimesToRepeat {
             // Calculate the date of the next recurring transaction
             guard let nextRecurringDate = Calendar.current.date(byAdding: dateComponents,
-                                                      to: currentTime) else {
+                                                                to: currentTime) else {
                 fatalError("Date calculation for future recurring transaction should not fail.")
             }
             currentTime = nextRecurringDate
-            // Update the date
-            try transaction.edit(date: currentTime)
-            // Save the next recurring transaction
-            try transactionManager.saveTransaction(transaction)
+            // Create a copy of the transaction and update the date
+            let nextTransaction = transaction.duplicate()
+            try nextTransaction.edit(date: currentTime)
+            recurringTransactions.append(nextTransaction)
         }
+        return recurringTransactions
     }
 
     func loadTransactions(month: Int, year: Int) throws -> [Transaction] {
