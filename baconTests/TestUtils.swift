@@ -296,17 +296,14 @@ class TestUtils {
     // VALID PREDICTION INSTANCES
     static let validPrediction01 = try! Prediction(time: january1st2019time0800,
                                                    location: CodableCLLocation(sampleCLLocation2),
-                                                   transactions: validTransactions,
                                                    amount: 2.80,
                                                    tags: [tagBills, tagFood])
     static let validPrediction02 = try! Prediction(time: january2nd2019time1320,
                                                    location: CodableCLLocation(sampleCLLocation1A),
-                                                   transactions: validTransactions,
                                                    amount: 13.50,
                                                    tags: [tagEducation, tagInvestment])
     static let validPrediction03 = try! Prediction(time: january5th2019time1230,
                                                    location: CodableCLLocation(sampleCLLocation1B),
-                                                   transactions: validTransactions,
                                                    amount: 26.30,
                                                    tags: [tagEntertainment])
     // swiftlint:enable force_try
