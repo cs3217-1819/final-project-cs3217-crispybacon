@@ -49,6 +49,49 @@ class CoreLogic: CoreLogicInterface {
             description=\(description) location=\(location as Optional).
             """)
         try transactionManager.saveTransaction(currentTransaction)
+        if currentTransaction.frequency.nature == .recurring {
+            try recordRecurringTransaction(currentTransaction)
+        }
+    }
+
+    // Save future recurring instances of the transaction given.
+    private func recordRecurringTransaction(_ transaction: Transaction) throws {
+        guard transaction.frequency.nature == .recurring else {
+            throw InvalidArgumentError(message: """
+                recordRecurringTransaction() requires transaction to be recurring.
+            """)
+        }
+        guard let numberOfTimesToRepeat = transaction.frequency.repeats else {
+            fatalError("Transaction is guarded to be recurring, repeats should not be nil.")
+        }
+        guard let interval = transaction.frequency.interval else {
+            fatalError("Transaction is guarded to be recurring, interval should not be nil.")
+        }
+        var currentTime = transaction.date
+        var dateComponents = DateComponents()
+        switch interval {
+        case .daily:
+            dateComponents.day = 1
+        case .weekly:
+            dateComponents.day = 7
+        case .monthly:
+            dateComponents.month = 1
+        case .yearly:
+            dateComponents.year = 1
+        }
+
+        for _ in 1..<numberOfTimesToRepeat {
+            // Calculate the date of the next recurring transaction
+            guard let nextRecurringDate = Calendar.current.date(byAdding: dateComponents,
+                                                      to: currentTime) else {
+                fatalError("Date calculation for future recurring transaction should not fail.")
+            }
+            currentTime = nextRecurringDate
+            // Update the date
+            try transaction.edit(date: currentTime)
+            // Save the next recurring transaction
+            try transactionManager.saveTransaction(transaction)
+        }
     }
 
     func loadTransactions(month: Int, year: Int) throws -> [Transaction] {
