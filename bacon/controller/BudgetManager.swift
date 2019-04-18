@@ -10,7 +10,7 @@ import Foundation
 
 class BudgetManager {
 
-    private let storageManager: StorageManager
+    private let storageManager: StorageManagerInterface
 
     init() throws {
         storageManager = try StorageManager()

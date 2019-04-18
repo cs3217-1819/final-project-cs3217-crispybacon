@@ -29,14 +29,14 @@ extension StorageCouchBaseDB {
             log.info("Entered method StorageCouchBaseDB.clearTransactionDatabase()")
         } catch {
             if error is StorageError {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.clearTransactionDatabase():
                     Encounter error while reinitializing transaction database.
                     Throwing StorageError.
                 """)
                 throw error
             } else {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.clearTransactionDatabase():
                     Encounter error while clearing transaction database.
                     Throwing StorageError.
@@ -60,7 +60,7 @@ extension StorageCouchBaseDB {
             if error is StorageError {
                 throw error
             } else {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.saveTransaction():
                     Encounter error saving transaction into database.
                     Throwing StorageError.
@@ -108,7 +108,7 @@ extension StorageCouchBaseDB {
     func deleteTransaction(_ transaction: Transaction) throws {
         // Fetch the specific document from database
         guard let transactionId = transactionMapping[transaction] else {
-            log.info("""
+            log.warning("""
                 StorageCouchBaseDB.deleteTransaction():
                 Encounter error deleting transaction from database.
                 Unable to find mapping of transaction object to its unique id in the database.
@@ -119,7 +119,7 @@ extension StorageCouchBaseDB {
             """)
         }
         guard let transactionDocument = transactionDatabase.document(withID: transactionId) else {
-            log.info("""
+            log.warning("""
                 StorageCouchBaseDB.deleteTransaction():
                 Encounter error deleting transaction from database.
                 Unable to retrieve transaction document in database using id from mapping.
@@ -140,7 +140,7 @@ extension StorageCouchBaseDB {
             transactionMapping.removeValue(forKey: transaction)
             try clearAssociationsOfTransaction(uid: transactionId)
         } catch {
-            log.info("""
+            log.warning("""
                 StorageCouchBaseDB.deleteTransaction() with argument:
                 transaction:\(transaction).
                 Encounter error deleting transaction from database.
@@ -210,14 +210,14 @@ extension StorageCouchBaseDB {
             return transactions
         } catch {
             if error is DecodingError {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.getTransactionsFromQuery():
                     Encounter error decoding data from database.
                     Throwing StorageError.
                 """)
                 throw StorageError(message: "Data loaded from database couldn't be decoded back as Transactions.")
             } else {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.getTransactionsFromQuery():
                     Encounter error loading data from database.
                     Throwing StorageError.
