@@ -113,7 +113,7 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
         parentCell.deleteChildAction = { indexPath, cell in
             do {
                 try core.removeChildTag(cell.childTags[indexPath.row].value, from: currentParentTag.value)
-                try cell.childTags = core.getChildrenTags(of: currentParentTag.value)
+                cell.childTags = try core.getChildrenTags(of: currentParentTag.value)
                 cell.subTable.deleteRows(at: [indexPath], with: .automatic)
             } catch {
                 self.handleError(error: error, customMessage: Constants.tagDeleteFailureMessage)
