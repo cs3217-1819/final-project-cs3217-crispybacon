@@ -12,6 +12,7 @@
 		45639D7D2266633100B07AA6 /* StorageManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45639D7C2266633100B07AA6 /* StorageManagerInterface.swift */; };
 		8F0B2073225A464D001AF3BA /* HashableClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B2072225A464D001AF3BA /* HashableClass.swift */; };
 		8F19D07C22683511003BDD93 /* LocationPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F19D07B22683511003BDD93 /* LocationPrompt.swift */; };
+		8F19D07E22684A7F003BDD93 /* LocationPromptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F19D07D22684A7F003BDD93 /* LocationPromptTests.swift */; };
 		8F3121D9224A39D100A9A554 /* TransactionTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3121D8224A39D100A9A554 /* TransactionTime.swift */; };
 		8F3121DB224A3B9800A9A554 /* TransactionTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */; };
 		8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A3F2240B583002E695A /* AppDelegate.swift */; };
@@ -112,6 +113,7 @@
 		894FB0A0BC60BFB913FD0FD0 /* Pods_baconTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_baconTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0B2072225A464D001AF3BA /* HashableClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashableClass.swift; sourceTree = "<group>"; };
 		8F19D07B22683511003BDD93 /* LocationPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPrompt.swift; sourceTree = "<group>"; };
+		8F19D07D22684A7F003BDD93 /* LocationPromptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPromptTests.swift; sourceTree = "<group>"; };
 		8F3121D8224A39D100A9A554 /* TransactionTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTime.swift; sourceTree = "<group>"; };
 		8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTimeTests.swift; sourceTree = "<group>"; };
 		8F6A7A3C2240B583002E695A /* bacon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bacon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -444,6 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				9F965F8A2253778E00AF6092 /* CoreLogicTests.swift */,
+				8F19D07D22684A7F003BDD93 /* LocationPromptTests.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -802,6 +805,7 @@
 				9F71AEFB225B4117005F043A /* BudgetTests.swift in Sources */,
 				8F894252225E5017007146AC /* TagManagerTests.swift in Sources */,
 				8F8487DD224BC4C7001F881C /* ObserverTests.swift in Sources */,
+				8F19D07E22684A7F003BDD93 /* LocationPromptTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
