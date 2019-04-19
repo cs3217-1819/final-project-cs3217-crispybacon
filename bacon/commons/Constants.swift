@@ -125,4 +125,9 @@ class Constants {
     static let locationSimilarityThreshold: Double = 500
     static let defaultPredictedAmount: Decimal = 0.0
     static let numberOfPredictedTags = 3
+
+    // LocationPrompt
+    static let LocationPromptGooglePlacesApiKey = "PLACEHOLDER" // Avoid exposing API key in source code
+    static let LocationPromptRadius = 500 // In meters
+    static let LocationPromptContext = "food" // Sets the context for deciding whether to prompt a user
 }
