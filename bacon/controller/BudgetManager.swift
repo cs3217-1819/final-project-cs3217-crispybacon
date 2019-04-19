@@ -26,4 +26,8 @@ class BudgetManager {
     func loadBudget() throws -> Budget {
         return try storageManager.loadBudget()
     }
+
+    func deleteBudget() throws {
+        try storageManager.clearBudgetDatabase()
+    }
 }
