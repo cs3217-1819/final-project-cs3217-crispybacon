@@ -6,6 +6,7 @@
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
 
+import CoreLocation
 import UIKit
 
 class MainPageViewController: UIViewController {
@@ -13,6 +14,8 @@ class MainPageViewController: UIViewController {
     var core: CoreLogic?
     var currentMonthTransactions = [Transaction]()
     var currentMonthYear = (0, 0)
+
+    let locationManager = CLLocationManager()
 
     @IBOutlet private weak var budgetLabel: UILabel!
     @IBOutlet private weak var coinView: UIImageView!
@@ -25,6 +28,8 @@ class MainPageViewController: UIViewController {
         } catch {
             self.handleError(error: error, customMessage: Constants.coreFailureMessage)
         }
+
+        locationManager.requestAlwaysAuthorization()
     }
 
     override func viewDidAppear(_ animated: Bool) {
