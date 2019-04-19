@@ -61,6 +61,7 @@ class Constants {
     static let transactionsToEdit = "transactionsToEdit"
 
     // Analysis Page
+    static let trendLegend = "Monthly Net Income"
     static let analysisToTagBreakDown = "analysisToTagBreakDown"
 
     // Tag Analysis Page
