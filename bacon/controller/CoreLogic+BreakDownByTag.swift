@@ -14,7 +14,8 @@ extension CoreLogic {
         return try getBreakdownByTag(transactions: transactions, for: tags)
     }
 
-    private func getBreakdownByTag(transactions: [Transaction], for requiredTags: Set<Tag>) throws -> ([Tag], [Double]) {
+    private func getBreakdownByTag(transactions: [Transaction],
+                                   for requiredTags: Set<Tag>) throws -> ([Tag], [Double]) {
         var tagAmount: [Tag: Double] = [:]
 
         // Initialize all required tags to have amount zero
