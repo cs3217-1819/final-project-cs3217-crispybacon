@@ -48,6 +48,27 @@ class TagAnalysisViewController: UIViewController {
         setChart()
     }
 
+    // If a parent tag is selected for analysis, its children must also be selected
+    // Even when the user did not explicitly select it
+    fileprivate func selectAllChildTags() {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+        var newSet = Set<Tag>(selectedTags)
+        do {
+            for tag in selectedTags where tag.isParent {
+                let children = try core.getChildrenTags(of: tag.value)
+                for child in children {
+                    newSet.insert(child)
+                }
+            }
+        } catch {
+            self.handleError(error: error, customMessage: Constants.analysisFailureMessage)
+        }
+        selectedTags = newSet
+    }
+
     private func getBreakdown() {
         guard let core = core else {
             self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
@@ -120,6 +141,7 @@ extension TagAnalysisViewController {
     @IBAction func unwindToTagAnlysis(segue: UIStoryboardSegue) {
         if let tagSelectionController = segue.source as? TagSelectionViewController {
             selectedTags = tagSelectionController.selectedTags
+            selectAllChildTags()
             update()
         }
         if let calendarController = segue.source as? DateTimeSelectionViewController {
