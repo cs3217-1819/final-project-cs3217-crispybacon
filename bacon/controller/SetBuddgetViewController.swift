@@ -30,22 +30,32 @@ class SetBuddgetViewController: UIViewController {
         let amountDecimal = Decimal(string: amountString ?? Constants.defaultBudgetString)
         let budgetAmount = amountDecimal ?? Constants.defaultBudget
 
-        let currentTime = Date()
-        var dateComponents = DateComponents()
-        dateComponents.month = 1
-        let futureTime = Calendar.current.date(byAdding: dateComponents, to: currentTime)
-
-        guard let future = futureTime else {
-            self.alertUser(title: Constants.warningTitle, message: Constants.budgetSetFailureMessage)
-            return
-        }
-
         do {
-            let budget = try Budget(from: currentTime, to: future, amount: budgetAmount)
+            let startDate = try getStartOfCurrentMonth()
+            let endDate = try getEndOfCurrentMonth()
+            let budget = try Budget(from: startDate, to: endDate, amount: budgetAmount)
             try core.saveBudget(budget)
             performSegue(withIdentifier: Constants.unwindFromBudgetToMain, sender: nil)
         } catch {
             self.handleError(error: error, customMessage: Constants.budgetSetFailureMessage)
         }
+    }
+
+    private func getStartOfCurrentMonth() throws -> Date {
+        guard let date = Calendar.current.date(from:
+            Calendar.current.dateComponents([.year, .month],
+                                            from: Calendar.current.startOfDay(for: Date()))) else {
+            throw InitializationError(message: "Should be able to retrieve the start of month.")
+        }
+        return date
+    }
+
+    private func getEndOfCurrentMonth() throws -> Date {
+        guard let date = Calendar.current.date(byAdding: DateComponents(month: 1,
+                                                                        second: -1),
+                                               to: try getStartOfCurrentMonth()) else {
+            throw InitializationError(message: "Should be able to retrieve the end of month.")
+        }
+        return date
     }
 }
