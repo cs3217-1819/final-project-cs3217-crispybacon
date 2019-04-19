@@ -12,6 +12,8 @@
 		45639D7B2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */; };
 		45639D7D2266633100B07AA6 /* StorageManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45639D7C2266633100B07AA6 /* StorageManagerInterface.swift */; };
 		8F0B2073225A464D001AF3BA /* HashableClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B2072225A464D001AF3BA /* HashableClass.swift */; };
+		8F19D07C22683511003BDD93 /* LocationPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F19D07B22683511003BDD93 /* LocationPrompt.swift */; };
+		8F19D07E22684A7F003BDD93 /* LocationPromptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F19D07D22684A7F003BDD93 /* LocationPromptTests.swift */; };
 		8F3121D9224A39D100A9A554 /* TransactionTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3121D8224A39D100A9A554 /* TransactionTime.swift */; };
 		8F3121DB224A3B9800A9A554 /* TransactionTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */; };
 		8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A7A3F2240B583002E695A /* AppDelegate.swift */; };
@@ -29,6 +31,8 @@
 		8F8487DD224BC4C7001F881C /* ObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8487DC224BC4C7001F881C /* ObserverTests.swift */; };
 		8F8487E1224DA874001F881C /* CodableCLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8487E0224DA874001F881C /* CodableCLLocation.swift */; };
 		8F8487E3224DA98A001F881C /* CodableCLLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8487E2224DA98A001F881C /* CodableCLLocationTests.swift */; };
+		8F8814B32268AE71009A23D5 /* ApiHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8814B22268AE71009A23D5 /* ApiHandlerProtocol.swift */; };
+		8F8814B52268AFCB009A23D5 /* GooglePlacesApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8814B42268AFCB009A23D5 /* GooglePlacesApiHandler.swift */; };
 		8F89424B225E00D4007146AC /* TagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F89424A225E00D4007146AC /* TagManager.swift */; };
 		8F89424D225E01D6007146AC /* TagManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F89424C225E01D6007146AC /* TagManagerInterface.swift */; };
 		8F894252225E5017007146AC /* TagManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F894251225E5017007146AC /* TagManagerTests.swift */; };
@@ -112,6 +116,8 @@
 		6542309D6C94355D2328ACB3 /* Pods-bacon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bacon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bacon/Pods-bacon.debug.xcconfig"; sourceTree = "<group>"; };
 		894FB0A0BC60BFB913FD0FD0 /* Pods_baconTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_baconTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F0B2072225A464D001AF3BA /* HashableClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashableClass.swift; sourceTree = "<group>"; };
+		8F19D07B22683511003BDD93 /* LocationPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPrompt.swift; sourceTree = "<group>"; };
+		8F19D07D22684A7F003BDD93 /* LocationPromptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPromptTests.swift; sourceTree = "<group>"; };
 		8F3121D8224A39D100A9A554 /* TransactionTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTime.swift; sourceTree = "<group>"; };
 		8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTimeTests.swift; sourceTree = "<group>"; };
 		8F6A7A3C2240B583002E695A /* bacon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bacon.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +141,8 @@
 		8F8487DC224BC4C7001F881C /* ObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverTests.swift; sourceTree = "<group>"; };
 		8F8487E0224DA874001F881C /* CodableCLLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableCLLocation.swift; sourceTree = "<group>"; };
 		8F8487E2224DA98A001F881C /* CodableCLLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableCLLocationTests.swift; sourceTree = "<group>"; };
+		8F8814B22268AE71009A23D5 /* ApiHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHandlerProtocol.swift; sourceTree = "<group>"; };
+		8F8814B42268AFCB009A23D5 /* GooglePlacesApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesApiHandler.swift; sourceTree = "<group>"; };
 		8F89424A225E00D4007146AC /* TagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManager.swift; sourceTree = "<group>"; };
 		8F89424C225E01D6007146AC /* TagManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManagerInterface.swift; sourceTree = "<group>"; };
 		8F894251225E5017007146AC /* TagManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManagerTests.swift; sourceTree = "<group>"; };
@@ -234,6 +242,16 @@
 				DD379625D2CF2952EA2B2E6A /* Pods-baconUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		8F19D07A226834FC003BDD93 /* LocationPrompt */ = {
+			isa = PBXGroup;
+			children = (
+				8F19D07B22683511003BDD93 /* LocationPrompt.swift */,
+				8F8814B22268AE71009A23D5 /* ApiHandlerProtocol.swift */,
+				8F8814B42268AFCB009A23D5 /* GooglePlacesApiHandler.swift */,
+			);
+			path = LocationPrompt;
 			sourceTree = "<group>";
 		};
 		8F6A7A332240B583002E695A = {
@@ -367,6 +385,7 @@
 		9F2E21D52240F86100C5A31E /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				8F19D07A226834FC003BDD93 /* LocationPrompt */,
 				8F6A7A412240B583002E695A /* MainPageViewController.swift */,
 				BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */,
 				BEC57449225C9F90001793EC /* DateTimeSelectionViewController.swift */,
@@ -436,6 +455,7 @@
 			children = (
 				9F965F8A2253778E00AF6092 /* CoreLogicTests.swift */,
 				450FE37B2269BC660012ACD0 /* TransactionManagerTests.swift */,
+				8F19D07D22684A7F003BDD93 /* LocationPromptTests.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -688,19 +708,23 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-bacon/Pods-bacon-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${PODS_ROOT}/CouchbaseLite-Swift/iOS/CouchbaseLiteSwift.framework",
 				"${PODS_ROOT}/CouchbaseLite-Swift/iOS/CouchbaseLiteSwift.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CouchbaseLiteSwift.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/CouchbaseLiteSwift.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -727,11 +751,13 @@
 				9F71AEF7225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift in Sources */,
 				8F6A7A482240B583002E695A /* bacon.xcdatamodeld in Sources */,
 				9F7C6DE9224B9C75003E7702 /* InvalidArgumentError.swift in Sources */,
+				8F8814B32268AE71009A23D5 /* ApiHandlerProtocol.swift in Sources */,
 				45639D7D2266633100B07AA6 /* StorageManagerInterface.swift in Sources */,
 				BEC5744C225CA0AD001793EC /* CalendarCell.swift in Sources */,
 				BEF82C1B22633117007BC819 /* PredictionManager.swift in Sources */,
 				BEC57446225A3DC9001793EC /* PreviewImageView.swift in Sources */,
 				BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */,
+				8F8814B52268AFCB009A23D5 /* GooglePlacesApiHandler.swift in Sources */,
 				9FB4E16E224419880005403F /* StorageError.swift in Sources */,
 				BEF82C1D22633177007BC819 /* PredictionGenerator.swift in Sources */,
 				8F8487D9224B7909001F881C /* Observer.swift in Sources */,
@@ -763,6 +789,7 @@
 				8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */,
 				8FD5F7D52240F50B0023A7FC /* TransactionType.swift in Sources */,
 				45639D7B2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift in Sources */,
+				8F19D07C22683511003BDD93 /* LocationPrompt.swift in Sources */,
 				8F8487DB224B7D7D001F881C /* Observable.swift in Sources */,
 				9F67EF35225C9A73004F6D0B /* CoreLogicInterface.swift in Sources */,
 				BEC57456225F9442001793EC /* ChildTagCell.swift in Sources */,
@@ -790,6 +817,7 @@
 				9F71AEFB225B4117005F043A /* BudgetTests.swift in Sources */,
 				8F894252225E5017007146AC /* TagManagerTests.swift in Sources */,
 				8F8487DD224BC4C7001F881C /* ObserverTests.swift in Sources */,
+				8F19D07E22684A7F003BDD93 /* LocationPromptTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
