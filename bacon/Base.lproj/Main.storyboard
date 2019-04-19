@@ -237,7 +237,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="6Wl-gm-yfe" kind="show" id="XGU-XW-LD1"/>
+                                            <segue destination="6Wl-gm-yfe" kind="show" identifier="analysisToTagBreakDown" id="XGU-XW-LD1"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3G-rp-olI">
@@ -292,9 +292,24 @@
                     <view key="view" contentMode="scaleToFill" id="SFI-4r-Xct">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59F-fk-lf3" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="50" y="120" width="668" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DdU-4i-KEn" firstAttribute="trailing" secondItem="59F-fk-lf3" secondAttribute="trailing" constant="50" id="JTe-FB-VEx"/>
+                            <constraint firstItem="59F-fk-lf3" firstAttribute="leading" secondItem="DdU-4i-KEn" secondAttribute="leading" constant="50" id="L76-Qc-vvX"/>
+                            <constraint firstItem="DdU-4i-KEn" firstAttribute="bottom" secondItem="59F-fk-lf3" secondAttribute="bottom" constant="400" id="NDc-ok-xum"/>
+                            <constraint firstItem="59F-fk-lf3" firstAttribute="top" secondItem="DdU-4i-KEn" secondAttribute="top" constant="50" id="ZqY-qN-ST5"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="DdU-4i-KEn"/>
                     </view>
+                    <connections>
+                        <outlet property="barChart" destination="59F-fk-lf3" id="j6e-1J-NlC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rzI-3p-ndm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

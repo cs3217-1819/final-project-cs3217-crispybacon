@@ -24,6 +24,7 @@ class Constants {
     static let tagDeleteFailureMessage = "Unable to delete tag!"
     static let budgetSetFailureMessage = "Unable to set budget!"
     static let budgetStatusFailureMessage = "Unable to update budget status!"
+    static let analysisFailureMessage = "Unable to generate analysis!"
 
     // Main Page
     static let neutralPig = UIImage(named: "demo")
@@ -36,6 +37,7 @@ class Constants {
     static let mainToSetBudget = "mainToSetBudget"
     static let mainToTransactions = "mainToTransactions"
     static let mainToTags = "mainToTags"
+    static let mainToAnalysis = "mainToAnalysis"
 
     // Add Transaction Page
     static let defaultTransactionType = TransactionType.expenditure
@@ -56,6 +58,9 @@ class Constants {
     static let animatoinDuration = [0.26, 0.20, 0.20]
     static let imageViewTag = 6
     static let transactionsToEdit = "transactionsToEdit"
+
+    // Analysis Page
+    static let analysisToTagBreakDown = "analysisToTagBreakDown"
 
     // Tag Selection Page
     static let tagNameInputTitle = "Add new tag"

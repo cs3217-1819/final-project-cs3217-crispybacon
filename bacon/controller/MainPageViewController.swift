@@ -162,6 +162,12 @@ extension MainPageViewController {
             }
             setBudgetController.core = core
         }
+        if segue.identifier == Constants.mainToAnalysis {
+            guard let analysisController = segue.destination as? AnalysisViewController else {
+                return
+            }
+            analysisController.core = core
+        }
     }
 
     @IBAction func unwindToMain(segue: UIStoryboardSegue) {
