@@ -241,7 +241,8 @@ extension StorageCouchBaseDB {
         }
     }
 
-    private func getTransactionsFromQuery(_ query: Query) throws -> [Transaction] {
+    private func getTransactionsFromQuery(_ query: Query,
+                                          recordId: Bool = true) throws -> [Transaction] {
         // Every time database is called to load Transactions, we clear the transaction id mapping
         // dictionary.
         // We only allow front end to deal with transactions per call to load method.
@@ -259,10 +260,13 @@ extension StorageCouchBaseDB {
                 transactions.append(currentTransaction)
 
                 // Retrieve and store the mapping of transaction to its id in database
-                guard let transactionDatabaseId = result.string(forKey: "id") else {
-                    throw StorageError(message: "Could not retrieve UID of transaction from database.")
+                if recordId {
+                    guard let transactionDatabaseId = result.string(forKey: "id") else {
+                        throw StorageError(message: "Could not retrieve UID of transaction from database.")
+                    }
+                    transactionIdMapping.updateValue(transactionDatabaseId,
+                                                     forKey: currentTransaction)
                 }
-                transactionIdMapping.updateValue(transactionDatabaseId, forKey: currentTransaction)
             }
             return transactions
         } catch {
@@ -437,7 +441,7 @@ extension StorageCouchBaseDB {
             .where(Expression.property(Constants.recurringIdKey).equalTo(Expression.string(recurringId.uuidString)))
             .orderBy(Ordering.property(Constants.rawDateKey).ascending())
             .limit(Expression.int(1))
-        let loadedTransaction = try getTransactionsFromQuery(query)
+        let loadedTransaction = try getTransactionsFromQuery(query, recordId: false)
         guard let firstInstance = loadedTransaction.first else {
             // As all recurring transaction has at least one instance
             // It is guaranteed that there should be a first nstance

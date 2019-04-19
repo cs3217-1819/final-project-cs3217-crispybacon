@@ -153,12 +153,13 @@ class TransactionManager: Observer {
         // to the first instance.
         let firstInstance = try storageManager.loadFirstRecurringInstance(of: transaction)
         let firstRecurringDate = firstInstance.date
-        try transaction.edit(date: firstRecurringDate)
+        let updatedTransaction = transaction.duplicate()
+        try updatedTransaction.edit(date: firstRecurringDate)
         // As number of repeats may have been updated, we use the approach of
         // deleting all records of the outdated recurring transaction
         // and saving the updated one instead of updating directly.
         try deleteAllRecurringInstance(of: transaction)
-        try saveTransaction(transaction)
+        try saveTransaction(updatedTransaction)
     }
 
     func deleteTagFromTransactions(_ tag: Tag) throws {

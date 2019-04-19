@@ -9,8 +9,11 @@
 import XCTest
 @testable import bacon
 
+// swiftlint:disable file_length
+// swiftlint:disable type_body_length
 class StorageManagerTests: XCTestCase {
     // swiftlint:disable force_try
+    // swiftlint:disable force_unwrapping
 
     func test_init_success() {
         XCTAssertNoThrow(try StorageManager())
@@ -69,7 +72,7 @@ class StorageManagerTests: XCTestCase {
         for (index, transaction) in transactions.enumerated() {
             XCTAssertTrue(transaction.equals(loadedTransactions[index]))
         }
-    
+
         // Remove 2 transactions
         XCTAssertNoThrow(try database.deleteTransaction(loadedTransactions[2]))
         XCTAssertNoThrow(try database.deleteTransaction(loadedTransactions[1]))
@@ -87,22 +90,9 @@ class StorageManagerTests: XCTestCase {
         // Test deleting empty database
         XCTAssertNoThrow(try database.deleteTagFromTransactions(TestUtils.tagFood))
         // Save some transactions
-        let transportBillTransaction = try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(4_000)),
-                                                     type: .income,
-                                                     frequency: try! TransactionFrequency(nature: .oneTime),
-                                                     tags: [TestUtils.tagBills, TestUtils.tagTransport],
-                                                     amount: 5.0)
-        let foodTransactions02 = try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(2_000)),
-                                                  type: .income,
-                                                  frequency: try! TransactionFrequency(nature: .oneTime),
-                                                  tags: [TestUtils.tagFood],
-                                                  amount: 1.50,
-                                                  image: CodableUIImage(TestUtils.redHeartJpg))
-        let foodTransactions01 = try! Transaction(date: Date(timeIntervalSince1970: TimeInterval(0)),
-                                                  type: .expenditure,
-                                                  frequency: try! TransactionFrequency(nature: .oneTime),
-                                                  tags: [TestUtils.tagFood],
-                                                  amount: 69.60)
+        let transportBillTransaction = TestUtils.validTransactionTransportBill02.duplicate()
+        let foodTransactions02 = TestUtils.validTransactionFood03.duplicate()
+        let foodTransactions01 = TestUtils.validTransactionFood01.duplicate()
         let transactions = [transportBillTransaction,
                             foodTransactions02,
                             foodTransactions01]
@@ -582,4 +572,7 @@ class StorageManagerTests: XCTestCase {
         XCTAssertTrue(predictions[0].equals(loadedPredictions[0]))
     }
     // swiftlint:enable force_try
+    // swiftlint:enable force_unwrapping
 }
+// swiftlint:enable type_body_length
+// swiftlint:enable file_length

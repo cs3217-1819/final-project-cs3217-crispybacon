@@ -94,7 +94,7 @@ struct Tag: Codable, Comparable, Hashable {
             fatalError("This should never happen") // Specified in requires clause
         }
         self.internalValue = internalValue
-        
+
         self.parentInternalValue = parentValue != nil ? Int64(parentValue!) : nil
     }
 
