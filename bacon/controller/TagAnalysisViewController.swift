@@ -51,6 +51,9 @@ class TagAnalysisViewController: UIViewController {
         }
         let chartData = BarChartData(dataSets: chartDataSets)
         barChart.data = chartData
+        if let font = UIFont(name: "Futura", size: 10) {
+            barChart.legend.font = font
+        }
         barChart.notifyDataSetChanged()
     }
 
