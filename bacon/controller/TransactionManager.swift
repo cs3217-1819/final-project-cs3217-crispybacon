@@ -36,7 +36,11 @@ class TransactionManager: Observer {
             } else {
                 // Handle transaction edit
                 do {
-                    try storageManager.updateTransaction(transaction)
+                    if transaction.frequency.nature == .recurring {
+                        try updateRecurringTransaction(transaction)
+                    } else {
+                        try storageManager.updateTransaction(transaction)
+                    }
                     transaction.editSuccessCallback()
                 } catch {
                     transaction.editFailureCallback(error.localizedDescription)
@@ -120,7 +124,9 @@ class TransactionManager: Observer {
             // Calculate the date of the next recurring transaction
             guard let nextRecurringDate = Calendar.current.date(byAdding: dateComponents,
                                                                 to: currentTime) else {
-                                                                    fatalError("Date calculation for future recurring transaction should not fail.")
+                fatalError("""
+                    Date calculation for future recurring transaction should not fail.
+                """)
             }
             currentTime = nextRecurringDate
             // Create a copy of the transaction and update the date
@@ -129,6 +135,30 @@ class TransactionManager: Observer {
             recurringTransactions.append(nextTransaction)
         }
         return recurringTransactions
+    }
+
+    /// An edited recurring transaction should have its changes
+    /// apply across all recurring instances.
+    /// We disallow editing the date of a recurring transaction as
+    /// users are able to edit a recurring transaction at an arbitrary instance of it,
+    /// if we allow user to edit the date, we will be unable to back track and
+    /// find out which instance the transaction was edited at.
+    func updateRecurringTransaction(_ transaction: Transaction) throws {
+        guard transaction.frequency.nature == .recurring else {
+            throw InvalidArgumentError(message: """
+                updateRecurringTransaction() requires transaction to be recurring.
+            """)
+        }
+        // Using the updated transaction information, backtrack and set the date
+        // to the first instance.
+        let firstInstance = try storageManager.loadFirstRecurringInstance(of: transaction)
+        let firstRecurringDate = firstInstance.date
+        try transaction.edit(date: firstRecurringDate)
+        // As number of repeats may have been updated, we use the approach of
+        // deleting all records of the outdated recurring transaction
+        // and saving the updated one instead of updating directly.
+        try deleteAllRecurringInstance(of: transaction)
+        try saveTransaction(transaction)
     }
 
     func deleteTagFromTransactions(_ tag: Tag) throws {

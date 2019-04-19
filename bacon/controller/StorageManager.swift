@@ -187,6 +187,10 @@ class StorageManager: StorageManagerInterface {
         return try concreteStorage.loadTransactions(ofTag: tag)
     }
 
+    func loadFirstRecurringInstance(of transaction: Transaction) throws -> Transaction {
+        return try concreteStorage.loadFirstRecurringInstance(of: transaction)
+    }
+
     // MARK: Budget Related
     func getNumberOfBudgetsInDatabase() -> Double {
         return concreteStorage.getNumberOfBudgetsInDatabase()

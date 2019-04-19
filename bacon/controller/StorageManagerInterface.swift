@@ -23,6 +23,7 @@ protocol StorageManagerInterface {
     func loadTransactions(from fromDate: Date, to toDate: Date) throws -> [Transaction]
     func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction]
     func loadTransactions(ofTag tag: Tag) throws -> [Transaction]
+    func loadFirstRecurringInstance(of transaction: Transaction) throws -> Transaction
 
     // MARK: Budget Related
     func getNumberOfBudgetsInDatabase() -> Double

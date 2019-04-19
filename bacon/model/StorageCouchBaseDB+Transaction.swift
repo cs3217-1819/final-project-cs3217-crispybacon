@@ -422,4 +422,27 @@ extension StorageCouchBaseDB {
         """)
         return transactions
     }
+
+    func loadFirstRecurringInstance(of transaction: Transaction) throws -> Transaction {
+        guard transaction.frequency.nature == .recurring else {
+            throw InvalidArgumentError(message: """
+                loadFirstRecurringInstance() requires transaction to be recurring.
+            """)
+        }
+        guard let recurringId = transaction.recurringId else {
+            fatalError("transaction is guarded to be recurring, recurringId should not be nil.")
+        }
+        let query = QueryBuilder.select(SelectResult.all())
+            .from(DataSource.database(transactionDatabase))
+            .where(Expression.property(Constants.recurringIdKey).equalTo(Expression.string(recurringId.uuidString)))
+            .orderBy(Ordering.property(Constants.rawDateKey).ascending())
+            .limit(Expression.int(1))
+        let loadedTransaction = try getTransactionsFromQuery(query)
+        guard let firstInstance = loadedTransaction.first else {
+            // As all recurring transaction has at least one instance
+            // It is guaranteed that there should be a first nstance
+            fatalError("A recurring transaction is guaranteed to have at least one instance.")
+        }
+        return firstInstance
+    }
 }
