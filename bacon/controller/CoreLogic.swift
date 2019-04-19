@@ -54,7 +54,7 @@ class CoreLogic: CoreLogicInterface {
             // No prediction was used, hence no need to check whether prediction is accepted
             return
         }
-        if doAcceptPrediction(transaction: currentTransaction, prediction: prediction) {
+        if doesAcceptPrediction(transaction: currentTransaction, prediction: prediction) {
             do {
                 try predictionManager.savePrediction(prediction)
             } catch {
@@ -64,7 +64,7 @@ class CoreLogic: CoreLogicInterface {
         }
     }
 
-    private func doAcceptPrediction(transaction: Transaction, prediction: Prediction) -> Bool {
+    private func doesAcceptPrediction(transaction: Transaction, prediction: Prediction) -> Bool {
         if transaction.amount == prediction.amountPredicted && transaction.tags == prediction.tagsPredicted {
             return true
         }
