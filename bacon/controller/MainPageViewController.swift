@@ -30,6 +30,9 @@ class MainPageViewController: UIViewController {
         }
 
         locationManager.requestAlwaysAuthorization()
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.delegate = self
+        locationManager.startMonitoringSignificantLocationChanges()
     }
 
     override func viewDidAppear(_ animated: Bool) {

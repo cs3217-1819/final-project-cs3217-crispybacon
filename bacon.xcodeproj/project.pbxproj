@@ -32,6 +32,7 @@
 		8F8487E3224DA98A001F881C /* CodableCLLocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8487E2224DA98A001F881C /* CodableCLLocationTests.swift */; };
 		8F8814B32268AE71009A23D5 /* ApiHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8814B22268AE71009A23D5 /* ApiHandlerProtocol.swift */; };
 		8F8814B52268AFCB009A23D5 /* GooglePlacesApiHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8814B42268AFCB009A23D5 /* GooglePlacesApiHandler.swift */; };
+		8F8814BB22698EA8009A23D5 /* MainPageViewController+CLLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8814BA22698EA8009A23D5 /* MainPageViewController+CLLocationManagerDelegate.swift */; };
 		8F89424B225E00D4007146AC /* TagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F89424A225E00D4007146AC /* TagManager.swift */; };
 		8F89424D225E01D6007146AC /* TagManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F89424C225E01D6007146AC /* TagManagerInterface.swift */; };
 		8F894252225E5017007146AC /* TagManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F894251225E5017007146AC /* TagManagerTests.swift */; };
@@ -141,6 +142,7 @@
 		8F8487E2224DA98A001F881C /* CodableCLLocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableCLLocationTests.swift; sourceTree = "<group>"; };
 		8F8814B22268AE71009A23D5 /* ApiHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHandlerProtocol.swift; sourceTree = "<group>"; };
 		8F8814B42268AFCB009A23D5 /* GooglePlacesApiHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesApiHandler.swift; sourceTree = "<group>"; };
+		8F8814BA22698EA8009A23D5 /* MainPageViewController+CLLocationManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainPageViewController+CLLocationManagerDelegate.swift"; sourceTree = "<group>"; };
 		8F89424A225E00D4007146AC /* TagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManager.swift; sourceTree = "<group>"; };
 		8F89424C225E01D6007146AC /* TagManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManagerInterface.swift; sourceTree = "<group>"; };
 		8F894251225E5017007146AC /* TagManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagManagerTests.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 			children = (
 				8F19D07A226834FC003BDD93 /* LocationPrompt */,
 				8F6A7A412240B583002E695A /* MainPageViewController.swift */,
+				8F8814BA22698EA8009A23D5 /* MainPageViewController+CLLocationManagerDelegate.swift */,
 				BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */,
 				BEC57449225C9F90001793EC /* DateTimeSelectionViewController.swift */,
 				BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */,
@@ -757,6 +760,7 @@
 				45639D7D2266633100B07AA6 /* StorageManagerInterface.swift in Sources */,
 				BEC5744C225CA0AD001793EC /* CalendarCell.swift in Sources */,
 				BEF82C1B22633117007BC819 /* PredictionManager.swift in Sources */,
+				8F8814BB22698EA8009A23D5 /* MainPageViewController+CLLocationManagerDelegate.swift in Sources */,
 				BEC57446225A3DC9001793EC /* PreviewImageView.swift in Sources */,
 				BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */,
 				8F8814B52268AFCB009A23D5 /* GooglePlacesApiHandler.swift in Sources */,
