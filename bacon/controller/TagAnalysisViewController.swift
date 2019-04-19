@@ -11,14 +11,38 @@ import Charts
 
 class TagAnalysisViewController: UIViewController {
 
+    @IBOutlet private weak var toLabel: UILabel!
+    @IBOutlet private weak var fromLabel: UILabel!
     @IBOutlet private weak var barChart: BarChartView!
 
     var core: CoreLogic?
     var tags = [Tag]()
     var amount = [Double]()
+    var selectedTags = Set<Tag>()
+    var fromDate = Date()
+    var toDate = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Set up display for no data case
+        barChart.noDataText = Constants.noDataMessage
+        barChart.noDataTextColor = UIColor.black.withAlphaComponent(0.7)
+        if let font = UIFont(name: "Futura", size: 20) {
+            barChart.noDataFont = font
+        }
+
+        // Set up labels to display time
+        displayTime()
+    }
+
+    private func displayTime() {
+        let formatter = Constants.getDateOnlyFormatter()
+        fromLabel.text = "From: " + formatter.string(from: fromDate)
+        toLabel.text = "To: " + formatter.string(from: toDate)
+    }
+
+    private func update() {
         getBreakdown()
         setChart()
     }
@@ -28,12 +52,8 @@ class TagAnalysisViewController: UIViewController {
             self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
             return
         }
-        let formatter = Constants.getDateFormatter()
-        let date = formatter.date(from: "2019-04-01 00:00:00")!
-        let tagSet = Set<Tag>(core.getAllParentTags())
-
         do {
-            let results = try core.getBreakdownByTag(from: date, to: Date(), for: tagSet)
+            let results = try core.getBreakdownByTag(from: fromDate, to: toDate, for: selectedTags)
             tags = results.0
             amount = results.1
         } catch {
@@ -51,7 +71,8 @@ class TagAnalysisViewController: UIViewController {
         }
         let chartData = BarChartData(dataSets: chartDataSets)
         barChart.data = chartData
-        if let font = UIFont(name: "Futura", size: 10) {
+        barChart.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+        if let font = UIFont(name: "Futura", size: 17) {
             barChart.legend.font = font
         }
         barChart.notifyDataSetChanged()
@@ -64,5 +85,25 @@ class TagAnalysisViewController: UIViewController {
                        green: .random(in: 0...1),
                        blue: .random(in: 0...1),
                        alpha: 1.0)]
+    }
+}
+
+extension TagAnalysisViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == Constants.tagAnalysisToChooseTag {
+            guard let tagSelectionController = segue.destination as? TagSelectionViewController else {
+                return
+            }
+            tagSelectionController.core = core
+            tagSelectionController.canEdit = false
+            tagSelectionController.shouldUnwindToAdd = false
+        }
+    }
+
+    @IBAction func unwindToTagAnlysis(segue: UIStoryboardSegue) {
+        if let tagSelectionController = segue.source as? TagSelectionViewController {
+            selectedTags = tagSelectionController.selectedTags
+            update()
+        }
     }
 }

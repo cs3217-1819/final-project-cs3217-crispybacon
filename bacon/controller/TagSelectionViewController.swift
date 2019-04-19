@@ -18,6 +18,7 @@ class TagSelectionViewController: UIViewController {
     var parentTags = [Tag]()
     var selectedTags = Set<Tag>()
     var canEdit = false
+    var shouldUnwindToAdd = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,11 @@ class TagSelectionViewController: UIViewController {
     }
 
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: Constants.tagSelectionToAdd, sender: nil)
+        if shouldUnwindToAdd {
+            performSegue(withIdentifier: Constants.tagSelectionToAdd, sender: nil)
+        } else {
+            performSegue(withIdentifier: Constants.tagSelectionToTagAnalysis, sender: nil)
+        }
     }
 
     @IBAction func addParentTagButtonPressed(_ sender: UIButton) {

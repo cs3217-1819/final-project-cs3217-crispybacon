@@ -28,5 +28,4 @@ extension AnalysisViewController {
             tagAnalysisController.core = core
         }
     }
-
 }

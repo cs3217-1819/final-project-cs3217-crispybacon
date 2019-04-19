@@ -62,12 +62,17 @@ class Constants {
     // Analysis Page
     static let analysisToTagBreakDown = "analysisToTagBreakDown"
 
+    // Tag Analysis Page
+    static let tagAnalysisToChooseTag = "tagAnalysisToChooseTag"
+    static let noDataMessage = "Choose tags and time period to generate analysis!"
+
     // Tag Selection Page
     static let tagNameInputTitle = "Add new tag"
     static let tagRenameInputTitle = "Edit tag"
     static let tagNameInputMessage = "Enter tag name"
     static let InvalidTagNameWarning = "Please enter a valid name!"
     static let tagSelectionToAdd = "tagSelectionToAdd"
+    static let tagSelectionToTagAnalysis = "tagSelectionToTagAnalysis"
 
     // Set Budget Page
     static let defaultBudgetString = "-1.0"

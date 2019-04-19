@@ -294,24 +294,84 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59F-fk-lf3" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="50" y="120" width="668" height="504"/>
+                                <rect key="frame" x="50" y="120" width="668" height="604"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose tags!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Nc-lx-VcT">
+                                <rect key="frame" x="20" y="874" width="728" height="26"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="tJO-OW-6KS" appends="YES" id="D6Y-we-PH9"/>
+                                </connections>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MjE-8I-MZe">
+                                <rect key="frame" x="100" y="950" width="568" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92Q-3g-YVU">
+                                        <rect key="frame" x="0.0" y="0.0" width="189.5" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ox3-X6-Mqa">
+                                        <rect key="frame" x="189.5" y="0.0" width="189" height="50"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luC-yA-RIB">
+                                        <rect key="frame" x="378.5" y="0.0" width="189.5" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="nbC-ub-ApV"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="DdU-4i-KEn" firstAttribute="trailing" secondItem="59F-fk-lf3" secondAttribute="trailing" constant="50" id="JTe-FB-VEx"/>
                             <constraint firstItem="59F-fk-lf3" firstAttribute="leading" secondItem="DdU-4i-KEn" secondAttribute="leading" constant="50" id="L76-Qc-vvX"/>
-                            <constraint firstItem="DdU-4i-KEn" firstAttribute="bottom" secondItem="59F-fk-lf3" secondAttribute="bottom" constant="400" id="NDc-ok-xum"/>
+                            <constraint firstItem="DdU-4i-KEn" firstAttribute="bottom" secondItem="59F-fk-lf3" secondAttribute="bottom" constant="300" id="NDc-ok-xum"/>
+                            <constraint firstItem="1Nc-lx-VcT" firstAttribute="top" secondItem="59F-fk-lf3" secondAttribute="bottom" constant="150" id="Upj-vI-oAU"/>
+                            <constraint firstItem="DdU-4i-KEn" firstAttribute="trailing" secondItem="MjE-8I-MZe" secondAttribute="trailing" constant="100" id="VW2-AI-NcY"/>
+                            <constraint firstItem="MjE-8I-MZe" firstAttribute="leading" secondItem="DdU-4i-KEn" secondAttribute="leading" constant="100" id="YAg-0q-qwc"/>
                             <constraint firstItem="59F-fk-lf3" firstAttribute="top" secondItem="DdU-4i-KEn" secondAttribute="top" constant="50" id="ZqY-qN-ST5"/>
+                            <constraint firstItem="MjE-8I-MZe" firstAttribute="top" secondItem="1Nc-lx-VcT" secondAttribute="bottom" constant="50" id="erv-MS-QPL"/>
+                            <constraint firstAttribute="trailing" secondItem="1Nc-lx-VcT" secondAttribute="trailing" constant="20" id="gae-Rq-kJq"/>
+                            <constraint firstItem="1Nc-lx-VcT" firstAttribute="leading" secondItem="DdU-4i-KEn" secondAttribute="leading" constant="20" id="iKP-2y-n6p"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DdU-4i-KEn"/>
                     </view>
                     <connections>
                         <outlet property="barChart" destination="59F-fk-lf3" id="j6e-1J-NlC"/>
+                        <outlet property="fromLabel" destination="92Q-3g-YVU" id="IjD-ZL-bQX"/>
+                        <outlet property="toLabel" destination="luC-yA-RIB" id="jlB-70-980"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rzI-3p-ndm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="tJO-OW-6KS">
+                    <connections>
+                        <segue destination="GaY-1E-zgf" kind="show" identifier="tagAnalysisToChooseTag" id="ggn-9K-xBQ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1878" y="875"/>
         </scene>
@@ -723,6 +783,7 @@
                         <outlet property="confirmButton" destination="hFh-BN-a7Q" id="X7j-qA-pn9"/>
                         <outlet property="tableView" destination="T1A-Bh-jDZ" id="PtD-gp-gc9"/>
                         <segue destination="Ipd-TO-CcE" kind="unwind" identifier="tagSelectionToAdd" unwindAction="unwindToThisViewControllerWithSegue:" id="9pC-l0-6l4"/>
+                        <segue destination="Ipd-TO-CcE" kind="unwind" identifier="tagSelectionToTagAnalysis" unwindAction="unwindToTagAnlysisWithSegue:" id="nej-Pw-QQe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbw-pP-0PY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1384,6 +1445,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nRX-mK-th1"/>
-        <segue reference="JxZ-T0-qdg"/>
+        <segue reference="ggn-9K-xBQ"/>
     </inferredMetricsTieBreakers>
 </document>

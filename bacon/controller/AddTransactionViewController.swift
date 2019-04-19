@@ -329,6 +329,7 @@ extension AddTransactionViewController {
             }
             tagController.core = core
             tagController.canEdit = false
+            tagController.shouldUnwindToAdd = true
         }
     }
 
