@@ -85,6 +85,8 @@
 		BEF82C1F226331A8007BC819 /* BaconPredictionGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C1E226331A8007BC819 /* BaconPredictionGenerator.swift */; };
 		BEF82C212264D77F007BC819 /* PredictionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C202264D77F007BC819 /* PredictionTests.swift */; };
 		BEF82C252264DBA7007BC819 /* PredictionGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF82C242264DBA7007BC819 /* PredictionGeneratorTests.swift */; };
+		BEFBC684226A0D6D00EE1FC6 /* TagAnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC683226A0D6D00EE1FC6 /* TagAnalysisViewController.swift */; };
+		BEFBC686226A0DB600EE1FC6 /* LocationAnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC685226A0DB600EE1FC6 /* LocationAnalysisViewController.swift */; };
 		C288EBE898DE7040D8233568 /* Pods_baconUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */; };
 		D15E5FA942198228451024EA /* Pods_bacon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4701C832F23C08627A348028 /* Pods_bacon.framework */; };
 /* End PBXBuildFile section */
@@ -196,6 +198,8 @@
 		BEF82C1E226331A8007BC819 /* BaconPredictionGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaconPredictionGenerator.swift; sourceTree = "<group>"; };
 		BEF82C202264D77F007BC819 /* PredictionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionTests.swift; sourceTree = "<group>"; };
 		BEF82C242264DBA7007BC819 /* PredictionGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionGeneratorTests.swift; sourceTree = "<group>"; };
+		BEFBC683226A0D6D00EE1FC6 /* TagAnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagAnalysisViewController.swift; sourceTree = "<group>"; };
+		BEFBC685226A0DB600EE1FC6 /* LocationAnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnalysisViewController.swift; sourceTree = "<group>"; };
 		CA24B1D1138A1F0774F42251 /* Pods-baconTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD379625D2CF2952EA2B2E6A /* Pods-baconUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F38C0C0022ADF9C5F622445F /* Pods-bacon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bacon.release.xcconfig"; path = "Pods/Target Support Files/Pods-bacon/Pods-bacon.release.xcconfig"; sourceTree = "<group>"; };
@@ -389,6 +393,8 @@
 				BEC57449225C9F90001793EC /* DateTimeSelectionViewController.swift */,
 				BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */,
 				BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */,
+				BEFBC683226A0D6D00EE1FC6 /* TagAnalysisViewController.swift */,
+				BEFBC685226A0DB600EE1FC6 /* LocationAnalysisViewController.swift */,
 				BEC57451225F8DA5001793EC /* TagSelectionViewController.swift */,
 				BEF82C142261C157007BC819 /* SetBuddgetViewController.swift */,
 				BEC574432254B714001793EC /* UIViewController+Alert.swift */,
@@ -758,6 +764,7 @@
 				BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */,
 				8F8814B52268AFCB009A23D5 /* GooglePlacesApiHandler.swift in Sources */,
 				9FB4E16E224419880005403F /* StorageError.swift in Sources */,
+				BEFBC684226A0D6D00EE1FC6 /* TagAnalysisViewController.swift in Sources */,
 				BEF82C1D22633177007BC819 /* PredictionGenerator.swift in Sources */,
 				8F8487D9224B7909001F881C /* Observer.swift in Sources */,
 				BEF82C1922632F47007BC819 /* Prediction.swift in Sources */,
@@ -782,6 +789,7 @@
 				8F89424D225E01D6007146AC /* TagManagerInterface.swift in Sources */,
 				9F965F8422533E5500AF6092 /* CoreLogic.swift in Sources */,
 				BEF38D0D224BA2C400BC8927 /* TransactionCell.swift in Sources */,
+				BEFBC686226A0DB600EE1FC6 /* LocationAnalysisViewController.swift in Sources */,
 				BEC5745822605570001793EC /* CoreLogic+BreakDownByTag.swift in Sources */,
 				BEF82C172261D5CE007BC819 /* SpendingStatus.swift in Sources */,
 				BEF82C1F226331A8007BC819 /* BaconPredictionGenerator.swift in Sources */,
