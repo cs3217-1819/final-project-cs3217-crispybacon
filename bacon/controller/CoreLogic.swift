@@ -49,65 +49,6 @@ class CoreLogic: CoreLogicInterface {
             description=\(description) location=\(location as Optional).
             """)
         try transactionManager.saveTransaction(currentTransaction)
-        if currentTransaction.frequency.nature == .recurring {
-            try recordRecurringTransaction(currentTransaction)
-        }
-    }
-
-    // Save future recurring instances of the transaction given.
-    private func recordRecurringTransaction(_ transaction: Transaction) throws {
-        guard transaction.frequency.nature == .recurring else {
-            throw InvalidArgumentError(message: """
-                recordRecurringTransaction() requires transaction to be recurring.
-            """)
-        }
-        let recurringInstances = try generateAllRecurringInstances(of: transaction)
-        for transactions in recurringInstances {
-            // Save the next recurring transaction
-            try transactionManager.saveTransaction(transactions)
-        }
-    }
-
-    /// Generates all subsequent future recurring instances of a transaction
-    /// (i.e. the first instance of a recurring transaction is not included)
-    private func generateAllRecurringInstances(of transaction: Transaction) throws -> [Transaction] {
-        guard transaction.frequency.nature == .recurring else {
-            throw InvalidArgumentError(message: """
-                generateAllRecurringInstances() requires transaction to be recurring.
-            """)
-        }
-        guard let numberOfTimesToRepeat = transaction.frequency.repeats else {
-            fatalError("Transaction is guarded to be recurring, repeats should not be nil.")
-        }
-        guard let interval = transaction.frequency.interval else {
-            fatalError("Transaction is guarded to be recurring, interval should not be nil.")
-        }
-        var currentTime = transaction.date
-        var dateComponents = DateComponents()
-        switch interval {
-        case .daily:
-            dateComponents.day = 1
-        case .weekly:
-            dateComponents.day = 7
-        case .monthly:
-            dateComponents.month = 1
-        case .yearly:
-            dateComponents.year = 1
-        }
-        var recurringTransactions: [Transaction] = []
-        for _ in 1..<numberOfTimesToRepeat {
-            // Calculate the date of the next recurring transaction
-            guard let nextRecurringDate = Calendar.current.date(byAdding: dateComponents,
-                                                                to: currentTime) else {
-                fatalError("Date calculation for future recurring transaction should not fail.")
-            }
-            currentTime = nextRecurringDate
-            // Create a copy of the transaction and update the date
-            let nextTransaction = transaction.duplicate()
-            try nextTransaction.edit(date: currentTime)
-            recurringTransactions.append(nextTransaction)
-        }
-        return recurringTransactions
     }
 
     func deleteAllRecurringInstances(of transaction: Transaction) throws {
