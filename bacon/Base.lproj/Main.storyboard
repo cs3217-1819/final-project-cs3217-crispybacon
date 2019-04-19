@@ -320,6 +320,9 @@
                                                 <integer key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="0xn-HE-mTp" appends="YES" id="WWI-Ts-YFq"/>
+                                        </connections>
                                     </label>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ox3-X6-Mqa">
                                         <rect key="frame" x="189.5" y="0.0" width="189" height="50"/>
@@ -338,6 +341,9 @@
                                                 <integer key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="jGz-Ne-L5a" appends="YES" id="lIA-Ed-Z3k"/>
+                                        </connections>
                                     </label>
                                 </subviews>
                                 <constraints>
@@ -370,6 +376,16 @@
                 <tapGestureRecognizer id="tJO-OW-6KS">
                     <connections>
                         <segue destination="GaY-1E-zgf" kind="show" identifier="tagAnalysisToChooseTag" id="ggn-9K-xBQ"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="0xn-HE-mTp">
+                    <connections>
+                        <segue destination="pQO-Bo-fSI" kind="show" identifier="tagAnalysisToCalendarFrom" id="PVY-Fh-daf"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="jGz-Ne-L5a">
+                    <connections>
+                        <segue destination="pQO-Bo-fSI" kind="show" identifier="tagAnalysisToCalendarTo" id="Cmp-0B-907"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -619,6 +635,7 @@
                         <outlet property="timePicker" destination="Dhg-1T-FbK" id="Un3-8O-OLb"/>
                         <outlet property="yaerLabel" destination="4bx-xs-8H9" id="K7X-XL-MTQ"/>
                         <segue destination="4vR-jD-bMU" kind="unwind" identifier="unwindToAdd" unwindAction="unwindToThisViewControllerWithSegue:" id="Mh5-Qd-0Ij"/>
+                        <segue destination="4vR-jD-bMU" kind="unwind" identifier="calendarToTagAnalysis" unwindAction="unwindToTagAnlysisWithSegue:" id="2M3-dE-SKr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZz-6a-CSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -943,7 +960,7 @@
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="VTj-g0-EYc">
                     <connections>
-                        <segue destination="pQO-Bo-fSI" kind="show" identifier="" id="QVA-mP-HWT"/>
+                        <segue destination="pQO-Bo-fSI" kind="show" identifier="addToCalendar" id="QVA-mP-HWT"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="ilG-8Z-vt3">
@@ -1446,5 +1463,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="nRX-mK-th1"/>
         <segue reference="ggn-9K-xBQ"/>
+        <segue reference="Cmp-0B-907"/>
     </inferredMetricsTieBreakers>
 </document>

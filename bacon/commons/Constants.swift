@@ -49,6 +49,7 @@ class Constants {
     static let addTagMessage = "Add tags!"
     static let addToMainSuccess = "addToMainSuccess"
     static let addToTagSelection = "addToTagSelection"
+    static let addToCalendar = "addToCalendar"
     static let editToTransactions = "editToTransactions"
 
     // Trsansactions Page
@@ -63,8 +64,10 @@ class Constants {
     static let analysisToTagBreakDown = "analysisToTagBreakDown"
 
     // Tag Analysis Page
-    static let tagAnalysisToChooseTag = "tagAnalysisToChooseTag"
     static let noDataMessage = "Choose tags and time period to generate analysis!"
+    static let tagAnalysisToChooseTag = "tagAnalysisToChooseTag"
+    static let tagAnalysisToCalendarFrom = "tagAnalysisToCalendarFrom"
+    static let tagAnalysisToCalendarTo = "tagAnalysisToCalendarTo"
 
     // Tag Selection Page
     static let tagNameInputTitle = "Add new tag"
@@ -81,6 +84,7 @@ class Constants {
 
     // Calendar Page
     static let unwindToAdd = "unwindToAdd"
+    static let calendarToTagAnalysis = "calendarToTagAnalysis"
 
     // Date
     static func getDateFormatter() -> DateFormatter {

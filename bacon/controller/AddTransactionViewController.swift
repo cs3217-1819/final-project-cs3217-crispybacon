@@ -331,6 +331,13 @@ extension AddTransactionViewController {
             tagController.canEdit = false
             tagController.shouldUnwindToAdd = true
         }
+        if segue.identifier == Constants.addToCalendar {
+            guard let calendarController = segue.destination as? DateTimeSelectionViewController else {
+                return
+            }
+            calendarController.referenceDate = dateTime
+            calendarController.shouldUnwindToAdd = true
+        }
     }
 
     @IBAction func unwindToThisViewController(segue: UIStoryboardSegue) {

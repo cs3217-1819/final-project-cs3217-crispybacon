@@ -43,6 +43,7 @@ class TagAnalysisViewController: UIViewController {
     }
 
     private func update() {
+        displayTime()
         getBreakdown()
         setChart()
     }
@@ -98,11 +99,35 @@ extension TagAnalysisViewController {
             tagSelectionController.canEdit = false
             tagSelectionController.shouldUnwindToAdd = false
         }
+        if segue.identifier == Constants.tagAnalysisToCalendarFrom {
+            guard let calendarController = segue.destination as? DateTimeSelectionViewController else {
+                return
+            }
+            calendarController.shouldUnwindToAdd = false
+            calendarController.referenceDate = fromDate
+            calendarController.isSelectingFromDate = true
+        }
+        if segue.identifier == Constants.tagAnalysisToCalendarTo {
+            guard let calendarController = segue.destination as? DateTimeSelectionViewController else {
+                return
+            }
+            calendarController.shouldUnwindToAdd = false
+            calendarController.referenceDate = toDate
+            calendarController.isSelectingFromDate = false
+        }
     }
 
     @IBAction func unwindToTagAnlysis(segue: UIStoryboardSegue) {
         if let tagSelectionController = segue.source as? TagSelectionViewController {
             selectedTags = tagSelectionController.selectedTags
+            update()
+        }
+        if let calendarController = segue.source as? DateTimeSelectionViewController {
+            if calendarController.isSelectingFromDate {
+                fromDate = calendarController.selectedDate
+            } else {
+                toDate = calendarController.selectedDate
+            }
             update()
         }
     }
