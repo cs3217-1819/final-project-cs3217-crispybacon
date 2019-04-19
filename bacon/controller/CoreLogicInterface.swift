@@ -29,6 +29,7 @@ protocol CoreLogicInterface {
     func getSpendingStatus(_ currentMonthTransactions: [Transaction]) throws -> SpendingStatus
 
     // MARK: Tag related
+    func getTag(for value: String, of parentValue: String?) throws -> Tag
     func getAllTags() -> [Tag: [Tag]]
     func getAllParentTags() -> [Tag]
     func getChildrenTags(of parent: String) throws -> [Tag]

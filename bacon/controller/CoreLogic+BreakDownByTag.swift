@@ -26,7 +26,18 @@ extension CoreLogic {
         // For each required tag, count the amount of transactions having this tag
         for transaction in transactions {
             for tag in transaction.tags where tags.contains(tag) {
+                // Firstly, if the transaction contains a tag that is required, increase the amount for the tag
                 tagAmount[tag] = (tagAmount[tag] ?? 0) + NSDecimalNumber(decimal: transaction.amount).doubleValue
+
+                // If the current tag is a child tag, this transaction must be counted towards the parent tag too
+                // Provided the transaction is not tagged with the parent tag itself (to prevent double counting)
+                if let parentTagValue = tag.parentValue {
+                    let parentTag = try self.getTag(for: parentTagValue, of: nil) // We know it's a parent tag
+                    if !transaction.tags.contains(parentTag) {
+                        tagAmount[parentTag] = (tagAmount[parentTag] ?? 0) +
+                            NSDecimalNumber(decimal: transaction.amount).doubleValue
+                    }
+                }
             }
         }
 
@@ -40,6 +51,7 @@ extension CoreLogic {
             }
             amounts.append(amountForThisTag)
         }
+
         return (tags, amounts)
     }
 }

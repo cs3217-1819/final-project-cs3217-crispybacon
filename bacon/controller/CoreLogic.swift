@@ -121,6 +121,10 @@ class CoreLogic: CoreLogicInterface {
     }
 
     // MARK: Tag related
+    func getTag(for value: String, of parentValue: String?) throws -> Tag {
+        return try tagManager.getTag(for: value, of: parentValue)
+    }
+
     func getAllTags() -> [Tag: [Tag]] {
         return tagManager.tags
     }
