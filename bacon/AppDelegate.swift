@@ -8,8 +8,10 @@
 
 // swiftlint:disable all
 
-import UIKit
 import CoreData
+import CoreLocation
+import UIKit
+import UserNotifications
 import SwiftyBeaver
 
 let log = SwiftyBeaver.self
@@ -18,13 +20,43 @@ let log = SwiftyBeaver.self
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let locationManager = CLLocationManager()
+    let notificationCenter = UNUserNotificationCenter.current()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let console = ConsoleDestination() // Log to Xcode console
         let file = FileDestination() // Log to default swiftybeaver.log file
         log.addDestination(console)
         log.addDestination(file)
+
+        log.info("Bacon is fired up")
+
+        // Location
+        log.info("Requesting location always authorization")
+        locationManager.requestAlwaysAuthorization()
+
+        locationManager.delegate = self
+        locationManager.allowsBackgroundLocationUpdates = true
+
+        // We use startUpdatingLocation() in development
+        // because it provides more frequent updates.
+        // Switch to startMonitoringSignificantLocationChanges() for production,
+        // which is more power-efficient.
+        log.info("Starting location monitoring.")
+        locationManager.startUpdatingLocation()
+
+        // Notifications
+        log.info("Requesting notifications authorization")
+        notificationCenter.requestAuthorization(options: [.alert]) { (granted, error) in
+            if granted {
+                log.info("User has granted notifictions authorization")
+            } else {
+                log.warning("User has denied notifications authorization")
+                if let error = error {
+                    log.warning(error)
+                }
+            }
+        }
 
         // Override point for customization after application launch.
         return true

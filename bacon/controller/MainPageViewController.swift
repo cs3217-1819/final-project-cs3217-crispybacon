@@ -15,8 +15,6 @@ class MainPageViewController: UIViewController {
     var currentMonthTransactions = [Transaction]()
     var currentMonthYear = (0, 0)
 
-    let locationManager = CLLocationManager()
-
     @IBOutlet private weak var budgetLabel: UILabel!
     @IBOutlet private weak var coinView: UIImageView!
     @IBOutlet private weak var pigView: UIImageView!
@@ -28,11 +26,6 @@ class MainPageViewController: UIViewController {
         } catch {
             self.handleError(error: error, customMessage: Constants.coreFailureMessage)
         }
-
-        locationManager.requestAlwaysAuthorization()
-        locationManager.allowsBackgroundLocationUpdates = true
-        locationManager.delegate = self
-        locationManager.startMonitoringSignificantLocationChanges()
     }
 
     override func viewDidAppear(_ animated: Bool) {
