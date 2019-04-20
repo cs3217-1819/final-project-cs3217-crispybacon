@@ -6,6 +6,7 @@
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
 
+import CoreLocation
 import UIKit
 
 class MainPageViewController: UIViewController {

@@ -153,4 +153,12 @@ class Constants {
     static let LocationPromptGooglePlacesApiKey = "PLACEHOLDER" // Avoid exposing API key in source code
     static let LocationPromptRadius = 500 // In meters
     static let LocationPromptContext = "food" // Sets the context for deciding whether to prompt a user
+
+    // Background location notifications
+    static let notificationIdentifier = "backgroundLocationNotification"
+    static let notificationTitle = "Bacon checking in!"
+    static let notificationSubtitle = ""
+    static let notificationBody = """
+        Based on your location, we think you're about to make a transaction.
+        """
 }
