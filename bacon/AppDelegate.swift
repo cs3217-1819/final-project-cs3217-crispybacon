@@ -38,12 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
 
-        // We use startUpdatingLocation() in development
+        // Use startUpdatingLocation() for development and testing
         // because it provides more frequent updates.
         // Switch to startMonitoringSignificantLocationChanges() for production,
-        // which is more power-efficient.
+        // which avoids spamming notifications (as with startUpdatingLocation()).
         log.info("Starting location monitoring.")
-        locationManager.startUpdatingLocation()
+        locationManager.startMonitoringSignificantLocationChanges()
 
         // Notifications
         log.info("Requesting notifications authorization")
