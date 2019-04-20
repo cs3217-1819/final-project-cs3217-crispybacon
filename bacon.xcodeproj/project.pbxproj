@@ -10,6 +10,7 @@
 		0B931CE7463280668924F212 /* Pods_baconTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 894FB0A0BC60BFB913FD0FD0 /* Pods_baconTests.framework */; };
 		450FE37C2269BC660012ACD0 /* TransactionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450FE37B2269BC660012ACD0 /* TransactionManagerTests.swift */; };
 		453541B6226B8F7B00088904 /* TransactionManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453541B5226B8F7B00088904 /* TransactionManagerInterface.swift */; };
+		453541B8226B92B700088904 /* PredictionManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453541B7226B92B700088904 /* PredictionManagerInterface.swift */; };
 		45639D7B2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */; };
 		45639D7D2266633100B07AA6 /* StorageManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45639D7C2266633100B07AA6 /* StorageManagerInterface.swift */; };
 		8F0B2073225A464D001AF3BA /* HashableClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B2072225A464D001AF3BA /* HashableClass.swift */; };
@@ -116,6 +117,7 @@
 		40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_baconUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		450FE37B2269BC660012ACD0 /* TransactionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManagerTests.swift; sourceTree = "<group>"; };
 		453541B5226B8F7B00088904 /* TransactionManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManagerInterface.swift; sourceTree = "<group>"; };
+		453541B7226B92B700088904 /* PredictionManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictionManagerInterface.swift; sourceTree = "<group>"; };
 		45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Prediction.swift"; sourceTree = "<group>"; };
 		45639D7C2266633100B07AA6 /* StorageManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerInterface.swift; sourceTree = "<group>"; };
 		4701C832F23C08627A348028 /* Pods_bacon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bacon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -508,6 +510,7 @@
 			isa = PBXGroup;
 			children = (
 				BEF82C1822632F46007BC819 /* Prediction.swift */,
+				453541B7226B92B700088904 /* PredictionManagerInterface.swift */,
 				BEF82C1A22633117007BC819 /* PredictionManager.swift */,
 				BEF82C1C22633177007BC819 /* PredictionGenerator.swift */,
 				BEF82C1E226331A8007BC819 /* BaconPredictionGenerator.swift */,
@@ -882,6 +885,7 @@
 				BEF38D0D224BA2C400BC8927 /* TransactionCell.swift in Sources */,
 				BEFBC686226A0DB600EE1FC6 /* LocationAnalysisViewController.swift in Sources */,
 				BEC5745822605570001793EC /* CoreLogic+BreakDownByTag.swift in Sources */,
+				453541B8226B92B700088904 /* PredictionManagerInterface.swift in Sources */,
 				BEF82C172261D5CE007BC819 /* SpendingStatus.swift in Sources */,
 				BEF82C1F226331A8007BC819 /* BaconPredictionGenerator.swift in Sources */,
 				8F6A7A402240B583002E695A /* AppDelegate.swift in Sources */,
