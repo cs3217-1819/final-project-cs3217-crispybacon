@@ -8,7 +8,7 @@
 
 import Foundation
 
-class BudgetManager {
+class BudgetManager: BudgetManagerInterface {
 
     private let storageManager: StorageManagerInterface
 

@@ -7,6 +7,7 @@
 //
 
 // swiftlint:disable force_try
+// swiftlint:disable type_body_length
 
 import XCTest
 @testable import bacon
@@ -356,3 +357,4 @@ class TagManagerTests: XCTestCase {
 }
 
 // swiftlint:enbable force_try
+// swiftlint:enable type_body_length

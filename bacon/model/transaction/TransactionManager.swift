@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TransactionManager: Observer {
+class TransactionManager: TransactionManagerInterface {
 
     private let storageManager: StorageManagerInterface
 
@@ -195,13 +195,6 @@ class TransactionManager: Observer {
         let transactions = try storageManager.loadTransactions(ofType: type, limit: limit)
         return observeTransactions(transactions)
     }
-
-    /**
-    func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
-        let transactions = try storageManager.loadTransactions(ofCategory: category, limit: limit)
-        return observeTransactions(transactions)
-    }
-    **/
 
     func loadTransactions(ofTag tag: Tag) throws -> [Transaction] {
         let transactions = try storageManager.loadTransactions(ofTag: tag)

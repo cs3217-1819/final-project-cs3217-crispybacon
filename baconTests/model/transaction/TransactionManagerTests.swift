@@ -48,6 +48,7 @@ class TransactionManagerTests: XCTestCase {
         }
     }
 
+    // swiftlint:disable function_body_length
     func test_updateRecurringTransaction() {
         let transactionManager = try! TransactionManager()
         // Clear database
@@ -102,6 +103,7 @@ class TransactionManagerTests: XCTestCase {
             XCTAssertTrue(transaction.equals(reloadedTransactions[index]))
         }
     }
+    // swiftlint:enable function_body_length
 
     func test_deleteAllRecurringInstances() {
         let transactionManager = try! TransactionManager()
