@@ -17,7 +17,7 @@ class TagSelectionViewController: UIViewController {
     var tags = [Tag: [Tag]]()
     var parentTags = [Tag]()
     var selectedTags = Set<Tag>()
-    var canEdit = false
+    var canEdit = false // Whether user can edit tag name, depending on from where the user entered this page
     var shouldUnwindToAdd = true
 
     override func viewDidLoad() {
@@ -77,6 +77,7 @@ class TagSelectionViewController: UIViewController {
     }
 }
 
+// MARK: TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
 extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return parentTags.count

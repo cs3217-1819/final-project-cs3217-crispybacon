@@ -20,7 +20,7 @@ class TransactionsViewController: UIViewController {
     var cellHeights: [CGFloat] = []
     var currentMonthTransactions = [Transaction]()
     var transactionToEdit: Transaction?
-    var monthCounter = (0, 0)
+    var monthCounter = (0, 0) // Keeps track of the month displayed in the current page
     var rowsCount: Int {
         return currentMonthTransactions.count
     }
@@ -100,6 +100,7 @@ class TransactionsViewController: UIViewController {
     // swiftlint:enable attributes
 }
 
+// MARK: TransactionsViewController: UITableViewDataSource, UITableViewDelegate
 extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return rowsCount
@@ -133,12 +134,14 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
 
+        // Define cell behaviours
         cell.transaction = currentMonthTransactions[arrayIndex]
         cell.editTransactionAction = { transaction in
             self.transactionToEdit = transaction
             self.performSegue(withIdentifier: Constants.transactionsToEdit, sender: nil)
         }
 
+        // Configure the cell to display data
         cell.closedNumberView.text = String(displayedIndex)
 
         let date = currentMonthTransactions[arrayIndex].date
@@ -267,6 +270,8 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         }
         do {
             try core.deleteAllRecurringInstances(of: currentMonthTransactions[indexPath.row])
+            // Not feasible to predict which rows to delete from the table view
+            // Hence, reload everything
             reload()
         } catch {
             self.handleError(error: error, customMessage: Constants.transactionDeleteFailureMessage)
@@ -282,6 +287,7 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
     // swiftlint:enable attributes
 }
 
+// MARK: TransactionsViewController: segues
 extension TransactionsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.transactionsToEdit {

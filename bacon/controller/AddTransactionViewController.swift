@@ -11,7 +11,6 @@ import CoreLocation
 
 class AddTransactionViewController: UIViewController {
 
-    // To be removed after location manager is up
     let locationManager = CLLocationManager()
     let geoCoder = CLGeocoder()
 
@@ -48,7 +47,6 @@ class AddTransactionViewController: UIViewController {
         super.viewDidLoad()
 
         // Request permission for location services
-        // To be removed after location manager is up
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
 
@@ -70,6 +68,8 @@ class AddTransactionViewController: UIViewController {
             performSegue(withIdentifier: Constants.editToTransactions, sender: nil)
             return
         }
+
+        // Fill all fields according to the transaction sent for editing
         transactionType = transactionToEdit.type
         amountField.text = transactionToEdit.amount.toFormattedString
         tags = transactionToEdit.tags
@@ -83,6 +83,7 @@ class AddTransactionViewController: UIViewController {
             repeatTimeField.text = String(repeatTime)
         }
 
+        // Not all fields are editable, depending on whether it is one-time or recurring
         checkEditableFields()
 
         log.info("""
@@ -92,17 +93,18 @@ class AddTransactionViewController: UIViewController {
 
     private func checkEditableFields() {
         if frequencyNature == .oneTime {
+            // Changing from one-time transaction to recurring is disallowed
             frequencyLabel.alpha = 0
         } else {
+            // Changing the time of a recurring transaction is also disallowed
             timeLabel.alpha = 0
         }
     }
 
     private func setUpAddMode() {
-        // To be removed when lcoation manager is up
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters // hard coded for now
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
             getCurrentLocation()
         }
@@ -129,7 +131,9 @@ class AddTransactionViewController: UIViewController {
             return
         }
         // Populate the fields with the prediction result
-        amountField.text = prediction.amountPredicted.toFormattedString
+        if prediction.amountPredicted != 0 {
+            amountField.text = prediction.amountPredicted.toFormattedString
+        }
         tags = prediction.tagsPredicted
     }
 
@@ -371,6 +375,7 @@ class AddTransactionViewController: UIViewController {
 
 }
 
+// MARK: AddTransactionViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate
 extension AddTransactionViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
@@ -387,9 +392,11 @@ extension AddTransactionViewController: UINavigationControllerDelegate, UIImageP
     }
 }
 
+// MARK: AddTransactionViewController: CLLocationManagerDelegate
 extension AddTransactionViewController: CLLocationManagerDelegate {
 }
 
+// MARK: AddTransactionViewController: segues
 extension AddTransactionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.addToTagSelection {

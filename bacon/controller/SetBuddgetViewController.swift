@@ -30,6 +30,8 @@ class SetBuddgetViewController: UIViewController {
         let amountDecimal = Decimal(string: amountString ?? Constants.defaultBudgetString)
         let budgetAmount = amountDecimal ?? Constants.defaultBudget
 
+        // Budget period follows the natural month
+        // Hence startDate and endDate represent the start and end of the current month respectively
         do {
             let startDate = try Date().getStartOfCurrentMonth()
             let endDate = try Date().getEndOfCurrentMonth()

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainPageViewController.swift
 //  bacon
 //
 //  Created by Fabian Terh on 19/3/19.
@@ -90,6 +90,9 @@ class MainPageViewController: UIViewController {
         }
 
         budgetLabel.text = Constants.currency + spending + " / " + Constants.currency + budget
+
+        // Change image of pig and text color to reflect different states of current spending against budget
+        // to give an intuitive overview for the user
         if percentage < 1 {
             budgetLabel.textColor = UIColor.green.withAlphaComponent(0.5)
             pigView.image = Constants.happyPig
@@ -109,6 +112,7 @@ class MainPageViewController: UIViewController {
     }
 }
 
+// MARK: MainPageViewController: animations
 extension MainPageViewController {
     func animateFloatingCoin() {
         let currentFrame = coinView.frame
@@ -122,6 +126,7 @@ extension MainPageViewController {
     }
 }
 
+// MARK: MainPageViewController: segues
 extension MainPageViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.mainToAddTransactionEx {
