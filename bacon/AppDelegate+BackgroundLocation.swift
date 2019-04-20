@@ -26,7 +26,7 @@ extension AppDelegate: CLLocationManagerDelegate {
                                             trigger: trigger)
 
         notificationCenter.add(request) { error in
-            print(String(describing: error))
+            log.warning("Error adding notification request to notification center: \(String(describing: error))")
         }
     }
 }
