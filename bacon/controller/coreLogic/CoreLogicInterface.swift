@@ -21,6 +21,7 @@ protocol CoreLogicInterface {
                            image: CodableUIImage?,
                            location: CodableCLLocation?,
                            prediction: Prediction?) throws
+    func deleteAllRecurringInstances(of transaction: Transaction) throws
     func loadTransactions(month: Int, year: Int) throws -> [Transaction]
 
     // MARK: Budget Related
