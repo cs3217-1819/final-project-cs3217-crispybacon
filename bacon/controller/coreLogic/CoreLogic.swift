@@ -13,7 +13,7 @@ class CoreLogic: CoreLogicInterface {
     // MARK: - Properties
     let transactionManager: TransactionManagerInterface
     let budgetManager: BudgetManager
-    let predictionManager: PredictionManager
+    let predictionManager: PredictionManagerInterface
     var tagManager: TagManagerInterface
 
     init(tagManager: TagManager = TagManager.create(testMode: false)) throws {

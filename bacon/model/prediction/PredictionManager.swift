@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PredictionManager {
+class PredictionManager: PredictionManagerInterface {
 
     private let storageManager: StorageManagerInterface
     private let predictionGeneraor: PredictionGenerator
