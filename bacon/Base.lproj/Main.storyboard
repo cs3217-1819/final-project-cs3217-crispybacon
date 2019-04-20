@@ -915,7 +915,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ow-WL-Cpp">
-                                <rect key="frame" x="100" y="791.5" width="568" height="26"/>
+                                <rect key="frame" x="100" y="735" width="568" height="26"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -924,14 +924,14 @@
                                 </connections>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hC-jC-7Kl">
-                                <rect key="frame" x="100" y="837.5" width="568" height="26"/>
+                                <rect key="frame" x="100" y="781" width="568" height="26"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One-time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dus-Ci-fZP">
-                                <rect key="frame" x="100" y="883.5" width="568" height="19.5"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One-time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dus-Ci-fZP">
+                                <rect key="frame" x="100" y="827" width="568" height="26"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -975,6 +975,29 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LjM-3J-RaY" customClass="PreviewImageView" customModule="bacon" customModuleProvider="target">
                                 <rect key="frame" x="20" y="90" width="728" height="322"/>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="hNR-e2-gcU">
+                                <rect key="frame" x="250" y="873" width="268" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFw-Rp-gTZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="78.5" height="30"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AUS-ZC-Ow2">
+                                        <rect key="frame" x="94.5" y="0.0" width="79" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="times" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIc-vp-5Z6">
+                                        <rect key="frame" x="189.5" y="0.0" width="78.5" height="30"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -984,7 +1007,10 @@
                             <constraint firstItem="8ow-WL-Cpp" firstAttribute="leading" secondItem="IgM-Eg-Amy" secondAttribute="leading" constant="100" id="Aqq-RI-4Vn"/>
                             <constraint firstItem="fCt-k9-eKX" firstAttribute="leading" secondItem="IgM-Eg-Amy" secondAttribute="leading" constant="20" id="BQ7-82-hcJ"/>
                             <constraint firstItem="8hC-jC-7Kl" firstAttribute="leading" secondItem="IgM-Eg-Amy" secondAttribute="leading" constant="100" id="CGb-pK-9Sd"/>
+                            <constraint firstItem="hNR-e2-gcU" firstAttribute="top" secondItem="dus-Ci-fZP" secondAttribute="bottom" constant="20" id="CLx-Fu-4k8"/>
+                            <constraint firstItem="IgM-Eg-Amy" firstAttribute="trailing" secondItem="hNR-e2-gcU" secondAttribute="trailing" constant="250" id="CND-kS-g0d"/>
                             <constraint firstItem="IgM-Eg-Amy" firstAttribute="trailing" secondItem="MAS-iH-psu" secondAttribute="trailing" constant="50" id="DKw-3c-H25"/>
+                            <constraint firstItem="MAS-iH-psu" firstAttribute="top" secondItem="hNR-e2-gcU" secondAttribute="bottom" constant="50" id="GzK-pi-V6x"/>
                             <constraint firstItem="LrK-Yu-LCW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="IgM-Eg-Amy" secondAttribute="leading" id="IBc-cf-Pwa"/>
                             <constraint firstItem="jz8-oh-b8u" firstAttribute="top" secondItem="6w8-Pu-1w9" secondAttribute="bottom" constant="20" id="OKR-NQ-2Lm"/>
                             <constraint firstItem="dus-Ci-fZP" firstAttribute="leading" secondItem="IgM-Eg-Amy" secondAttribute="leading" constant="100" id="OMI-ng-F5n"/>
@@ -992,7 +1018,6 @@
                             <constraint firstItem="LjM-3J-RaY" firstAttribute="top" secondItem="PF5-v7-dSV" secondAttribute="topMargin" constant="20" id="RDY-pM-w97"/>
                             <constraint firstItem="fCt-k9-eKX" firstAttribute="top" secondItem="9OH-EA-Fun" secondAttribute="bottom" constant="20" id="UtB-pb-HPB"/>
                             <constraint firstItem="IgM-Eg-Amy" firstAttribute="bottom" secondItem="MAS-iH-psu" secondAttribute="bottom" constant="20" id="W6n-pg-DhZ"/>
-                            <constraint firstItem="MAS-iH-psu" firstAttribute="top" secondItem="dus-Ci-fZP" secondAttribute="bottom" constant="50" id="XDH-Wt-W4s"/>
                             <constraint firstItem="jz8-oh-b8u" firstAttribute="leading" secondItem="LrK-Yu-LCW" secondAttribute="trailing" constant="20" id="YTJ-2k-nge"/>
                             <constraint firstItem="IgM-Eg-Amy" firstAttribute="trailing" secondItem="LjM-3J-RaY" secondAttribute="trailing" constant="20" id="hBg-BN-UUC"/>
                             <constraint firstItem="IgM-Eg-Amy" firstAttribute="trailing" secondItem="8ow-WL-Cpp" secondAttribute="trailing" constant="100" id="lBz-pu-Lcl"/>
@@ -1007,6 +1032,7 @@
                             <constraint firstItem="9OH-EA-Fun" firstAttribute="leading" secondItem="IgM-Eg-Amy" secondAttribute="leading" constant="20" id="x3F-5q-QQw"/>
                             <constraint firstItem="jz8-oh-b8u" firstAttribute="centerX" secondItem="PF5-v7-dSV" secondAttribute="centerX" id="xdN-bD-ug2"/>
                             <constraint firstItem="6w8-Pu-1w9" firstAttribute="centerX" secondItem="PF5-v7-dSV" secondAttribute="centerX" id="ygm-zc-MYj"/>
+                            <constraint firstItem="hNR-e2-gcU" firstAttribute="leading" secondItem="IgM-Eg-Amy" secondAttribute="leading" constant="250" id="yh0-N8-jZT"/>
                             <constraint firstItem="IgM-Eg-Amy" firstAttribute="trailing" secondItem="fCt-k9-eKX" secondAttribute="trailing" constant="20" id="ysn-WK-TbB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IgM-Eg-Amy"/>
@@ -1534,7 +1560,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nRX-mK-th1"/>
-        <segue reference="ggn-9K-xBQ"/>
-        <segue reference="oD8-sb-rBb"/>
+        <segue reference="dM7-bg-LN1"/>
+        <segue reference="QVA-mP-HWT"/>
     </inferredMetricsTieBreakers>
 </document>
