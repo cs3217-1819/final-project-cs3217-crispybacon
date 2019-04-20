@@ -21,6 +21,7 @@ protocol CoreLogicInterface {
                            image: CodableUIImage?,
                            location: CodableCLLocation?,
                            prediction: Prediction?) throws
+    func deleteAllRecurringInstances(of transaction: Transaction) throws
     func loadTransactions(month: Int, year: Int) throws -> [Transaction]
 
     // MARK: Budget Related
@@ -42,4 +43,10 @@ protocol CoreLogicInterface {
     // MARK: Prediction related
     func getPrediction(_ time: Date, _ location: CodableCLLocation,
                        _ transactions: [Transaction]) -> Prediction?
+
+    // MARK: Breakdown analysis modules
+    func getBreakdownByTag(from fromDate: Date, to toDate: Date, for tags: Set<Tag>)
+        throws -> ([Tag], [Double])
+    func getBreakdownByTime(from fromDate: Date, to toDate: Date)
+        throws -> ([(Int, Int)], [Double])
 }

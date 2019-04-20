@@ -13,6 +13,7 @@ import Foundation
 import UIKit
 @testable import bacon
 
+// swiftlint:disable type_body_length
 class TestUtils {
     // swiftlint:disable force_try
     // swiftlint:disable force_unwrapping
@@ -332,3 +333,4 @@ class TestUtils {
     // swiftlint:enable force_try
     // swiftlint:enable force_unwrapping
 }
+// swiftlint:enable type_body_length

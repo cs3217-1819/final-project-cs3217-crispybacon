@@ -11,9 +11,9 @@ import Foundation
 class CoreLogic: CoreLogicInterface {
 
     // MARK: - Properties
-    let transactionManager: TransactionManager
-    let budgetManager: BudgetManager
-    let predictionManager: PredictionManager
+    let transactionManager: TransactionManagerInterface
+    let budgetManager: BudgetManagerInterface
+    let predictionManager: PredictionManagerInterface
     var tagManager: TagManagerInterface
 
     init(tagManager: TagManager = TagManager.create(testMode: false)) throws {
