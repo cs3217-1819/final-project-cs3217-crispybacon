@@ -128,7 +128,7 @@ class CoreLogic: CoreLogicInterface {
     }
 
     func getSpendingStatus(_ currentMonthTransactions: [Transaction]) throws -> SpendingStatus {
-        let budget = try budgetManager.loadBudget()
+        let budget = try self.loadBudget()
         var totalExpenditure: Decimal = 0.0
         for transaction in currentMonthTransactions where transaction.type == .expenditure {
             totalExpenditure += transaction.amount
