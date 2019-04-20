@@ -229,13 +229,47 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.currentMonthTransactions[indexPath.row].delete(successCallback: {
-                self.currentMonthTransactions.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                self.perform(#selector(self.reloadTable), with: nil, afterDelay: 0.4)
-            }, failureCallback: { errorMessage in
-                self.alertUser(title: Constants.warningTitle, message: errorMessage)
-            })
+            if currentMonthTransactions[indexPath.row].frequency.nature == .oneTime {
+                deleteSingleTransaction(at: indexPath)
+            } else {
+                chooseSingleOrMultipleDeletion(at: indexPath)
+            }
+        }
+    }
+
+    private func chooseSingleOrMultipleDeletion(at indexPath: IndexPath) {
+        let alert = UIAlertController(title: Constants.deleteAlertTitle,
+                                      message: Constants.deleteAlertMessage,
+                                      preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: Constants.deleteSingleMessage, style: .default) { _ in
+                                        self.deleteSingleTransaction(at: indexPath)
+        })
+        alert.addAction(UIAlertAction(title: Constants.deleteAllMessage, style: .default) { _ in
+                                        self.deleteAllRecurringTransaction(at: indexPath)
+        })
+        self.present(alert, animated: true)
+    }
+
+    private func deleteSingleTransaction(at indexPath: IndexPath) {
+        self.currentMonthTransactions[indexPath.row].delete(successCallback: {
+            self.currentMonthTransactions.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.perform(#selector(self.reloadTable), with: nil, afterDelay: 0.4)
+        }, failureCallback: { errorMessage in
+            self.alertUser(title: Constants.warningTitle, message: errorMessage)
+        })
+    }
+
+    private func deleteAllRecurringTransaction(at indexPath: IndexPath) {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+        do {
+            try core.deleteAllRecurringInstances(of: currentMonthTransactions[indexPath.row])
+            reload()
+        } catch {
+            self.handleError(error: error, customMessage: Constants.transactionDeleteFailureMessage)
         }
     }
 
