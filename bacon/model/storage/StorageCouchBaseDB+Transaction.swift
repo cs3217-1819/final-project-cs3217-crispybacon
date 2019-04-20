@@ -12,6 +12,7 @@
 import Foundation
 import CouchbaseLiteSwift
 
+// swiftlint:disable file_length
 extension StorageCouchBaseDB {
 
     func getNumberOfTransactionsInDatabase() -> Double {
@@ -398,21 +399,6 @@ extension StorageCouchBaseDB {
         return try getTransactionsFromQuery(query)
     }
 
-    /**
-    func loadTransactions(ofCategory category: TransactionCategory, limit: Int) throws -> [Transaction] {
-        let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
-            .from(DataSource.database(transactionDatabase))
-            .where(Expression.property(Constants.categoryKey).equalTo(Expression.string(category.rawValue)))
-            .orderBy(Ordering.property(Constants.rawDateKey).descending())
-            .limit(Expression.int(limit))
-        log.info("""
-            StorageCouchBaseDB.loadTransactions() with arguments:
-            ofCategory=\(category) limit=\(limit).
-            """)
-        return try getTransactionsFromQuery(query)
-    }
-    **/
-
     func loadTransactions(ofTag tag: Tag) throws -> [Transaction] {
         let transactionIds = try getTransactionIdsWithTag(tag)
         let transactionIdTuples = try loadTransactionsFromIds(transactionIds)
@@ -450,3 +436,4 @@ extension StorageCouchBaseDB {
         return firstInstance
     }
 }
+// swiftlint:enable file_length
