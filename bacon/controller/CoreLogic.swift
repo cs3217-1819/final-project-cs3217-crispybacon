@@ -54,7 +54,7 @@ class CoreLogic: CoreLogicInterface {
     func deleteAllRecurringInstances(of transaction: Transaction) throws {
         guard transaction.frequency.nature == .recurring else {
             throw InvalidArgumentError(message: """
-                deletellRecurringInstances() requires transaction to be recurring.
+                deleteAllRecurringInstances() requires transaction to be recurring.
             """)
         }
         try transactionManager.deleteAllRecurringInstance(of: transaction)

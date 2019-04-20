@@ -143,6 +143,7 @@ class TransactionManager: Observer {
     /// users are able to edit a recurring transaction at an arbitrary instance of it,
     /// if we allow user to edit the date, we will be unable to back track and
     /// find out which instance the transaction was edited at.
+    /// - requires: date of recurring transaction not modified
     func updateRecurringTransaction(_ transaction: Transaction) throws {
         guard transaction.frequency.nature == .recurring else {
             throw InvalidArgumentError(message: """
