@@ -90,6 +90,7 @@
 		BEFBC684226A0D6D00EE1FC6 /* TagAnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC683226A0D6D00EE1FC6 /* TagAnalysisViewController.swift */; };
 		BEFBC686226A0DB600EE1FC6 /* LocationAnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC685226A0DB600EE1FC6 /* LocationAnalysisViewController.swift */; };
 		BEFBC688226A5D2000EE1FC6 /* CoreLogic+BreakDownByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC687226A5D1F00EE1FC6 /* CoreLogic+BreakDownByTime.swift */; };
+		BEFBC693226B6FFE00EE1FC6 /* Date+getStartOrEndOfMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC692226B6FFE00EE1FC6 /* Date+getStartOrEndOfMonth.swift */; };
 		C288EBE898DE7040D8233568 /* Pods_baconUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */; };
 		D15E5FA942198228451024EA /* Pods_bacon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4701C832F23C08627A348028 /* Pods_bacon.framework */; };
 /* End PBXBuildFile section */
@@ -206,6 +207,7 @@
 		BEFBC683226A0D6D00EE1FC6 /* TagAnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagAnalysisViewController.swift; sourceTree = "<group>"; };
 		BEFBC685226A0DB600EE1FC6 /* LocationAnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnalysisViewController.swift; sourceTree = "<group>"; };
 		BEFBC687226A5D1F00EE1FC6 /* CoreLogic+BreakDownByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLogic+BreakDownByTime.swift"; sourceTree = "<group>"; };
+		BEFBC692226B6FFE00EE1FC6 /* Date+getStartOrEndOfMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+getStartOrEndOfMonth.swift"; sourceTree = "<group>"; };
 		CA24B1D1138A1F0774F42251 /* Pods-baconTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD379625D2CF2952EA2B2E6A /* Pods-baconUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F38C0C0022ADF9C5F622445F /* Pods-bacon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bacon.release.xcconfig"; path = "Pods/Target Support Files/Pods-bacon/Pods-bacon.release.xcconfig"; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 			children = (
 				BEC5743F2254A301001793EC /* Decimal+toFormattedString.swift */,
 				BE665F962253A455002EBA74 /* String+initFromCLPlacemark.swift */,
+				BEFBC692226B6FFE00EE1FC6 /* Date+getStartOrEndOfMonth.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -831,6 +834,7 @@
 			files = (
 				BEC57452225F8DA5001793EC /* TagSelectionViewController.swift in Sources */,
 				8F89424B225E00D4007146AC /* TagManager.swift in Sources */,
+				BEFBC693226B6FFE00EE1FC6 /* Date+getStartOrEndOfMonth.swift in Sources */,
 				9F71AEF5225B3707005F043A /* StorageCouchBaseDB+Budget.swift in Sources */,
 				8F913A822260DC5900D20FA2 /* TagValueSourceInterface.swift in Sources */,
 				8FD5F7CB2240E7620023A7FC /* Transaction.swift in Sources */,
