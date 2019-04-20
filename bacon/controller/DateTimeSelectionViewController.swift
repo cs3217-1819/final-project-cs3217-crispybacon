@@ -16,6 +16,7 @@ class DateTimeSelectionViewController: UIViewController {
     var shouldUnwindToAdd = true
     var isSelectingFromDate = true
 
+    @IBOutlet private weak var timePickerBackground: UIView!
     @IBOutlet private weak var timePicker: UIDatePicker!
     @IBOutlet private weak var calendarView: JTAppleCalendarView!
     @IBOutlet private weak var monthLabel: UILabel!
@@ -26,6 +27,7 @@ class DateTimeSelectionViewController: UIViewController {
 
         // Decide whether time picker is needed
         if !shouldUnwindToAdd {
+            timePickerBackground.alpha = 0
             timePicker.alpha = 0
         }
 

@@ -644,6 +644,7 @@
                         <outlet property="calendarView" destination="f9k-N0-JxY" id="nl2-17-NlE"/>
                         <outlet property="monthLabel" destination="cOA-bQ-Xnl" id="WgR-gd-0fw"/>
                         <outlet property="timePicker" destination="Dhg-1T-FbK" id="Un3-8O-OLb"/>
+                        <outlet property="timePickerBackground" destination="ctF-rt-1fD" id="lQ3-0j-BjQ"/>
                         <outlet property="yaerLabel" destination="4bx-xs-8H9" id="K7X-XL-MTQ"/>
                         <segue destination="4vR-jD-bMU" kind="unwind" identifier="unwindToAdd" unwindAction="unwindToThisViewControllerWithSegue:" id="Mh5-Qd-0Ij"/>
                         <segue destination="4vR-jD-bMU" kind="unwind" identifier="calendarToTagAnalysis" unwindAction="unwindToTagAnlysisWithSegue:" id="2M3-dE-SKr"/>
