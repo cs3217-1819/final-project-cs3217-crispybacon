@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B931CE7463280668924F212 /* Pods_baconTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 894FB0A0BC60BFB913FD0FD0 /* Pods_baconTests.framework */; };
 		450FE37C2269BC660012ACD0 /* TransactionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450FE37B2269BC660012ACD0 /* TransactionManagerTests.swift */; };
+		453541B6226B8F7B00088904 /* TransactionManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453541B5226B8F7B00088904 /* TransactionManagerInterface.swift */; };
 		45639D7B2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */; };
 		45639D7D2266633100B07AA6 /* StorageManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45639D7C2266633100B07AA6 /* StorageManagerInterface.swift */; };
 		8F0B2073225A464D001AF3BA /* HashableClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B2072225A464D001AF3BA /* HashableClass.swift */; };
@@ -114,6 +115,7 @@
 /* Begin PBXFileReference section */
 		40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_baconUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		450FE37B2269BC660012ACD0 /* TransactionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManagerTests.swift; sourceTree = "<group>"; };
+		453541B5226B8F7B00088904 /* TransactionManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManagerInterface.swift; sourceTree = "<group>"; };
 		45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Prediction.swift"; sourceTree = "<group>"; };
 		45639D7C2266633100B07AA6 /* StorageManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerInterface.swift; sourceTree = "<group>"; };
 		4701C832F23C08627A348028 /* Pods_bacon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bacon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -367,6 +369,7 @@
 		8F913A7C2260538700D20FA2 /* transaction */ = {
 			isa = PBXGroup;
 			children = (
+				453541B5226B8F7B00088904 /* TransactionManagerInterface.swift */,
 				9F965F8522535B9300AF6092 /* TransactionManager.swift */,
 				8FD5F7CA2240E7620023A7FC /* Transaction.swift */,
 				8FD5F7D22240EE8C0023A7FC /* TransactionCategory.swift */,
@@ -849,6 +852,7 @@
 				BEC57446225A3DC9001793EC /* PreviewImageView.swift in Sources */,
 				BEE6B6662242CF140077DFD7 /* AddTransactionViewController.swift in Sources */,
 				8F8814B52268AFCB009A23D5 /* GooglePlacesApiHandler.swift in Sources */,
+				453541B6226B8F7B00088904 /* TransactionManagerInterface.swift in Sources */,
 				9FB4E16E224419880005403F /* StorageError.swift in Sources */,
 				BEFBC684226A0D6D00EE1FC6 /* TagAnalysisViewController.swift in Sources */,
 				BEF82C1D22633177007BC819 /* PredictionGenerator.swift in Sources */,
