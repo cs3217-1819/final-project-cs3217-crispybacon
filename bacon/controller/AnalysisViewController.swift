@@ -42,7 +42,7 @@ class AnalysisViewController: UIViewController {
     }
 
     private func displayTime() {
-        let formatter = Constants.getYearMonthFormatter()
+        let formatter = Constants.getDateOnlyFormatter()
         fromLabel.text = "From: " + formatter.string(from: fromDate)
         toLabel.text = "To: " + formatter.string(from: toDate)
     }
