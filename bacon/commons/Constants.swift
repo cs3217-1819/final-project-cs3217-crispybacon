@@ -128,10 +128,11 @@ class Constants {
     static let maxDate = getDateFormatter().date(from: "2029-01-01 23:59:59")!
     // swiftlint:enable force_unwrapping
 
-    // Dictionary Key for Transaction fields for use in Database
+    // Coding Keys for Transaction fields
     static let typeKey = "type"
     static let categoryKey = "category"
     static let tagKey = "tags"
+    static let recurringIdKey = "recurringId"
     static let rawDateKey = "rawDate"
 
     // Database Key for Tag-Transaction Association mapping database

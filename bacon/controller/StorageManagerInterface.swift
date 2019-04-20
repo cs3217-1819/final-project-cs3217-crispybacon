@@ -14,6 +14,7 @@ protocol StorageManagerInterface {
     func clearTransactionDatabase() throws
     func saveTransaction(_ transaction: Transaction) throws
     func deleteTransaction(_ transaction: Transaction) throws
+    func deleteAllRecurringInstances(of transaction: Transaction) throws
     func updateTransaction(_ transaction: Transaction) throws
     func loadAllTransactions() throws -> [Transaction]
     func loadTransactions(limit: Int) throws -> [Transaction]
@@ -22,6 +23,7 @@ protocol StorageManagerInterface {
     func loadTransactions(from fromDate: Date, to toDate: Date) throws -> [Transaction]
     func loadTransactions(ofType type: TransactionType, limit: Int) throws -> [Transaction]
     func loadTransactions(ofTag tag: Tag) throws -> [Transaction]
+    func loadFirstRecurringInstance(of transaction: Transaction) throws -> Transaction
 
     // MARK: Budget Related
     func getNumberOfBudgetsInDatabase() -> Double

@@ -2,7 +2,7 @@
 //  StorageCouchBaseDB+Prediction.swift
 //  bacon
 //
-//  Created by Psychedelia on 17/4/19.
+//  Created by Travis Ching Jia Yea on 17/4/19.
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
 

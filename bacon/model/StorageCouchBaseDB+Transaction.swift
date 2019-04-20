@@ -22,7 +22,7 @@ extension StorageCouchBaseDB {
         do {
             try transactionDatabase.delete()
             try tagAssociationDatabase.delete()
-            transactionMapping.removeAll()
+            transactionIdMapping.removeAll()
             // Reinitialize database
             transactionDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .transactions)
             tagAssociationDatabase = try StorageCouchBaseDB.openOrCreateEmbeddedDatabase(name: .tagAssociation)
@@ -72,7 +72,7 @@ extension StorageCouchBaseDB {
 
     func updateTransaction(_ transaction: Transaction) throws {
         // Fetch the specific document from database
-        guard let transactionId = transactionMapping[transaction] else {
+        guard let transactionId = transactionIdMapping[transaction] else {
             log.warning("""
                     StorageCouchBaseDB.updateTransaction():
                     Encounter error updating transaction in database.
@@ -107,7 +107,7 @@ extension StorageCouchBaseDB {
 
     func deleteTransaction(_ transaction: Transaction) throws {
         // Fetch the specific document from database
-        guard let transactionId = transactionMapping[transaction] else {
+        guard let transactionId = transactionIdMapping[transaction] else {
             log.warning("""
                 StorageCouchBaseDB.deleteTransaction():
                 Encounter error deleting transaction from database.
@@ -137,7 +137,7 @@ extension StorageCouchBaseDB {
         do {
             try transactionDatabase.deleteDocument(transactionDocument)
             // Delete the mapping
-            transactionMapping.removeValue(forKey: transaction)
+            transactionIdMapping.removeValue(forKey: transaction)
             try clearAssociationsOfTransaction(uid: transactionId)
         } catch {
             log.warning("""
@@ -150,6 +150,43 @@ extension StorageCouchBaseDB {
                 Encounter error deleting \(transaction) from database.
                 """)
         }
+    }
+
+    func deleteAllRecurringInstances(of transaction: Transaction) throws {
+        guard transaction.frequency.nature == .recurring else {
+            throw InvalidArgumentError(message: """
+                deleteAllRecurringInstances() requires transaction to be recurring.
+            """)
+        }
+        // Retrieve the id of all the recurring instances
+        guard let recurringId = transaction.recurringId else {
+            fatalError("transaction is guarded to be recurring, recurringId should not be nil.")
+        }
+        let query = QueryBuilder.select(SelectResult.expression(Meta.id))
+            .from(DataSource.database(transactionDatabase))
+            .where(Expression.property(Constants.recurringIdKey).equalTo(Expression.string(recurringId.uuidString)))
+            .orderBy(Ordering.property(Constants.rawDateKey).descending())
+        let transactionIds = try getTransactionIdsFromQuery(query)
+        for transactionId in transactionIds {
+            guard let transactionDocument = transactionDatabase.document(withID: transactionId) else {
+                log.warning("""
+                    StorageCouchBaseDB.deleteAllRecurringInstances():
+                    Encounter error deleting recurring transaction from database.
+                    Unable to retrieve transaction document in database using id.
+                    Throwing StorageError.
+                    """)
+                throw StorageError(message: """
+                    Unable to retrieve transaction document in database using id.
+                    """)
+            }
+            // Delete the current transaction from database
+            try transactionDatabase.deleteDocument(transactionDocument)
+            // Delete the association of tags to this transaction from tag-association database
+            try clearAssociationsOfTransaction(uid: transactionId)
+        }
+        log.info("""
+            StorageCouchBaseDB.loadAllTransactions()
+            """)
     }
 
     // To be called when a tag has been deleted from TagManager
@@ -184,11 +221,32 @@ extension StorageCouchBaseDB {
         }
     }
 
-    private func getTransactionsFromQuery(_ query: Query) throws -> [Transaction] {
+    private func getTransactionIdsFromQuery(_ query: Query) throws -> [String] {
+        do {
+            var transactionIds: [String] = []
+            for result in try query.execute().allResults() {
+                guard let currentTransactionId = result.string(forKey: "id") else {
+                    throw StorageError(message: "Could not retrieve UID of transaction from database.")
+                }
+                transactionIds.append(currentTransactionId)
+            }
+            return transactionIds
+        } catch {
+            log.warning("""
+                    StorageCouchBaseDB.getTransactionIdsFromQuery():
+                    Encounter error loading data and retrieving its id from database.
+                    Throwing StorageError.
+                """)
+            throw StorageError(message: "Transactions id couldn't be loaded from database.")
+        }
+    }
+
+    private func getTransactionsFromQuery(_ query: Query,
+                                          recordId: Bool = true) throws -> [Transaction] {
         // Every time database is called to load Transactions, we clear the transaction id mapping
         // dictionary.
         // We only allow front end to deal with transactions per call to load method.
-        transactionMapping.removeAll(keepingCapacity: true)
+        transactionIdMapping.removeAll(keepingCapacity: true)
         do {
             var transactions: [Transaction] = Array()
             for result in try query.execute().allResults() {
@@ -202,10 +260,13 @@ extension StorageCouchBaseDB {
                 transactions.append(currentTransaction)
 
                 // Retrieve and store the mapping of transaction to its id in database
-                guard let transactionDatabaseId = result.string(forKey: "id") else {
-                    throw StorageError(message: "Could not retrieve UID of transaction from database.")
+                if recordId {
+                    guard let transactionDatabaseId = result.string(forKey: "id") else {
+                        throw StorageError(message: "Could not retrieve UID of transaction from database.")
+                    }
+                    transactionIdMapping.updateValue(transactionDatabaseId,
+                                                     forKey: currentTransaction)
                 }
-                transactionMapping.updateValue(transactionDatabaseId, forKey: currentTransaction)
             }
             return transactions
         } catch {
@@ -364,5 +425,28 @@ extension StorageCouchBaseDB {
             ofTag=\(tag).
         """)
         return transactions
+    }
+
+    func loadFirstRecurringInstance(of transaction: Transaction) throws -> Transaction {
+        guard transaction.frequency.nature == .recurring else {
+            throw InvalidArgumentError(message: """
+                loadFirstRecurringInstance() requires transaction to be recurring.
+            """)
+        }
+        guard let recurringId = transaction.recurringId else {
+            fatalError("transaction is guarded to be recurring, recurringId should not be nil.")
+        }
+        let query = QueryBuilder.select(SelectResult.all())
+            .from(DataSource.database(transactionDatabase))
+            .where(Expression.property(Constants.recurringIdKey).equalTo(Expression.string(recurringId.uuidString)))
+            .orderBy(Ordering.property(Constants.rawDateKey).ascending())
+            .limit(Expression.int(1))
+        let loadedTransaction = try getTransactionsFromQuery(query, recordId: false)
+        guard let firstInstance = loadedTransaction.first else {
+            // As all recurring transaction has at least one instance
+            // It is guaranteed that there should be a first nstance
+            fatalError("A recurring transaction is guaranteed to have at least one instance.")
+        }
+        return firstInstance
     }
 }

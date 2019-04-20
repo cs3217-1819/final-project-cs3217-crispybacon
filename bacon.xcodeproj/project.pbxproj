@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0B931CE7463280668924F212 /* Pods_baconTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 894FB0A0BC60BFB913FD0FD0 /* Pods_baconTests.framework */; };
+		450FE37C2269BC660012ACD0 /* TransactionManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450FE37B2269BC660012ACD0 /* TransactionManagerTests.swift */; };
 		45639D7B2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */; };
 		45639D7D2266633100B07AA6 /* StorageManagerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45639D7C2266633100B07AA6 /* StorageManagerInterface.swift */; };
 		8F0B2073225A464D001AF3BA /* HashableClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F0B2072225A464D001AF3BA /* HashableClass.swift */; };
@@ -112,6 +113,7 @@
 
 /* Begin PBXFileReference section */
 		40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_baconUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		450FE37B2269BC660012ACD0 /* TransactionManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionManagerTests.swift; sourceTree = "<group>"; };
 		45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageCouchBaseDB+Prediction.swift"; sourceTree = "<group>"; };
 		45639D7C2266633100B07AA6 /* StorageManagerInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManagerInterface.swift; sourceTree = "<group>"; };
 		4701C832F23C08627A348028 /* Pods_bacon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bacon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -464,6 +466,7 @@
 			isa = PBXGroup;
 			children = (
 				9F965F8A2253778E00AF6092 /* CoreLogicTests.swift */,
+				450FE37B2269BC660012ACD0 /* TransactionManagerTests.swift */,
 				8F19D07D22684A7F003BDD93 /* LocationPromptTests.swift */,
 			);
 			path = controller;
@@ -822,6 +825,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				450FE37C2269BC660012ACD0 /* TransactionManagerTests.swift in Sources */,
 				8F845CE922446F1E007A992D /* TransactionFrequencyTests.swift in Sources */,
 				9F965F8B2253778E00AF6092 /* CoreLogicTests.swift in Sources */,
 				9F7C6DE6224B66F5003E7702 /* TestUtils.swift in Sources */,

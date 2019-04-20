@@ -68,6 +68,7 @@ class Transaction: HashableClass, Codable, Observable {
             //notifyObserversOfSelf()
         }
     }
+    private(set) var recurringId: UUID?
 
     var observers: [Observer] = []
 
@@ -83,6 +84,7 @@ class Transaction: HashableClass, Codable, Observable {
         case description
         case image
         case location
+        case recurringId
     }
 
     /// Creates a Transaction instance.
@@ -112,6 +114,51 @@ class Transaction: HashableClass, Codable, Observable {
         self.description = description
         self.image = image
         self.location = location
+        // If its a recurring transaction, generate a recurring id
+        if frequency.nature == .recurring {
+            self.recurringId = UUID()
+        }
+        super.init()
+        do {
+            try validate(date: date,
+                         type: type,
+                         frequency: frequency,
+                         tags: tags,
+                         amount: amount,
+                         description: description,
+                         image: image,
+                         location: location)
+        } catch let error as InvalidTransactionError {
+            log.warning("""
+                Transaction initialization failed (InvalidTransactionError).
+                Re-throwing as InitializationError.
+                """)
+            throw InitializationError(message: error.message) // Propagate error as InitializationError
+        }
+
+        log.info("Transaction initialization succeeded.")
+    }
+
+    private init(date: Date,
+                 type: TransactionType,
+                 frequency: TransactionFrequency,
+                 tags: Set<Tag>,
+                 amount: Decimal,
+                 description: String = "",
+                 image: CodableUIImage? = nil,
+                 location: CodableCLLocation? = nil,
+                 recurringId: UUID? = nil) throws {
+        log.info("Initializing Transaction object with private init.")
+
+        self.date = date
+        self.type = type
+        self.frequency = frequency
+        self.tags = tags
+        self.amount = amount
+        self.description = description
+        self.image = image
+        self.location = location
+        self.recurringId = recurringId
 
         super.init()
         do {
@@ -257,6 +304,26 @@ extension Transaction {
 
 }
 
+// MARK: Transaction: duplicate()
+extension Transaction {
+    /// Create a copy of the Transaction with the exact same values
+    func duplicate() -> Transaction {
+        guard let transactionCopy = try? Transaction(date: date,
+                                                     type: type,
+                                                     frequency: frequency,
+                                                     tags: tags,
+                                                     amount: amount,
+                                                     description: description,
+                                                     image: image,
+                                                     location: location,
+                                                     recurringId: recurringId) else {
+            // A copy is created from a valid instance, this should never throw.
+            fatalError("Failed to duplicate valid Transaction.")
+        }
+        return transactionCopy
+    }
+}
+
 // MARK: Transaction: equals()
 extension Transaction {
 
@@ -272,6 +339,6 @@ extension Transaction {
             && location == transaction.location
             && image?.image.pngData()?.base64EncodedString()
                 == transaction.image?.image.pngData()?.base64EncodedString()
+            && recurringId == transaction.recurringId
     }
-
 }

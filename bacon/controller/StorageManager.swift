@@ -46,6 +46,12 @@ class StorageManager: StorageManagerInterface {
         try concreteStorage.deleteTransaction(transaction)
     }
 
+    /// Given a recurring transaction, this method clears all transaction instances
+    /// with the same recurring id.
+    func deleteAllRecurringInstances(of transaction: Transaction) throws {
+        try concreteStorage.deleteAllRecurringInstances(of: transaction)
+    }
+
     /// Similar to deleteTransaction(), updateTransaction() should only be called on
     /// Transactions that are loaded out from database.
     func updateTransaction(_ transaction: Transaction) throws {
@@ -179,6 +185,10 @@ class StorageManager: StorageManagerInterface {
     /// - Throws: `StorageError`
     func loadTransactions(ofTag tag: Tag) throws -> [Transaction] {
         return try concreteStorage.loadTransactions(ofTag: tag)
+    }
+
+    func loadFirstRecurringInstance(of transaction: Transaction) throws -> Transaction {
+        return try concreteStorage.loadFirstRecurringInstance(of: transaction)
     }
 
     // MARK: Budget Related
