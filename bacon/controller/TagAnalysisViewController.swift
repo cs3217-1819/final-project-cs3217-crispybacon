@@ -26,7 +26,7 @@ class TagAnalysisViewController: UIViewController {
         super.viewDidLoad()
 
         // Set up display for no data case
-        barChart.noDataText = Constants.noDataMessage
+        barChart.noDataText = Constants.tagNoDataMessage
         barChart.noDataTextColor = UIColor.black.withAlphaComponent(0.7)
         if let font = UIFont(name: "Futura", size: 20) {
             barChart.noDataFont = font
@@ -125,6 +125,7 @@ extension TagAnalysisViewController {
                 return
             }
             calendarController.shouldUnwindToAdd = false
+            calendarController.unwindDestination = self
             calendarController.referenceDate = fromDate
             calendarController.isSelectingFromDate = true
         }
@@ -133,6 +134,7 @@ extension TagAnalysisViewController {
                 return
             }
             calendarController.shouldUnwindToAdd = false
+            calendarController.unwindDestination = self
             calendarController.referenceDate = toDate
             calendarController.isSelectingFromDate = false
         }

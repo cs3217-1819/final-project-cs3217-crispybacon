@@ -61,11 +61,14 @@ class Constants {
     static let transactionsToEdit = "transactionsToEdit"
 
     // Analysis Page
+    static let trendNoDataMessage = "Choose time period to generate monthly trend analysis!"
     static let trendLegend = "Monthly Net Income"
+    static let analysisToCalendarFrom = "analysisToCalendarFrom"
+    static let analysisToCalendarTo = "analysisToCalendarTo"
     static let analysisToTagBreakDown = "analysisToTagBreakDown"
 
     // Tag Analysis Page
-    static let noDataMessage = "Choose tags and time period to generate analysis!"
+    static let tagNoDataMessage = "Choose tags and time period to generate breakdown analysis!"
     static let tagAnalysisToChooseTag = "tagAnalysisToChooseTag"
     static let tagAnalysisToCalendarFrom = "tagAnalysisToCalendarFrom"
     static let tagAnalysisToCalendarTo = "tagAnalysisToCalendarTo"
@@ -85,6 +88,7 @@ class Constants {
 
     // Calendar Page
     static let unwindToAdd = "unwindToAdd"
+    static let calendarToAnalysis = "calendarToAnalysis"
     static let calendarToTagAnalysis = "calendarToTagAnalysis"
 
     // Date
@@ -105,6 +109,9 @@ class Constants {
     }
     static func getMonthStringOnlyFormatter() -> DateFormatter {
         return generateFormatter(format: "MMMM")
+    }
+    static func getYearMonthFormatter() -> DateFormatter {
+        return generateFormatter(format: "MMMM yyyy")
     }
     static private func generateFormatter(format: String) -> DateFormatter {
         let formatter = DateFormatter()

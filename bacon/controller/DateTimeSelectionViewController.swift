@@ -14,6 +14,7 @@ class DateTimeSelectionViewController: UIViewController {
     var referenceDate = Date()
     var selectedDate = Date()
     var shouldUnwindToAdd = true
+    var unwindDestination: UIViewController?
     var isSelectingFromDate = true
 
     @IBOutlet private weak var timePickerBackground: UIView!
@@ -45,7 +46,11 @@ class DateTimeSelectionViewController: UIViewController {
         let date = captureDateFromCalender()
         guard shouldUnwindToAdd else {
             selectedDate = date
-            performSegue(withIdentifier: Constants.calendarToTagAnalysis, sender: nil)
+            if unwindDestination is TagAnalysisViewController {
+                performSegue(withIdentifier: Constants.calendarToTagAnalysis, sender: nil)
+            } else {
+                performSegue(withIdentifier: Constants.calendarToAnalysis, sender: nil)
+            }
             return
         }
         let time = captureTimeFromPicker()
