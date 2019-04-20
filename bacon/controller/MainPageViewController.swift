@@ -11,7 +11,7 @@ import UIKit
 
 class MainPageViewController: UIViewController {
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
     var currentMonthTransactions = [Transaction]()
     var currentMonthYear = (0, 0)
 

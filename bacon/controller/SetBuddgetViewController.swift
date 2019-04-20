@@ -12,7 +12,7 @@ class SetBuddgetViewController: UIViewController {
 
     @IBOutlet private weak var budgetField: UITextField!
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
 
     override func viewDidLoad() {
         super.viewDidLoad()

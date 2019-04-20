@@ -15,7 +15,7 @@ class AddTransactionViewController: UIViewController {
     let locationManager = CLLocationManager()
     let geoCoder = CLGeocoder()
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
     var isInEditMode = false
 
     // Relevant if in Add Mode

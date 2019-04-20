@@ -11,7 +11,7 @@ import Charts
 
 class AnalysisViewController: UIViewController {
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
     var months = [(Int, Int)]()
     var amounts = [Double]()
     var fromDate = Date()

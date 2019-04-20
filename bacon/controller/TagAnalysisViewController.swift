@@ -15,7 +15,7 @@ class TagAnalysisViewController: UIViewController {
     @IBOutlet private weak var fromLabel: UILabel!
     @IBOutlet private weak var barChart: BarChartView!
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
     var tags = [Tag]()
     var amount = [Double]()
     var selectedTags = Set<Tag>()

@@ -13,7 +13,7 @@ class TagSelectionViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var confirmButton: UIButton!
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
     var tags = [Tag: [Tag]]()
     var parentTags = [Tag]()
     var selectedTags = Set<Tag>()

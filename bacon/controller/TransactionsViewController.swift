@@ -16,7 +16,7 @@ class TransactionsViewController: UIViewController {
         static let openCellHeight: CGFloat = 488
     }
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
     var cellHeights: [CGFloat] = []
     var currentMonthTransactions = [Transaction]()
     var transactionToEdit: Transaction?
