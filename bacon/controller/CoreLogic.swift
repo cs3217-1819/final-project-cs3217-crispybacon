@@ -117,7 +117,14 @@ class CoreLogic: CoreLogicInterface {
     }
 
     func loadBudget() throws -> Budget {
-        return try budgetManager.loadBudget()
+        let budget = try budgetManager.loadBudget()
+        let currentDate = Date()
+        if budget.toDate < currentDate {
+            // budget is overdue
+            try budgetManager.deleteBudget()
+            throw InitializationError(message: "Budget is outdated, needs to be reinitialized.")
+        }
+        return budget
     }
 
     func getSpendingStatus(_ currentMonthTransactions: [Transaction]) throws -> SpendingStatus {
