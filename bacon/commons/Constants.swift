@@ -21,8 +21,10 @@ class Constants {
     static let transactionEditFailureMessage = "Unable to edit transaction!"
     static let tagAddFailureMessage = "Unable to add tag!"
     static let tagEditFailureMessage = "Uable to edit tag!"
+    static let tagDeleteFailureMessage = "Unable to delete tag!"
     static let budgetSetFailureMessage = "Unable to set budget!"
     static let budgetStatusFailureMessage = "Unable to update budget status!"
+    static let analysisFailureMessage = "Unable to generate analysis!"
 
     // Main Page
     static let neutralPig = UIImage(named: "demo")
@@ -35,6 +37,7 @@ class Constants {
     static let mainToSetBudget = "mainToSetBudget"
     static let mainToTransactions = "mainToTransactions"
     static let mainToTags = "mainToTags"
+    static let mainToAnalysis = "mainToAnalysis"
 
     // Add Transaction Page
     static let defaultTransactionType = TransactionType.expenditure
@@ -46,6 +49,7 @@ class Constants {
     static let addTagMessage = "Add tags!"
     static let addToMainSuccess = "addToMainSuccess"
     static let addToTagSelection = "addToTagSelection"
+    static let addToCalendar = "addToCalendar"
     static let editToTransactions = "editToTransactions"
 
     // Trsansactions Page
@@ -56,12 +60,26 @@ class Constants {
     static let imageViewTag = 6
     static let transactionsToEdit = "transactionsToEdit"
 
+    // Analysis Page
+    static let trendNoDataMessage = "Choose time period to generate monthly trend analysis!"
+    static let trendLegend = "Monthly Net Income"
+    static let analysisToCalendarFrom = "analysisToCalendarFrom"
+    static let analysisToCalendarTo = "analysisToCalendarTo"
+    static let analysisToTagBreakDown = "analysisToTagBreakDown"
+
+    // Tag Analysis Page
+    static let tagNoDataMessage = "Choose tags and time period to generate breakdown analysis!"
+    static let tagAnalysisToChooseTag = "tagAnalysisToChooseTag"
+    static let tagAnalysisToCalendarFrom = "tagAnalysisToCalendarFrom"
+    static let tagAnalysisToCalendarTo = "tagAnalysisToCalendarTo"
+
     // Tag Selection Page
     static let tagNameInputTitle = "Add new tag"
     static let tagRenameInputTitle = "Edit tag"
     static let tagNameInputMessage = "Enter tag name"
     static let InvalidTagNameWarning = "Please enter a valid name!"
     static let tagSelectionToAdd = "tagSelectionToAdd"
+    static let tagSelectionToTagAnalysis = "tagSelectionToTagAnalysis"
 
     // Set Budget Page
     static let defaultBudgetString = "-1.0"
@@ -70,6 +88,8 @@ class Constants {
 
     // Calendar Page
     static let unwindToAdd = "unwindToAdd"
+    static let calendarToAnalysis = "calendarToAnalysis"
+    static let calendarToTagAnalysis = "calendarToTagAnalysis"
 
     // Date
     static func getDateFormatter() -> DateFormatter {
@@ -89,6 +109,9 @@ class Constants {
     }
     static func getMonthStringOnlyFormatter() -> DateFormatter {
         return generateFormatter(format: "MMMM")
+    }
+    static func getYearMonthFormatter() -> DateFormatter {
+        return generateFormatter(format: "MMMM yyyy")
     }
     static private func generateFormatter(format: String) -> DateFormatter {
         let formatter = DateFormatter()

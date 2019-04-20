@@ -11,9 +11,13 @@ import JTAppleCalendar
 
 class DateTimeSelectionViewController: UIViewController {
     private let formatter = Constants.getDateOnlyFormatter()
-    private var referenceDate = Date()
+    var referenceDate = Date()
     var selectedDate = Date()
+    var shouldUnwindToAdd = true
+    var unwindDestination: UIViewController?
+    var isSelectingFromDate = true
 
+    @IBOutlet private weak var timePickerBackground: UIView!
     @IBOutlet private weak var timePicker: UIDatePicker!
     @IBOutlet private weak var calendarView: JTAppleCalendarView!
     @IBOutlet private weak var monthLabel: UILabel!
@@ -21,6 +25,12 @@ class DateTimeSelectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Decide whether time picker is needed
+        if !shouldUnwindToAdd {
+            timePickerBackground.alpha = 0
+            timePicker.alpha = 0
+        }
 
         // Set up the calendar to show the reference date (default to current date)
         calendarView.scrollToDate(referenceDate, animateScroll: false)
@@ -34,6 +44,15 @@ class DateTimeSelectionViewController: UIViewController {
 
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
         let date = captureDateFromCalender()
+        guard shouldUnwindToAdd else {
+            selectedDate = date
+            if unwindDestination is TagAnalysisViewController {
+                performSegue(withIdentifier: Constants.calendarToTagAnalysis, sender: nil)
+            } else {
+                performSegue(withIdentifier: Constants.calendarToAnalysis, sender: nil)
+            }
+            return
+        }
         let time = captureTimeFromPicker()
         selectedDate = combineDateTime(date: date, time: time)
         performSegue(withIdentifier: Constants.unwindToAdd, sender: nil)

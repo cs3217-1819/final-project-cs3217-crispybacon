@@ -110,7 +110,7 @@ struct Tag: Codable, Comparable, Hashable {
 
     // Exclude `manager` property from Equatable logic
     static func == (lhs: Tag, rhs: Tag) -> Bool {
-        return lhs.value == rhs.value && lhs.parentValue == rhs.parentValue
+        return lhs.internalValue == rhs.internalValue && lhs.parentInternalValue == rhs.parentInternalValue
     }
 
     // Generally, we should only compare by the `value` property, since it's

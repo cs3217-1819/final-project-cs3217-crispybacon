@@ -11,6 +11,7 @@ target 'bacon' do
   pod 'JTAppleCalendar', '~> 7.0'
   pod 'Alamofire', '~> 4'
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'Charts'
 
   target 'baconTests' do
     inherit! :search_paths

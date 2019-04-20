@@ -26,7 +26,7 @@ class PredictionGeneratorTests: XCTestCase {
         expectedTags.insert(TestUtils.tagTransport)
         expectedTags.insert(TestUtils.tagBills)
         let expectedPrediction = try! Prediction(time: referenceTime, location: referenceLocation,
-                                                 transactions: pastTransactions, amount: 5.80, tags: expectedTags)
+                                                 amount: 5.80, tags: expectedTags)
         XCTAssertEqual(generator.predict(referenceTime, referenceLocation, pastTransactions), expectedPrediction)
     }
 
@@ -42,7 +42,7 @@ class PredictionGeneratorTests: XCTestCase {
         let referenceLocation = CodableCLLocation(TestUtils.sampleCLLocation1A)
         let expectedTags = Set<Tag>()
         let expectedPrediction = try! Prediction(time: referenceTime, location: referenceLocation,
-                                                 transactions: pastTransactions, amount: 0.00, tags: expectedTags)
+                                                 amount: 0.00, tags: expectedTags)
         XCTAssertEqual(generator.predict(referenceTime, referenceLocation, pastTransactions), expectedPrediction)
     }
 
@@ -61,7 +61,7 @@ class PredictionGeneratorTests: XCTestCase {
         expectedTags.insert(TestUtils.tagFood)
         expectedTags.insert(TestUtils.tagTransport)
         let expectedPrediction = try! Prediction(time: referenceTime, location: referenceLocation,
-                                                 transactions: pastTransactions, amount: 12.34, tags: expectedTags)
+                                                 amount: 12.34, tags: expectedTags)
         XCTAssertEqual(generator.predict(referenceTime, referenceLocation, pastTransactions), expectedPrediction)
     }
     // swiftlint:enable force_try

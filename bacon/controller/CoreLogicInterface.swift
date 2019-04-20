@@ -19,7 +19,8 @@ protocol CoreLogicInterface {
                            amount: Decimal,
                            description: String,
                            image: CodableUIImage?,
-                           location: CodableCLLocation?) throws
+                           location: CodableCLLocation?,
+                           prediction: Prediction?) throws
     func loadTransactions(month: Int, year: Int) throws -> [Transaction]
 
     // MARK: Budget Related
@@ -28,8 +29,10 @@ protocol CoreLogicInterface {
     func getSpendingStatus(_ currentMonthTransactions: [Transaction]) throws -> SpendingStatus
 
     // MARK: Tag related
+    func getTag(for value: String, of parentValue: String?) throws -> Tag
     func getAllTags() -> [Tag: [Tag]]
     func getAllParentTags() -> [Tag]
+    func getChildrenTags(of parent: String) throws -> [Tag]
     func addParentTag(_ name: String) throws -> Tag
     func addChildTag(_ child: String, to parent: String) throws -> Tag
     func renameTag(for tag: Tag, to newValue: String) throws -> Tag

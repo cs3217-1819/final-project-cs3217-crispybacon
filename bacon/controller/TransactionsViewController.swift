@@ -261,7 +261,7 @@ extension TransactionsViewController {
     }
 
     @IBAction func unwindToTransactions(segue: UIStoryboardSegue) {
-        if let addViewController = segue.source as? AddTransactionViewController {
+        if segue.source is AddTransactionViewController {
             reload()
         }
     }

@@ -18,6 +18,7 @@ class TagSelectionViewController: UIViewController {
     var parentTags = [Tag]()
     var selectedTags = Set<Tag>()
     var canEdit = false
+    var shouldUnwindToAdd = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,11 @@ class TagSelectionViewController: UIViewController {
     }
 
     @IBAction func confirmButtonPressed(_ sender: UIButton) {
-        performSegue(withIdentifier: Constants.tagSelectionToAdd, sender: nil)
+        if shouldUnwindToAdd {
+            performSegue(withIdentifier: Constants.tagSelectionToAdd, sender: nil)
+        } else {
+            performSegue(withIdentifier: Constants.tagSelectionToTagAnalysis, sender: nil)
+        }
     }
 
     @IBAction func addParentTagButtonPressed(_ sender: UIButton) {
@@ -110,6 +115,15 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
                 }
             }
         }
+        parentCell.deleteChildAction = { indexPath, cell in
+            do {
+                try core.removeChildTag(cell.childTags[indexPath.row].value, from: currentParentTag.value)
+                cell.childTags = try core.getChildrenTags(of: currentParentTag.value)
+                cell.subTable.deleteRows(at: [indexPath], with: .automatic)
+            } catch {
+                self.handleError(error: error, customMessage: Constants.tagDeleteFailureMessage)
+            }
+        }
         parentCell.selectChildAction = { tag in
             self.selectTag(tag: tag)
         }
@@ -121,6 +135,23 @@ extension TagSelectionViewController: UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150.0
+    }
+
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+        if editingStyle == .delete {
+            do {
+                try core.removeParentTag(parentTags[indexPath.row].value)
+                self.loadTags()
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            } catch {
+                self.handleError(error: error, customMessage: Constants.tagDeleteFailureMessage)
+            }
+        }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -23,7 +23,6 @@ class PredictionManager {
 
     func getPrediction(_ time: Date, _ location: CodableCLLocation,
                        _ transactions: [Transaction]) -> Prediction? {
-        // before generating a new prediction, should seek a similar prediction
         let newPrediction = getPredictionFromGenerator(time, location, transactions)
         return newPrediction
     }
@@ -31,5 +30,9 @@ class PredictionManager {
     private func getPredictionFromGenerator(_ time: Date, _ location: CodableCLLocation,
                                             _ transactions: [Transaction]) -> Prediction? {
        return predictionGeneraor.predict(time, location, transactions)
+    }
+
+    func savePrediction(_ prediction: Prediction) throws {
+        try storageManager.savePrediction(prediction)
     }
 }

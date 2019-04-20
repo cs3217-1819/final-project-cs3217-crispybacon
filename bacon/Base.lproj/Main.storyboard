@@ -90,9 +90,6 @@
                                         <state key="normal" title="Bacon">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
-                                        <connections>
-                                            <segue destination="Tp5-rL-sjF" kind="show" id="bx3-C3-NBl"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -173,7 +170,7 @@
                                 <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="30"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set your budget!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKB-t9-iTd">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set your budget for this month!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKB-t9-iTd">
                                 <rect key="frame" x="100" y="371.5" width="568" height="60.5"/>
                                 <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="50"/>
                                 <color key="textColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -229,72 +226,240 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pc9-1k-Ea9" userLabel="Pie Chart View">
-                                <rect key="frame" x="134" y="262" width="500" height="500"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="500" id="ADb-Je-PGa"/>
-                                    <constraint firstAttribute="width" constant="500" id="ehP-db-VhB"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E7h-lM-EKQ" userLabel="Line Graph View">
-                                <rect key="frame" x="134" y="262" width="500" height="500"/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.072387332530000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="500" id="ArL-pZ-mkE"/>
-                                    <constraint firstAttribute="width" constant="500" id="vN8-EU-cb2"/>
-                                </constraints>
-                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5Zj-Bi-Znt" userLabel="Buttons View">
-                                <rect key="frame" x="0.0" y="994" width="768" height="30"/>
+                                <rect key="frame" x="0.0" y="974" width="768" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlI-ov-NfS">
-                                        <rect key="frame" x="0.0" y="0.0" width="384" height="30"/>
-                                        <state key="normal" title="Categories"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                        <state key="normal" title="Tags">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="6Wl-gm-yfe" kind="show" identifier="analysisToTagBreakDown" id="XGU-XW-LD1"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3G-rp-olI">
-                                        <rect key="frame" x="384" y="0.0" width="384" height="30"/>
-                                        <state key="normal" title="Trend"/>
+                                        <rect key="frame" x="384" y="0.0" width="384" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                        <state key="normal" title="Locations">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="bHl-yO-B5n" kind="show" id="CU9-VW-vO5"/>
+                                        </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Ayk-8G-dpj"/>
+                                </constraints>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h5F-GK-qPp">
-                                <rect key="frame" x="0.0" y="70" width="768" height="954"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFz-aJ-9kr" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="50" y="120" width="668" height="704"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="faN-JM-YYz">
+                                <rect key="frame" x="50" y="874" width="668" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming soon..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z2h-7P-QbP">
-                                        <rect key="frame" x="244" y="441" width="280.5" height="72.5"/>
-                                        <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="60"/>
-                                        <color key="textColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGM-V3-aeZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="222.5" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="aUP-fs-WTx" appends="YES" id="EKl-Et-ikS"/>
+                                        </connections>
+                                    </label>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wT-eh-g9Y">
+                                        <rect key="frame" x="222.5" y="0.0" width="223" height="50"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBT-sn-Bfj">
+                                        <rect key="frame" x="445.5" y="0.0" width="222.5" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="lJ3-aC-FMw" appends="YES" id="yJQ-nk-Ktj"/>
+                                        </connections>
+                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="z2h-7P-QbP" firstAttribute="centerX" secondItem="h5F-GK-qPp" secondAttribute="centerX" id="JYa-sL-J3F"/>
-                                    <constraint firstItem="z2h-7P-QbP" firstAttribute="centerY" secondItem="h5F-GK-qPp" secondAttribute="centerY" id="weo-G0-slx"/>
+                                    <constraint firstAttribute="height" constant="50" id="uNg-nP-6NN"/>
                                 </constraints>
-                            </view>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Pc9-1k-Ea9" firstAttribute="centerY" secondItem="fSn-6x-Bpt" secondAttribute="centerY" id="4Yn-hO-DOq"/>
-                            <constraint firstItem="E7h-lM-EKQ" firstAttribute="centerY" secondItem="fSn-6x-Bpt" secondAttribute="centerY" id="898-dc-CIi"/>
-                            <constraint firstItem="h5F-GK-qPp" firstAttribute="top" secondItem="EH7-HB-Og0" secondAttribute="top" id="Bsv-JA-0iD"/>
                             <constraint firstItem="5Zj-Bi-Znt" firstAttribute="bottom" secondItem="EH7-HB-Og0" secondAttribute="bottom" id="DKw-wI-lgP"/>
-                            <constraint firstItem="EH7-HB-Og0" firstAttribute="bottom" secondItem="h5F-GK-qPp" secondAttribute="bottom" id="Gq8-H7-qgD"/>
-                            <constraint firstItem="h5F-GK-qPp" firstAttribute="leading" secondItem="EH7-HB-Og0" secondAttribute="leading" id="NVm-lk-2Gf"/>
-                            <constraint firstItem="EH7-HB-Og0" firstAttribute="trailing" secondItem="h5F-GK-qPp" secondAttribute="trailing" id="RlH-Mh-i4y"/>
+                            <constraint firstItem="gFz-aJ-9kr" firstAttribute="leading" secondItem="EH7-HB-Og0" secondAttribute="leading" constant="50" id="Olh-04-xcf"/>
                             <constraint firstItem="EH7-HB-Og0" firstAttribute="trailing" secondItem="5Zj-Bi-Znt" secondAttribute="trailing" id="V6t-N9-sRT"/>
+                            <constraint firstItem="5Zj-Bi-Znt" firstAttribute="top" secondItem="gFz-aJ-9kr" secondAttribute="bottom" constant="150" id="VcR-et-Gos"/>
+                            <constraint firstItem="EH7-HB-Og0" firstAttribute="trailing" secondItem="faN-JM-YYz" secondAttribute="trailing" constant="50" id="WBn-i8-kgU"/>
+                            <constraint firstItem="5Zj-Bi-Znt" firstAttribute="top" secondItem="faN-JM-YYz" secondAttribute="bottom" constant="50" id="YO6-oP-nb2"/>
+                            <constraint firstItem="faN-JM-YYz" firstAttribute="leading" secondItem="EH7-HB-Og0" secondAttribute="leading" constant="50" id="aP9-AI-ZuX"/>
+                            <constraint firstItem="EH7-HB-Og0" firstAttribute="trailing" secondItem="gFz-aJ-9kr" secondAttribute="trailing" constant="50" id="mKZ-CX-4lZ"/>
                             <constraint firstItem="5Zj-Bi-Znt" firstAttribute="leading" secondItem="EH7-HB-Og0" secondAttribute="leading" id="oIv-LB-h8P"/>
-                            <constraint firstItem="Pc9-1k-Ea9" firstAttribute="centerX" secondItem="fSn-6x-Bpt" secondAttribute="centerX" id="t2C-Pq-nsG"/>
-                            <constraint firstItem="E7h-lM-EKQ" firstAttribute="centerX" secondItem="fSn-6x-Bpt" secondAttribute="centerX" id="w3s-TW-npo"/>
+                            <constraint firstItem="gFz-aJ-9kr" firstAttribute="top" secondItem="EH7-HB-Og0" secondAttribute="top" constant="50" id="p92-TH-0vg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EH7-HB-Og0"/>
                     </view>
+                    <connections>
+                        <outlet property="fromLabel" destination="GGM-V3-aeZ" id="ZBI-44-ePW"/>
+                        <outlet property="lineChart" destination="gFz-aJ-9kr" id="qn7-xc-AS4"/>
+                        <outlet property="toLabel" destination="SBT-sn-Bfj" id="VeY-ec-9IJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mop-Bb-2CX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="aUP-fs-WTx">
+                    <connections>
+                        <segue destination="pQO-Bo-fSI" kind="show" identifier="analysisToCalendarFrom" id="wWs-B8-nVl"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="lJ3-aC-FMw">
+                    <connections>
+                        <segue destination="pQO-Bo-fSI" kind="show" identifier="analysisToCalendarTo" id="oD8-sb-rBb"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1566.40625" y="198.6328125"/>
+        </scene>
+        <!--Location Analysis View Controller-->
+        <scene sceneID="IMs-M5-19n">
+            <objects>
+                <viewController id="bHl-yO-B5n" customClass="LocationAnalysisViewController" customModule="bacon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SUt-DW-DVu">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Mrq-iZ-pOA"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f3D-6Q-aTm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2517" y="200"/>
+        </scene>
+        <!--Tag Analysis View Controller-->
+        <scene sceneID="MpD-5b-D0K">
+            <objects>
+                <viewController id="6Wl-gm-yfe" customClass="TagAnalysisViewController" customModule="bacon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SFI-4r-Xct">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59F-fk-lf3" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="50" y="120" width="668" height="604"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose tags!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Nc-lx-VcT">
+                                <rect key="frame" x="20" y="874" width="728" height="26"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="tJO-OW-6KS" appends="YES" id="D6Y-we-PH9"/>
+                                </connections>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MjE-8I-MZe">
+                                <rect key="frame" x="100" y="950" width="568" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92Q-3g-YVU">
+                                        <rect key="frame" x="0.0" y="0.0" width="189.5" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="0xn-HE-mTp" appends="YES" id="WWI-Ts-YFq"/>
+                                        </connections>
+                                    </label>
+                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ox3-X6-Mqa">
+                                        <rect key="frame" x="189.5" y="0.0" width="189" height="50"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luC-yA-RIB">
+                                        <rect key="frame" x="378.5" y="0.0" width="189.5" height="50"/>
+                                        <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="jGz-Ne-L5a" appends="YES" id="lIA-Ed-Z3k"/>
+                                        </connections>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="nbC-ub-ApV"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DdU-4i-KEn" firstAttribute="trailing" secondItem="59F-fk-lf3" secondAttribute="trailing" constant="50" id="JTe-FB-VEx"/>
+                            <constraint firstItem="59F-fk-lf3" firstAttribute="leading" secondItem="DdU-4i-KEn" secondAttribute="leading" constant="50" id="L76-Qc-vvX"/>
+                            <constraint firstItem="DdU-4i-KEn" firstAttribute="bottom" secondItem="59F-fk-lf3" secondAttribute="bottom" constant="300" id="NDc-ok-xum"/>
+                            <constraint firstItem="1Nc-lx-VcT" firstAttribute="top" secondItem="59F-fk-lf3" secondAttribute="bottom" constant="150" id="Upj-vI-oAU"/>
+                            <constraint firstItem="DdU-4i-KEn" firstAttribute="trailing" secondItem="MjE-8I-MZe" secondAttribute="trailing" constant="100" id="VW2-AI-NcY"/>
+                            <constraint firstItem="MjE-8I-MZe" firstAttribute="leading" secondItem="DdU-4i-KEn" secondAttribute="leading" constant="100" id="YAg-0q-qwc"/>
+                            <constraint firstItem="59F-fk-lf3" firstAttribute="top" secondItem="DdU-4i-KEn" secondAttribute="top" constant="50" id="ZqY-qN-ST5"/>
+                            <constraint firstItem="MjE-8I-MZe" firstAttribute="top" secondItem="1Nc-lx-VcT" secondAttribute="bottom" constant="50" id="erv-MS-QPL"/>
+                            <constraint firstAttribute="trailing" secondItem="1Nc-lx-VcT" secondAttribute="trailing" constant="20" id="gae-Rq-kJq"/>
+                            <constraint firstItem="1Nc-lx-VcT" firstAttribute="leading" secondItem="DdU-4i-KEn" secondAttribute="leading" constant="20" id="iKP-2y-n6p"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DdU-4i-KEn"/>
+                    </view>
+                    <connections>
+                        <outlet property="barChart" destination="59F-fk-lf3" id="j6e-1J-NlC"/>
+                        <outlet property="fromLabel" destination="92Q-3g-YVU" id="IjD-ZL-bQX"/>
+                        <outlet property="toLabel" destination="luC-yA-RIB" id="jlB-70-980"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rzI-3p-ndm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="tJO-OW-6KS">
+                    <connections>
+                        <segue destination="GaY-1E-zgf" kind="show" identifier="tagAnalysisToChooseTag" id="ggn-9K-xBQ"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="0xn-HE-mTp">
+                    <connections>
+                        <segue destination="pQO-Bo-fSI" kind="show" identifier="tagAnalysisToCalendarFrom" id="PVY-Fh-daf"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="jGz-Ne-L5a">
+                    <connections>
+                        <segue destination="pQO-Bo-fSI" kind="show" identifier="tagAnalysisToCalendarTo" id="Cmp-0B-907"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1878" y="875"/>
         </scene>
         <!--Ib Calendar Data Source-->
         <scene sceneID="iYz-cL-90e">
@@ -538,8 +703,11 @@
                         <outlet property="calendarView" destination="f9k-N0-JxY" id="nl2-17-NlE"/>
                         <outlet property="monthLabel" destination="cOA-bQ-Xnl" id="WgR-gd-0fw"/>
                         <outlet property="timePicker" destination="Dhg-1T-FbK" id="Un3-8O-OLb"/>
+                        <outlet property="timePickerBackground" destination="ctF-rt-1fD" id="lQ3-0j-BjQ"/>
                         <outlet property="yaerLabel" destination="4bx-xs-8H9" id="K7X-XL-MTQ"/>
                         <segue destination="4vR-jD-bMU" kind="unwind" identifier="unwindToAdd" unwindAction="unwindToThisViewControllerWithSegue:" id="Mh5-Qd-0Ij"/>
+                        <segue destination="4vR-jD-bMU" kind="unwind" identifier="calendarToTagAnalysis" unwindAction="unwindToTagAnlysisWithSegue:" id="2M3-dE-SKr"/>
+                        <segue destination="4vR-jD-bMU" kind="unwind" identifier="calendarToAnalysis" unwindAction="unwindToAnalysisWithSegue:" id="22u-t2-BSs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GZz-6a-CSG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -704,6 +872,7 @@
                         <outlet property="confirmButton" destination="hFh-BN-a7Q" id="X7j-qA-pn9"/>
                         <outlet property="tableView" destination="T1A-Bh-jDZ" id="PtD-gp-gc9"/>
                         <segue destination="Ipd-TO-CcE" kind="unwind" identifier="tagSelectionToAdd" unwindAction="unwindToThisViewControllerWithSegue:" id="9pC-l0-6l4"/>
+                        <segue destination="Ipd-TO-CcE" kind="unwind" identifier="tagSelectionToTagAnalysis" unwindAction="unwindToTagAnlysisWithSegue:" id="nej-Pw-QQe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbw-pP-0PY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -863,7 +1032,7 @@
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="VTj-g0-EYc">
                     <connections>
-                        <segue destination="pQO-Bo-fSI" kind="show" identifier="" id="QVA-mP-HWT"/>
+                        <segue destination="pQO-Bo-fSI" kind="show" identifier="addToCalendar" id="QVA-mP-HWT"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="ilG-8Z-vt3">
@@ -1365,7 +1534,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nRX-mK-th1"/>
-        <segue reference="dM7-bg-LN1"/>
-        <segue reference="bx3-C3-NBl"/>
+        <segue reference="ggn-9K-xBQ"/>
+        <segue reference="oD8-sb-rBb"/>
     </inferredMetricsTieBreakers>
 </document>
