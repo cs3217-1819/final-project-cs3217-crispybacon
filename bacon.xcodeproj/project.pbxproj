@@ -252,14 +252,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		8F19D07A226834FC003BDD93 /* LocationPrompt */ = {
+		8F19D07A226834FC003BDD93 /* locationPrompt */ = {
 			isa = PBXGroup;
 			children = (
 				8F19D07B22683511003BDD93 /* LocationPrompt.swift */,
 				8F8814B22268AE71009A23D5 /* ApiHandlerProtocol.swift */,
 				8F8814B42268AFCB009A23D5 /* GooglePlacesApiHandler.swift */,
 			);
-			path = LocationPrompt;
+			path = locationPrompt;
 			sourceTree = "<group>";
 		};
 		8F6A7A332240B583002E695A = {
@@ -358,6 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				8F913A7A225F398D00D20FA2 /* FileStorageManager.swift */,
+				BEC574432254B714001793EC /* UIViewController+Alert.swift */,
 			);
 			name = utils;
 			path = "New Group";
@@ -366,6 +367,7 @@
 		8F913A7C2260538700D20FA2 /* transaction */ = {
 			isa = PBXGroup;
 			children = (
+				9F965F8522535B9300AF6092 /* TransactionManager.swift */,
 				8FD5F7CA2240E7620023A7FC /* Transaction.swift */,
 				8FD5F7D22240EE8C0023A7FC /* TransactionCategory.swift */,
 				8FD5F7CC2240E8F20023A7FC /* TransactionFrequency.swift */,
@@ -378,9 +380,9 @@
 		8FD5F7CE2240EA530023A7FC /* commons */ = {
 			isa = PBXGroup;
 			children = (
-				8F913A79225F398100D20FA2 /* utils */,
 				8F913A77225F2F8D00D20FA2 /* errors */,
 				8F913A78225F2F9C00D20FA2 /* extensions */,
+				8F913A79225F398100D20FA2 /* utils */,
 				BEE6B6682243F79C0077DFD7 /* Constants.swift */,
 				8F8487E0224DA874001F881C /* CodableCLLocation.swift */,
 				8FD0EC8A22533E3E00FCCBFB /* CodableUIImage.swift */,
@@ -394,7 +396,8 @@
 		9F2E21D52240F86100C5A31E /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				8F19D07A226834FC003BDD93 /* LocationPrompt */,
+				BEFBC68C226B38BB00EE1FC6 /* coreLogic */,
+				8F19D07A226834FC003BDD93 /* locationPrompt */,
 				8F6A7A412240B583002E695A /* MainPageViewController.swift */,
 				BEE6B6652242CF140077DFD7 /* AddTransactionViewController.swift */,
 				BEC57449225C9F90001793EC /* DateTimeSelectionViewController.swift */,
@@ -404,15 +407,6 @@
 				BEFBC685226A0DB600EE1FC6 /* LocationAnalysisViewController.swift */,
 				BEC57451225F8DA5001793EC /* TagSelectionViewController.swift */,
 				BEF82C142261C157007BC819 /* SetBuddgetViewController.swift */,
-				BEC574432254B714001793EC /* UIViewController+Alert.swift */,
-				9F67EF34225C9A73004F6D0B /* CoreLogicInterface.swift */,
-				9F965F8322533E5500AF6092 /* CoreLogic.swift */,
-				45639D7C2266633100B07AA6 /* StorageManagerInterface.swift */,
-				BEC5745722605570001793EC /* CoreLogic+BreakDownByTag.swift */,
-				BEFBC687226A5D1F00EE1FC6 /* CoreLogic+BreakDownByTime.swift */,
-				9F7FD1132240CD51001E1A8E /* StorageManager.swift */,
-				9F965F8522535B9300AF6092 /* TransactionManager.swift */,
-				9F67EF32225C96F9004F6D0B /* BudgetManager.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -420,19 +414,11 @@
 		9F7FD1122240CBFF001E1A8E /* model */ = {
 			isa = PBXGroup;
 			children = (
-				8F913A7C2260538700D20FA2 /* transaction */,
+				BEFBC68A226B37F500EE1FC6 /* budget */,
+				BEFBC68B226B380600EE1FC6 /* prediction */,
+				BEFBC689226B37BD00EE1FC6 /* storage */,
 				8F89424E225E0263007146AC /* tags */,
-				9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */,
-				9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */,
-				9F7154012261D7F400FF047F /* StorageCouchBaseDB+TagAssociation.swift */,
-				9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */,
-				45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */,
-				9F71AEF8225B3D84005F043A /* Budget.swift */,
-				BEF82C162261D5CE007BC819 /* SpendingStatus.swift */,
-				BEF82C1822632F46007BC819 /* Prediction.swift */,
-				BEF82C1A22633117007BC819 /* PredictionManager.swift */,
-				BEF82C1C22633177007BC819 /* PredictionGenerator.swift */,
-				BEF82C1E226331A8007BC819 /* BaconPredictionGenerator.swift */,
+				8F913A7C2260538700D20FA2 /* transaction */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -440,14 +426,11 @@
 		9F965F872253770100AF6092 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */,
-				8F845CE622446EE1007A992D /* TransactionTests.swift */,
-				8F845CE822446F1E007A992D /* TransactionFrequencyTests.swift */,
-				8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */,
-				9F71AEFA225B4116005F043A /* BudgetTests.swift */,
-				8F894251225E5017007146AC /* TagManagerTests.swift */,
-				BEF82C202264D77F007BC819 /* PredictionTests.swift */,
-				BEF82C242264DBA7007BC819 /* PredictionGeneratorTests.swift */,
+				BEFBC68F226B394A00EE1FC6 /* budget */,
+				BEFBC691226B396200EE1FC6 /* prediction */,
+				BEFBC68E226B393900EE1FC6 /* storage */,
+				BEFBC690226B395600EE1FC6 /* tag */,
+				BEFBC68D226B391B00EE1FC6 /* transaction */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -466,7 +449,6 @@
 			isa = PBXGroup;
 			children = (
 				9F965F8A2253778E00AF6092 /* CoreLogicTests.swift */,
-				450FE37B2269BC660012ACD0 /* TransactionManagerTests.swift */,
 				8F19D07D22684A7F003BDD93 /* LocationPromptTests.swift */,
 			);
 			path = controller;
@@ -493,6 +475,96 @@
 				BEC57455225F9442001793EC /* ChildTagCell.swift */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		BEFBC689226B37BD00EE1FC6 /* storage */ = {
+			isa = PBXGroup;
+			children = (
+				45639D7C2266633100B07AA6 /* StorageManagerInterface.swift */,
+				9F7FD1132240CD51001E1A8E /* StorageManager.swift */,
+				9F2E21D82240FE9000C5A31E /* StorageCouchBaseDB.swift */,
+				9F71AEF6225B37C6005F043A /* StorageCouchBaseDB+Transaction.swift */,
+				9F7154012261D7F400FF047F /* StorageCouchBaseDB+TagAssociation.swift */,
+				9F71AEF4225B3707005F043A /* StorageCouchBaseDB+Budget.swift */,
+				45639D7A2266513D00B07AA6 /* StorageCouchBaseDB+Prediction.swift */,
+			);
+			path = storage;
+			sourceTree = "<group>";
+		};
+		BEFBC68A226B37F500EE1FC6 /* budget */ = {
+			isa = PBXGroup;
+			children = (
+				9F71AEF8225B3D84005F043A /* Budget.swift */,
+				9F67EF32225C96F9004F6D0B /* BudgetManager.swift */,
+				BEF82C162261D5CE007BC819 /* SpendingStatus.swift */,
+			);
+			path = budget;
+			sourceTree = "<group>";
+		};
+		BEFBC68B226B380600EE1FC6 /* prediction */ = {
+			isa = PBXGroup;
+			children = (
+				BEF82C1822632F46007BC819 /* Prediction.swift */,
+				BEF82C1A22633117007BC819 /* PredictionManager.swift */,
+				BEF82C1C22633177007BC819 /* PredictionGenerator.swift */,
+				BEF82C1E226331A8007BC819 /* BaconPredictionGenerator.swift */,
+			);
+			path = prediction;
+			sourceTree = "<group>";
+		};
+		BEFBC68C226B38BB00EE1FC6 /* coreLogic */ = {
+			isa = PBXGroup;
+			children = (
+				9F67EF34225C9A73004F6D0B /* CoreLogicInterface.swift */,
+				9F965F8322533E5500AF6092 /* CoreLogic.swift */,
+				BEC5745722605570001793EC /* CoreLogic+BreakDownByTag.swift */,
+				BEFBC687226A5D1F00EE1FC6 /* CoreLogic+BreakDownByTime.swift */,
+			);
+			path = coreLogic;
+			sourceTree = "<group>";
+		};
+		BEFBC68D226B391B00EE1FC6 /* transaction */ = {
+			isa = PBXGroup;
+			children = (
+				450FE37B2269BC660012ACD0 /* TransactionManagerTests.swift */,
+				8F845CE622446EE1007A992D /* TransactionTests.swift */,
+				8F845CE822446F1E007A992D /* TransactionFrequencyTests.swift */,
+				8F3121DA224A3B9800A9A554 /* TransactionTimeTests.swift */,
+			);
+			path = transaction;
+			sourceTree = "<group>";
+		};
+		BEFBC68E226B393900EE1FC6 /* storage */ = {
+			isa = PBXGroup;
+			children = (
+				9F79E46D2246463F00BCDDE8 /* StorageManagerTests.swift */,
+			);
+			path = storage;
+			sourceTree = "<group>";
+		};
+		BEFBC68F226B394A00EE1FC6 /* budget */ = {
+			isa = PBXGroup;
+			children = (
+				9F71AEFA225B4116005F043A /* BudgetTests.swift */,
+			);
+			path = budget;
+			sourceTree = "<group>";
+		};
+		BEFBC690226B395600EE1FC6 /* tag */ = {
+			isa = PBXGroup;
+			children = (
+				8F894251225E5017007146AC /* TagManagerTests.swift */,
+			);
+			path = tag;
+			sourceTree = "<group>";
+		};
+		BEFBC691226B396200EE1FC6 /* prediction */ = {
+			isa = PBXGroup;
+			children = (
+				BEF82C202264D77F007BC819 /* PredictionTests.swift */,
+				BEF82C242264DBA7007BC819 /* PredictionGeneratorTests.swift */,
+			);
+			path = prediction;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
