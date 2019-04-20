@@ -47,6 +47,7 @@ class Constants {
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
     static let defaultDescription = ""
+    static let oneTime = "One-time"
     static let addTagMessage = "Add tags!"
     static let repeatTimeMessage = "Please specify numebr of reapt times for this recurring transaction!"
     static let addToMainSuccess = "addToMainSuccess"

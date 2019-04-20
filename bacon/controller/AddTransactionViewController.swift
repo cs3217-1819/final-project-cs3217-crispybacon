@@ -344,7 +344,7 @@ class AddTransactionViewController: UIViewController {
 
     private func displayFrequency() {
         if frequencyNature == .oneTime {
-            frequencyLabel.text = "One-time"
+            frequencyLabel.text = Constants.oneTime
             repeatStack.alpha = 0
             return
         }
