@@ -15,12 +15,16 @@ extension AppDelegate: CLLocationManagerDelegate {
         log.info("Received location update.")
 
         // Create notification
-        let notif = UNMutableNotificationContent()
-        notif.title = "Title"
-        notif.subtitle = "Subtitle"
-        notif.body = "Notification body"
+        let notification = UNMutableNotificationContent()
+        notification.title = Constants.notificationTitle
+        notification.subtitle = Constants.notificationSubtitle
+        notification.body = Constants.notificationBody
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-        let request = UNNotificationRequest(identifier: "foo", content: notif, trigger: trigger)
+
+        let request = UNNotificationRequest(identifier: Constants.notificationIdentifier,
+                                            content: notification,
+                                            trigger: trigger)
+
         notificationCenter.add(request) { error in
             print(String(describing: error))
         }
