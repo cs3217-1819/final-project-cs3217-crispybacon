@@ -42,6 +42,7 @@ class AddTransactionViewController: UIViewController {
     @IBOutlet private weak var imagePreview: PreviewImageView!
     @IBOutlet private weak var repeatStack: UIStackView!
     @IBOutlet private weak var frequencyLabel: UILabel!
+    @IBOutlet private weak var repeatTimeField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -157,28 +158,32 @@ class AddTransactionViewController: UIViewController {
     }
 
     @IBAction func addButtonPressed(_ sender: UIButton) {
-        let date = captureDate()
-        let type = captureType()
-        let frequency = captureFrequency()
-        let tags = captureTags()
-        let amount = captureAmount()
-        let description = captureDescription()
-        let image = capturePhoto()
-        let location = captureLocation()
+        do {
+            let date = captureDate()
+            let type = captureType()
+            let frequency = try captureFrequency()
+            let tags = captureTags()
+            let amount = captureAmount()
+            let description = captureDescription()
+            let image = capturePhoto()
+            let location = captureLocation()
 
-        log.info("""
-            AddTransactionViewController.captureInputs() with inputs captured:
-            date=\(date), type=\(type), frequency=\(frequency), tags=\(tags),
-            amount=\(amount), description=\(description), image=\(String(describing: image)),
-            location=\(String(describing: location)))
-            """)
+            log.info("""
+                AddTransactionViewController.captureInputs() with inputs captured:
+                date=\(date), type=\(type), frequency=\(frequency), tags=\(tags),
+                amount=\(amount), description=\(description), image=\(String(describing: image)),
+                location=\(String(describing: location)))
+                """)
 
-        if isInEditMode {
-            performEdit(date: date, type: type, frequency: frequency, tags: tags, amount: amount,
-                        description: description, image: image, location: location)
-        } else {
-            performAdd(date: date, type: type, frequency: frequency, tags: tags, amount: amount,
-                       description: description, image: image, location: location)
+            if isInEditMode {
+                performEdit(date: date, type: type, frequency: frequency, tags: tags, amount: amount,
+                            description: description, image: image, location: location)
+            } else {
+                performAdd(date: date, type: type, frequency: frequency, tags: tags, amount: amount,
+                           description: description, image: image, location: location)
+            }
+        } catch {
+            self.handleError(error: error, customMessage: Constants.transactionAddFailureMessage)
         }
     }
 
@@ -223,10 +228,14 @@ class AddTransactionViewController: UIViewController {
         return transactionType
     }
 
-    private func captureFrequency() -> TransactionFrequency {
-        // swiftlint:disable force_try
-        return try! TransactionFrequency(nature: .oneTime, interval: nil, repeats: nil)
-        // swiftlint:enable force_try
+    private func captureFrequency() throws -> TransactionFrequency {
+        if frequencyNature == .oneTime {
+            return try TransactionFrequency(nature: .oneTime)
+        }
+        guard let repeatTime = repeatTimeField.text else {
+            throw InvalidArgumentError(message: Constants.repeatTimeMessage)
+        }
+        return try TransactionFrequency(nature: .recurring, interval: frequencyInterval, repeats: Int(repeatTime))
     }
 
     private func captureTags() -> Set<Tag> {

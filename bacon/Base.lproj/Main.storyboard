@@ -1047,6 +1047,7 @@
                         <outlet property="imagePreview" destination="LjM-3J-RaY" id="4Sj-C5-8t3"/>
                         <outlet property="locationLabel" destination="8hC-jC-7Kl" id="6b4-EV-shM"/>
                         <outlet property="repeatStack" destination="hNR-e2-gcU" id="N9C-w3-EIq"/>
+                        <outlet property="repeatTimeField" destination="AUS-ZC-Ow2" id="OFa-aQ-iv5"/>
                         <outlet property="tagLabel" destination="9OH-EA-Fun" id="atw-mp-iPV"/>
                         <outlet property="timeLabel" destination="8ow-WL-Cpp" id="WYk-co-6Ef"/>
                         <outlet property="typeLabel" destination="LrK-Yu-LCW" id="ziF-wV-dfN"/>

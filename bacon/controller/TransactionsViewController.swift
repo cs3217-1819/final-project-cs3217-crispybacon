@@ -240,7 +240,7 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
     private func chooseSingleOrMultipleDeletion(at indexPath: IndexPath) {
         let alert = UIAlertController(title: Constants.deleteAlertTitle,
                                       message: Constants.deleteAlertMessage,
-                                      preferredStyle: .actionSheet)
+                                      preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: Constants.deleteSingleMessage, style: .default) { _ in
                                         self.deleteSingleTransaction(at: indexPath)
         })
