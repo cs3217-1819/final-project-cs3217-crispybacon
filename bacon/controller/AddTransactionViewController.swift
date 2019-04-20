@@ -77,10 +77,25 @@ class AddTransactionViewController: UIViewController {
         location = transactionToEdit.location?.location
         photo = transactionToEdit.image?.image
         descriptionField.text = transactionToEdit.description
+        frequencyNature = transactionToEdit.frequency.nature
+        frequencyInterval = transactionToEdit.frequency.interval
+        if let repeatTime = transactionToEdit.frequency.repeats {
+            repeatTimeField.text = String(repeatTime)
+        }
+
+        checkEditableFields()
 
         log.info("""
                 AddTransactionViewController finished set-up in Edit Mode.
                 """)
+    }
+
+    private func checkEditableFields() {
+        if frequencyNature == .oneTime {
+            frequencyLabel.alpha = 0
+        } else {
+            timeLabel.alpha = 0
+        }
     }
 
     private func setUpAddMode() {
@@ -134,8 +149,12 @@ class AddTransactionViewController: UIViewController {
             case .weekly:
                 frequencyInterval = .monthly
             case .yearly:
-                frequencyInterval = nil
-                frequencyNature = .oneTime
+                if isInEditMode {
+                    frequencyInterval = .daily
+                } else {
+                    frequencyInterval = nil
+                    frequencyNature = .oneTime
+                }
             }
         }
         displayFrequency()
