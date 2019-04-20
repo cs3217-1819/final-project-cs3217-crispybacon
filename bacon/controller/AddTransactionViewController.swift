@@ -30,6 +30,8 @@ class AddTransactionViewController: UIViewController {
     var tags = Set<Tag>()
     private var photo: UIImage?
     private var location: CLLocation?
+    private var frequencyNature: TransactionFrequencyNature = .oneTime
+    private var frequencyInterval: TransactionFrequencyInterval?
 
     @IBOutlet private weak var amountField: UITextField!
     @IBOutlet private weak var typeLabel: UILabel!
@@ -38,6 +40,8 @@ class AddTransactionViewController: UIViewController {
     @IBOutlet private weak var locationLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
     @IBOutlet private weak var imagePreview: PreviewImageView!
+    @IBOutlet private weak var repeatStack: UIStackView!
+    @IBOutlet private weak var frequencyLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +115,29 @@ class AddTransactionViewController: UIViewController {
         // Populate the fields with the prediction result
         amountField.text = prediction.amountPredicted.toFormattedString
         tags = prediction.tagsPredicted
+    }
+
+    @IBAction func toggleFrequency(_ sender: UITapGestureRecognizer) {
+        if frequencyNature == .oneTime {
+            frequencyNature = .recurring
+            frequencyInterval = .daily
+        } else {
+            guard let interval = frequencyInterval else {
+                return
+            }
+            switch interval {
+            case .daily:
+                frequencyInterval = .weekly
+            case .monthly:
+                frequencyInterval = .yearly
+            case .weekly:
+                frequencyInterval = .monthly
+            case .yearly:
+                frequencyInterval = nil
+                frequencyNature = .oneTime
+            }
+        }
+        displayFrequency()
     }
 
     @IBAction func typeFieldPressed(_ sender: UITapGestureRecognizer) {
@@ -245,6 +272,7 @@ class AddTransactionViewController: UIViewController {
         displayLocation()
         displayType()
         displayPic()
+        displayFrequency()
     }
 
     private func displayPic() {
@@ -284,6 +312,19 @@ class AddTransactionViewController: UIViewController {
         } else {
             setIncomeType()
         }
+    }
+
+    private func displayFrequency() {
+        if frequencyNature == .oneTime {
+            frequencyLabel.text = "One-time"
+            repeatStack.alpha = 0
+            return
+        }
+        repeatStack.alpha = 1
+        guard let interval = frequencyInterval else {
+            return
+        }
+        frequencyLabel.text = interval.rawValue
     }
 
     private func setExpenditureType() {

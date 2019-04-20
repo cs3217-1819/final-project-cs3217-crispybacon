@@ -929,11 +929,14 @@
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One-time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dus-Ci-fZP">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="One-time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dus-Ci-fZP">
                                 <rect key="frame" x="100" y="827" width="568" height="26"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ubJ-zw-2xz" appends="YES" id="Hdk-yD-Olm"/>
+                                </connections>
                             </label>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LrK-Yu-LCW">
                                 <rect key="frame" x="148.5" y="478" width="115.5" height="68.5"/>
@@ -1040,8 +1043,10 @@
                     <connections>
                         <outlet property="amountField" destination="jz8-oh-b8u" id="PwB-h0-j7g"/>
                         <outlet property="descriptionField" destination="fCt-k9-eKX" id="YBF-lJ-VkR"/>
+                        <outlet property="frequencyLabel" destination="dus-Ci-fZP" id="A5H-BF-Kl4"/>
                         <outlet property="imagePreview" destination="LjM-3J-RaY" id="4Sj-C5-8t3"/>
                         <outlet property="locationLabel" destination="8hC-jC-7Kl" id="6b4-EV-shM"/>
+                        <outlet property="repeatStack" destination="hNR-e2-gcU" id="N9C-w3-EIq"/>
                         <outlet property="tagLabel" destination="9OH-EA-Fun" id="atw-mp-iPV"/>
                         <outlet property="timeLabel" destination="8ow-WL-Cpp" id="WYk-co-6Ef"/>
                         <outlet property="typeLabel" destination="LrK-Yu-LCW" id="ziF-wV-dfN"/>
@@ -1064,6 +1069,11 @@
                 <tapGestureRecognizer id="ilG-8Z-vt3">
                     <connections>
                         <segue destination="GaY-1E-zgf" kind="show" identifier="addToTagSelection" id="dM7-bg-LN1"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="ubJ-zw-2xz">
+                    <connections>
+                        <action selector="toggleFrequency:" destination="Kkb-EH-aei" id="Nmt-e5-4zh"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
