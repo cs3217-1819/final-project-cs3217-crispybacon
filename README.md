@@ -10,6 +10,8 @@
 
 Note: The `Pods/` directory will be gitignore-d.
 
+5. Finally, edit `bacon/commons/Constants.swift` line 169 (`static let LocationPromptGooglePlacesApiKey = "PLACEHOLDER"`) and replace with the API key. This is required to load the heatmap.
+
 ### Logging
 This project uses the SwiftyBeaver framework.
 Logger setup can be found in `AppDelegate.swift`. 
