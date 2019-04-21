@@ -21,5 +21,6 @@
 #import "GMUGridBasedClusterAlgorithm.h"
 #import "GMUNonHierarchicalDistanceBasedAlgorithm.h"
 #import "GMUStaticCluster.h"
+#import "GMUHeatmapTileLayer.h"
 
 #import "GQTPointQuadTree.h"
