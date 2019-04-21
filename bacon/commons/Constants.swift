@@ -49,7 +49,7 @@ class Constants {
     static let defaultDescription = ""
     static let oneTime = "One-time"
     static let addTagMessage = "Add tags!"
-    static let repeatTimeMessage = "Please specify numebr of reapt times for this recurring transaction!"
+    static let repeatTimeMessage = "Please specify number of repeat times for this recurring transaction!"
     static let addToMainSuccess = "addToMainSuccess"
     static let addToTagSelection = "addToTagSelection"
     static let addToCalendar = "addToCalendar"
