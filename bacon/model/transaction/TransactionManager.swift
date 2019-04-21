@@ -56,7 +56,7 @@ class TransactionManager: TransactionManagerInterface {
         // objects it doesn't observe.
         log.warning("""
             TransactionManager notified by unidentified object: \(value)
-        """)
+            """)
     }
 
     private func observeTransactions(_ transactions: [Transaction]) -> [Transaction] {

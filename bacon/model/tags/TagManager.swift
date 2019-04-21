@@ -2,12 +2,22 @@
 //  TagManager.swift
 //  bacon
 //
+//  Tag and TagManager are defined in the same file
+//  because we want one of Tag's init() methods to
+//  remain fileprivate.
+//  This is to guard against accidentally initializing
+//  a Tag object. Since Tag objects compute their
+//  values through TagManager, initializing a Tag
+//  directly will result in an error when its
+//  computed property is accessed.
+//
 //  Created by Fabian Terh on 10/4/19.
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
 
 import Foundation
 
+// swiftlint:disable file_length
 // MARK: Tag
 struct Tag: Codable, Comparable, Hashable {
 
@@ -183,10 +193,14 @@ class TagManager: Codable, Observable, TagManagerInterface {
     private var inTestMode: Bool // Instance flag
 
     // Data stores
-    private var parentChildMap: [String: Set<String>] = [:] // Map parent to child Tags by display values
-    private var allIdValueMap: [String: String] = [:] // Map all IDs to display values
-    private var parentValueIdMap: [String: String] = [:] // Map only parent display values to IDs
-    private var parentChildValueIdMap: [String: [String: String]] = [:] // Map parent IDs to children Tag display value to IDs mapping
+    // Map parent to child Tags by display values
+    private var parentChildMap: [String: Set<String>] = [:]
+    // Map all IDs to display values
+    private var allIdValueMap: [String: String] = [:]
+    // Map only parent display values to IDs
+    private var parentValueIdMap: [String: String] = [:]
+    // Map parent IDs to children Tag display value to IDs mapping
+    private var parentChildValueIdMap: [String: [String: String]] = [:]
 
     // Observable
     var observers: [Observer] = []
@@ -277,10 +291,10 @@ class TagManager: Codable, Observable, TagManagerInterface {
             guard parentChildMap[value] != nil else {
                 throw InvalidTagError(message: "Parent tag \(value) does not exist")
             }
-            guard let id = parentValueIdMap[value] else {
+            guard let uid = parentValueIdMap[value] else {
                 fatalError("This should never happen")
             }
-            return Tag(id, parentInternalValue: nil)
+            return Tag(uid, parentInternalValue: nil)
         } else { // Is child Tag
             guard let parentValue = parentValue else {
                 fatalError("This should never happen")
@@ -295,10 +309,10 @@ class TagManager: Codable, Observable, TagManagerInterface {
             guard let parentId = parentValueIdMap[parentValue] else {
                 fatalError("This should never happen")
             }
-            guard let id = parentChildValueIdMap[parentId]?[value] else {
+            guard let uid = parentChildValueIdMap[parentId]?[value] else {
                 fatalError("This should never happen")
             }
-            return Tag(id, parentInternalValue: parentId)
+            return Tag(uid, parentInternalValue: parentId)
         }
     }
 
@@ -423,6 +437,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
         save()
     }
 
+    // swiftlint:disable cyclomatic_complexity
     func renameTag(_ oldValue: String, to newValue: String, of parent: String? = nil) throws -> Tag {
         let isParent = parent == nil
         let ret: Tag // Return value
@@ -448,18 +463,18 @@ class TagManager: Codable, Observable, TagManagerInterface {
             parentChildMap[oldValue] = nil
 
             // allIdValueMap: Update ID to display value mapping
-            guard let id = parentValueIdMap[oldValue] else {
+            guard let uid = parentValueIdMap[oldValue] else {
                 fatalError("This should never happen")
             }
-            allIdValueMap[id] = newValue
+            allIdValueMap[uid] = newValue
 
             // parentValueIdMap: Update display value to ID mapping
             parentValueIdMap[oldValue] = nil
-            parentValueIdMap[newValue] = id
+            parentValueIdMap[newValue] = uid
 
             // No need to update parentChildValueIdMap :)
 
-            ret = Tag(id, parentInternalValue: nil)
+            ret = Tag(uid, parentInternalValue: nil)
         } else { // Is child Tag
             guard let parentDisplayValue = parent else {
                 fatalError("This should never happen")
@@ -482,24 +497,24 @@ class TagManager: Codable, Observable, TagManagerInterface {
             guard let parentId = parentValueIdMap[parentDisplayValue] else {
                 fatalError("This should never happen")
             }
-            guard let id = parentChildValueIdMap[parentId]?[oldValue] else {
+            guard let uid = parentChildValueIdMap[parentId]?[oldValue] else {
                 fatalError("This should never happen")
             }
-            allIdValueMap[id] = newValue
+            allIdValueMap[uid] = newValue
 
             // No need to update parentValueIdMap :)
 
             // parentChildValueIdMap: Update display value to ID mapping
             parentChildValueIdMap[parentId]?[oldValue] = nil
-            parentChildValueIdMap[parentId]?[newValue] = id
+            parentChildValueIdMap[parentId]?[newValue] = uid
 
-            ret = Tag(id, parentInternalValue: parentId)
+            ret = Tag(uid, parentInternalValue: parentId)
         }
 
         save()
         return ret
     }
-
+    // swiftlint:enable cyclomatic_complexity
 }
 
 // MARK: TagManager: TagValueSourceInterface
@@ -538,19 +553,19 @@ extension TagManager {
     /// Creates and returns a Tag. This method automtatically updates data stores and saves to disk.
     /// - Requires: The Tag being created must not already exist.
     private func createTag(_ displayValue: String, of parentDisplayValue: String? = nil) -> Tag {
-        let id = UUID().uuidString
+        let uid = UUID().uuidString
 
-        allIdValueMap[id] = displayValue
+        allIdValueMap[uid] = displayValue
 
         let isParentTag = parentDisplayValue == nil
 
         if isParentTag {
             parentChildMap[displayValue] = []
-            parentValueIdMap[displayValue] = id
-            parentChildValueIdMap[id] = [:]
+            parentValueIdMap[displayValue] = uid
+            parentChildValueIdMap[uid] = [:]
 
             save()
-            return Tag(id, parentInternalValue: nil)
+            return Tag(uid, parentInternalValue: nil)
         } else { // If child Tag
             guard let parentValue = parentDisplayValue else {
                 fatalError("This should never happen")
@@ -559,10 +574,10 @@ extension TagManager {
             guard let parentId = parentValueIdMap[parentValue] else {
                 fatalError("This should never happen")
             }
-            parentChildValueIdMap[parentId]?[displayValue] = id
+            parentChildValueIdMap[parentId]?[displayValue] = uid
 
             save()
-            return Tag(id, parentInternalValue: parentId)
+            return Tag(uid, parentInternalValue: parentId)
         }
     }
 
@@ -579,7 +594,7 @@ extension TagManager {
 
         let isParentTag = parentDisplayValue == nil
         if isParentTag {
-            guard let id = parentValueIdMap[displayValue] else {
+            guard let uid = parentValueIdMap[displayValue] else {
                 fatalError("This should never happen")
             }
 
@@ -593,9 +608,9 @@ extension TagManager {
             }
 
             parentValueIdMap[displayValue] = nil
-            allIdValueMap[id] = nil
+            allIdValueMap[uid] = nil
             parentChildMap[displayValue] = nil
-            parentChildValueIdMap[id] = nil
+            parentChildValueIdMap[uid] = nil
         } else { // If child Tag
             guard let parentDisplayValue = parentDisplayValue else {
                 fatalError("This should never happen")
@@ -603,11 +618,11 @@ extension TagManager {
             guard let parentId = parentValueIdMap[parentDisplayValue] else {
                 fatalError("This should never happen")
             }
-            guard let id = parentChildValueIdMap[parentId]?[displayValue] else {
+            guard let uid = parentChildValueIdMap[parentId]?[displayValue] else {
                 fatalError("This should never happen")
             }
 
-            allIdValueMap[id] = nil
+            allIdValueMap[uid] = nil
             parentChildMap[parentDisplayValue]?.remove(displayValue)
             parentChildValueIdMap[parentId]?[displayValue] = nil
         }
@@ -617,3 +632,4 @@ extension TagManager {
     }
 
 }
+// swiftlint:enable file_length

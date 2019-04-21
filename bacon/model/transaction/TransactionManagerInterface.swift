@@ -13,6 +13,7 @@ protocol TransactionManagerInterface: Observer {
     func getNumberOfTransactionsInDatabase() -> Double
     func clearTransactionDatabase() throws
     func saveTransaction(_ transaction: Transaction) throws
+
     /// An edited recurring transaction should have its changes
     /// apply across all recurring instances.
     /// We disallow editing the date of a recurring transaction as
@@ -21,6 +22,7 @@ protocol TransactionManagerInterface: Observer {
     /// find out which instance the transaction was edited at.
     /// - requires: date of recurring transaction not modified
     func updateRecurringTransaction(_ transaction: Transaction) throws
+
     func deleteTagFromTransactions(_ tag: Tag) throws
     func deleteAllRecurringInstance(of transaction: Transaction) throws
     func loadTransactions(limit: Int) throws -> [Transaction]

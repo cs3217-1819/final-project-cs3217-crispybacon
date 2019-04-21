@@ -2,6 +2,9 @@
 //  SpendingStatus.swift
 //  bacon
 //
+//  A struct to store computed properties for display
+//  on the main landing page.
+//
 //  Created by Lizhi Zhang on 13/4/19.
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
