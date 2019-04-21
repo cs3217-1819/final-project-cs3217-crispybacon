@@ -12,7 +12,7 @@ class SetBuddgetViewController: UIViewController {
 
     @IBOutlet private weak var budgetField: UITextField!
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,32 +30,16 @@ class SetBuddgetViewController: UIViewController {
         let amountDecimal = Decimal(string: amountString ?? Constants.defaultBudgetString)
         let budgetAmount = amountDecimal ?? Constants.defaultBudget
 
+        // Budget period follows the natural month
+        // Hence startDate and endDate represent the start and end of the current month respectively
         do {
-            let startDate = try getStartOfCurrentMonth()
-            let endDate = try getEndOfCurrentMonth()
+            let startDate = try Date().getStartOfCurrentMonth()
+            let endDate = try Date().getEndOfCurrentMonth()
             let budget = try Budget(from: startDate, to: endDate, amount: budgetAmount)
             try core.saveBudget(budget)
             performSegue(withIdentifier: Constants.unwindFromBudgetToMain, sender: nil)
         } catch {
             self.handleError(error: error, customMessage: Constants.budgetSetFailureMessage)
         }
-    }
-
-    private func getStartOfCurrentMonth() throws -> Date {
-        guard let date = Calendar.current.date(from:
-            Calendar.current.dateComponents([.year, .month],
-                                            from: Calendar.current.startOfDay(for: Date()))) else {
-            throw InitializationError(message: "Should be able to retrieve the start of month.")
-        }
-        return date
-    }
-
-    private func getEndOfCurrentMonth() throws -> Date {
-        guard let date = Calendar.current.date(byAdding: DateComponents(month: 1,
-                                                                        second: -1),
-                                               to: try getStartOfCurrentMonth()) else {
-            throw InitializationError(message: "Should be able to retrieve the end of month.")
-        }
-        return date
     }
 }

@@ -19,6 +19,7 @@ class Constants {
     static let transactionAddFailureMessage = "Unable to add transaction!"
     static let transactionLoadFailureMessage = "Unable to load transactions!"
     static let transactionEditFailureMessage = "Unable to edit transaction!"
+    static let transactionDeleteFailureMessage = "Unable to delete transaction"
     static let tagAddFailureMessage = "Unable to add tag!"
     static let tagEditFailureMessage = "Uable to edit tag!"
     static let tagDeleteFailureMessage = "Unable to delete tag!"
@@ -46,7 +47,9 @@ class Constants {
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
     static let defaultDescription = ""
+    static let oneTime = "One-time"
     static let addTagMessage = "Add tags!"
+    static let repeatTimeMessage = "Please specify number of repeat times for this recurring transaction!"
     static let addToMainSuccess = "addToMainSuccess"
     static let addToTagSelection = "addToTagSelection"
     static let addToCalendar = "addToCalendar"
@@ -58,6 +61,10 @@ class Constants {
     static let defaultTagsToDisplay = "No tags were provided"
     static let animatoinDuration = [0.26, 0.20, 0.20]
     static let imageViewTag = 6
+    static let deleteAlertTitle = "Deleting recurring transaction"
+    static let deleteAlertMessage = "This is a recurring transaction, do you want to"
+    static let deleteSingleMessage = "Delete only this transaction"
+    static let deleteAllMessage = "Delete all of this recurring transaction"
     static let transactionsToEdit = "transactionsToEdit"
 
     // Analysis Page

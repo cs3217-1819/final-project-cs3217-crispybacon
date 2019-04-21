@@ -11,11 +11,12 @@ import JTAppleCalendar
 
 class DateTimeSelectionViewController: UIViewController {
     private let formatter = Constants.getDateOnlyFormatter()
-    var referenceDate = Date()
+    var referenceDate = Date() // The default date to display when entering this page
     var selectedDate = Date()
     var shouldUnwindToAdd = true
     var unwindDestination: UIViewController?
-    var isSelectingFromDate = true
+    var isSelectingFromDate = true // Remembers whether the current selection is for a "from" date
+                                   // Important when unwinding
 
     @IBOutlet private weak var timePickerBackground: UIView!
     @IBOutlet private weak var timePicker: UIDatePicker!
@@ -36,7 +37,7 @@ class DateTimeSelectionViewController: UIViewController {
         calendarView.scrollToDate(referenceDate, animateScroll: false)
         calendarView.selectDates([referenceDate])
 
-        // Set up year and month labels for the first loaded page
+        // Set up year and month labels for the first loaded calendar page
         calendarView.visibleDates { visibleDates in
             self.setUpYearAndMonthLabels(from: visibleDates)
         }
@@ -53,6 +54,7 @@ class DateTimeSelectionViewController: UIViewController {
             }
             return
         }
+        // Time picker is only relevant if it is unwinding to the AddTransactionViewController
         let time = captureTimeFromPicker()
         selectedDate = combineDateTime(date: date, time: time)
         performSegue(withIdentifier: Constants.unwindToAdd, sender: nil)
@@ -107,8 +109,8 @@ class DateTimeSelectionViewController: UIViewController {
     }
 }
 
+// MARK: DateTimeSelectionViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource
 extension DateTimeSelectionViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource {
-
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         let start = Constants.minDate
         let end = Constants.maxDate

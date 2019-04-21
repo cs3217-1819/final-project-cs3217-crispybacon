@@ -11,11 +11,10 @@ import CoreLocation
 
 class AddTransactionViewController: UIViewController {
 
-    // To be removed after location manager is up
     let locationManager = CLLocationManager()
     let geoCoder = CLGeocoder()
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
     var isInEditMode = false
 
     // Relevant if in Add Mode
@@ -30,6 +29,8 @@ class AddTransactionViewController: UIViewController {
     var tags = Set<Tag>()
     private var photo: UIImage?
     private var location: CLLocation?
+    private var frequencyNature: TransactionFrequencyNature = .oneTime
+    private var frequencyInterval: TransactionFrequencyInterval?
 
     @IBOutlet private weak var amountField: UITextField!
     @IBOutlet private weak var typeLabel: UILabel!
@@ -38,12 +39,14 @@ class AddTransactionViewController: UIViewController {
     @IBOutlet private weak var locationLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
     @IBOutlet private weak var imagePreview: PreviewImageView!
+    @IBOutlet private weak var repeatStack: UIStackView!
+    @IBOutlet private weak var frequencyLabel: UILabel!
+    @IBOutlet private weak var repeatTimeField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Request permission for location services
-        // To be removed after location manager is up
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
 
@@ -65,6 +68,8 @@ class AddTransactionViewController: UIViewController {
             performSegue(withIdentifier: Constants.editToTransactions, sender: nil)
             return
         }
+
+        // Fill all fields according to the transaction sent for editing
         transactionType = transactionToEdit.type
         amountField.text = transactionToEdit.amount.toFormattedString
         tags = transactionToEdit.tags
@@ -72,17 +77,34 @@ class AddTransactionViewController: UIViewController {
         location = transactionToEdit.location?.location
         photo = transactionToEdit.image?.image
         descriptionField.text = transactionToEdit.description
+        frequencyNature = transactionToEdit.frequency.nature
+        frequencyInterval = transactionToEdit.frequency.interval
+        if let repeatTime = transactionToEdit.frequency.repeats {
+            repeatTimeField.text = String(repeatTime)
+        }
+
+        // Not all fields are editable, depending on whether it is one-time or recurring
+        checkEditableFields()
 
         log.info("""
                 AddTransactionViewController finished set-up in Edit Mode.
                 """)
     }
 
+    private func checkEditableFields() {
+        if frequencyNature == .oneTime {
+            // Changing from one-time transaction to recurring is disallowed
+            frequencyLabel.alpha = 0
+        } else {
+            // Changing the time of a recurring transaction is also disallowed
+            timeLabel.alpha = 0
+        }
+    }
+
     private func setUpAddMode() {
-        // To be removed when lcoation manager is up
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters // hard coded for now
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
             getCurrentLocation()
         }
@@ -109,8 +131,37 @@ class AddTransactionViewController: UIViewController {
             return
         }
         // Populate the fields with the prediction result
-        amountField.text = prediction.amountPredicted.toFormattedString
+        if prediction.amountPredicted != 0 {
+            amountField.text = prediction.amountPredicted.toFormattedString
+        }
         tags = prediction.tagsPredicted
+    }
+
+    @IBAction func toggleFrequency(_ sender: UITapGestureRecognizer) {
+        if frequencyNature == .oneTime {
+            frequencyNature = .recurring
+            frequencyInterval = .daily
+        } else {
+            guard let interval = frequencyInterval else {
+                return
+            }
+            switch interval {
+            case .daily:
+                frequencyInterval = .weekly
+            case .monthly:
+                frequencyInterval = .yearly
+            case .weekly:
+                frequencyInterval = .monthly
+            case .yearly:
+                if isInEditMode {
+                    frequencyInterval = .daily
+                } else {
+                    frequencyInterval = nil
+                    frequencyNature = .oneTime
+                }
+            }
+        }
+        displayFrequency()
     }
 
     @IBAction func typeFieldPressed(_ sender: UITapGestureRecognizer) {
@@ -130,28 +181,32 @@ class AddTransactionViewController: UIViewController {
     }
 
     @IBAction func addButtonPressed(_ sender: UIButton) {
-        let date = captureDate()
-        let type = captureType()
-        let frequency = captureFrequency()
-        let tags = captureTags()
-        let amount = captureAmount()
-        let description = captureDescription()
-        let image = capturePhoto()
-        let location = captureLocation()
+        do {
+            let date = captureDate()
+            let type = captureType()
+            let frequency = try captureFrequency()
+            let tags = captureTags()
+            let amount = captureAmount()
+            let description = captureDescription()
+            let image = capturePhoto()
+            let location = captureLocation()
 
-        log.info("""
-            AddTransactionViewController.captureInputs() with inputs captured:
-            date=\(date), type=\(type), frequency=\(frequency), tags=\(tags),
-            amount=\(amount), description=\(description), image=\(String(describing: image)),
-            location=\(String(describing: location)))
-            """)
+            log.info("""
+                AddTransactionViewController.captureInputs() with inputs captured:
+                date=\(date), type=\(type), frequency=\(frequency), tags=\(tags),
+                amount=\(amount), description=\(description), image=\(String(describing: image)),
+                location=\(String(describing: location)))
+                """)
 
-        if isInEditMode {
-            performEdit(date: date, type: type, frequency: frequency, tags: tags, amount: amount,
-                        description: description, image: image, location: location)
-        } else {
-            performAdd(date: date, type: type, frequency: frequency, tags: tags, amount: amount,
-                       description: description, image: image, location: location)
+            if isInEditMode {
+                performEdit(date: date, type: type, frequency: frequency, tags: tags, amount: amount,
+                            description: description, image: image, location: location)
+            } else {
+                performAdd(date: date, type: type, frequency: frequency, tags: tags, amount: amount,
+                           description: description, image: image, location: location)
+            }
+        } catch {
+            self.handleError(error: error, customMessage: Constants.transactionAddFailureMessage)
         }
     }
 
@@ -196,10 +251,14 @@ class AddTransactionViewController: UIViewController {
         return transactionType
     }
 
-    private func captureFrequency() -> TransactionFrequency {
-        // swiftlint:disable force_try
-        return try! TransactionFrequency(nature: .oneTime, interval: nil, repeats: nil)
-        // swiftlint:enable force_try
+    private func captureFrequency() throws -> TransactionFrequency {
+        if frequencyNature == .oneTime {
+            return try TransactionFrequency(nature: .oneTime)
+        }
+        guard let repeatTime = repeatTimeField.text else {
+            throw InvalidArgumentError(message: Constants.repeatTimeMessage)
+        }
+        return try TransactionFrequency(nature: .recurring, interval: frequencyInterval, repeats: Int(repeatTime))
     }
 
     private func captureTags() -> Set<Tag> {
@@ -245,6 +304,7 @@ class AddTransactionViewController: UIViewController {
         displayLocation()
         displayType()
         displayPic()
+        displayFrequency()
     }
 
     private func displayPic() {
@@ -286,6 +346,19 @@ class AddTransactionViewController: UIViewController {
         }
     }
 
+    private func displayFrequency() {
+        if frequencyNature == .oneTime {
+            frequencyLabel.text = Constants.oneTime
+            repeatStack.alpha = 0
+            return
+        }
+        repeatStack.alpha = 1
+        guard let interval = frequencyInterval else {
+            return
+        }
+        frequencyLabel.text = interval.rawValue
+    }
+
     private func setExpenditureType() {
         transactionType = .expenditure
         typeLabel.text = "- \(Constants.currency)"
@@ -302,6 +375,7 @@ class AddTransactionViewController: UIViewController {
 
 }
 
+// MARK: AddTransactionViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate
 extension AddTransactionViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
@@ -318,9 +392,11 @@ extension AddTransactionViewController: UINavigationControllerDelegate, UIImageP
     }
 }
 
+// MARK: AddTransactionViewController: CLLocationManagerDelegate
 extension AddTransactionViewController: CLLocationManagerDelegate {
 }
 
+// MARK: AddTransactionViewController: segues
 extension AddTransactionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.addToTagSelection {

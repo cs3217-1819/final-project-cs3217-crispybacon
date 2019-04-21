@@ -11,7 +11,7 @@ import Charts
 
 class AnalysisViewController: UIViewController {
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
     var months = [(Int, Int)]()
     var amounts = [Double]()
     var fromDate = Date()
@@ -42,7 +42,7 @@ class AnalysisViewController: UIViewController {
     }
 
     private func displayTime() {
-        let formatter = Constants.getYearMonthFormatter()
+        let formatter = Constants.getDateOnlyFormatter()
         fromLabel.text = "From: " + formatter.string(from: fromDate)
         toLabel.text = "To: " + formatter.string(from: toDate)
     }
@@ -77,6 +77,7 @@ class AnalysisViewController: UIViewController {
     }
 }
 
+// MARK: AnalysisViewController: segues
 extension AnalysisViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.analysisToTagBreakDown {

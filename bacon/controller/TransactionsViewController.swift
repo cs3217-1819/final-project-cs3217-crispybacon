@@ -16,11 +16,11 @@ class TransactionsViewController: UIViewController {
         static let openCellHeight: CGFloat = 488
     }
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
     var cellHeights: [CGFloat] = []
     var currentMonthTransactions = [Transaction]()
     var transactionToEdit: Transaction?
-    var monthCounter = (0, 0)
+    var monthCounter = (0, 0) // Keeps track of the month displayed in the current page
     var rowsCount: Int {
         return currentMonthTransactions.count
     }
@@ -100,6 +100,7 @@ class TransactionsViewController: UIViewController {
     // swiftlint:enable attributes
 }
 
+// MARK: TransactionsViewController: UITableViewDataSource, UITableViewDelegate
 extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return rowsCount
@@ -133,12 +134,14 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         cell.durationsForExpandedState = durations
         cell.durationsForCollapsedState = durations
 
+        // Define cell behaviours
         cell.transaction = currentMonthTransactions[arrayIndex]
         cell.editTransactionAction = { transaction in
             self.transactionToEdit = transaction
             self.performSegue(withIdentifier: Constants.transactionsToEdit, sender: nil)
         }
 
+        // Configure the cell to display data
         cell.closedNumberView.text = String(displayedIndex)
 
         let date = currentMonthTransactions[arrayIndex].date
@@ -229,13 +232,52 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.currentMonthTransactions[indexPath.row].delete(successCallback: {
-                self.currentMonthTransactions.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                self.perform(#selector(self.reloadTable), with: nil, afterDelay: 0.4)
-            }, failureCallback: { errorMessage in
-                self.alertUser(title: Constants.warningTitle, message: errorMessage)
-            })
+            if currentMonthTransactions[indexPath.row].frequency.nature == .oneTime {
+                deleteSingleTransaction(at: indexPath)
+            } else {
+                chooseSingleOrMultipleDeletion(at: indexPath)
+            }
+        }
+    }
+
+    private func chooseSingleOrMultipleDeletion(at indexPath: IndexPath) {
+        let alert = UIAlertController(title: Constants.deleteAlertTitle,
+                                      message: Constants.deleteAlertMessage,
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Constants.deleteSingleMessage, style: .default) { _ in
+                                        self.deleteSingleTransaction(at: indexPath)
+        })
+        alert.addAction(UIAlertAction(title: Constants.deleteAllMessage, style: .default) { _ in
+                                        self.deleteAllRecurringTransaction(at: indexPath)
+        })
+        self.present(alert, animated: true)
+    }
+
+    private func deleteSingleTransaction(at indexPath: IndexPath) {
+        self.currentMonthTransactions[indexPath.row].delete(successCallback: {
+            self.currentMonthTransactions.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            // There should have been no need to reload the table
+            // However, since we are displaying an index, we need to reload to update the index displayed
+            // It is doen after some delay to preserve the deleteRows animation
+            self.perform(#selector(self.reloadTable), with: nil, afterDelay: 0.4)
+        }, failureCallback: { errorMessage in
+            self.alertUser(title: Constants.warningTitle, message: errorMessage)
+        })
+    }
+
+    private func deleteAllRecurringTransaction(at indexPath: IndexPath) {
+        guard let core = core else {
+            self.alertUser(title: Constants.warningTitle, message: Constants.coreFailureMessage)
+            return
+        }
+        do {
+            try core.deleteAllRecurringInstances(of: currentMonthTransactions[indexPath.row])
+            // Not feasible to predict which rows to delete from the table view
+            // Hence, reload everything
+            reload()
+        } catch {
+            self.handleError(error: error, customMessage: Constants.transactionDeleteFailureMessage)
         }
     }
 
@@ -248,6 +290,7 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
     // swiftlint:enable attributes
 }
 
+// MARK: TransactionsViewController: segues
 extension TransactionsViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.transactionsToEdit {

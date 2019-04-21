@@ -15,10 +15,10 @@ class TagAnalysisViewController: UIViewController {
     @IBOutlet private weak var fromLabel: UILabel!
     @IBOutlet private weak var barChart: BarChartView!
 
-    var core: CoreLogic?
+    var core: CoreLogicInterface?
     var tags = [Tag]()
     var amount = [Double]()
-    var selectedTags = Set<Tag>()
+    var selectedTags = Set<Tag>() // The user selected tags for analysis
     var fromDate = Date()
     var toDate = Date()
 
@@ -110,6 +110,7 @@ class TagAnalysisViewController: UIViewController {
     }
 }
 
+// MARK: TagAnalysisViewController: segues
 extension TagAnalysisViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.tagAnalysisToChooseTag {

@@ -34,8 +34,11 @@ protocol CoreLogicInterface {
     func getAllTags() -> [Tag: [Tag]]
     func getAllParentTags() -> [Tag]
     func getChildrenTags(of parent: String) throws -> [Tag]
+    @discardableResult
     func addParentTag(_ name: String) throws -> Tag
+    @discardableResult
     func addChildTag(_ child: String, to parent: String) throws -> Tag
+    @discardableResult
     func renameTag(for tag: Tag, to newValue: String) throws -> Tag
     func removeChildTag(_ child: String, from parent: String) throws
     func removeParentTag(_ parent: String) throws
