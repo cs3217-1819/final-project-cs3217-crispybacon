@@ -12,6 +12,7 @@ target 'bacon' do
   pod 'Alamofire', '~> 4'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Charts'
+  pod 'GoogleMaps'
 
   target 'baconTests' do
     inherit! :search_paths

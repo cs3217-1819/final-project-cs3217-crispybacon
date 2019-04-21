@@ -71,6 +71,16 @@ class Constants {
     static let analysisToCalendarFrom = "analysisToCalendarFrom"
     static let analysisToCalendarTo = "analysisToCalendarTo"
     static let analysisToTagBreakDown = "analysisToTagBreakDown"
+    static let analysisToLocationSelection = "analysisToLocationSelection"
+
+    // Location Analysis Selection Page
+    static let locationSelectionToCalendarFrom = "locationSelectionToCalendarFrom"
+    static let locationSelectionToCalendarTo = "locationSelectionToCalendarTo"
+    static let locationSelectionToLocationAnalysis = "locationSelectionToLocationAnalysis"
+
+    // Location Analysis Page
+    static let heatMapZoom = 13
+    static let heatMapRadius = 50
 
     // Tag Analysis Page
     static let tagNoDataMessage = "Choose tags and time period to generate breakdown analysis!"
@@ -95,6 +105,7 @@ class Constants {
     static let unwindToAdd = "unwindToAdd"
     static let calendarToAnalysis = "calendarToAnalysis"
     static let calendarToTagAnalysis = "calendarToTagAnalysis"
+    static let calendarToLocationAnalysisSelection = "calendarToLocationAnalysisSelection"
 
     // Date
     static func getDateFormatter() -> DateFormatter {

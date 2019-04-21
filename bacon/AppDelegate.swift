@@ -12,6 +12,7 @@ import CoreData
 import CoreLocation
 import UIKit
 import UserNotifications
+import GoogleMaps
 import SwiftyBeaver
 
 let log = SwiftyBeaver.self
@@ -30,6 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         log.addDestination(file)
 
         log.info("Bacon is fired up")
+
+        // Google Maps API key
+        GMSServices.provideAPIKey(Constants.LocationPromptGooglePlacesApiKey)
 
         // Location
         log.info("Requesting location always authorization")

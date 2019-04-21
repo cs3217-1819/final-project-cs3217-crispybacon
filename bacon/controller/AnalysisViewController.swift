@@ -86,6 +86,13 @@ extension AnalysisViewController {
             }
             tagAnalysisController.core = core
         }
+        if segue.identifier == Constants.analysisToLocationSelection {
+            guard let locationSelectionController = segue.destination as?
+                LocationAnalysisSelectionViewController else {
+                return
+            }
+            locationSelectionController.core = core
+        }
         if segue.identifier == Constants.analysisToCalendarFrom {
             guard let calendarController = segue.destination as? DateTimeSelectionViewController else {
                 return

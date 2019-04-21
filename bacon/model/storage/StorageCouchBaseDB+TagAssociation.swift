@@ -42,7 +42,7 @@ extension StorageCouchBaseDB {
     private func getQueryOfSpecifiedTag(_ tag: Tag) -> Query {
         let query = QueryBuilder.select(SelectResult.all(), SelectResult.expression(Meta.id))
             .from(DataSource.database(tagAssociationDatabase))
-            .where(Expression.property(Constants.tagValueKey).equalTo(Expression.int64(tag.internalValue)))
+            .where(Expression.property(Constants.tagValueKey).equalTo(Expression.string(tag.internalValue)))
         return query
     }
 
@@ -191,7 +191,7 @@ extension StorageCouchBaseDB {
             }
             // Check to see if this tag association needs to be deleted
             var currentTagIsRemoved = true
-            for tags in newTags where tags.internalValue == associationDocument.int64(forKey: Constants.tagValueKey) {
+            for tags in newTags where tags.internalValue == associationDocument.string(forKey: Constants.tagValueKey) {
                 // Tag still exists
                 currentTagIsRemoved = false
                 newTags.remove(tags)
