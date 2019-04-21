@@ -12,42 +12,49 @@ import UIKit
 class LocationAnalysisViewController: UIViewController {
     private var heatmapLayer: GMUHeatmapTileLayer = GMUHeatmapTileLayer()
     private var mapView = GMSMapView()
+    let locationManager = CLLocationManager()
+    var locations = [CLLocation]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Request permission for location services
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+
         heatmapLayer.map = mapView
     }
 
     override func loadView() {
         // Create a GMSCameraPosition that tells the map to display the
         // user's current location at zoom level 10.
-
-        // Lizhi: To change to user's current location
-        let currentLocation = CLLocation(latitude: 1.3521, longitude: 103.8198)
+        guard let currentLocation = locationManager.location else {
+            return
+        }
 
         let camera = GMSCameraPosition.camera(withLatitude: currentLocation.coordinate.latitude,
                                               longitude: currentLocation.coordinate.longitude,
-                                              zoom: 10)
+                                              zoom: Float(Constants.heatMapZoom))
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
 
         // Configure heatmap
-        heatmapLayer.radius = 30
+        heatmapLayer.radius = UInt(Constants.heatMapRadius)
         heatmapLayer.map = mapView
 
         addHeatmap()
         view = mapView
     }
 
-
     func addHeatmap() {
         var coords = [GMUWeightedLatLng]()
-        let dummyCoordinate = CLLocation(latitude: 1.3521, longitude: 103.8198)
-        for _ in 0 ..< 10 {
-            coords.append(GMUWeightedLatLng(coordinate: dummyCoordinate.coordinate,
+        for location in locations {
+            coords.append(GMUWeightedLatLng(coordinate: location.coordinate,
                                             intensity: 1.0))
         }
-
         heatmapLayer.weightedData = coords
     }
+}
 
+// MARK: LocationAnalysisViewController: CLLocationManagerDelegate
+extension LocationAnalysisViewController: CLLocationManagerDelegate {
 }

@@ -13,10 +13,10 @@ extension CoreLogic {
         let transactions = try transactionManager.loadTransactions(from: fromDate, to: toDate)
         return try getBreakdownByLocation(transactions: transactions)
     }
-    
+
     private func getBreakdownByLocation(transactions: [Transaction]) throws -> ([CLLocation]) {
         var locations = [CLLocation]()
-        for transaction in transactions {
+        for transaction in transactions where transaction.type == .expenditure {
             if let location = transaction.location {
                 locations.append(location.location)
             }

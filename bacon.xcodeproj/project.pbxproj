@@ -121,6 +121,7 @@
 		BEFBC688226A5D2000EE1FC6 /* CoreLogic+BreakDownByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC687226A5D1F00EE1FC6 /* CoreLogic+BreakDownByTime.swift */; };
 		BEFBC693226B6FFE00EE1FC6 /* Date+getStartOrEndOfMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC692226B6FFE00EE1FC6 /* Date+getStartOrEndOfMonth.swift */; };
 		BEFBC695226C433D00EE1FC6 /* CoreLogic+BreakDownByLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC694226C433D00EE1FC6 /* CoreLogic+BreakDownByLocation.swift */; };
+		BEFBC697226C4CCA00EE1FC6 /* LocationAnalysisSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC696226C4CCA00EE1FC6 /* LocationAnalysisSelectionViewController.swift */; };
 		C288EBE898DE7040D8233568 /* Pods_baconUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */; };
 		D15E5FA942198228451024EA /* Pods_bacon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4701C832F23C08627A348028 /* Pods_bacon.framework */; };
 /* End PBXBuildFile section */
@@ -310,6 +311,7 @@
 		BEFBC687226A5D1F00EE1FC6 /* CoreLogic+BreakDownByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLogic+BreakDownByTime.swift"; sourceTree = "<group>"; };
 		BEFBC692226B6FFE00EE1FC6 /* Date+getStartOrEndOfMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+getStartOrEndOfMonth.swift"; sourceTree = "<group>"; };
 		BEFBC694226C433D00EE1FC6 /* CoreLogic+BreakDownByLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLogic+BreakDownByLocation.swift"; sourceTree = "<group>"; };
+		BEFBC696226C4CCA00EE1FC6 /* LocationAnalysisSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnalysisSelectionViewController.swift; sourceTree = "<group>"; };
 		CA24B1D1138A1F0774F42251 /* Pods-baconTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD379625D2CF2952EA2B2E6A /* Pods-baconUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F38C0C0022ADF9C5F622445F /* Pods-bacon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bacon.release.xcconfig"; path = "Pods/Target Support Files/Pods-bacon/Pods-bacon.release.xcconfig"; sourceTree = "<group>"; };
@@ -642,6 +644,7 @@
 				BEE6B6612240C9F00077DFD7 /* TransactionsViewController.swift */,
 				BEE6B6632240D0770077DFD7 /* AnalysisViewController.swift */,
 				BEFBC683226A0D6D00EE1FC6 /* TagAnalysisViewController.swift */,
+				BEFBC696226C4CCA00EE1FC6 /* LocationAnalysisSelectionViewController.swift */,
 				BEFBC685226A0DB600EE1FC6 /* LocationAnalysisViewController.swift */,
 				BEC57451225F8DA5001793EC /* TagSelectionViewController.swift */,
 				BEF82C142261C157007BC819 /* SetBuddgetViewController.swift */,
@@ -1093,6 +1096,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEFBC697226C4CCA00EE1FC6 /* LocationAnalysisSelectionViewController.swift in Sources */,
 				8FCE6F3C226C1680009EAD30 /* GMUHeatmapTileLayer.m in Sources */,
 				BEC57452225F8DA5001793EC /* TagSelectionViewController.swift in Sources */,
 				8F89424B225E00D4007146AC /* TagManager.swift in Sources */,

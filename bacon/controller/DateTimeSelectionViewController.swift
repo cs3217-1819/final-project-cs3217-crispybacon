@@ -49,8 +49,10 @@ class DateTimeSelectionViewController: UIViewController {
             selectedDate = date
             if unwindDestination is TagAnalysisViewController {
                 performSegue(withIdentifier: Constants.calendarToTagAnalysis, sender: nil)
-            } else {
+            } else if unwindDestination is AnalysisViewController {
                 performSegue(withIdentifier: Constants.calendarToAnalysis, sender: nil)
+            } else {
+                performSegue(withIdentifier: Constants.calendarToLocationAnalysisSelection, sender: nil)
             }
             return
         }

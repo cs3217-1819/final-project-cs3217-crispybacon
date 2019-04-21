@@ -52,4 +52,6 @@ protocol CoreLogicInterface {
         throws -> ([Tag], [Double])
     func getBreakdownByTime(from fromDate: Date, to toDate: Date)
         throws -> ([(Int, Int)], [Double])
+    func getBreakdownByLocation(from fromDate: Date, to toDate: Date)
+        throws -> ([CLLocation])
 }
