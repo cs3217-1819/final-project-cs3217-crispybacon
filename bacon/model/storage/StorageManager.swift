@@ -142,6 +142,11 @@ class StorageManager: StorageManagerInterface {
     }
 
     func loadPredictions(limit: Int) throws -> [Prediction] {
+        guard limit >= 0 else {
+            throw InvalidArgumentError(message: """
+                Limit: \(limit) passed into loadPredictions(limit..) should be non-negative.
+                """)
+        }
         return try concreteStorage.loadPredictions(limit: limit)
     }
 }

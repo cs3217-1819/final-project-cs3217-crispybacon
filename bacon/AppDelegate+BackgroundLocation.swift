@@ -24,7 +24,7 @@ extension AppDelegate: CLLocationManagerDelegate {
         LocationPrompt.shouldPromptUser(currentLocation: latestLocation) { decision in
             log.info("LocationPrompt decision=\(decision)")
             if !decision {
-                return // Do nothing
+                return
             }
 
             log.info("Creating local notification")

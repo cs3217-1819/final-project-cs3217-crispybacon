@@ -11,9 +11,15 @@
 import Foundation
 
 protocol BudgetManagerInterface {
-
+    /// Saves a budget.
+    /// - Throws: Rethrows any errors encountered during the operation.
     func saveBudget(_ budget: Budget) throws
-    func loadBudget() throws -> Budget
-    func deleteBudget() throws
 
+    /// Loads and returns a budget.
+    /// - Throws: Rethrows any errors encountered during the operation.
+    func loadBudget() throws -> Budget
+
+    /// Deletes a budget.
+    /// - Throws: Rethrows any errors encountered during the operation.
+    func deleteBudget() throws
 }

@@ -8,10 +8,12 @@
 
 import Foundation
 
-/// A Hashable superclass for instant conformance to the Hashable protocol.
-/// - Note: Hash values are derived from the instance's object identifier.
-///     == is overridden to return === instead.
-///     If instance properties comparison is required, consider implementing an `equals()` method instead.
+/// A Hashable superclass for classes to conform to the Hashable protocol.
+/// This allows classes to serve as keys in dictionaries.
+/// Hash values are derived from `ObjectIdentifier(self)`.
+/// - Note: The `==` method is overridden to return `===` instead.
+///     If instance properties comparison is required,
+///     consider implementing an `equals()` method instead.
 class HashableClass: Equatable, Hashable {
 
     static func == (lhs: HashableClass, rhs: HashableClass) -> Bool {

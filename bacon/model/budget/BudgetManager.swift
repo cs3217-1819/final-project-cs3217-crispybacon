@@ -8,10 +8,14 @@
 
 import Foundation
 
+/// Manages a budget.
 class BudgetManager: BudgetManagerInterface {
 
     private let storageManager: StorageManagerInterface
 
+    /// Instantiates a BudgetManager.
+    /// A BudgetManager is backed internally by a StorageManager.
+    /// - Throws: Rethrows any error encountered while instantiating a StorageManager.
     init() throws {
         storageManager = try StorageManager()
         log.info("""

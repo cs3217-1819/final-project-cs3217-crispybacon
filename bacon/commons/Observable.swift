@@ -12,14 +12,11 @@ import Foundation
 /// - Note: This protocol only allows conformance by classes.
 ///     See: https://benoitpasquier.com/observer-design-pattern-swift/
 protocol Observable: class {
-
     var observers: [Observer] { get set }
-
 }
 
-/// Implements default functionality for Observable protocol.
+// Implements default functionality for Observable protocol.
 extension Observable {
-
     /// Registers an observer to the current observable subject.
     func registerObserver(_ observer: Observer) {
         observers.append(observer)
@@ -36,5 +33,4 @@ extension Observable {
             observer.notify(value)
         }
     }
-
 }

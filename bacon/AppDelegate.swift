@@ -25,8 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let notificationCenter = UNUserNotificationCenter.current()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let console = ConsoleDestination() // Log to Xcode console
-        let file = FileDestination() // Log to default swiftybeaver.log file
+        // Log to both Xcode console and default swiftybeaver.log file
+        let console = ConsoleDestination()
+        let file = FileDestination()
         log.addDestination(console)
         log.addDestination(file)
 
@@ -38,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Location
         log.info("Requesting location always authorization")
         locationManager.requestAlwaysAuthorization()
-
         locationManager.delegate = self
         locationManager.allowsBackgroundLocationUpdates = true
 
@@ -46,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // because it provides more frequent updates.
         // Switch to startMonitoringSignificantLocationChanges() for production,
         // which avoids spamming notifications (as with startUpdatingLocation()).
+        // This is because startUpdatingLocation() sends updates every few seconds.
         log.info("Starting location monitoring.")
         locationManager.startMonitoringSignificantLocationChanges()
 

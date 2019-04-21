@@ -8,11 +8,15 @@
 
 import Foundation
 
+/// Manages predictions.
 class PredictionManager: PredictionManagerInterface {
 
     private let storageManager: StorageManagerInterface
     private let predictionGeneraor: PredictionGenerator
 
+    /// Instantiates a PredictionManager.
+    /// A PredictionManager is backed internally by a StorageManager.
+    /// - Throws: Rethrows any error encountered while instantiating a StorageManager.
     init() throws {
         storageManager = try StorageManager()
         predictionGeneraor = PredictionGenerator()
