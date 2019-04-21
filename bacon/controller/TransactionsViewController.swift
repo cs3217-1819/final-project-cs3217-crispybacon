@@ -257,6 +257,9 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         self.currentMonthTransactions[indexPath.row].delete(successCallback: {
             self.currentMonthTransactions.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            // There should have been no need to reload the table
+            // However, since we are displaying an index, we need to reload to update the index displayed
+            // It is doen after some delay to preserve the deleteRows animation
             self.perform(#selector(self.reloadTable), with: nil, afterDelay: 0.4)
         }, failureCallback: { errorMessage in
             self.alertUser(title: Constants.warningTitle, message: errorMessage)
