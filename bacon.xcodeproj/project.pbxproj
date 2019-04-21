@@ -120,6 +120,7 @@
 		BEFBC686226A0DB600EE1FC6 /* LocationAnalysisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC685226A0DB600EE1FC6 /* LocationAnalysisViewController.swift */; };
 		BEFBC688226A5D2000EE1FC6 /* CoreLogic+BreakDownByTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC687226A5D1F00EE1FC6 /* CoreLogic+BreakDownByTime.swift */; };
 		BEFBC693226B6FFE00EE1FC6 /* Date+getStartOrEndOfMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC692226B6FFE00EE1FC6 /* Date+getStartOrEndOfMonth.swift */; };
+		BEFBC695226C433D00EE1FC6 /* CoreLogic+BreakDownByLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFBC694226C433D00EE1FC6 /* CoreLogic+BreakDownByLocation.swift */; };
 		C288EBE898DE7040D8233568 /* Pods_baconUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A0E39274434CA88AAD4001 /* Pods_baconUITests.framework */; };
 		D15E5FA942198228451024EA /* Pods_bacon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4701C832F23C08627A348028 /* Pods_bacon.framework */; };
 /* End PBXBuildFile section */
@@ -308,6 +309,7 @@
 		BEFBC685226A0DB600EE1FC6 /* LocationAnalysisViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnalysisViewController.swift; sourceTree = "<group>"; };
 		BEFBC687226A5D1F00EE1FC6 /* CoreLogic+BreakDownByTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLogic+BreakDownByTime.swift"; sourceTree = "<group>"; };
 		BEFBC692226B6FFE00EE1FC6 /* Date+getStartOrEndOfMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+getStartOrEndOfMonth.swift"; sourceTree = "<group>"; };
+		BEFBC694226C433D00EE1FC6 /* CoreLogic+BreakDownByLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreLogic+BreakDownByLocation.swift"; sourceTree = "<group>"; };
 		CA24B1D1138A1F0774F42251 /* Pods-baconTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconTests/Pods-baconTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD379625D2CF2952EA2B2E6A /* Pods-baconUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-baconUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-baconUITests/Pods-baconUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F38C0C0022ADF9C5F622445F /* Pods-bacon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bacon.release.xcconfig"; path = "Pods/Target Support Files/Pods-bacon/Pods-bacon.release.xcconfig"; sourceTree = "<group>"; };
@@ -757,6 +759,7 @@
 				9F965F8322533E5500AF6092 /* CoreLogic.swift */,
 				BEC5745722605570001793EC /* CoreLogic+BreakDownByTag.swift */,
 				BEFBC687226A5D1F00EE1FC6 /* CoreLogic+BreakDownByTime.swift */,
+				BEFBC694226C433D00EE1FC6 /* CoreLogic+BreakDownByLocation.swift */,
 			);
 			path = coreLogic;
 			sourceTree = "<group>";
@@ -1115,6 +1118,7 @@
 				8FCE6F45226C1680009EAD30 /* GMUStyle.m in Sources */,
 				8FCE6F3B226C1680009EAD30 /* GMUGradient.m in Sources */,
 				8FCE6F3F226C1680009EAD30 /* GMUGeometryCollection.m in Sources */,
+				BEFBC695226C433D00EE1FC6 /* CoreLogic+BreakDownByLocation.swift in Sources */,
 				BEC57446225A3DC9001793EC /* PreviewImageView.swift in Sources */,
 				8FCE6F49226C1680009EAD30 /* GMUGeoJSONParser.m in Sources */,
 				8FCE6F4A226C1680009EAD30 /* GMUClusterManager.m in Sources */,
