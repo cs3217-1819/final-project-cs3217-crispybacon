@@ -29,3 +29,7 @@ To ensure consistency in logging, this may serve as a guide:
 * Use `log.info()` as the default log operation (e.g. when entering a method)
 * To indicate the start of a method call, use `<Class/Struct>.<methodName>() ...`,
 e.g. `Transaction.init() with the following arguments ...`
+
+## Design
+
+![Class-Diagram](/class-diagram.png)
