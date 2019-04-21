@@ -18,7 +18,7 @@ class LocationPromptTests: XCTestCase {
         let expectation = XCTestExpectation(description: "It should work")
         let testLocation = CLLocation(latitude: 1.318_905_181_740_772_6,
                                       longitude: 103.816_852_756_314_74) // Bukit Timah Campus
-        LocationPrompt.shouldPromptUser(currentLocation: testLocation) { response in
+        LocationPrompt.shouldPromptUser(currentLocation: testLocation) { _ in
             XCTAssertTrue(true)
             expectation.fulfill()
         }

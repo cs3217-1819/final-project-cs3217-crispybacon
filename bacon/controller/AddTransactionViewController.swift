@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 
+// swiftlint:disable type_body_length
 class AddTransactionViewController: UIViewController {
 
     let locationManager = CLLocationManager()
@@ -425,3 +426,4 @@ extension AddTransactionViewController {
         }
     }
 }
+// swiftlint:enable type_body_length

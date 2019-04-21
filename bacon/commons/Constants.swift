@@ -42,8 +42,6 @@ class Constants {
 
     // Add Transaction Page
     static let defaultTransactionType = TransactionType.expenditure
-    static let defaultCategory = TransactionCategory.food
-    static let defaultCategoryString = Constants.defaultCategory.rawValue
     static let defaultAmount: Decimal = 0
     static let defaultAmountString = "0"
     static let defaultDescription = ""
@@ -137,7 +135,6 @@ class Constants {
 
     // Coding Keys for Transaction fields
     static let typeKey = "type"
-    static let categoryKey = "category"
     static let tagKey = "tags"
     static let recurringIdKey = "recurringId"
     static let rawDateKey = "rawDate"
