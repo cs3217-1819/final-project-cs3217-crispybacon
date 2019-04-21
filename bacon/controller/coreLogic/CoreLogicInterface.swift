@@ -2,6 +2,8 @@
 //  CoreLogicInterface.swift
 //  bacon
 //
+//  An API for all core-logic related functionalities.
+//
 //  Created by Travis Ching Jia Yea on 9/4/19.
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
