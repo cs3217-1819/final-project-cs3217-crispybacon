@@ -25,7 +25,7 @@ extension CoreLogic {
         }
 
         // For each required tag, count the amount of transactions having this tag
-        for transaction in transactions {
+        for transaction in transactions where transaction.type == .expenditure {
             for tag in transaction.tags where requiredTags.contains(tag) {
                 // Firstly, if the transaction contains a tag that is required, increase the amount for the tag
                 tagAmount[tag] = (tagAmount[tag] ?? 0) + NSDecimalNumber(decimal: transaction.amount).doubleValue
