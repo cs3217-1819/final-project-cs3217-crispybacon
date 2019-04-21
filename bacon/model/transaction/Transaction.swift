@@ -90,7 +90,7 @@ class Transaction: HashableClass, Codable, Observable {
 
     /// Creates a Transaction instance.
     /// - Parameters:
-    ///     - time: The transaction time, as represented by a TransactionTime object.
+    ///     - date: The transaction date, as represented by a Date object.
     ///     - type: The transaction type.
     ///     - frequency: The transaction frequency.
     ///     - tags: The transaction tags.
