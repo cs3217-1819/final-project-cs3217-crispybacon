@@ -75,6 +75,61 @@ class CoreLogicTests: XCTestCase {
     }
 
     // swiftlint:disable function_body_length
+    func test_getBreakdownByTag() {
+        let coreLogic = try! CoreLogic(tagManager: TagManager.create(testMode: true))
+        // Clear database
+        XCTAssertNoThrow(try coreLogic.clearAllTransactions())
+        XCTAssertEqual(coreLogic.getTotalTransactionsRecorded(), 0)
+        // Save some transactions
+        XCTAssertNoThrow(try coreLogic.recordTransaction(date: TestUtils.january5th2019time1230,
+                                                         type: .expenditure,
+                                                         frequency: TransactionFrequency(nature: .oneTime),
+                                                         tags: [TestUtils.tagBills],
+                                                         amount: 1_200,
+                                                         description: "Thailand 5 days 4 night.",
+                                                         image: CodableUIImage(TestUtils.redHeartJpg),
+                                                         location: CodableCLLocation(TestUtils.sampleCLLocation1A)))
+        XCTAssertNoThrow(try coreLogic.recordTransaction(date: TestUtils.febuary21st2019time1700,
+                                                         type: .expenditure,
+                                                         frequency: TransactionFrequency(nature: .oneTime),
+                                                         tags: [TestUtils.tagFood],
+                                                         amount: 1_200,
+                                                         description: "Thailand 5 days 4 night.",
+                                                         image: CodableUIImage(TestUtils.redHeartJpg),
+                                                         location: CodableCLLocation(TestUtils.sampleCLLocation1A)))
+        XCTAssertNoThrow(try coreLogic.recordTransaction(date: TestUtils.march26th2019time1108,
+                                                         type: .expenditure,
+                                                         frequency: TransactionFrequency(nature: .oneTime),
+                                                         tags: [TestUtils.tagBills,
+                                                                TestUtils.tagEducation],
+                                                         amount: 1_200,
+                                                         description: "Thailand 5 days 4 night.",
+                                                         image: CodableUIImage(TestUtils.redHeartJpg),
+                                                         location: CodableCLLocation(TestUtils.sampleCLLocation1A)))
+        XCTAssertNoThrow(try coreLogic.recordTransaction(date: TestUtils.march26th2019time2025,
+                                                         type: .expenditure,
+                                                         frequency: TransactionFrequency(nature: .oneTime),
+                                                         tags: [TestUtils.tagFood],
+                                                         amount: 1_200,
+                                                         description: "Thailand 5 days 4 night.",
+                                                         image: CodableUIImage(TestUtils.redHeartJpg),
+                                                         location: CodableCLLocation(TestUtils.sampleCLLocation1A)))
+        // Check breakdown code
+        let breakdown = try! coreLogic.getBreakdownByTag(from: TestUtils.january5th2019time1208,
+                                                         to: TestUtils.march26th2019time2345,
+                                                         for: [TestUtils.tagFood,
+                                                               TestUtils.tagBills,
+                                                               TestUtils.tagEducation])
+        let expectedBreakdown: [Tag: Double] = [TestUtils.tagBills: 2_400,
+                                                TestUtils.tagFood: 2_400,
+                                                TestUtils.tagEducation: 1_200]
+        var index = 0
+        for tags in breakdown.0 {
+            XCTAssertEqual(expectedBreakdown[tags], breakdown.1[index])
+            index += 1
+        }
+    }
+
     func test_getBreakdownByTime() {
         let coreLogic = try! CoreLogic(tagManager: TagManager.create(testMode: true))
         // Clear database
@@ -113,6 +168,7 @@ class CoreLogicTests: XCTestCase {
                                                          description: "Thailand 5 days 4 night.",
                                                          image: CodableUIImage(TestUtils.redHeartJpg),
                                                          location: CodableCLLocation(TestUtils.sampleCLLocation1A)))
+        // Check breakdown by time
         let breakdown = try! coreLogic.getBreakdownByTime(from: TestUtils.january5th2019time1208,
                                                           to: TestUtils.march26th2019time2345)
         let monthYearArray: [(Int, Int)] = [(1, 2_019), (2, 2_019), (3, 2_019)]

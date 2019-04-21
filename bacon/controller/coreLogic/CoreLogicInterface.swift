@@ -50,13 +50,16 @@ protocol CoreLogicInterface {
                        _ transactions: [Transaction]) -> Prediction?
 
     // MARK: Breakdown analysis modules
+    /// Breakdown by tag only analyzes transactions of type expenditure
     func getBreakdownByTag(from fromDate: Date, to toDate: Date, for tags: Set<Tag>)
         throws -> ([Tag], [Double])
     /// The fromDate will be set to its first moment (00:00:00)
     /// and the toDate to its last moment (23:59:00)
-    /// To make sure all transactions are in the time period are included
+    /// To make sure all transactions are in the time period are included.
+    /// Breakdown by time analyzes net transactions (i.e. both expenditure and income)
     func getBreakdownByTime(from fromDate: Date, to toDate: Date)
         throws -> ([(Int, Int)], [Double])
+    /// Breakdown by location only analyzes transactions of type expenditure
     func getBreakdownByLocation(from fromDate: Date, to toDate: Date)
         throws -> ([CLLocation])
 }
