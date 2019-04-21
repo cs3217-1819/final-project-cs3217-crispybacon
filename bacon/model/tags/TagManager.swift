@@ -11,13 +11,19 @@ import Foundation
 // MARK: Tag
 struct Tag: Codable, Comparable, Hashable {
 
-    let internalValue: Int64 // Internal value of the Tag
-    let parentInternalValue: Int64? // Internal value of parent Tag
+    // Internal values uniquely identify a Tag
+    let internalValue: String
+    let parentInternalValue: String?
 
-    // Override computed properties: this improves testability by dissociating Tag from TagManager
+    // Override computed properties: this improves testability by dissociating Tag from TagManager.
+    // Normally (in production), a Tag's value and parentValue properties are computed
+    // with reference to the singleton TagManager.
+    // These overriding properties allow for the creation of standalone Tags
+    // that work independently of TagManager.
     private var overriddenValue: String?
     private var overriddenParentValue: String?
-    private var isParentValueOverridden: Bool = false
+    private var isParentValueOverridden: Bool = false // We require an extra flag
+    // for parentValue because parentValue can normally be nil anyway
 
     /// Returns the user-defined display value of a Tag, or an empty string if unavailable.
     /// The only period of unavailablility is when TagManager has not been fully instantiated.
@@ -64,6 +70,7 @@ struct Tag: Codable, Comparable, Hashable {
 
         set(newValue) {
             overriddenParentValue = newValue
+            isParentValueOverridden = true
         }
     }
 
@@ -76,26 +83,20 @@ struct Tag: Codable, Comparable, Hashable {
     }
 
     /// Initializes a Tag.
-    fileprivate init(_ internalValue: Int64, parentInternalValue: Int64?) {
+    fileprivate init(_ internalValue: String, parentInternalValue: String?) {
         self.internalValue = internalValue
         self.parentInternalValue = parentInternalValue
     }
 
     /// Initializes a standalone Tag.
-    /// Standalone Tags are not associated to TagManager.
+    /// Standalone Tags work independently and are not associated to TagManager.
     /// Its `value` and optional `parentValue` properties are specified during instantiation.
-    /// - Requires: `value` must be an integer.
     init(_ value: String, parentValue: String? = nil) {
         overriddenValue = value
         overriddenParentValue = parentValue
-        isParentValueOverridden = true
 
-        guard let internalValue = Int64(value) else {
-            fatalError("This should never happen") // Specified in requires clause
-        }
-        self.internalValue = internalValue
-
-        self.parentInternalValue = parentValue != nil ? Int64(parentValue!) : nil
+        self.internalValue = value
+        self.parentInternalValue = parentValue != nil ? parentValue : nil
     }
 
     /// Convenience computed property to represent whether a Tag is a child Tag.
@@ -182,11 +183,10 @@ class TagManager: Codable, Observable, TagManagerInterface {
     private var inTestMode: Bool // Instance flag
 
     // Data stores
-    private var tagId: Int64 = 1
     private var parentChildMap: [String: Set<String>] = [:] // Map parent to child Tags by display values
-    private var allIdValueMap: [Int64: String] = [:] // Map all IDs to display values
-    private var parentValueIdMap: [String: Int64] = [:] // Map only parent display values to IDs
-    private var parentChildValueIdMap: [Int64: [String: Int64]] = [:] // Map children Tag display values to IDs
+    private var allIdValueMap: [String: String] = [:] // Map all IDs to display values
+    private var parentValueIdMap: [String: String] = [:] // Map only parent display values to IDs
+    private var parentChildValueIdMap: [String: [String: String]] = [:] // Map parent IDs to children Tag display value to IDs mapping
 
     // Observable
     var observers: [Observer] = []
@@ -196,7 +196,6 @@ class TagManager: Codable, Observable, TagManagerInterface {
     // since that information should not be persistent across sessions.
     private enum CodingKeys: String, CodingKey {
         case inTestMode
-        case tagId
         case parentChildMap
         case allIdValueMap
         case parentValueIdMap
@@ -506,7 +505,7 @@ class TagManager: Codable, Observable, TagManagerInterface {
 // MARK: TagManager: TagValueSourceInterface
 extension TagManager: TagValueSourceInterface {
 
-    func getDisplayValue(of internalValue: Int64) -> String {
+    func getDisplayValue(of internalValue: String) -> String {
         guard let val = allIdValueMap[internalValue] else {
             fatalError("This should never happen")
         }
@@ -539,8 +538,7 @@ extension TagManager {
     /// Creates and returns a Tag. This method automtatically updates data stores and saves to disk.
     /// - Requires: The Tag being created must not already exist.
     private func createTag(_ displayValue: String, of parentDisplayValue: String? = nil) -> Tag {
-        let id = tagId
-        tagId += 1
+        let id = UUID().uuidString
 
         allIdValueMap[id] = displayValue
 
