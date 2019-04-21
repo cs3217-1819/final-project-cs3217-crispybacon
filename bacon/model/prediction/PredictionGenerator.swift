@@ -2,6 +2,9 @@
 //  PredictionGenerator.swift
 //  bacon
 //
+//  Provides an abstraction over the underlying prediction generation.
+//  Localizes any changes needed when swapping out the underlying prediction generator.
+//
 //  Created by Lizhi Zhang on 14/4/19.
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
