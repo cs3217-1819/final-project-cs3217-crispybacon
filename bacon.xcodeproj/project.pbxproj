@@ -434,9 +434,9 @@
 		8F89424E225E0263007146AC /* tags */ = {
 			isa = PBXGroup;
 			children = (
-				8F89424A225E00D4007146AC /* TagManager.swift */,
 				8F89424C225E01D6007146AC /* TagManagerInterface.swift */,
 				8F913A812260DC5900D20FA2 /* TagValueSourceInterface.swift */,
+				8F89424A225E00D4007146AC /* TagManager.swift */,
 			);
 			path = tags;
 			sourceTree = "<group>";

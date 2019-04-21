@@ -43,12 +43,16 @@ class TransactionManager: TransactionManagerInterface {
                     }
                     transaction.editSuccessCallback()
                 } catch {
+                    log.warning("""
+                        TransactionManager attempt to edit transaction failed.
+                        Calling editFailureCallback.
+                        """)
                     transaction.editFailureCallback(error.localizedDescription)
                 }
             }
             log.info("""
                 TransactionManager notified by Transaction: \(transaction)
-            """)
+                """)
             return
         }
         // If program enters here
@@ -84,7 +88,7 @@ class TransactionManager: TransactionManagerInterface {
         guard transaction.frequency.nature == .recurring else {
             throw InvalidArgumentError(message: """
                 recordRecurringTransaction() requires transaction to be recurring.
-            """)
+                """)
         }
         let recurringInstances = try generateAllRecurringInstances(of: transaction)
         for transactions in recurringInstances {
@@ -99,7 +103,7 @@ class TransactionManager: TransactionManagerInterface {
         guard transaction.frequency.nature == .recurring else {
             throw InvalidArgumentError(message: """
                 generateAllRecurringInstances() requires transaction to be recurring.
-            """)
+                """)
         }
         guard let numberOfTimesToRepeat = transaction.frequency.repeats else {
             fatalError("Transaction is guarded to be recurring, repeats should not be nil.")
@@ -126,7 +130,7 @@ class TransactionManager: TransactionManagerInterface {
                                                                 to: currentTime) else {
                 fatalError("""
                     Date calculation for future recurring transaction should not fail.
-                """)
+                    """)
             }
             currentTime = nextRecurringDate
             // Create a copy of the transaction and update the date
@@ -148,7 +152,7 @@ class TransactionManager: TransactionManagerInterface {
         guard transaction.frequency.nature == .recurring else {
             throw InvalidArgumentError(message: """
                 updateRecurringTransaction() requires transaction to be recurring.
-            """)
+                """)
         }
         // Using the updated transaction information, backtrack and set the date
         // to the first instance.

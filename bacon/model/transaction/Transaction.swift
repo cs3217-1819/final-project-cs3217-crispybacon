@@ -2,6 +2,8 @@
 //  Transaction.swift
 //  bacon
 //
+//  Represents a mutable transaction.
+//
 //  Created by Fabian Terh on 19/3/19.
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
@@ -9,7 +11,6 @@
 import Foundation
 
 // MARK: Transaction class
-/// Represents a mutable transaction.
 class Transaction: HashableClass, Codable, Observable {
 
     // Support transaction deletion through the delete() method.
