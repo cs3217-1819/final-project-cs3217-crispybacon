@@ -31,14 +31,14 @@ extension StorageCouchBaseDB {
                     StorageCouchBaseDB.clearBudgetDatabase():
                     Encounter error while reinitializing budget database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw error
             } else {
                 log.warning("""
                     StorageCouchBaseDB.clearBudgetDatabase():
                     Encounter error while clearing budget database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: "Encounter error while clearing Budget Database.")
             }
         }
@@ -60,7 +60,7 @@ extension StorageCouchBaseDB {
                     StorageCouchBaseDB.saveBudget():
                     Encounter error saving budget into database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: "Budget couldn't be saved into database.")
             }
         }
@@ -90,18 +90,18 @@ extension StorageCouchBaseDB {
             return budget
         } catch {
             if error is DecodingError {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.getBudgetFromQuery():
                     Encounter error decoding data from database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: "Data loaded from database couldn't be decoded back as Budget.")
             } else {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.getBudgetFromQuery():
                     Encounter error loading data from database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: "Budget data couldn't be loaded from database.")
             }
         }
