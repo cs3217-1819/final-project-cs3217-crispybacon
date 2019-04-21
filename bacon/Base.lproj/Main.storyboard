@@ -87,9 +87,12 @@
                                         <rect key="frame" x="576" y="0.0" width="192" height="50"/>
                                         <color key="backgroundColor" red="1" green="0.80344302879999996" blue="0.35260522080000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                        <state key="normal" title="Bacon">
+                                        <state key="normal" title="Budget">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="budgetButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rcr-pm-w4c"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -1674,7 +1677,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nRX-mK-th1"/>
-        <segue reference="ggn-9K-xBQ"/>
+        <segue reference="JxZ-T0-qdg"/>
         <segue reference="g1K-mO-skt"/>
     </inferredMetricsTieBreakers>
 </document>

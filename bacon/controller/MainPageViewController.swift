@@ -51,6 +51,10 @@ class MainPageViewController: UIViewController {
         }
     }
 
+    @IBAction func budgetButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: Constants.mainToSetBudget, sender: nil)
+    }
+
     @IBAction func plusButtonPressed(_ sender: UIButton) {
         performSegue(withIdentifier: Constants.mainToAddTransactionEx, sender: nil)
     }
