@@ -34,14 +34,14 @@ extension StorageCouchBaseDB {
                     StorageCouchBaseDB.clearTransactionDatabase():
                     Encounter error while reinitializing transaction database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw error
             } else {
                 log.warning("""
                     StorageCouchBaseDB.clearTransactionDatabase():
                     Encounter error while clearing transaction database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: "Encounter error while clearing Transaction Database.")
             }
         }
@@ -65,7 +65,7 @@ extension StorageCouchBaseDB {
                     StorageCouchBaseDB.saveTransaction():
                     Encounter error saving transaction into database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: "Transaction couldn't be saved into database.")
             }
         }
@@ -75,13 +75,13 @@ extension StorageCouchBaseDB {
         // Fetch the specific document from database
         guard let transactionId = transactionIdMapping[transaction] else {
             log.warning("""
-                    StorageCouchBaseDB.updateTransaction():
-                    Encounter error updating transaction in database.
-                    Unable to find mapping of transaction object to its unique id in the database.
-                    Throwing StorageError.
+                StorageCouchBaseDB.updateTransaction():
+                Encounter error updating transaction in database.
+                Unable to find mapping of transaction object to its unique id in the database.
+                Throwing StorageError.
                 """)
             throw StorageError(message: """
-                    Unable to find mapping of transaction object to its unique id in the database.
+                Unable to find mapping of transaction object to its unique id in the database.
                 """)
         }
         let transactionDocument = try createMutableDocument(from: transaction, uid: transactionId)
@@ -114,10 +114,10 @@ extension StorageCouchBaseDB {
                 Encounter error deleting transaction from database.
                 Unable to find mapping of transaction object to its unique id in the database.
                 Throwing StorageError.
-            """)
+                """)
             throw StorageError(message: """
                 Unable to find mapping of transaction object to its unique id in the database.
-            """)
+                """)
         }
         guard let transactionDocument = transactionDatabase.document(withID: transactionId) else {
             log.warning("""
@@ -125,10 +125,10 @@ extension StorageCouchBaseDB {
                 Encounter error deleting transaction from database.
                 Unable to retrieve transaction document in database using id from mapping.
                 Throwing StorageError.
-            """)
+                """)
             throw StorageError(message: """
                 Unable to retrieve transaction document in database using id from mapping.
-            """)
+                """)
         }
         log.info("""
             StorageCouchBaseDB.deleteTransaction() with argument:
@@ -157,7 +157,7 @@ extension StorageCouchBaseDB {
         guard transaction.frequency.nature == .recurring else {
             throw InvalidArgumentError(message: """
                 deleteAllRecurringInstances() requires transaction to be recurring.
-            """)
+                """)
         }
         // Retrieve the id of all the recurring instances
         guard let recurringId = transaction.recurringId else {
@@ -234,9 +234,9 @@ extension StorageCouchBaseDB {
             return transactionIds
         } catch {
             log.warning("""
-                    StorageCouchBaseDB.getTransactionIdsFromQuery():
-                    Encounter error loading data and retrieving its id from database.
-                    Throwing StorageError.
+                StorageCouchBaseDB.getTransactionIdsFromQuery():
+                Encounter error loading data and retrieving its id from database.
+                Throwing StorageError.
                 """)
             throw StorageError(message: "Transactions id couldn't be loaded from database.")
         }
@@ -276,14 +276,14 @@ extension StorageCouchBaseDB {
                     StorageCouchBaseDB.getTransactionsFromQuery():
                     Encounter error decoding data from database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: "Data loaded from database couldn't be decoded back as Transactions.")
             } else {
                 log.warning("""
                     StorageCouchBaseDB.getTransactionsFromQuery():
                     Encounter error loading data from database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: "Transactions data couldn't be loaded from database.")
             }
         }
@@ -302,10 +302,10 @@ extension StorageCouchBaseDB {
                         Encounter error removing tag from transaction in database.
                         Unable to retrieve transaction document in database using id.
                         Throwing StorageError.
-                    """)
+                        """)
                     throw StorageError(message: """
                         Unable to retrieve transaction document in database using id.
-                    """)
+                        """)
                 }
                 // Reconstruct document as Transaction object
                 let transactionDictionary = transactionDocument.toDictionary()
@@ -316,10 +316,10 @@ extension StorageCouchBaseDB {
                 log.warning("""
                     StorageCouchBaseDB.loadTransactionsFromIds():
                     Encounter error reconstructing transaction objects.
-                """)
+                    """)
                 throw StorageError(message: """
                     Encounter error reconstructing transaction objects by loading from database using id.
-                """)
+                    """)
             }
         }
         return transactionAndIdCollection
@@ -409,7 +409,7 @@ extension StorageCouchBaseDB {
         log.info("""
             StorageCouchBaseDB.loadTransactions() with arguments:
             ofTag=\(tag).
-        """)
+            """)
         return transactions
     }
 
@@ -417,7 +417,7 @@ extension StorageCouchBaseDB {
         guard transaction.frequency.nature == .recurring else {
             throw InvalidArgumentError(message: """
                 loadFirstRecurringInstance() requires transaction to be recurring.
-            """)
+                """)
         }
         guard let recurringId = transaction.recurringId else {
             fatalError("transaction is guarded to be recurring, recurringId should not be nil.")

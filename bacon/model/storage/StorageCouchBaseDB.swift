@@ -4,6 +4,10 @@
 //
 //  Underlying class of StorageManager to provide all saving and loading functionalities.
 //  Uses CouchBaseLiteSwfit to provide a full-featured embedded NoSQL database that runs locally.
+//  As the embedded database is saved into the Document Directory,
+//  user's data will be automatically backed up to their icloud.
+//
+//  StorageCouchBaseDB is implemented as a Singleton class.
 //
 //  Created by Travis Ching Jia Yea on 19/3/19.
 //  Copyright © 2019 nus.CS3217. All rights reserved.
@@ -45,7 +49,7 @@ class StorageCouchBaseDB {
                 Initializing singleton instance of couchbase database.
                 """)
         } catch {
-            log.info("""
+            log.warning("""
                 StorageManager.init() :
                 Encounter error initializing couchbase database.
                 """)
@@ -75,7 +79,7 @@ class StorageCouchBaseDB {
             if error is InitializationError {
                 throw error
             } else {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.openOrCreateEmbeddedDatabase():
                     Encounter error while accessing/creating Database.
                     Throwing InitializationError.
@@ -95,11 +99,11 @@ class StorageCouchBaseDB {
                                                 withIntermediateDirectories: true,
                                                 attributes: nil)
             } catch {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.getOrCreateFolderPath()
                     Encounter error while creating directory at \(folderPath).
                     Throwing InitializationError.
-                """)
+                    """)
                 throw InitializationError(message:
                     "Database directory path is non-existent and encountered error creating directory: \(folderPath)")
             }
@@ -113,14 +117,20 @@ class StorageCouchBaseDB {
             let transactionData = try transaction.asDictionary()
             // if uid is not provided, a random uid will be assigned to the document
             let transactionDocument = MutableDocument(id: uid, data: transactionData)
+            // Even though transaction is encoded with a date,
+            // as the encoded date is in a string format,
+            // comparison is not supported in the database level.
+            // However CouchBase provides support for date objects,
+            // so the date is explicitly set here after converting a `Transaction`
+            // class into a document.
             transactionDocument.setDate(transaction.date, forKey: Constants.rawDateKey)
             return transactionDocument
         } catch {
-            log.info("""
+            log.warning("""
                 StorageCouchBaseDB.createMutableDocument(): transaction
                 Encounter error encoding transaction into MutableDocument.
                 Throwing StorageError.
-            """)
+                """)
             throw StorageError(message: "Transaction couldn't be encoded into MutableDocument.")
         }
     }
@@ -132,11 +142,11 @@ class StorageCouchBaseDB {
             let budgetDocument = MutableDocument(id: Constants.budgetUID, data: budgetData)
             return budgetDocument
         } catch {
-            log.info("""
+            log.warning("""
                 StorageCouchBaseDB.createMutableDocument(): budget
                 Encounter error encoding budget into MutableDocument.
                 Throwing StorageError.
-            """)
+                """)
             throw StorageError(message: "Budget couldn't be encoded into MutableDocument.")
         }
     }
@@ -146,14 +156,20 @@ class StorageCouchBaseDB {
         do {
             let predictionData = try prediction.asDictionary()
             let predictionDocument = MutableDocument(data: predictionData)
+            // Even though prediction is encoded with a date,
+            // as the encoded date is in a string format,
+            // comparison is not supported in the database level.
+            // However CouchBase provides support for date objects,
+            // so the date is explicitly set here after converting a `Prediction`
+            // struct into a document.
             predictionDocument.setDate(prediction.time, forKey: Constants.rawDateKey)
             return predictionDocument
         } catch {
-            log.info("""
+            log.warning("""
                 StorageCouchBaseDB.createMutableDocument(): prediction
                 Encounter error encoding prediction into MutableDocument.
                 Throwing StorageError.
-            """)
+                """)
             throw StorageError(message: "Prediction couldn't be encoded into MutableDocument.")
         }
     }

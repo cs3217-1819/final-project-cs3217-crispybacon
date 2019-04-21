@@ -142,6 +142,11 @@ extension TransactionsViewController: UITableViewDataSource, UITableViewDelegate
         }
 
         // Configure the cell to display data
+        return displayDataForCell(cell, arrayIndex: arrayIndex, displayedIndex: displayedIndex)
+    }
+
+    private func displayDataForCell(_ cell: TransactionCell,
+                                    arrayIndex: Int, displayedIndex: Int) -> TransactionCell {
         cell.closedNumberView.text = String(displayedIndex)
 
         let date = currentMonthTransactions[arrayIndex].date

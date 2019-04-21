@@ -2,6 +2,9 @@
 //  StorageCouchBaseDB+Prediction.swift
 //  bacon
 //
+//  This file is an extension to StorageCouchBaseDB
+//  that provides methods supporting Prediction activities.
+//
 //  Created by Travis Ching Jia Yea on 17/4/19.
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
@@ -27,14 +30,14 @@ extension StorageCouchBaseDB {
                     StorageCouchBaseDB.clearPredictionDatabase():
                     Encounter error while reinitializing prediction database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw error
             } else {
                 log.warning("""
                     StorageCouchBaseDB.clearPredictionDatabase():
                     Encounter error while clearing prediction database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: "Encounter error while clearing Prediction Database.")
             }
         }
@@ -52,7 +55,7 @@ extension StorageCouchBaseDB {
             if error is StorageError {
                 throw error
             } else {
-                log.info("""
+                log.warning("""
                     StorageCouchBaseDB.savePrediction():
                     Encounter error saving prediction into database.
                     Throwing StorageError.
@@ -104,14 +107,14 @@ extension StorageCouchBaseDB {
                     StorageCouchBaseDB.getPredictionsFromQuery():
                     Encounter error decoding data from database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: "Data loaded from database couldn't be decoded back as Prediction.")
             } else {
                 log.warning("""
                     StorageCouchBaseDB.getPredictionsFromQuery():
                     Encounter error loading data from database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: "Predictions data couldn't be loaded from database.")
             }
         }

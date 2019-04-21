@@ -2,6 +2,9 @@
 //  StorageCouchBaseDB+TagAssociation.swift
 //  bacon
 //
+//  This file is an extension to StorageCouchBaseDB
+//  that implements database schema for tag-transaction association.
+//
 //  Created by Travis Ching Jia Yea on 13/4/19.
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
@@ -28,9 +31,9 @@ extension StorageCouchBaseDB {
                 """)
         } catch {
             log.warning("""
-                    StorageCouchBaseDB.associateTransactionWithTag():
-                    Encounter error saving transaction-tag association into database.
-                    Throwing StorageError.
+                StorageCouchBaseDB.associateTransactionWithTag():
+                Encounter error saving transaction-tag association into database.
+                Throwing StorageError.
                 """)
             throw StorageError(message: "Transaction-tag association couldn't be saved into database.")
         }
@@ -78,7 +81,7 @@ extension StorageCouchBaseDB {
                 StorageCouchBaseDB.getAssociationIdsFromQuery():
                 Encounter error loading associations from database.
                 Throwing StorageError.
-            """)
+                """)
             throw StorageError(message: "Transaction-Tag association couldn't be loaded from database.")
         }
     }
@@ -102,7 +105,7 @@ extension StorageCouchBaseDB {
                 StorageCouchBaseDB.getTransactionIdsFromQuery():
                 Encounter error loading associations from database.
                 Throwing StorageError.
-            """)
+                """)
             throw StorageError(message: "Transaction-Tag association couldn't be loaded from database.")
         }
     }
@@ -127,7 +130,7 @@ extension StorageCouchBaseDB {
         log.info("""
             StorageCouchBaseDB.clearAssociationsOfTransaction() with argument:
             uid:\(uid).
-        """)
+            """)
         try clearAssociations(documentIds)
     }
 
@@ -140,10 +143,10 @@ extension StorageCouchBaseDB {
                     Encounter error clearing tag-transaction association from database.
                     Unable to retrieve association document in database using id.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: """
                     Unable to retrieve association document in database using id.
-                """)
+                    """)
             }
             // Delete the document
             do {
@@ -153,10 +156,10 @@ extension StorageCouchBaseDB {
                     StorageCouchBaseDB.clearAssociations():
                     Encounter error deleting tag-transaction association from database.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: """
                     Encounter error deleting tag-transaction association from database.
-                """)
+                    """)
             }
         }
     }
@@ -170,7 +173,7 @@ extension StorageCouchBaseDB {
         log.info("""
             StorageCouchBaseDB.updateTransactionTagAssociation() with argument:
             transaction:\(transaction) uid:\(uid).
-        """)
+            """)
         // ----------------------
         // Check for use case (1)
         for documentIds in associationDocumentIds {
@@ -181,10 +184,10 @@ extension StorageCouchBaseDB {
                     Encounter error updating tag-transaction association database.
                     Unable to retrieve association document in database using id.
                     Throwing StorageError.
-                """)
+                    """)
                 throw StorageError(message: """
                     Unable to retrieve association document in database using id.
-                """)
+                    """)
             }
             // Check to see if this tag association needs to be deleted
             var currentTagIsRemoved = true
@@ -199,13 +202,13 @@ extension StorageCouchBaseDB {
                     try tagAssociationDatabase.deleteDocument(associationDocument)
                 } catch {
                     log.warning("""
-                    StorageCouchBaseDB.updateTransactionTagAssociation():
-                    Encounter error deleting tag-transaction association from database.
-                    Throwing StorageError.
-                """)
+                        StorageCouchBaseDB.updateTransactionTagAssociation():
+                        Encounter error deleting tag-transaction association from database.
+                        Throwing StorageError.
+                        """)
                     throw StorageError(message: """
-                    Encounter error deleting tag-transaction association from database.
-                """)
+                        Encounter error deleting tag-transaction association from database.
+                        """)
                 }
             }
         }

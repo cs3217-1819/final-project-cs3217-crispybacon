@@ -132,6 +132,7 @@ extension MainPageViewController {
 
 // MARK: MainPageViewController: segues
 extension MainPageViewController {
+    // swiftlint:disable cyclomatic_complexity
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Constants.mainToAddTransactionEx {
             guard let addController = segue.destination as? AddTransactionViewController else {
@@ -179,6 +180,7 @@ extension MainPageViewController {
             analysisController.core = core
         }
     }
+    // swiftlint:enable cyclomatic_complexity
 
     @IBAction func unwindToMain(segue: UIStoryboardSegue) {
     }
