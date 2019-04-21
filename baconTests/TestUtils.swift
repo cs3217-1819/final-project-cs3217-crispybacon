@@ -247,6 +247,7 @@ class TestUtils {
     static let january5th2019time1230 = Constants.getDateFormatter().date(from: "2019-01-05 12:30:00")!
     static let january5th2019time1208 = Constants.getDateFormatter().date(from: "2019-01-05 12:08:00")!
     static let january31st2019time1500 = Constants.getDateFormatter().date(from: "2019-01-31 15:00:00")!
+    static let febuary21st2019time1700 = Constants.getDateFormatter().date(from: "2019-02-21 17:00:00")!
     static let march26th2019time1108 = Constants.getDateFormatter().date(from: "2019-03-26 11:08:00")!
     static let march26th2019time2025 = Constants.getDateFormatter().date(from: "2019-03-26 20:25:00")!
     static let march26th2019time2345 = Constants.getDateFormatter().date(from: "2019-03-26 23:45:00")!

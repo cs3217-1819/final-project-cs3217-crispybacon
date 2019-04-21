@@ -73,4 +73,58 @@ class CoreLogicTests: XCTestCase {
         let loadedTransaction = try! coreLogic.loadTransactions(month: 1, year: 2_019)
         XCTAssertTrue(transaction.equals(loadedTransaction[0]))
     }
+
+    // swiftlint:disable function_body_length
+    func test_getBreakdownByTime() {
+        let coreLogic = try! CoreLogic(tagManager: TagManager.create(testMode: true))
+        // Clear database
+        XCTAssertNoThrow(try coreLogic.clearAllTransactions())
+        XCTAssertEqual(coreLogic.getTotalTransactionsRecorded(), 0)
+        // Save some transactions
+        XCTAssertNoThrow(try coreLogic.recordTransaction(date: TestUtils.january5th2019time1230,
+                                                         type: .income,
+                                                         frequency: TransactionFrequency(nature: .oneTime),
+                                                         tags: [TestUtils.tagBills],
+                                                         amount: 1_200,
+                                                         description: "Thailand 5 days 4 night.",
+                                                         image: CodableUIImage(TestUtils.redHeartJpg),
+                                                         location: CodableCLLocation(TestUtils.sampleCLLocation1A)))
+        XCTAssertNoThrow(try coreLogic.recordTransaction(date: TestUtils.febuary21st2019time1700,
+                                                         type: .income,
+                                                         frequency: TransactionFrequency(nature: .oneTime),
+                                                         tags: [TestUtils.tagBills],
+                                                         amount: 1_200,
+                                                         description: "Thailand 5 days 4 night.",
+                                                         image: CodableUIImage(TestUtils.redHeartJpg),
+                                                         location: CodableCLLocation(TestUtils.sampleCLLocation1A)))
+        XCTAssertNoThrow(try coreLogic.recordTransaction(date: TestUtils.march26th2019time1108,
+                                                         type: .income,
+                                                         frequency: TransactionFrequency(nature: .oneTime),
+                                                         tags: [TestUtils.tagBills],
+                                                         amount: 1_200,
+                                                         description: "Thailand 5 days 4 night.",
+                                                         image: CodableUIImage(TestUtils.redHeartJpg),
+                                                         location: CodableCLLocation(TestUtils.sampleCLLocation1A)))
+        XCTAssertNoThrow(try coreLogic.recordTransaction(date: TestUtils.march26th2019time2025,
+                                                         type: .income,
+                                                         frequency: TransactionFrequency(nature: .oneTime),
+                                                         tags: [TestUtils.tagBills],
+                                                         amount: 1_200,
+                                                         description: "Thailand 5 days 4 night.",
+                                                         image: CodableUIImage(TestUtils.redHeartJpg),
+                                                         location: CodableCLLocation(TestUtils.sampleCLLocation1A)))
+        let breakdown = try! coreLogic.getBreakdownByTime(from: TestUtils.january5th2019time1208,
+                                                          to: TestUtils.march26th2019time2345)
+        let monthYearArray: [(Int, Int)] = [(1, 2_019), (2, 2_019), (3, 2_019)]
+        let amountArray: [Double] = [1_200, 1_200, 2_400]
+        var index = 0
+        let array = breakdown.0
+        for (month, year) in array {
+            XCTAssertEqual(month, monthYearArray[index].0)
+            XCTAssertEqual(year, monthYearArray[index].1)
+            index += 1
+        }
+        XCTAssertEqual(breakdown.1, amountArray)
+    }
+    // swiftlint:enable function_body_length
 }
