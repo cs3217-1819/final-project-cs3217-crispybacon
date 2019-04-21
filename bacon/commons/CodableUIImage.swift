@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // MARK: CodableUIImage
-/// Codable and Equatable wrapper around CLLocation.
+/// A Codable and Equatable wrapper around UIImage.
 struct CodableUIImage: Codable, Equatable, Hashable {
 
     let image: UIImage

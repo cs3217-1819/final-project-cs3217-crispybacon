@@ -12,10 +12,8 @@ import Foundation
 /// - Note: This protocol only allows conformance by classes,
 /// as `unregisterObserver()` in Observable makes use of identity comparison.
 protocol Observer: class {
-
     /// Receives notification of a value published by the observed subject.
     /// Since `value` is typed as `Any`, the observer is responsible for casting `value` to
     /// the correct type of whatever it is observing.
     func notify(_ value: Any)
-
 }

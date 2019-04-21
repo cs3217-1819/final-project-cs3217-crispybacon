@@ -2,14 +2,13 @@
 //  TransactionManagerInterface.swift
 //  bacon
 //
-//  An API for all transaction related functionalities.
-//
 //  Created by Travis Ching Jia Yea on 21/4/19.
 //  Copyright © 2019 nus.CS3217. All rights reserved.
 //
 
 import Foundation
 
+/// Provides an API for all transaction related functionalities.
 protocol TransactionManagerInterface: Observer {
 
     func getNumberOfTransactionsInDatabase() -> Double
@@ -22,7 +21,7 @@ protocol TransactionManagerInterface: Observer {
     /// users are able to edit a recurring transaction at an arbitrary instance of it,
     /// if we allow user to edit the date, we will be unable to back track and
     /// find out which instance the transaction was edited at.
-    /// - requires: date of recurring transaction not modified
+    /// - Requires: The date of the recurring transaction should not be modified.
     func updateRecurringTransaction(_ transaction: Transaction) throws
 
     func deleteTagFromTransactions(_ tag: Tag) throws

@@ -11,9 +11,12 @@
 
 import Foundation
 
+/// Represents an expenditure status as a proportion of a budget.
 struct SpendingStatus {
     let currentSpending: Decimal
+
     let totalBudget: Decimal
+
     var percentage: Decimal {
         if totalBudget == 0 {
             if currentSpending == 0 {
