@@ -35,3 +35,6 @@ e.g. `Transaction.init() with the following arguments ...`
 ## Design
 
 ![Class-Diagram](/class-diagram.png)
+
+## Poster
+![Poster](/bacon-poster.png)
